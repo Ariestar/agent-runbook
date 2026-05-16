@@ -2,34 +2,40 @@ name: pulumi
 binary: pulumi
 aliases: []
 category: infra
+lang:
+- all
 summary: Infrastructure as code CLI for Pulumi stacks.
 homepage: https://github.com/pulumi/pulumi
 docs: https://www.pulumi.com/docs/iac/cli/
 detect:
-  version_args: ["version"]
+  version_args:
+  - version
   local:
-    files: ["Pulumi.yaml", "Pulumi.yml"]
-    dirs: [".pulumi"]
+    files:
+    - Pulumi.yaml
+    - Pulumi.yml
+    dirs:
+    - .pulumi
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Inspect, preview, or update Pulumi infrastructure stacks
+- Inspect, preview, or update Pulumi infrastructure stacks
 avoid_when:
-  - Stack, backend, or credentials are unknown
+- Stack, backend, or credentials are unknown
 risk:
   level: high
   effects:
-    - network_access
-    - requires_auth
-    - remote_read
-    - remote_write
-    - cloud_mutation
-    - secret_exposure
+  - network_access
+  - requires_auth
+  - remote_read
+  - remote_write
+  - cloud_mutation
+  - secret_exposure
   requires_auth: true
   destructive: true
   confirmation_required_for:
-    - pulumi up
-    - pulumi destroy
-    - stack state changes
+  - pulumi up
+  - pulumi destroy
+  - stack state changes
 guardrails:
-  - Use pulumi preview before infrastructure mutations.
+- Use pulumi preview before infrastructure mutations.

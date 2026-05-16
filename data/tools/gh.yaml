@@ -2,33 +2,37 @@ name: gh
 binary: gh
 aliases: []
 category: vcs
+lang:
+- all
 summary: GitHub command-line interface.
 homepage: https://github.com/cli/cli
 docs: https://cli.github.com/manual/
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
     files: []
-    dirs: [".github"]
+    dirs:
+    - .github
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Inspect GitHub pull requests, issues, and checks
-  - Perform GitHub operations when authenticated and requested
+- Inspect GitHub pull requests, issues, and checks
+- Perform GitHub operations when authenticated and requested
 avoid_when:
-  - Authentication state is unknown for write operations
+- Authentication state is unknown for write operations
 risk:
   level: high
   effects:
-    - network_access
-    - requires_auth
-    - remote_read
-    - remote_write
+  - network_access
+  - requires_auth
+  - remote_read
+  - remote_write
   requires_auth: true
   destructive: false
   confirmation_required_for:
-    - closing issues
-    - merging pull requests
-    - modifying repository settings
+  - closing issues
+  - merging pull requests
+  - modifying repository settings
 guardrails:
-  - Verify gh auth status before write operations.
+- Verify gh auth status before write operations.

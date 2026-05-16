@@ -1,30 +1,35 @@
 name: node
 binary: node
 aliases: []
-category: javascript-runtime
+category: runtime
+lang:
+- javascript
+- typescript
 summary: JavaScript runtime for Node.js projects.
 homepage: https://nodejs.org/
 docs: https://nodejs.org/docs/
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
-    files: ["package.json"]
+    files:
+    - package.json
     dirs: []
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Run JavaScript tooling
-  - Execute project scripts through the declared package manager
+- Run JavaScript tooling
+- Execute project scripts through the declared package manager
 avoid_when:
-  - The project is not a JavaScript or TypeScript project
+- The project is not a JavaScript or TypeScript project
 risk:
   level: medium
   effects:
-    - execute_code
-    - read_files
+  - execute_code
+  - read_files
   requires_auth: false
   destructive: false
   confirmation_required_for:
-    - running untrusted scripts
+  - running untrusted scripts
 guardrails:
-  - Prefer the repository package manager over direct node commands for project scripts.
+- Prefer the repository package manager over direct node commands for project scripts.

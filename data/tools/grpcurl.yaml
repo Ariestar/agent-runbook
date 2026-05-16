@@ -2,30 +2,34 @@ name: grpcurl
 binary: grpcurl
 aliases: []
 category: api
+lang:
+- protobuf
 summary: Command-line gRPC client for inspecting and calling services.
 homepage: https://github.com/fullstorydev/grpcurl
 docs: https://github.com/fullstorydev/grpcurl#readme
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
     files: []
-    dirs: ["proto"]
+    dirs:
+    - proto
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Inspect or call gRPC services from the terminal
+- Inspect or call gRPC services from the terminal
 avoid_when:
-  - Target service or credentials are unknown
+- Target service or credentials are unknown
 risk:
   level: high
   effects:
-    - network_access
-    - remote_read
-    - remote_write
-    - secret_exposure
+  - network_access
+  - remote_read
+  - remote_write
+  - secret_exposure
   requires_auth: false
   destructive: false
   confirmation_required_for:
-    - calling mutating RPCs
+  - calling mutating RPCs
 guardrails:
-  - Confirm target host and method before invoking mutating RPCs.
+- Confirm target host and method before invoking mutating RPCs.

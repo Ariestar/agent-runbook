@@ -2,34 +2,38 @@ name: terragrunt
 binary: terragrunt
 aliases: []
 category: infra
+lang:
+- hcl
 summary: Thin wrapper for Terraform that manages remote state and repeated configuration.
 homepage: https://github.com/gruntwork-io/terragrunt
 docs: https://terragrunt.gruntwork.io/docs/
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
-    files: ["terragrunt.hcl"]
+    files:
+    - terragrunt.hcl
     dirs: []
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Inspect or plan Terragrunt-managed infrastructure
+- Inspect or plan Terragrunt-managed infrastructure
 avoid_when:
-  - The task does not explicitly involve infrastructure
+- The task does not explicitly involve infrastructure
 risk:
   level: high
   effects:
-    - network_access
-    - requires_auth
-    - remote_read
-    - remote_write
-    - cloud_mutation
-    - secret_exposure
+  - network_access
+  - requires_auth
+  - remote_read
+  - remote_write
+  - cloud_mutation
+  - secret_exposure
   requires_auth: true
   destructive: true
   confirmation_required_for:
-    - apply
-    - destroy
-    - state changes
+  - apply
+  - destroy
+  - state changes
 guardrails:
-  - Do not apply or destroy infrastructure without explicit confirmation.
+- Do not apply or destroy infrastructure without explicit confirmation.

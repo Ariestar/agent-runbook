@@ -1,31 +1,36 @@
 name: cargo
 binary: cargo
 aliases: []
-category: rust
+category: build
+lang:
+- rust
 summary: Rust package manager and build tool.
 homepage: https://github.com/rust-lang/cargo
 docs: https://doc.rust-lang.org/cargo/
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
-    files: ["Cargo.toml", "Cargo.lock"]
+    files:
+    - Cargo.toml
+    - Cargo.lock
     dirs: []
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Build, test, and run Rust projects
+- Build, test, and run Rust projects
 avoid_when:
-  - The current project is not a Rust crate or workspace
+- The current project is not a Rust crate or workspace
 risk:
   level: medium
   effects:
-    - install_packages
-    - execute_code
-    - network_access
-    - write_files
+  - install_packages
+  - execute_code
+  - network_access
+  - write_files
   requires_auth: false
   destructive: false
   confirmation_required_for:
-    - publishing crates
+  - publishing crates
 guardrails:
-  - Use cargo for Rust build, test, and run commands when Cargo.toml exists.
+- Use cargo for Rust build, test, and run commands when Cargo.toml exists.

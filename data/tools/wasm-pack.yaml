@@ -1,30 +1,34 @@
 name: wasm-pack
 binary: wasm-pack
 aliases: []
-category: rust
+category: build
+lang:
+- rust
 summary: Build and package Rust-generated WebAssembly.
 homepage: https://github.com/rustwasm/wasm-pack
 docs: https://rustwasm.github.io/wasm-pack/
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
     files: []
-    dirs: ["pkg"]
+    dirs:
+    - pkg
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Build Rust crates targeting WebAssembly packages
+- Build Rust crates targeting WebAssembly packages
 avoid_when:
-  - The Rust project does not target wasm
+- The Rust project does not target wasm
 risk:
   level: medium
   effects:
-    - execute_code
-    - network_access
-    - write_files
+  - execute_code
+  - network_access
+  - write_files
   requires_auth: false
   destructive: false
   confirmation_required_for:
-    - publishing packages
+  - publishing packages
 guardrails:
-  - Confirm wasm target and package output before publishing.
+- Confirm wasm target and package output before publishing.

@@ -2,6 +2,7 @@ const state = {
   tools: [],
   query: "",
   category: "",
+  lang: "",
   risk: "",
 };
 
@@ -11,6 +12,7 @@ const els = {
   tools: document.querySelector("#tools"),
   search: document.querySelector("#search"),
   category: document.querySelector("#category"),
+  lang: document.querySelector("#lang"),
   risk: document.querySelector("#risk"),
   template: document.querySelector("#tool-card"),
 };
@@ -31,6 +33,11 @@ els.category.addEventListener("change", () => {
   render();
 });
 
+els.lang.addEventListener("change", () => {
+  state.lang = els.lang.value;
+  render();
+});
+
 els.risk.addEventListener("change", () => {
   state.risk = els.risk.value;
   render();
@@ -43,6 +50,14 @@ function initFilters() {
     option.value = category;
     option.textContent = category;
     els.category.append(option);
+  }
+
+  const languages = [...new Set(state.tools.flatMap((tool) => tool.lang || []))].sort();
+  for (const lang of languages) {
+    const option = document.createElement("option");
+    option.value = lang;
+    option.textContent = lang;
+    els.lang.append(option);
   }
 
   els.stats.textContent = `${state.tools.length} tools · YAML source · JSON runtime index`;
@@ -60,6 +75,7 @@ function filteredTools() {
       tool.name,
       tool.binary,
       tool.category,
+      ...(tool.lang || []),
       tool.summary,
       ...(tool.use_when || []),
       ...(tool.avoid_when || []),
@@ -72,6 +88,7 @@ function filteredTools() {
     return (
       (!state.query || haystack.includes(state.query)) &&
       (!state.category || tool.category === state.category) &&
+      (!state.lang || (tool.lang || []).includes(state.lang)) &&
       (!state.risk || tool.risk?.level === state.risk)
     );
   });
@@ -82,7 +99,7 @@ function renderCard(tool) {
   card.querySelector("h3").textContent = tool.name;
   card.querySelector(".binary").textContent = `$ ${tool.binary}`;
   card.querySelector(".summary").textContent = tool.summary;
-  card.querySelector(".meta").textContent = tool.category;
+  card.querySelector(".meta").textContent = `${tool.category} · ${(tool.lang || []).join(", ")}`;
 
   const risk = card.querySelector(".risk");
   risk.textContent = tool.risk.level;

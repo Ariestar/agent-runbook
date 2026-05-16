@@ -2,31 +2,35 @@ name: cosign
 binary: cosign
 aliases: []
 category: security
+lang:
+- all
 summary: Container image and artifact signing CLI from Sigstore.
 homepage: https://github.com/sigstore/cosign
 docs: https://docs.sigstore.dev/cosign/
 detect:
-  version_args: ["version"]
+  version_args:
+  - version
   local:
-    files: ["cosign.pub"]
+    files:
+    - cosign.pub
     dirs: []
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Sign or verify container images and artifacts
+- Sign or verify container images and artifacts
 avoid_when:
-  - Signing identity, keyless flow, or registry target is unclear
+- Signing identity, keyless flow, or registry target is unclear
 risk:
   level: high
   effects:
-    - network_access
-    - requires_auth
-    - remote_write
-    - secret_exposure
+  - network_access
+  - requires_auth
+  - remote_write
+  - secret_exposure
   requires_auth: true
   destructive: false
   confirmation_required_for:
-    - signing artifacts
-    - uploading attestations
+  - signing artifacts
+  - uploading attestations
 guardrails:
-  - Verify identity, registry, and artifact digest before signing.
+- Verify identity, registry, and artifact digest before signing.

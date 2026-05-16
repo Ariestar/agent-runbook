@@ -2,34 +2,41 @@ name: terraform
 binary: terraform
 aliases: []
 category: infra
+lang:
+- hcl
 summary: Infrastructure as code CLI.
 homepage: https://github.com/hashicorp/terraform
 docs: https://developer.hashicorp.com/terraform/cli
 detect:
-  version_args: ["version"]
+  version_args:
+  - version
   local:
-    files: ["main.tf", "versions.tf", ".terraform.lock.hcl"]
-    dirs: [".terraform"]
+    files:
+    - main.tf
+    - versions.tf
+    - .terraform.lock.hcl
+    dirs:
+    - .terraform
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Inspect or plan Terraform infrastructure changes
+- Inspect or plan Terraform infrastructure changes
 avoid_when:
-  - The task does not explicitly involve infrastructure
+- The task does not explicitly involve infrastructure
 risk:
   level: high
   effects:
-    - network_access
-    - requires_auth
-    - remote_read
-    - remote_write
-    - cloud_mutation
-    - secret_exposure
+  - network_access
+  - requires_auth
+  - remote_read
+  - remote_write
+  - cloud_mutation
+  - secret_exposure
   requires_auth: true
   destructive: true
   confirmation_required_for:
-    - apply
-    - destroy
-    - state changes
+  - apply
+  - destroy
+  - state changes
 guardrails:
-  - Do not run terraform apply or destroy without explicit confirmation.
+- Do not run terraform apply or destroy without explicit confirmation.

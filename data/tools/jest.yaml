@@ -1,30 +1,38 @@
 name: jest
 binary: jest
 aliases: []
-category: javascript-test
+category: test
+lang:
+- javascript
+- typescript
 summary: JavaScript testing framework CLI.
 homepage: https://github.com/jestjs/jest
 docs: https://jestjs.io/docs/cli
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
-    files: ["jest.config.js", "jest.config.ts", "jest.config.mjs", "jest.config.cjs"]
+    files:
+    - jest.config.js
+    - jest.config.ts
+    - jest.config.mjs
+    - jest.config.cjs
     dirs: []
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Run Jest unit tests
+- Run Jest unit tests
 avoid_when:
-  - The project uses Vitest, Node test runner, or another test script
+- The project uses Vitest, Node test runner, or another test script
 risk:
   level: medium
   effects:
-    - execute_code
-    - read_files
-    - write_files
+  - execute_code
+  - read_files
+  - write_files
   requires_auth: false
   destructive: false
   confirmation_required_for:
-    - updating snapshots
+  - updating snapshots
 guardrails:
-  - Prefer the package manager test script when configured.
+- Prefer the package manager test script when configured.

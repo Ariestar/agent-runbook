@@ -2,28 +2,31 @@ name: sed
 binary: sed
 aliases: []
 category: text
+lang:
+- all
 summary: Stream editor for text substitution and filtering.
 homepage: https://www.gnu.org/software/sed/
 docs: https://www.gnu.org/software/sed/manual/
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
     files: []
     dirs: []
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Transform text streams or make simple scripted substitutions
+- Transform text streams or make simple scripted substitutions
 avoid_when:
-  - Structured code or config needs parser-aware edits
+- Structured code or config needs parser-aware edits
 risk:
   level: medium
   effects:
-    - read_files
-    - write_files
+  - read_files
+  - write_files
   requires_auth: false
   destructive: false
   confirmation_required_for:
-    - in-place recursive edits
+  - in-place recursive edits
 guardrails:
-  - Preview substitutions before using in-place write flags.
+- Preview substitutions before using in-place write flags.

@@ -1,31 +1,39 @@
 name: dotnet
 binary: dotnet
 aliases: []
-category: dotnet
+category: build
+lang:
+- csharp
+- fsharp
+- visual-basic
 summary: .NET SDK command-line interface.
 homepage: https://github.com/dotnet/sdk
 docs: https://learn.microsoft.com/dotnet/core/tools/
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
-    files: ["global.json", "Directory.Build.props", "Directory.Build.targets"]
+    files:
+    - global.json
+    - Directory.Build.props
+    - Directory.Build.targets
     dirs: []
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Build, test, run, or manage .NET projects
+- Build, test, run, or manage .NET projects
 avoid_when:
-  - The repository has no .csproj, .fsproj, .sln, or global.json context
+- The repository has no .csproj, .fsproj, .sln, or global.json context
 risk:
   level: medium
   effects:
-    - install_packages
-    - execute_code
-    - network_access
-    - write_files
+  - install_packages
+  - execute_code
+  - network_access
+  - write_files
   requires_auth: false
   destructive: false
   confirmation_required_for:
-    - publishing packages
+  - publishing packages
 guardrails:
-  - Prefer solution-level commands when a .sln file defines the project set.
+- Prefer solution-level commands when a .sln file defines the project set.

@@ -2,30 +2,35 @@ name: task
 binary: task
 aliases: []
 category: build
+lang:
+- all
 summary: Task runner using Taskfile.yml or Taskfile.yaml.
 homepage: https://github.com/go-task/task
 docs: https://taskfile.dev/
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
-    files: ["Taskfile.yml", "Taskfile.yaml"]
+    files:
+    - Taskfile.yml
+    - Taskfile.yaml
     dirs: []
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Run project-defined Taskfile tasks
+- Run project-defined Taskfile tasks
 avoid_when:
-  - Task names are ambiguous or may deploy or delete resources
+- Task names are ambiguous or may deploy or delete resources
 risk:
   level: medium
   effects:
-    - execute_code
-    - read_files
-    - write_files
+  - execute_code
+  - read_files
+  - write_files
   requires_auth: false
   destructive: false
   confirmation_required_for:
-    - deploy tasks
-    - clean tasks
+  - deploy tasks
+  - clean tasks
 guardrails:
-  - Inspect Taskfile definitions before running ambiguous tasks.
+- Inspect Taskfile definitions before running ambiguous tasks.

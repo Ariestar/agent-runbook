@@ -1,31 +1,40 @@
 name: mvn
 binary: mvn
 aliases: []
-category: jvm
+category: build
+lang:
+- java
+- kotlin
+- scala
 summary: Apache Maven build and dependency management CLI.
 homepage: https://github.com/apache/maven
 docs: https://maven.apache.org/guides/
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
-    files: ["pom.xml", "mvnw", "mvnw.cmd"]
-    dirs: [".mvn"]
+    files:
+    - pom.xml
+    - mvnw
+    - mvnw.cmd
+    dirs:
+    - .mvn
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Build, test, or package Maven projects
+- Build, test, or package Maven projects
 avoid_when:
-  - The repository uses Gradle or another JVM build tool
+- The repository uses Gradle or another JVM build tool
 risk:
   level: medium
   effects:
-    - install_packages
-    - execute_code
-    - network_access
-    - write_files
+  - install_packages
+  - execute_code
+  - network_access
+  - write_files
   requires_auth: false
   destructive: false
   confirmation_required_for:
-    - publishing artifacts
+  - publishing artifacts
 guardrails:
-  - Prefer the Maven wrapper when present.
+- Prefer the Maven wrapper when present.

@@ -2,27 +2,31 @@ name: grype
 binary: grype
 aliases: []
 category: security
+lang:
+- all
 summary: Vulnerability scanner for container images and filesystems.
 homepage: https://github.com/anchore/grype
 docs: https://github.com/anchore/grype#readme
 detect:
-  version_args: ["version"]
+  version_args:
+  - version
   local:
-    files: [".grype.yaml"]
+    files:
+    - .grype.yaml
     dirs: []
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Scan images, SBOMs, or filesystems for vulnerabilities
+- Scan images, SBOMs, or filesystems for vulnerabilities
 avoid_when:
-  - The scan target is unclear or too broad
+- The scan target is unclear or too broad
 risk:
   level: medium
   effects:
-    - read_files
-    - network_access
+  - read_files
+  - network_access
   requires_auth: false
   destructive: false
   confirmation_required_for: []
 guardrails:
-  - Treat vulnerability results as triage inputs requiring version and context review.
+- Treat vulnerability results as triage inputs requiring version and context review.

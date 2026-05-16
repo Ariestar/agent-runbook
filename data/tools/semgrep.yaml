@@ -2,28 +2,36 @@ name: semgrep
 binary: semgrep
 aliases: []
 category: security
+lang:
+- all
 summary: Static analysis and code search tool using semantic rules.
 homepage: https://github.com/semgrep/semgrep
 docs: https://semgrep.dev/docs/cli-reference/
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
-    files: [".semgrep.yml", ".semgrep.yaml", "semgrep.yml", "semgrep.yaml"]
-    dirs: [".semgrep"]
+    files:
+    - .semgrep.yml
+    - .semgrep.yaml
+    - semgrep.yml
+    - semgrep.yaml
+    dirs:
+    - .semgrep
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Run semantic code scanning or custom SAST rules
+- Run semantic code scanning or custom SAST rules
 avoid_when:
-  - Rule source or scan target is unclear
+- Rule source or scan target is unclear
 risk:
   level: medium
   effects:
-    - read_files
-    - network_access
+  - read_files
+  - network_access
   requires_auth: false
   destructive: false
   confirmation_required_for:
-    - uploading scan results
+  - uploading scan results
 guardrails:
-  - Review rule source before running broad scans.
+- Review rule source before running broad scans.

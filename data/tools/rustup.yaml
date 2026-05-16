@@ -1,30 +1,35 @@
 name: rustup
 binary: rustup
 aliases: []
-category: rust
+category: toolchain
+lang:
+- rust
 summary: Rust toolchain installer and version manager.
 homepage: https://github.com/rust-lang/rustup
 docs: https://rust-lang.github.io/rustup/
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
-    files: ["rust-toolchain", "rust-toolchain.toml"]
+    files:
+    - rust-toolchain
+    - rust-toolchain.toml
     dirs: []
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Inspect or install Rust toolchains requested by a project
+- Inspect or install Rust toolchains requested by a project
 avoid_when:
-  - The task only needs cargo build or test
+- The task only needs cargo build or test
 risk:
   level: medium
   effects:
-    - install_packages
-    - network_access
-    - write_files
+  - install_packages
+  - network_access
+  - write_files
   requires_auth: false
   destructive: false
   confirmation_required_for:
-    - installing or changing toolchains
+  - installing or changing toolchains
 guardrails:
-  - Respect rust-toolchain files when selecting Rust versions.
+- Respect rust-toolchain files when selecting Rust versions.

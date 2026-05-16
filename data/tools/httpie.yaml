@@ -2,30 +2,33 @@ name: httpie
 binary: http
 aliases: []
 category: network
+lang:
+- all
 summary: Human-friendly command-line HTTP client.
 homepage: https://github.com/httpie/cli
 docs: https://httpie.io/docs/cli
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
     files: []
     dirs: []
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Manually inspect HTTP APIs with readable output
+- Manually inspect HTTP APIs with readable output
 avoid_when:
-  - curl compatibility is required
-  - Minimal dependency environments are preferred
+- curl compatibility is required
+- Minimal dependency environments are preferred
 risk:
   level: medium
   effects:
-    - network_access
-    - secret_exposure
+  - network_access
+  - secret_exposure
   requires_auth: false
   destructive: false
   confirmation_required_for:
-    - sending mutating requests
-    - including tokens or credentials
+  - sending mutating requests
+  - including tokens or credentials
 guardrails:
-  - Avoid printing authorization headers or API keys.
+- Avoid printing authorization headers or API keys.

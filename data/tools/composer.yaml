@@ -1,31 +1,37 @@
 name: composer
 binary: composer
 aliases: []
-category: php
+category: package-manager
+lang:
+- php
 summary: PHP dependency manager and project command runner.
 homepage: https://github.com/composer/composer
 docs: https://getcomposer.org/doc/
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
-    files: ["composer.json", "composer.lock"]
-    dirs: ["vendor"]
+    files:
+    - composer.json
+    - composer.lock
+    dirs:
+    - vendor
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Install PHP dependencies or run Composer scripts
+- Install PHP dependencies or run Composer scripts
 avoid_when:
-  - The repository has no composer.json
+- The repository has no composer.json
 risk:
   level: medium
   effects:
-    - install_packages
-    - execute_code
-    - network_access
-    - write_files
+  - install_packages
+  - execute_code
+  - network_access
+  - write_files
   requires_auth: false
   destructive: false
   confirmation_required_for:
-    - changing lockfiles
+  - changing lockfiles
 guardrails:
-  - Use project scripts instead of global PHP tooling when composer.json defines them.
+- Use project scripts instead of global PHP tooling when composer.json defines them.

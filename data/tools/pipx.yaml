@@ -1,31 +1,34 @@
 name: pipx
 binary: pipx
 aliases: []
-category: python
+category: package-manager
+lang:
+- python
 summary: Install and run Python CLI applications in isolated environments.
 homepage: https://github.com/pypa/pipx
 docs: https://pipx.pypa.io/stable/
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
     files: []
     dirs: []
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Install Python CLI applications without polluting project environments
+- Install Python CLI applications without polluting project environments
 avoid_when:
-  - Installing project dependencies
+- Installing project dependencies
 risk:
   level: medium
   effects:
-    - install_packages
-    - execute_code
-    - network_access
-    - write_files
+  - install_packages
+  - execute_code
+  - network_access
+  - write_files
   requires_auth: false
   destructive: false
   confirmation_required_for:
-    - global CLI installation
+  - global CLI installation
 guardrails:
-  - Do not use pipx for project dependency management.
+- Do not use pipx for project dependency management.

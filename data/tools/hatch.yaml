@@ -1,31 +1,35 @@
 name: hatch
 binary: hatch
 aliases: []
-category: python
+category: package-manager
+lang:
+- python
 summary: Python project, environment, and packaging manager.
 homepage: https://github.com/pypa/hatch
 docs: https://hatch.pypa.io/latest/
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
-    files: ["hatch.toml"]
+    files:
+    - hatch.toml
     dirs: []
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Manage Python projects configured for Hatch
+- Manage Python projects configured for Hatch
 avoid_when:
-  - The project uses uv, Poetry, or another package manager
+- The project uses uv, Poetry, or another package manager
 risk:
   level: medium
   effects:
-    - install_packages
-    - execute_code
-    - network_access
-    - write_files
+  - install_packages
+  - execute_code
+  - network_access
+  - write_files
   requires_auth: false
   destructive: false
   confirmation_required_for:
-    - publishing packages
+  - publishing packages
 guardrails:
-  - Use Hatch only when the project configuration indicates it.
+- Use Hatch only when the project configuration indicates it.

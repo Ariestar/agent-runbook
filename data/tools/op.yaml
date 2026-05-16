@@ -1,31 +1,35 @@
 name: op
 binary: op
-aliases: ["1password"]
+aliases:
+- 1password
 category: secrets
+lang:
+- all
 summary: 1Password CLI for secrets, vaults, and service accounts.
 homepage: https://developer.1password.com/docs/cli/
 docs: https://developer.1password.com/docs/cli/reference/
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
     files: []
     dirs: []
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Read or inject secrets through 1Password CLI
+- Read or inject secrets through 1Password CLI
 avoid_when:
-  - The user has not requested secret access
+- The user has not requested secret access
 risk:
   level: high
   effects:
-    - requires_auth
-    - secret_exposure
-    - remote_read
+  - requires_auth
+  - secret_exposure
+  - remote_read
   requires_auth: true
   destructive: false
   confirmation_required_for:
-    - reading secrets
-    - editing vault items
+  - reading secrets
+  - editing vault items
 guardrails:
-  - Never print secret values unless explicitly requested for a secure context.
+- Never print secret values unless explicitly requested for a secure context.

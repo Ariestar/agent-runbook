@@ -1,32 +1,38 @@
 name: vercel
 binary: vercel
 aliases: []
-category: cloud
+category: deploy
+lang:
+- javascript
+- typescript
 summary: Vercel project deployment CLI.
 homepage: https://github.com/vercel/vercel
 docs: https://vercel.com/docs/cli
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
-    files: ["vercel.json"]
-    dirs: [".vercel"]
+    files:
+    - vercel.json
+    dirs:
+    - .vercel
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Deploy or inspect Vercel projects
+- Deploy or inspect Vercel projects
 avoid_when:
-  - The task does not explicitly involve deployment or Vercel
+- The task does not explicitly involve deployment or Vercel
 risk:
   level: high
   effects:
-    - network_access
-    - requires_auth
-    - remote_write
-    - cloud_mutation
+  - network_access
+  - requires_auth
+  - remote_write
+  - cloud_mutation
   requires_auth: true
   destructive: false
   confirmation_required_for:
-    - production deploys
-    - modifying project settings
+  - production deploys
+  - modifying project settings
 guardrails:
-  - Confirm deployment intent before creating remote deployments.
+- Confirm deployment intent before creating remote deployments.

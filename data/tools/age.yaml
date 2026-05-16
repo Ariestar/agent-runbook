@@ -2,30 +2,33 @@ name: age
 binary: age
 aliases: []
 category: security
+lang:
+- all
 summary: Simple file encryption tool and format.
 homepage: https://github.com/FiloSottile/age
 docs: https://github.com/FiloSottile/age#readme
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
     files: []
     dirs: []
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Encrypt or decrypt files with age keys
+- Encrypt or decrypt files with age keys
 avoid_when:
-  - Key ownership or recipient identity is unclear
+- Key ownership or recipient identity is unclear
 risk:
   level: high
   effects:
-    - read_files
-    - write_files
-    - secret_exposure
+  - read_files
+  - write_files
+  - secret_exposure
   requires_auth: false
   destructive: false
   confirmation_required_for:
-    - decrypting secrets
-    - overwriting encrypted files
+  - decrypting secrets
+  - overwriting encrypted files
 guardrails:
-  - Keep private keys and decrypted output out of logs and commits.
+- Keep private keys and decrypted output out of logs and commits.

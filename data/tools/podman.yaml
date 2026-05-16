@@ -1,33 +1,37 @@
 name: podman
 binary: podman
 aliases: []
-category: containers
+category: container
+lang:
+- all
 summary: Daemonless container engine compatible with many Docker workflows.
 homepage: https://github.com/containers/podman
 docs: https://docs.podman.io/
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
-    files: ["Containerfile"]
+    files:
+    - Containerfile
     dirs: []
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Build or run containers without Docker daemon
+- Build or run containers without Docker daemon
 avoid_when:
-  - The project assumes Docker-specific behavior
+- The project assumes Docker-specific behavior
 risk:
   level: high
   effects:
-    - execute_code
-    - network_access
-    - read_files
-    - write_files
+  - execute_code
+  - network_access
+  - read_files
+  - write_files
   requires_auth: false
   destructive: true
   confirmation_required_for:
-    - removing containers
-    - removing images
-    - removing volumes
+  - removing containers
+  - removing images
+  - removing volumes
 guardrails:
-  - Confirm Docker compatibility assumptions before substituting Podman.
+- Confirm Docker compatibility assumptions before substituting Podman.

@@ -1,31 +1,37 @@
 name: go
 binary: go
 aliases: []
-category: go
+category: build
+lang:
+- go
 summary: Go toolchain for modules, build, test, and run.
 homepage: https://github.com/golang/go
 docs: https://go.dev/doc/
 detect:
-  version_args: ["version"]
+  version_args:
+  - version
   local:
-    files: ["go.mod", "go.sum", "go.work"]
+    files:
+    - go.mod
+    - go.sum
+    - go.work
     dirs: []
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Build, test, run, or manage Go modules
+- Build, test, run, or manage Go modules
 avoid_when:
-  - The repository has no Go module or workspace files
+- The repository has no Go module or workspace files
 risk:
   level: medium
   effects:
-    - install_packages
-    - execute_code
-    - network_access
-    - write_files
+  - install_packages
+  - execute_code
+  - network_access
+  - write_files
   requires_auth: false
   destructive: false
   confirmation_required_for:
-    - publishing modules
+  - publishing modules
 guardrails:
-  - Use go test ./... from the module root when validating broad changes.
+- Use go test ./... from the module root when validating broad changes.

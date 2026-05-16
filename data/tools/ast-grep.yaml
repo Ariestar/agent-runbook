@@ -1,31 +1,37 @@
 name: ast-grep
 binary: ast-grep
-aliases: ["sg"]
+aliases:
+- sg
 category: search
+lang:
+- all
 summary: Structural code search and rewrite tool based on AST patterns.
 homepage: https://github.com/ast-grep/ast-grep
 docs: https://ast-grep.github.io/
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
-    files: ["sgconfig.yml", "sgconfig.yaml"]
+    files:
+    - sgconfig.yml
+    - sgconfig.yaml
     dirs: []
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Search code by syntax structure instead of plain text
-  - Apply structural rewrites with reviewable patterns
+- Search code by syntax structure instead of plain text
+- Apply structural rewrites with reviewable patterns
 avoid_when:
-  - Plain text search is sufficient
-  - The language or syntax is not supported by the configured parser
+- Plain text search is sufficient
+- The language or syntax is not supported by the configured parser
 risk:
   level: high
   effects:
-    - read_files
-    - write_files
+  - read_files
+  - write_files
   requires_auth: false
   destructive: false
   confirmation_required_for:
-    - applying rewrites across multiple files
+  - applying rewrites across multiple files
 guardrails:
-  - Preview structural rewrites before writing changes.
+- Preview structural rewrites before writing changes.

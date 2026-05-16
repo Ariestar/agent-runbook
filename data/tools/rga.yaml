@@ -1,29 +1,33 @@
 name: rga
 binary: rga
-aliases: ["ripgrep-all"]
+aliases:
+- ripgrep-all
 category: search
+lang:
+- all
 summary: ripgrep wrapper for PDFs, archives, e-books, Office documents, and more.
 homepage: https://github.com/phiresky/ripgrep-all
 docs: https://github.com/phiresky/ripgrep-all#readme
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
     files: []
     dirs: []
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Search non-plain-text files and archives
+- Search non-plain-text files and archives
 avoid_when:
-  - Plain source code search with rg is enough
+- Plain source code search with rg is enough
 risk:
   level: medium
   effects:
-    - read_files
-    - execute_code
+  - read_files
+  - execute_code
   requires_auth: false
   destructive: false
   confirmation_required_for:
-    - indexing very large directories
+  - indexing very large directories
 guardrails:
-  - Prefer rg for normal source search and rga for document/archive search.
+- Prefer rg for normal source search and rga for document/archive search.

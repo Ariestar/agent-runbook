@@ -2,31 +2,38 @@ name: nix
 binary: nix
 aliases: []
 category: environment
+lang:
+- all
 summary: Reproducible package manager and build system.
 homepage: https://github.com/NixOS/nix
 docs: https://nixos.org/manual/nix/stable/
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
-    files: ["flake.nix", "flake.lock", "shell.nix", "default.nix"]
+    files:
+    - flake.nix
+    - flake.lock
+    - shell.nix
+    - default.nix
     dirs: []
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Enter reproducible development shells or build Nix projects
+- Enter reproducible development shells or build Nix projects
 avoid_when:
-  - The repo has no Nix files and another environment manager is configured
+- The repo has no Nix files and another environment manager is configured
 risk:
   level: medium
   effects:
-    - install_packages
-    - execute_code
-    - network_access
-    - write_files
-    - environment_mutation
+  - install_packages
+  - execute_code
+  - network_access
+  - write_files
+  - environment_mutation
   requires_auth: false
   destructive: false
   confirmation_required_for:
-    - building or activating unreviewed flakes
+  - building or activating unreviewed flakes
 guardrails:
-  - Review flake inputs before building untrusted Nix code.
+- Review flake inputs before building untrusted Nix code.

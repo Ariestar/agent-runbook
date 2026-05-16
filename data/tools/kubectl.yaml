@@ -1,33 +1,39 @@
 name: kubectl
 binary: kubectl
 aliases: []
-category: containers
+category: kubernetes
+lang:
+- all
 summary: Kubernetes command-line tool.
 homepage: https://kubernetes.io/docs/reference/kubectl/
 docs: https://kubernetes.io/docs/reference/kubectl/
 detect:
-  version_args: ["version", "--client"]
+  version_args:
+  - version
+  - --client
   local:
     files: []
-    dirs: ["k8s", "kubernetes"]
+    dirs:
+    - k8s
+    - kubernetes
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Inspect or manage Kubernetes resources
+- Inspect or manage Kubernetes resources
 avoid_when:
-  - The current context and namespace are unknown
+- The current context and namespace are unknown
 risk:
   level: high
   effects:
-    - network_access
-    - requires_auth
-    - remote_read
-    - remote_write
-    - cloud_mutation
+  - network_access
+  - requires_auth
+  - remote_read
+  - remote_write
+  - cloud_mutation
   requires_auth: true
   destructive: true
   confirmation_required_for:
-    - delete
-    - apply to production contexts
+  - delete
+  - apply to production contexts
 guardrails:
-  - Check current context and namespace before mutating Kubernetes resources.
+- Check current context and namespace before mutating Kubernetes resources.

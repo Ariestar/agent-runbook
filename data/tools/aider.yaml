@@ -2,30 +2,36 @@ name: aider
 binary: aider
 aliases: []
 category: agent
+lang:
+- all
 summary: AI pair programming CLI that edits files through chat.
 homepage: https://github.com/Aider-AI/aider
 docs: https://aider.chat/docs/
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
-    files: [".aider.conf.yml", ".aider.model.settings.yml"]
-    dirs: [".aider.tags.cache.v3"]
+    files:
+    - .aider.conf.yml
+    - .aider.model.settings.yml
+    dirs:
+    - .aider.tags.cache.v3
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Use an AI coding assistant that can edit repository files
+- Use an AI coding assistant that can edit repository files
 avoid_when:
-  - The user has not asked for autonomous code edits
+- The user has not asked for autonomous code edits
 risk:
   level: high
   effects:
-    - execute_code
-    - network_access
-    - write_files
-    - secret_exposure
+  - execute_code
+  - network_access
+  - write_files
+  - secret_exposure
   requires_auth: true
   destructive: false
   confirmation_required_for:
-    - committing generated changes
+  - committing generated changes
 guardrails:
-  - Review generated diffs before treating changes as accepted.
+- Review generated diffs before treating changes as accepted.

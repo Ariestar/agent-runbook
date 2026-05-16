@@ -1,31 +1,37 @@
 name: bundle
 binary: bundle
-aliases: ["bundler"]
-category: ruby
+aliases:
+- bundler
+category: package-manager
+lang:
+- ruby
 summary: Ruby dependency manager and command runner.
 homepage: https://github.com/rubygems/rubygems
 docs: https://bundler.io/docs.html
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
-    files: ["Gemfile", "Gemfile.lock"]
+    files:
+    - Gemfile
+    - Gemfile.lock
     dirs: []
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Install Ruby gems or run Ruby project commands
+- Install Ruby gems or run Ruby project commands
 avoid_when:
-  - The repository has no Gemfile
+- The repository has no Gemfile
 risk:
   level: medium
   effects:
-    - install_packages
-    - execute_code
-    - network_access
-    - write_files
+  - install_packages
+  - execute_code
+  - network_access
+  - write_files
   requires_auth: false
   destructive: false
   confirmation_required_for:
-    - changing lockfiles
+  - changing lockfiles
 guardrails:
-  - Use bundle exec for project-local Ruby commands.
+- Use bundle exec for project-local Ruby commands.

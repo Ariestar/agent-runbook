@@ -2,29 +2,33 @@ name: syft
 binary: syft
 aliases: []
 category: security
+lang:
+- all
 summary: SBOM generator for container images and filesystems.
 homepage: https://github.com/anchore/syft
 docs: https://github.com/anchore/syft#readme
 detect:
-  version_args: ["version"]
+  version_args:
+  - version
   local:
-    files: [".syft.yaml"]
+    files:
+    - .syft.yaml
     dirs: []
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Generate software bills of materials
+- Generate software bills of materials
 avoid_when:
-  - The scan target is unclear or too broad
+- The scan target is unclear or too broad
 risk:
   level: medium
   effects:
-    - read_files
-    - network_access
-    - write_files
+  - read_files
+  - network_access
+  - write_files
   requires_auth: false
   destructive: false
   confirmation_required_for:
-    - scanning sensitive directories
+  - scanning sensitive directories
 guardrails:
-  - Treat SBOMs as potentially sensitive dependency disclosure artifacts.
+- Treat SBOMs as potentially sensitive dependency disclosure artifacts.

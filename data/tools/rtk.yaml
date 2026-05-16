@@ -2,30 +2,33 @@ name: rtk
 binary: rtk
 aliases: []
 category: shell
+lang:
+- all
 summary: Local shell wrapper used to run commands with workspace-specific behavior.
 homepage: https://github.com
 docs: https://github.com
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
     files: []
     dirs: []
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Running shell commands in a workspace that explicitly requires rtk
-  - Preserving local command execution conventions
+- Running shell commands in a workspace that explicitly requires rtk
+- Preserving local command execution conventions
 avoid_when:
-  - The workspace does not mention rtk
-  - A command must bypass wrapper behavior for debugging
+- The workspace does not mention rtk
+- A command must bypass wrapper behavior for debugging
 risk:
   level: medium
   effects:
-    - execute_code
+  - execute_code
   requires_auth: false
   destructive: false
   confirmation_required_for:
-    - destructive filesystem commands
+  - destructive filesystem commands
 guardrails:
-  - Prefix shell commands with rtk when AGENTS.md requires it.
-  - Run PowerShell built-ins through rtk powershell -NoProfile -Command on Windows.
+- Prefix shell commands with rtk when AGENTS.md requires it.
+- Run PowerShell built-ins through rtk powershell -NoProfile -Command on Windows.

@@ -2,26 +2,29 @@ name: tree
 binary: tree
 aliases: []
 category: file-viewer
+lang:
+- all
 summary: Display directory structure as a tree.
 homepage: https://gitlab.com/OldManProgrammer/unix-tree
 docs: https://www.mankier.com/1/tree
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
     files: []
     dirs: []
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Summarize repository or folder structure
+- Summarize repository or folder structure
 avoid_when:
-  - The tree is too large without depth or ignore filters
+- The tree is too large without depth or ignore filters
 risk:
   level: low
   effects:
-    - read_files
+  - read_files
   requires_auth: false
   destructive: false
   confirmation_required_for: []
 guardrails:
-  - Limit depth in large repositories.
+- Limit depth in large repositories.

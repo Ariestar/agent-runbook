@@ -1,30 +1,35 @@
 name: bacon
 binary: bacon
 aliases: []
-category: rust
+category: automation
+lang:
+- rust
 summary: Background Rust checker that runs cargo tasks on changes.
 homepage: https://github.com/Canop/bacon
 docs: https://dystroy.org/bacon/
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
-    files: ["bacon.toml", ".bacon-locations"]
+    files:
+    - bacon.toml
+    - .bacon-locations
     dirs: []
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Watch Rust projects while iterating on compile, clippy, or tests
+- Watch Rust projects while iterating on compile, clippy, or tests
 avoid_when:
-  - One-shot CI validation is enough
+- One-shot CI validation is enough
 risk:
   level: medium
   effects:
-    - execute_code
-    - read_files
-    - write_files
+  - execute_code
+  - read_files
+  - write_files
   requires_auth: false
   destructive: false
   confirmation_required_for:
-    - running long-lived watchers
+  - running long-lived watchers
 guardrails:
-  - Stop background watchers when the task is finished.
+- Stop background watchers when the task is finished.

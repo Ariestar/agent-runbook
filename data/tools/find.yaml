@@ -2,30 +2,33 @@ name: find
 binary: gfind
 aliases: []
 category: search
+lang:
+- all
 summary: GNU find for locating files by name, type, time, and predicates.
 homepage: https://www.gnu.org/software/findutils/
 docs: https://www.gnu.org/software/findutils/manual/
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
     files: []
     dirs: []
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Locate files by filesystem metadata
+- Locate files by filesystem metadata
 avoid_when:
-  - fd is available and simple name matching is enough
+- fd is available and simple name matching is enough
 risk:
   level: medium
   effects:
-    - read_files
-    - write_files
+  - read_files
+  - write_files
   requires_auth: false
   destructive: false
   confirmation_required_for:
-    - using -delete
-    - running -exec with mutating commands
+  - using -delete
+  - running -exec with mutating commands
 guardrails:
-  - Print matches before deleting or executing commands over them.
-  - On Windows, plain find.exe is usually not GNU find; prefer fd unless gfind is installed.
+- Print matches before deleting or executing commands over them.
+- On Windows, plain find.exe is usually not GNU find; prefer fd unless gfind is installed.

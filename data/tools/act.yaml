@@ -2,31 +2,35 @@ name: act
 binary: act
 aliases: []
 category: ci
+lang:
+- all
 summary: Run GitHub Actions workflows locally.
 homepage: https://github.com/nektos/act
 docs: https://nektosact.com/
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
     files: []
-    dirs: [".github/workflows"]
+    dirs:
+    - .github/workflows
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Reproduce GitHub Actions jobs locally
-  - Debug workflow syntax or runner setup before pushing
+- Reproduce GitHub Actions jobs locally
+- Debug workflow syntax or runner setup before pushing
 avoid_when:
-  - The workflow depends on hosted-only services or protected secrets
+- The workflow depends on hosted-only services or protected secrets
 risk:
   level: high
   effects:
-    - execute_code
-    - network_access
-    - secret_exposure
-    - write_files
+  - execute_code
+  - network_access
+  - secret_exposure
+  - write_files
   requires_auth: false
   destructive: false
   confirmation_required_for:
-    - running workflows that mount secrets
+  - running workflows that mount secrets
 guardrails:
-  - Inspect workflow steps before running jobs locally.
+- Inspect workflow steps before running jobs locally.

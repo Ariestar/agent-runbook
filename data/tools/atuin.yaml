@@ -2,29 +2,33 @@ name: atuin
 binary: atuin
 aliases: []
 category: shell
+lang:
+- all
 summary: Searchable shell history with optional sync.
 homepage: https://github.com/atuinsh/atuin
 docs: https://docs.atuin.sh/
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
     files: []
-    dirs: [".atuin"]
+    dirs:
+    - .atuin
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Search shell history interactively
+- Search shell history interactively
 avoid_when:
-  - Command history may contain secrets that should not be synced
+- Command history may contain secrets that should not be synced
 risk:
   level: medium
   effects:
-    - read_files
-    - network_access
-    - secret_exposure
+  - read_files
+  - network_access
+  - secret_exposure
   requires_auth: false
   destructive: false
   confirmation_required_for:
-    - enabling history sync
+  - enabling history sync
 guardrails:
-  - Check sync and secret filtering settings before sharing history.
+- Check sync and secret filtering settings before sharing history.

@@ -2,34 +2,39 @@ name: supabase
 binary: supabase
 aliases: []
 category: cloud
+lang:
+- all
 summary: Supabase local development and project management CLI.
 homepage: https://github.com/supabase/cli
 docs: https://supabase.com/docs/reference/cli/introduction
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
-    files: ["supabase/config.toml"]
-    dirs: ["supabase"]
+    files:
+    - supabase/config.toml
+    dirs:
+    - supabase
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Run local Supabase services or manage Supabase projects
+- Run local Supabase services or manage Supabase projects
 avoid_when:
-  - Project link or credentials are unknown
+- Project link or credentials are unknown
 risk:
   level: high
   effects:
-    - execute_code
-    - network_access
-    - requires_auth
-    - remote_read
-    - remote_write
-    - write_files
-    - secret_exposure
+  - execute_code
+  - network_access
+  - requires_auth
+  - remote_read
+  - remote_write
+  - write_files
+  - secret_exposure
   requires_auth: true
   destructive: true
   confirmation_required_for:
-    - database resets
-    - applying migrations to remote projects
+  - database resets
+  - applying migrations to remote projects
 guardrails:
-  - Confirm linked project and local versus remote target before mutations.
+- Confirm linked project and local versus remote target before mutations.

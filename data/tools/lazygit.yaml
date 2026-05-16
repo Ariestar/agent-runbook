@@ -2,30 +2,33 @@ name: lazygit
 binary: lazygit
 aliases: []
 category: vcs
+lang:
+- all
 summary: Terminal UI for git repositories.
 homepage: https://github.com/jesseduffield/lazygit
 docs: https://github.com/jesseduffield/lazygit#readme
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
     files: []
     dirs: []
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Inspect and stage git changes interactively
+- Inspect and stage git changes interactively
 avoid_when:
-  - Scripted git operations require exact commands
+- Scripted git operations require exact commands
 risk:
   level: medium
   effects:
-    - read_files
-    - write_files
-    - vcs_mutation
+  - read_files
+  - write_files
+  - vcs_mutation
   requires_auth: false
   destructive: false
   confirmation_required_for:
-    - rewriting history
-    - discarding changes
+  - rewriting history
+  - discarding changes
 guardrails:
-  - Use explicit git commands for auditable automated workflows.
+- Use explicit git commands for auditable automated workflows.

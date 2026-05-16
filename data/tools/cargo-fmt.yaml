@@ -1,28 +1,35 @@
 name: cargo-fmt
 binary: cargo-fmt
-aliases: ["rustfmt"]
-category: rust
+aliases:
+- rustfmt
+category: formatter
+lang:
+- rust
 summary: Rust formatter distributed as a Cargo subcommand.
 homepage: https://github.com/rust-lang/rustfmt
 docs: https://github.com/rust-lang/rustfmt#readme
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
-    files: ["Cargo.toml", "rustfmt.toml", ".rustfmt.toml"]
+    files:
+    - Cargo.toml
+    - rustfmt.toml
+    - .rustfmt.toml
     dirs: []
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Format Rust source files
+- Format Rust source files
 avoid_when:
-  - The current project is not a Rust crate or workspace
+- The current project is not a Rust crate or workspace
 risk:
   level: medium
   effects:
-    - write_files
+  - write_files
   requires_auth: false
   destructive: false
   confirmation_required_for:
-    - formatting large unrelated worktrees
+  - formatting large unrelated worktrees
 guardrails:
-  - Use --check when only verifying formatting.
+- Use --check when only verifying formatting.

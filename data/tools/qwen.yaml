@@ -2,30 +2,35 @@ name: qwen
 binary: qwen
 aliases: []
 category: agent
+lang:
+- all
 summary: Qwen command-line AI coding assistant.
 homepage: https://github.com/QwenLM/qwen-code
 docs: https://github.com/QwenLM/qwen-code#readme
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
-    files: ["QWEN.md"]
-    dirs: [".qwen"]
+    files:
+    - QWEN.md
+    dirs:
+    - .qwen
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Use Qwen CLI project context or agent workflows
+- Use Qwen CLI project context or agent workflows
 avoid_when:
-  - The task should stay inside the current agent session
+- The task should stay inside the current agent session
 risk:
   level: high
   effects:
-    - execute_code
-    - network_access
-    - write_files
-    - secret_exposure
+  - execute_code
+  - network_access
+  - write_files
+  - secret_exposure
   requires_auth: true
   destructive: false
   confirmation_required_for:
-    - running autonomous edits
+  - running autonomous edits
 guardrails:
-  - Review generated diffs before accepting changes.
+- Review generated diffs before accepting changes.

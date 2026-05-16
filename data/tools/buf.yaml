@@ -2,29 +2,37 @@ name: buf
 binary: buf
 aliases: []
 category: api
+lang:
+- protobuf
 summary: Protobuf linting, breaking-change detection, and code generation CLI.
 homepage: https://github.com/bufbuild/buf
 docs: https://buf.build/docs/reference/cli/
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
-    files: ["buf.yaml", "buf.gen.yaml", "buf.work.yaml", "buf.lock"]
-    dirs: ["proto"]
+    files:
+    - buf.yaml
+    - buf.gen.yaml
+    - buf.work.yaml
+    - buf.lock
+    dirs:
+    - proto
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Lint, generate, or check Protobuf APIs
+- Lint, generate, or check Protobuf APIs
 avoid_when:
-  - The repository has no Buf or Protobuf setup
+- The repository has no Buf or Protobuf setup
 risk:
   level: medium
   effects:
-    - execute_code
-    - network_access
-    - write_files
+  - execute_code
+  - network_access
+  - write_files
   requires_auth: false
   destructive: false
   confirmation_required_for:
-    - publishing modules
+  - publishing modules
 guardrails:
-  - Use existing buf configuration before generating code.
+- Use existing buf configuration before generating code.

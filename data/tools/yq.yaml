@@ -2,29 +2,33 @@ name: yq
 binary: yq
 aliases: []
 category: data
+lang:
+- yaml
+- json
 summary: Command-line YAML, JSON, XML, CSV, and properties processor.
 homepage: https://github.com/mikefarah/yq
 docs: https://mikefarah.gitbook.io/yq/
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
     files: []
     dirs: []
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Query or transform YAML files
-  - Inspect structured configuration from the shell
+- Query or transform YAML files
+- Inspect structured configuration from the shell
 avoid_when:
-  - Editing configuration without preserving comments or formatting matters
+- Editing configuration without preserving comments or formatting matters
 risk:
   level: medium
   effects:
-    - read_files
-    - write_files
+  - read_files
+  - write_files
   requires_auth: false
   destructive: false
   confirmation_required_for:
-    - overwriting configuration files
+  - overwriting configuration files
 guardrails:
-  - Validate yq output before overwriting existing files.
+- Validate yq output before overwriting existing files.

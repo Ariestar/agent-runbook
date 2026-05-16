@@ -1,32 +1,37 @@
 name: q
 binary: q
-aliases: ["amazon-q"]
+aliases:
+- amazon-q
 category: agent
+lang:
+- all
 summary: Amazon Q Developer command-line assistant.
 homepage: https://aws.amazon.com/q/developer/
 docs: https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/command-line.html
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
     files: []
-    dirs: [".amazonq"]
+    dirs:
+    - .amazonq
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Use Amazon Q Developer from the terminal
+- Use Amazon Q Developer from the terminal
 avoid_when:
-  - The task should stay inside the current agent session
+- The task should stay inside the current agent session
 risk:
   level: high
   effects:
-    - execute_code
-    - network_access
-    - requires_auth
-    - write_files
-    - secret_exposure
+  - execute_code
+  - network_access
+  - requires_auth
+  - write_files
+  - secret_exposure
   requires_auth: true
   destructive: false
   confirmation_required_for:
-    - running autonomous edits
+  - running autonomous edits
 guardrails:
-  - Review command permissions and generated changes before accepting them.
+- Review command permissions and generated changes before accepting them.

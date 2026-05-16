@@ -1,33 +1,40 @@
 name: docker-compose
 binary: docker-compose
 aliases: []
-category: containers
+category: container
+lang:
+- all
 summary: Docker Compose standalone CLI.
 homepage: https://docs.docker.com/compose/
 docs: https://docs.docker.com/compose/reference/
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
-    files: ["docker-compose.yml", "docker-compose.yaml", "compose.yml", "compose.yaml"]
+    files:
+    - docker-compose.yml
+    - docker-compose.yaml
+    - compose.yml
+    - compose.yaml
     dirs: []
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Manage multi-container Docker projects using Compose files
+- Manage multi-container Docker projects using Compose files
 avoid_when:
-  - Docker daemon is unavailable
-  - The project uses docker compose subcommands instead
+- Docker daemon is unavailable
+- The project uses docker compose subcommands instead
 risk:
   level: high
   effects:
-    - execute_code
-    - network_access
-    - read_files
-    - write_files
+  - execute_code
+  - network_access
+  - read_files
+  - write_files
   requires_auth: false
   destructive: true
   confirmation_required_for:
-    - removing volumes
-    - recreating services with data
+  - removing volumes
+  - recreating services with data
 guardrails:
-  - Verify Docker daemon availability before running Compose workflows.
+- Verify Docker daemon availability before running Compose workflows.

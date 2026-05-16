@@ -1,28 +1,32 @@
 name: zoxide
 binary: zoxide
-aliases: ["z"]
+aliases:
+- z
 category: shell
+lang:
+- all
 summary: Smarter cd command based on frecency.
 homepage: https://github.com/ajeetdsouza/zoxide
 docs: https://github.com/ajeetdsouza/zoxide#readme
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
     files: []
     dirs: []
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Navigate frequently used directories in interactive shells
+- Navigate frequently used directories in interactive shells
 avoid_when:
-  - Scripts need explicit deterministic paths
+- Scripts need explicit deterministic paths
 risk:
   level: low
   effects:
-    - read_files
-    - environment_mutation
+  - read_files
+  - environment_mutation
   requires_auth: false
   destructive: false
   confirmation_required_for: []
 guardrails:
-  - Use explicit paths in scripts and reproducible instructions.
+- Use explicit paths in scripts and reproducible instructions.

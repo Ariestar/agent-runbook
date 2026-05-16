@@ -1,28 +1,33 @@
 name: cargo-audit
 binary: cargo-audit
 aliases: []
-category: rust
+category: security
+lang:
+- rust
 summary: Audit Rust dependency trees for known security vulnerabilities.
 homepage: https://github.com/rustsec/rustsec
 docs: https://github.com/rustsec/rustsec/tree/main/cargo-audit#readme
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
-    files: ["audit.toml", ".cargo/audit.toml"]
+    files:
+    - audit.toml
+    - .cargo/audit.toml
     dirs: []
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Check Rust dependencies against RustSec advisories
+- Check Rust dependencies against RustSec advisories
 avoid_when:
-  - The project is not a Rust crate or workspace
+- The project is not a Rust crate or workspace
 risk:
   level: medium
   effects:
-    - network_access
-    - read_files
+  - network_access
+  - read_files
   requires_auth: false
   destructive: false
   confirmation_required_for: []
 guardrails:
-  - Treat advisories as dependency risk signals, not automatic upgrade approval.
+- Treat advisories as dependency risk signals, not automatic upgrade approval.

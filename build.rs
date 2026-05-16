@@ -10,6 +10,7 @@ struct ToolCard {
     #[serde(default)]
     aliases: Vec<String>,
     category: String,
+    lang: Vec<String>,
     summary: String,
     homepage: String,
     docs: String,
@@ -121,6 +122,15 @@ fn validate_card(path: &Path, card: &ToolCard) {
     }
     if card.category.trim().is_empty() {
         panic!("{}: category is required", path.display());
+    }
+    if card.lang.is_empty() || card.lang.iter().any(|value| value.trim().is_empty()) {
+        panic!("{}: lang must contain at least one value", path.display());
+    }
+    if card.lang.iter().any(|value| value == "all") && card.lang.len() > 1 {
+        panic!(
+            "{}: lang=all must not be mixed with other values",
+            path.display()
+        );
     }
     if !matches!(card.risk.level.as_str(), "low" | "medium" | "high") {
         panic!(

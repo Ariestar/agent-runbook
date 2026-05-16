@@ -1,31 +1,37 @@
 name: yarn
 binary: yarn
 aliases: []
-category: javascript-package-manager
+category: package-manager
+lang:
+- javascript
+- typescript
 summary: JavaScript package manager.
 homepage: https://yarnpkg.com/
 docs: https://yarnpkg.com/cli
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
-    files: ["yarn.lock"]
+    files:
+    - yarn.lock
     dirs: []
     package_json:
-      package_manager_prefixes: ["yarn@"]
+      package_manager_prefixes:
+      - yarn@
 use_when:
-  - Install and run scripts in Yarn-managed projects
+- Install and run scripts in Yarn-managed projects
 avoid_when:
-  - The repo declares npm, pnpm, or bun instead
+- The repo declares npm, pnpm, or bun instead
 risk:
   level: medium
   effects:
-    - install_packages
-    - execute_code
-    - network_access
-    - write_files
+  - install_packages
+  - execute_code
+  - network_access
+  - write_files
   requires_auth: false
   destructive: false
   confirmation_required_for:
-    - changing lockfiles
+  - changing lockfiles
 guardrails:
-  - Do not mix package managers in one repository.
+- Do not mix package managers in one repository.

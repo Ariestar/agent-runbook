@@ -2,31 +2,37 @@ name: sqlite3
 binary: sqlite3
 aliases: []
 category: database
+lang:
+- sql
 summary: SQLite command-line shell.
 homepage: https://www.sqlite.org/
 docs: https://www.sqlite.org/cli.html
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
-    files: ["sqlite.db", "database.sqlite", "database.db"]
+    files:
+    - sqlite.db
+    - database.sqlite
+    - database.db
     dirs: []
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Inspect local SQLite databases
+- Inspect local SQLite databases
 avoid_when:
-  - Mutating production or user data without a backup
+- Mutating production or user data without a backup
 risk:
   level: high
   effects:
-    - read_files
-    - write_files
-    - delete_files
+  - read_files
+  - write_files
+  - delete_files
   requires_auth: false
   destructive: true
   confirmation_required_for:
-    - update statements
-    - delete statements
-    - schema migrations
+  - update statements
+  - delete statements
+  - schema migrations
 guardrails:
-  - Back up SQLite database files before mutation.
+- Back up SQLite database files before mutation.

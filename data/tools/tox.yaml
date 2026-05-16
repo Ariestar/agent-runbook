@@ -1,31 +1,35 @@
 name: tox
 binary: tox
 aliases: []
-category: python-test
+category: test
+lang:
+- python
 summary: Python test automation across environments.
 homepage: https://github.com/tox-dev/tox
 docs: https://tox.wiki/
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
-    files: ["tox.ini"]
+    files:
+    - tox.ini
     dirs: []
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Run Python tests across configured environments
+- Run Python tests across configured environments
 avoid_when:
-  - The project uses nox, uv, or direct pytest scripts instead
+- The project uses nox, uv, or direct pytest scripts instead
 risk:
   level: medium
   effects:
-    - install_packages
-    - execute_code
-    - network_access
-    - write_files
+  - install_packages
+  - execute_code
+  - network_access
+  - write_files
   requires_auth: false
   destructive: false
   confirmation_required_for:
-    - recreating broad test environments
+  - recreating broad test environments
 guardrails:
-  - Use configured tox environments rather than inventing new ones.
+- Use configured tox environments rather than inventing new ones.

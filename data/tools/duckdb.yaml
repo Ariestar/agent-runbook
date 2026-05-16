@@ -2,28 +2,31 @@ name: duckdb
 binary: duckdb
 aliases: []
 category: database
+lang:
+- sql
 summary: Embedded analytical database CLI.
 homepage: https://github.com/duckdb/duckdb
 docs: https://duckdb.org/docs/stable/clients/cli/
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
     files: []
     dirs: []
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Query local data files or embedded DuckDB databases
+- Query local data files or embedded DuckDB databases
 avoid_when:
-  - The task requires a remote transactional database
+- The task requires a remote transactional database
 risk:
   level: medium
   effects:
-    - read_files
-    - write_files
+  - read_files
+  - write_files
   requires_auth: false
   destructive: false
   confirmation_required_for:
-    - overwriting database files
+  - overwriting database files
 guardrails:
-  - Work on copies when experimenting with local database files.
+- Work on copies when experimenting with local database files.

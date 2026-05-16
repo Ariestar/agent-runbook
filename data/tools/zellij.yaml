@@ -2,29 +2,34 @@ name: zellij
 binary: zellij
 aliases: []
 category: shell
+lang:
+- all
 summary: Terminal workspace and multiplexer.
 homepage: https://github.com/zellij-org/zellij
 docs: https://zellij.dev/documentation/
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
-    files: ["zellij.kdl"]
-    dirs: [".config/zellij"]
+    files:
+    - zellij.kdl
+    dirs:
+    - .config/zellij
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Manage terminal sessions and panes interactively
+- Manage terminal sessions and panes interactively
 avoid_when:
-  - Non-interactive command execution is required
+- Non-interactive command execution is required
 risk:
   level: medium
   effects:
-    - execute_code
-    - read_files
-    - write_files
+  - execute_code
+  - read_files
+  - write_files
   requires_auth: false
   destructive: false
   confirmation_required_for:
-    - running long-lived sessions
+  - running long-lived sessions
 guardrails:
-  - Keep automated task execution outside interactive multiplexers.
+- Keep automated task execution outside interactive multiplexers.

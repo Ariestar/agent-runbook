@@ -2,27 +2,30 @@ name: awk
 binary: awk
 aliases: []
 category: text
+lang:
+- all
 summary: Pattern scanning and text processing language.
 homepage: https://www.gnu.org/software/gawk/
 docs: https://www.gnu.org/software/gawk/manual/
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
     files: []
     dirs: []
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Transform line-oriented text streams
-  - Summarize columns or logs from shell pipelines
+- Transform line-oriented text streams
+- Summarize columns or logs from shell pipelines
 avoid_when:
-  - Structured data has a proper parser available
+- Structured data has a proper parser available
 risk:
   level: low
   effects:
-    - read_files
+  - read_files
   requires_auth: false
   destructive: false
   confirmation_required_for: []
 guardrails:
-  - Use structured parsers for JSON, YAML, XML, or CSV when practical.
+- Use structured parsers for JSON, YAML, XML, or CSV when practical.

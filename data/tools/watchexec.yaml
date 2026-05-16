@@ -2,29 +2,32 @@ name: watchexec
 binary: watchexec
 aliases: []
 category: automation
+lang:
+- all
 summary: Run commands when watched files change.
 homepage: https://github.com/watchexec/watchexec
 docs: https://watchexec.github.io/
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
     files: []
     dirs: []
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Re-run arbitrary commands on file changes
+- Re-run arbitrary commands on file changes
 avoid_when:
-  - CI needs a single deterministic command
+- CI needs a single deterministic command
 risk:
   level: medium
   effects:
-    - execute_code
-    - read_files
-    - write_files
+  - execute_code
+  - read_files
+  - write_files
   requires_auth: false
   destructive: false
   confirmation_required_for:
-    - running long-lived watchers
+  - running long-lived watchers
 guardrails:
-  - Keep watched commands idempotent and stop watchers after use.
+- Keep watched commands idempotent and stop watchers after use.

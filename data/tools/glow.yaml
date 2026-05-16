@@ -2,26 +2,29 @@ name: glow
 binary: glow
 aliases: []
 category: docs
+lang:
+- all
 summary: Terminal Markdown renderer.
 homepage: https://github.com/charmbracelet/glow
 docs: https://github.com/charmbracelet/glow#readme
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
     files: []
     dirs: []
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Read Markdown documentation in the terminal
+- Read Markdown documentation in the terminal
 avoid_when:
-  - Raw Markdown text is needed for editing or parsing
+- Raw Markdown text is needed for editing or parsing
 risk:
   level: low
   effects:
-    - read_files
+  - read_files
   requires_auth: false
   destructive: false
   confirmation_required_for: []
 guardrails:
-  - Use raw file reads when exact Markdown syntax matters.
+- Use raw file reads when exact Markdown syntax matters.

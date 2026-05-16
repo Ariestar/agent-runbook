@@ -1,28 +1,38 @@
 name: java
 binary: java
 aliases: []
-category: jvm
+category: runtime
+lang:
+- java
 summary: Java runtime command-line launcher.
 homepage: https://openjdk.org/
 docs: https://docs.oracle.com/en/java/javase/
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
-    files: ["pom.xml", "build.gradle", "build.gradle.kts", "settings.gradle", "settings.gradle.kts"]
-    dirs: ["src/main/java", "src/test/java"]
+    files:
+    - pom.xml
+    - build.gradle
+    - build.gradle.kts
+    - settings.gradle
+    - settings.gradle.kts
+    dirs:
+    - src/main/java
+    - src/test/java
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Run Java applications or inspect JVM version
+- Run Java applications or inspect JVM version
 avoid_when:
-  - Build tooling should be invoked through Maven or Gradle
+- Build tooling should be invoked through Maven or Gradle
 risk:
   level: medium
   effects:
-    - execute_code
+  - execute_code
   requires_auth: false
   destructive: false
   confirmation_required_for:
-    - running untrusted jar files
+  - running untrusted jar files
 guardrails:
-  - Prefer project build tools for compile and test workflows.
+- Prefer project build tools for compile and test workflows.

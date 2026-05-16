@@ -2,30 +2,35 @@ name: just
 binary: just
 aliases: []
 category: build
+lang:
+- all
 summary: Command runner for project recipes.
 homepage: https://github.com/casey/just
 docs: https://just.systems/man/en/
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
-    files: ["justfile", "Justfile"]
+    files:
+    - justfile
+    - Justfile
     dirs: []
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Run project-defined recipes
+- Run project-defined recipes
 avoid_when:
-  - Recipe behavior is unknown and may mutate state
+- Recipe behavior is unknown and may mutate state
 risk:
   level: medium
   effects:
-    - execute_code
-    - read_files
-    - write_files
+  - execute_code
+  - read_files
+  - write_files
   requires_auth: false
   destructive: false
   confirmation_required_for:
-    - deploy recipes
-    - clean recipes
+  - deploy recipes
+  - clean recipes
 guardrails:
-  - Inspect recipe names before running ambiguous just commands.
+- Inspect recipe names before running ambiguous just commands.

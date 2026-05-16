@@ -2,29 +2,32 @@ name: sd
 binary: sd
 aliases: []
 category: text
+lang:
+- all
 summary: Simple and fast find-and-replace CLI.
 homepage: https://github.com/chmln/sd
 docs: https://github.com/chmln/sd#readme
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
     files: []
     dirs: []
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Replace text in files or streams with simpler syntax than sed
-  - Do mechanical text substitutions in scripts
+- Replace text in files or streams with simpler syntax than sed
+- Do mechanical text substitutions in scripts
 avoid_when:
-  - Structured code or config needs parser-aware edits
+- Structured code or config needs parser-aware edits
 risk:
   level: medium
   effects:
-    - read_files
-    - write_files
+  - read_files
+  - write_files
   requires_auth: false
   destructive: false
   confirmation_required_for:
-    - recursive in-place replacements
+  - recursive in-place replacements
 guardrails:
-  - Preview matches before recursive in-place replacements.
+- Preview matches before recursive in-place replacements.

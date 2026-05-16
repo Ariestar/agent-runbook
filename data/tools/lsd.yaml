@@ -2,26 +2,29 @@ name: lsd
 binary: lsd
 aliases: []
 category: file-viewer
+lang:
+- all
 summary: Modern ls alternative with colors, icons, and tree output.
 homepage: https://github.com/lsd-rs/lsd
 docs: https://github.com/lsd-rs/lsd#readme
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
     files: []
     dirs: []
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Inspect directories with readable colors and tree output
+- Inspect directories with readable colors and tree output
 avoid_when:
-  - Scripts need stable portable ls output
+- Scripts need stable portable ls output
 risk:
   level: low
   effects:
-    - read_files
+  - read_files
   requires_auth: false
   destructive: false
   confirmation_required_for: []
 guardrails:
-  - Use machine-oriented commands for automation.
+- Use machine-oriented commands for automation.

@@ -4,6 +4,9 @@
     "binary": "act",
     "aliases": [],
     "category": "ci",
+    "lang": [
+      "all"
+    ],
     "summary": "Run GitHub Actions workflows locally.",
     "homepage": "https://github.com/nektos/act",
     "docs": "https://nektosact.com/",
@@ -51,6 +54,9 @@
     "binary": "age",
     "aliases": [],
     "category": "security",
+    "lang": [
+      "all"
+    ],
     "summary": "Simple file encryption tool and format.",
     "homepage": "https://github.com/FiloSottile/age",
     "docs": "https://github.com/FiloSottile/age#readme",
@@ -95,6 +101,9 @@
     "binary": "aider",
     "aliases": [],
     "category": "agent",
+    "lang": [
+      "all"
+    ],
     "summary": "AI pair programming CLI that edits files through chat.",
     "homepage": "https://github.com/Aider-AI/aider",
     "docs": "https://aider.chat/docs/",
@@ -144,6 +153,9 @@
     "binary": "amp",
     "aliases": [],
     "category": "agent",
+    "lang": [
+      "all"
+    ],
     "summary": "Terminal AI coding agent from Sourcegraph.",
     "homepage": "https://ampcode.com/",
     "docs": "https://ampcode.com/manual",
@@ -192,6 +204,9 @@
       "ansible-playbook"
     ],
     "category": "infra",
+    "lang": [
+      "all"
+    ],
     "summary": "Automation and configuration management CLI.",
     "homepage": "https://github.com/ansible/ansible",
     "docs": "https://docs.ansible.com/",
@@ -247,6 +262,9 @@
       "sg"
     ],
     "category": "search",
+    "lang": [
+      "all"
+    ],
     "summary": "Structural code search and rewrite tool based on AST patterns.",
     "homepage": "https://github.com/ast-grep/ast-grep",
     "docs": "https://ast-grep.github.io/",
@@ -294,6 +312,9 @@
     "binary": "atuin",
     "aliases": [],
     "category": "shell",
+    "lang": [
+      "all"
+    ],
     "summary": "Searchable shell history with optional sync.",
     "homepage": "https://github.com/atuinsh/atuin",
     "docs": "https://docs.atuin.sh/",
@@ -339,6 +360,9 @@
     "binary": "awk",
     "aliases": [],
     "category": "text",
+    "lang": [
+      "all"
+    ],
     "summary": "Pattern scanning and text processing language.",
     "homepage": "https://www.gnu.org/software/gawk/",
     "docs": "https://www.gnu.org/software/gawk/manual/",
@@ -379,6 +403,9 @@
     "binary": "aws",
     "aliases": [],
     "category": "cloud",
+    "lang": [
+      "all"
+    ],
     "summary": "Amazon Web Services command-line interface.",
     "homepage": "https://github.com/aws/aws-cli",
     "docs": "https://docs.aws.amazon.com/cli/",
@@ -433,6 +460,9 @@
     "binary": "az",
     "aliases": [],
     "category": "cloud",
+    "lang": [
+      "all"
+    ],
     "summary": "Microsoft Azure command-line interface.",
     "homepage": "https://github.com/Azure/azure-cli",
     "docs": "https://learn.microsoft.com/cli/azure/",
@@ -486,7 +516,10 @@
     "name": "bacon",
     "binary": "bacon",
     "aliases": [],
-    "category": "rust",
+    "category": "automation",
+    "lang": [
+      "rust"
+    ],
     "summary": "Background Rust checker that runs cargo tasks on changes.",
     "homepage": "https://github.com/Canop/bacon",
     "docs": "https://dystroy.org/bacon/",
@@ -535,6 +568,9 @@
       "batcat"
     ],
     "category": "file-viewer",
+    "lang": [
+      "all"
+    ],
     "summary": "Syntax-highlighted cat replacement for reading files.",
     "homepage": "https://github.com/sharkdp/bat",
     "docs": "https://github.com/sharkdp/bat#readme",
@@ -573,7 +609,13 @@
     "name": "biome",
     "binary": "biome",
     "aliases": [],
-    "category": "javascript-quality",
+    "category": "lint",
+    "lang": [
+      "javascript",
+      "typescript",
+      "json",
+      "css"
+    ],
     "summary": "Fast formatter and linter for JavaScript, TypeScript, JSON, and CSS.",
     "homepage": "https://github.com/biomejs/biome",
     "docs": "https://biomejs.dev/reference/cli/",
@@ -621,6 +663,9 @@
       "bottom"
     ],
     "category": "system",
+    "lang": [
+      "all"
+    ],
     "summary": "Terminal system monitor for processes, CPU, memory, disks, and network.",
     "homepage": "https://github.com/ClementTsang/bottom",
     "docs": "https://clementtsang.github.io/bottom/stable/",
@@ -660,6 +705,9 @@
     "binary": "broot",
     "aliases": [],
     "category": "file-viewer",
+    "lang": [
+      "all"
+    ],
     "summary": "Interactive directory tree navigator with fuzzy search.",
     "homepage": "https://github.com/Canop/broot",
     "docs": "https://dystroy.org/broot/",
@@ -699,6 +747,9 @@
     "binary": "brush",
     "aliases": [],
     "category": "shell",
+    "lang": [
+      "all"
+    ],
     "summary": "Unix-like shell tool for Windows command workflows.",
     "homepage": "https://github.com",
     "docs": "https://github.com",
@@ -740,6 +791,9 @@
     "binary": "buf",
     "aliases": [],
     "category": "api",
+    "lang": [
+      "protobuf"
+    ],
     "summary": "Protobuf linting, breaking-change detection, and code generation CLI.",
     "homepage": "https://github.com/bufbuild/buf",
     "docs": "https://buf.build/docs/reference/cli/",
@@ -789,7 +843,11 @@
     "name": "bun",
     "binary": "bun",
     "aliases": [],
-    "category": "javascript-package-manager",
+    "category": "package-manager",
+    "lang": [
+      "javascript",
+      "typescript"
+    ],
     "summary": "JavaScript runtime and package manager.",
     "homepage": "https://bun.sh/",
     "docs": "https://bun.sh/docs",
@@ -840,7 +898,10 @@
     "aliases": [
       "bundler"
     ],
-    "category": "ruby",
+    "category": "package-manager",
+    "lang": [
+      "ruby"
+    ],
     "summary": "Ruby dependency manager and command runner.",
     "homepage": "https://github.com/rubygems/rubygems",
     "docs": "https://bundler.io/docs.html",
@@ -887,7 +948,10 @@
     "name": "cargo",
     "binary": "cargo",
     "aliases": [],
-    "category": "rust",
+    "category": "build",
+    "lang": [
+      "rust"
+    ],
     "summary": "Rust package manager and build tool.",
     "homepage": "https://github.com/rust-lang/cargo",
     "docs": "https://doc.rust-lang.org/cargo/",
@@ -934,7 +998,10 @@
     "name": "cargo-audit",
     "binary": "cargo-audit",
     "aliases": [],
-    "category": "rust",
+    "category": "security",
+    "lang": [
+      "rust"
+    ],
     "summary": "Audit Rust dependency trees for known security vulnerabilities.",
     "homepage": "https://github.com/rustsec/rustsec",
     "docs": "https://github.com/rustsec/rustsec/tree/main/cargo-audit#readme",
@@ -977,7 +1044,10 @@
     "name": "cargo-binstall",
     "binary": "cargo-binstall",
     "aliases": [],
-    "category": "rust",
+    "category": "package-manager",
+    "lang": [
+      "rust"
+    ],
     "summary": "Install Rust binary crates from prebuilt artifacts when available.",
     "homepage": "https://github.com/cargo-bins/cargo-binstall",
     "docs": "https://github.com/cargo-bins/cargo-binstall#readme",
@@ -1021,7 +1091,10 @@
     "name": "cargo-clippy",
     "binary": "cargo-clippy",
     "aliases": [],
-    "category": "rust",
+    "category": "lint",
+    "lang": [
+      "rust"
+    ],
     "summary": "Rust linter distributed as a Cargo subcommand.",
     "homepage": "https://github.com/rust-lang/rust-clippy",
     "docs": "https://doc.rust-lang.org/clippy/",
@@ -1065,7 +1138,10 @@
     "name": "cargo-deny",
     "binary": "cargo-deny",
     "aliases": [],
-    "category": "rust",
+    "category": "security",
+    "lang": [
+      "rust"
+    ],
     "summary": "Rust dependency policy checker for advisories, licenses, bans, and sources.",
     "homepage": "https://github.com/EmbarkStudios/cargo-deny",
     "docs": "https://embarkstudios.github.io/cargo-deny/",
@@ -1109,7 +1185,10 @@
     "aliases": [
       "rustfmt"
     ],
-    "category": "rust",
+    "category": "formatter",
+    "lang": [
+      "rust"
+    ],
     "summary": "Rust formatter distributed as a Cargo subcommand.",
     "homepage": "https://github.com/rust-lang/rustfmt",
     "docs": "https://github.com/rust-lang/rustfmt#readme",
@@ -1154,7 +1233,10 @@
     "name": "cargo-nextest",
     "binary": "cargo-nextest",
     "aliases": [],
-    "category": "rust",
+    "category": "test",
+    "lang": [
+      "rust"
+    ],
     "summary": "Fast Rust test runner for Cargo projects.",
     "homepage": "https://github.com/nextest-rs/nextest",
     "docs": "https://nexte.st/docs/",
@@ -1200,7 +1282,10 @@
     "name": "cargo-watch",
     "binary": "cargo-watch",
     "aliases": [],
-    "category": "rust",
+    "category": "automation",
+    "lang": [
+      "rust"
+    ],
     "summary": "Run Cargo commands whenever project files change.",
     "homepage": "https://github.com/watchexec/cargo-watch",
     "docs": "https://github.com/watchexec/cargo-watch#readme",
@@ -1245,7 +1330,12 @@
     "aliases": [
       "clang++"
     ],
-    "category": "cpp",
+    "category": "compiler",
+    "lang": [
+      "c",
+      "cpp",
+      "objective-c"
+    ],
     "summary": "LLVM C, C++, and Objective-C compiler.",
     "homepage": "https://clang.llvm.org/",
     "docs": "https://clang.llvm.org/docs/CommandGuide/clang.html",
@@ -1288,7 +1378,15 @@
     "name": "clang-format",
     "binary": "clang-format",
     "aliases": [],
-    "category": "cpp",
+    "category": "formatter",
+    "lang": [
+      "c",
+      "cpp",
+      "objective-c",
+      "java",
+      "javascript",
+      "typescript"
+    ],
     "summary": "Formatter for C, C++, Objective-C, Java, JavaScript, and related languages.",
     "homepage": "https://clang.llvm.org/docs/ClangFormat.html",
     "docs": "https://clang.llvm.org/docs/ClangFormat.html",
@@ -1332,7 +1430,11 @@
     "name": "clang-tidy",
     "binary": "clang-tidy",
     "aliases": [],
-    "category": "cpp",
+    "category": "lint",
+    "lang": [
+      "c",
+      "cpp"
+    ],
     "summary": "C and C++ linter and static analysis tool.",
     "homepage": "https://clang.llvm.org/extra/clang-tidy/",
     "docs": "https://clang.llvm.org/extra/clang-tidy/",
@@ -1379,6 +1481,9 @@
     "binary": "claude",
     "aliases": [],
     "category": "agent",
+    "lang": [
+      "all"
+    ],
     "summary": "Anthropic Claude Code command-line coding assistant.",
     "homepage": "https://www.anthropic.com/claude-code",
     "docs": "https://docs.anthropic.com/en/docs/claude-code",
@@ -1429,6 +1534,9 @@
       "clickhouse-client"
     ],
     "category": "database",
+    "lang": [
+      "sql"
+    ],
     "summary": "ClickHouse command-line client and local database tooling.",
     "homepage": "https://github.com/ClickHouse/ClickHouse",
     "docs": "https://clickhouse.com/docs/interfaces/cli",
@@ -1475,6 +1583,10 @@
     "binary": "cmake",
     "aliases": [],
     "category": "build",
+    "lang": [
+      "c",
+      "cpp"
+    ],
     "summary": "Cross-platform build system generator.",
     "homepage": "https://github.com/Kitware/CMake",
     "docs": "https://cmake.org/cmake/help/latest/",
@@ -1524,6 +1636,9 @@
     "binary": "codex",
     "aliases": [],
     "category": "agent",
+    "lang": [
+      "all"
+    ],
     "summary": "OpenAI Codex command-line coding agent.",
     "homepage": "https://github.com/openai/codex",
     "docs": "https://github.com/openai/codex#readme",
@@ -1571,7 +1686,10 @@
     "name": "composer",
     "binary": "composer",
     "aliases": [],
-    "category": "php",
+    "category": "package-manager",
+    "lang": [
+      "php"
+    ],
     "summary": "PHP dependency manager and project command runner.",
     "homepage": "https://github.com/composer/composer",
     "docs": "https://getcomposer.org/doc/",
@@ -1620,7 +1738,11 @@
     "name": "corepack",
     "binary": "corepack",
     "aliases": [],
-    "category": "javascript-package-manager",
+    "category": "package-manager",
+    "lang": [
+      "javascript",
+      "typescript"
+    ],
     "summary": "Node.js package manager shim for pnpm and Yarn.",
     "homepage": "https://github.com/nodejs/corepack",
     "docs": "https://nodejs.org/api/corepack.html",
@@ -1666,6 +1788,9 @@
     "binary": "cosign",
     "aliases": [],
     "category": "security",
+    "lang": [
+      "all"
+    ],
     "summary": "Container image and artifact signing CLI from Sigstore.",
     "homepage": "https://github.com/sigstore/cosign",
     "docs": "https://docs.sigstore.dev/cosign/",
@@ -1713,6 +1838,9 @@
     "binary": "curl",
     "aliases": [],
     "category": "network",
+    "lang": [
+      "all"
+    ],
     "summary": "Command-line HTTP and network transfer client.",
     "homepage": "https://curl.se/",
     "docs": "https://curl.se/docs/manpage.html",
@@ -1758,6 +1886,9 @@
     "binary": "cursor-agent",
     "aliases": [],
     "category": "agent",
+    "lang": [
+      "all"
+    ],
     "summary": "Cursor's terminal coding agent.",
     "homepage": "https://cursor.com/",
     "docs": "https://docs.cursor.com/",
@@ -1806,6 +1937,9 @@
       "git-delta"
     ],
     "category": "vcs",
+    "lang": [
+      "all"
+    ],
     "summary": "Syntax-highlighting pager for git, diff, and grep output.",
     "homepage": "https://github.com/dandavison/delta",
     "docs": "https://dandavison.github.io/delta/",
@@ -1844,7 +1978,11 @@
     "name": "deno",
     "binary": "deno",
     "aliases": [],
-    "category": "javascript-runtime",
+    "category": "runtime",
+    "lang": [
+      "javascript",
+      "typescript"
+    ],
     "summary": "Secure JavaScript and TypeScript runtime with built-in tooling.",
     "homepage": "https://github.com/denoland/deno",
     "docs": "https://docs.deno.com/",
@@ -1892,6 +2030,9 @@
     "binary": "devcontainer",
     "aliases": [],
     "category": "environment",
+    "lang": [
+      "all"
+    ],
     "summary": "CLI for building and running Development Containers.",
     "homepage": "https://github.com/devcontainers/cli",
     "docs": "https://github.com/devcontainers/cli#readme",
@@ -1942,6 +2083,9 @@
     "binary": "direnv",
     "aliases": [],
     "category": "environment",
+    "lang": [
+      "all"
+    ],
     "summary": "Per-directory shell environment loader.",
     "homepage": "https://github.com/direnv/direnv",
     "docs": "https://direnv.net/",
@@ -1988,7 +2132,10 @@
     "name": "docker",
     "binary": "docker",
     "aliases": [],
-    "category": "containers",
+    "category": "container",
+    "lang": [
+      "all"
+    ],
     "summary": "Container build and runtime CLI.",
     "homepage": "https://www.docker.com/",
     "docs": "https://docs.docker.com/reference/cli/docker/",
@@ -2045,7 +2192,10 @@
     "name": "docker-compose",
     "binary": "docker-compose",
     "aliases": [],
-    "category": "containers",
+    "category": "container",
+    "lang": [
+      "all"
+    ],
     "summary": "Docker Compose standalone CLI.",
     "homepage": "https://docs.docker.com/compose/",
     "docs": "https://docs.docker.com/compose/reference/",
@@ -2096,7 +2246,12 @@
     "name": "dotnet",
     "binary": "dotnet",
     "aliases": [],
-    "category": "dotnet",
+    "category": "build",
+    "lang": [
+      "csharp",
+      "fsharp",
+      "visual-basic"
+    ],
     "summary": ".NET SDK command-line interface.",
     "homepage": "https://github.com/dotnet/sdk",
     "docs": "https://learn.microsoft.com/dotnet/core/tools/",
@@ -2145,6 +2300,9 @@
     "binary": "dua",
     "aliases": [],
     "category": "file-viewer",
+    "lang": [
+      "all"
+    ],
     "summary": "Disk usage analyzer for finding large files and directories.",
     "homepage": "https://github.com/Byron/dua-cli",
     "docs": "https://github.com/Byron/dua-cli#readme",
@@ -2187,6 +2345,9 @@
     "binary": "duckdb",
     "aliases": [],
     "category": "database",
+    "lang": [
+      "sql"
+    ],
     "summary": "Embedded analytical database CLI.",
     "homepage": "https://github.com/duckdb/duckdb",
     "docs": "https://duckdb.org/docs/stable/clients/cli/",
@@ -2229,6 +2390,9 @@
     "binary": "dust",
     "aliases": [],
     "category": "file-viewer",
+    "lang": [
+      "all"
+    ],
     "summary": "Visual disk usage summary for directories.",
     "homepage": "https://github.com/bootandy/dust",
     "docs": "https://github.com/bootandy/dust#readme",
@@ -2267,7 +2431,11 @@
     "name": "eslint",
     "binary": "eslint",
     "aliases": [],
-    "category": "javascript-quality",
+    "category": "lint",
+    "lang": [
+      "javascript",
+      "typescript"
+    ],
     "summary": "JavaScript and TypeScript linting CLI.",
     "homepage": "https://github.com/eslint/eslint",
     "docs": "https://eslint.org/docs/latest/use/command-line-interface",
@@ -2320,6 +2488,9 @@
       "exa"
     ],
     "category": "file-viewer",
+    "lang": [
+      "all"
+    ],
     "summary": "Modern directory listing tool.",
     "homepage": "https://github.com/eza-community/eza",
     "docs": "https://eza.rocks/",
@@ -2361,6 +2532,9 @@
       "fdfind"
     ],
     "category": "search",
+    "lang": [
+      "all"
+    ],
     "summary": "Fast filesystem entry finder.",
     "homepage": "https://github.com/sharkdp/fd",
     "docs": "https://github.com/sharkdp/fd#readme",
@@ -2402,6 +2576,9 @@
     "binary": "gfind",
     "aliases": [],
     "category": "search",
+    "lang": [
+      "all"
+    ],
     "summary": "GNU find for locating files by name, type, time, and predicates.",
     "homepage": "https://www.gnu.org/software/findutils/",
     "docs": "https://www.gnu.org/software/findutils/manual/",
@@ -2446,6 +2623,9 @@
     "binary": "firebase",
     "aliases": [],
     "category": "cloud",
+    "lang": [
+      "all"
+    ],
     "summary": "Firebase project management and deployment CLI.",
     "homepage": "https://github.com/firebase/firebase-tools",
     "docs": "https://firebase.google.com/docs/cli",
@@ -2498,6 +2678,9 @@
       "fly"
     ],
     "category": "cloud",
+    "lang": [
+      "all"
+    ],
     "summary": "Fly.io command-line tool.",
     "homepage": "https://github.com/superfly/flyctl",
     "docs": "https://fly.io/docs/flyctl/",
@@ -2547,6 +2730,9 @@
     "binary": "fnm",
     "aliases": [],
     "category": "environment",
+    "lang": [
+      "all"
+    ],
     "summary": "Fast Node.js version manager.",
     "homepage": "https://github.com/Schniz/fnm",
     "docs": "https://github.com/Schniz/fnm#readme",
@@ -2593,6 +2779,9 @@
     "binary": "fzf",
     "aliases": [],
     "category": "search",
+    "lang": [
+      "all"
+    ],
     "summary": "General-purpose command-line fuzzy finder.",
     "homepage": "https://github.com/junegunn/fzf",
     "docs": "https://github.com/junegunn/fzf#readme",
@@ -2633,7 +2822,12 @@
     "aliases": [
       "g++"
     ],
-    "category": "cpp",
+    "category": "compiler",
+    "lang": [
+      "c",
+      "cpp",
+      "objective-c"
+    ],
     "summary": "GNU Compiler Collection C and C++ compiler.",
     "homepage": "https://gcc.gnu.org/",
     "docs": "https://gcc.gnu.org/onlinedocs/",
@@ -2677,6 +2871,9 @@
     "binary": "gcloud",
     "aliases": [],
     "category": "cloud",
+    "lang": [
+      "all"
+    ],
     "summary": "Google Cloud command-line interface.",
     "homepage": "https://github.com/google-cloud-sdk-unofficial/google-cloud-sdk",
     "docs": "https://cloud.google.com/sdk/gcloud",
@@ -2731,6 +2928,9 @@
     "binary": "gemini",
     "aliases": [],
     "category": "agent",
+    "lang": [
+      "all"
+    ],
     "summary": "Google Gemini command-line AI assistant.",
     "homepage": "https://github.com/google-gemini/gemini-cli",
     "docs": "https://github.com/google-gemini/gemini-cli#readme",
@@ -2779,6 +2979,9 @@
     "binary": "gh",
     "aliases": [],
     "category": "vcs",
+    "lang": [
+      "all"
+    ],
     "summary": "GitHub command-line interface.",
     "homepage": "https://github.com/cli/cli",
     "docs": "https://cli.github.com/manual/",
@@ -2828,6 +3031,9 @@
     "binary": "git",
     "aliases": [],
     "category": "vcs",
+    "lang": [
+      "all"
+    ],
     "summary": "Distributed version control system.",
     "homepage": "https://git-scm.com/",
     "docs": "https://git-scm.com/docs",
@@ -2877,6 +3083,9 @@
     "binary": "git-lfs",
     "aliases": [],
     "category": "vcs",
+    "lang": [
+      "all"
+    ],
     "summary": "Git extension for large file storage.",
     "homepage": "https://github.com/git-lfs/git-lfs",
     "docs": "https://github.com/git-lfs/git-lfs#readme",
@@ -2922,6 +3131,9 @@
     "binary": "gitleaks",
     "aliases": [],
     "category": "security",
+    "lang": [
+      "all"
+    ],
     "summary": "Secret scanner for git repositories and filesystems.",
     "homepage": "https://github.com/gitleaks/gitleaks",
     "docs": "https://github.com/gitleaks/gitleaks#readme",
@@ -2967,6 +3179,9 @@
     "binary": "glow",
     "aliases": [],
     "category": "docs",
+    "lang": [
+      "all"
+    ],
     "summary": "Terminal Markdown renderer.",
     "homepage": "https://github.com/charmbracelet/glow",
     "docs": "https://github.com/charmbracelet/glow#readme",
@@ -3005,7 +3220,10 @@
     "name": "go",
     "binary": "go",
     "aliases": [],
-    "category": "go",
+    "category": "build",
+    "lang": [
+      "go"
+    ],
     "summary": "Go toolchain for modules, build, test, and run.",
     "homepage": "https://github.com/golang/go",
     "docs": "https://go.dev/doc/",
@@ -3053,7 +3271,10 @@
     "name": "gofmt",
     "binary": "gofmt",
     "aliases": [],
-    "category": "go",
+    "category": "formatter",
+    "lang": [
+      "go"
+    ],
     "summary": "Standard Go source formatter.",
     "homepage": "https://github.com/golang/go",
     "docs": "https://pkg.go.dev/cmd/gofmt",
@@ -3096,6 +3317,9 @@
     "binary": "goose",
     "aliases": [],
     "category": "agent",
+    "lang": [
+      "all"
+    ],
     "summary": "Open-source local AI agent framework and CLI from Block.",
     "homepage": "https://github.com/block/goose",
     "docs": "https://block.github.io/goose/",
@@ -3141,7 +3365,13 @@
     "name": "gradle",
     "binary": "gradle",
     "aliases": [],
-    "category": "jvm",
+    "category": "build",
+    "lang": [
+      "java",
+      "kotlin",
+      "groovy",
+      "scala"
+    ],
     "summary": "Gradle build automation CLI.",
     "homepage": "https://github.com/gradle/gradle",
     "docs": "https://docs.gradle.org/current/userguide/command_line_interface.html",
@@ -3195,6 +3425,9 @@
     "binary": "grep",
     "aliases": [],
     "category": "search",
+    "lang": [
+      "all"
+    ],
     "summary": "Classic line-oriented text search.",
     "homepage": "https://www.gnu.org/software/grep/",
     "docs": "https://www.gnu.org/software/grep/manual/",
@@ -3234,6 +3467,9 @@
     "binary": "grpcurl",
     "aliases": [],
     "category": "api",
+    "lang": [
+      "protobuf"
+    ],
     "summary": "Command-line gRPC client for inspecting and calling services.",
     "homepage": "https://github.com/fullstorydev/grpcurl",
     "docs": "https://github.com/fullstorydev/grpcurl#readme",
@@ -3280,6 +3516,9 @@
     "binary": "grype",
     "aliases": [],
     "category": "security",
+    "lang": [
+      "all"
+    ],
     "summary": "Vulnerability scanner for container images and filesystems.",
     "homepage": "https://github.com/anchore/grype",
     "docs": "https://github.com/anchore/grype#readme",
@@ -3321,7 +3560,10 @@
     "name": "hatch",
     "binary": "hatch",
     "aliases": [],
-    "category": "python",
+    "category": "package-manager",
+    "lang": [
+      "python"
+    ],
     "summary": "Python project, environment, and packaging manager.",
     "homepage": "https://github.com/pypa/hatch",
     "docs": "https://hatch.pypa.io/latest/",
@@ -3370,6 +3612,9 @@
       "helix"
     ],
     "category": "editor",
+    "lang": [
+      "all"
+    ],
     "summary": "Modal terminal editor with built-in LSP and tree-sitter support.",
     "homepage": "https://github.com/helix-editor/helix",
     "docs": "https://docs.helix-editor.com/",
@@ -3413,7 +3658,10 @@
     "name": "helm",
     "binary": "helm",
     "aliases": [],
-    "category": "containers",
+    "category": "kubernetes",
+    "lang": [
+      "all"
+    ],
     "summary": "Kubernetes package manager for charts.",
     "homepage": "https://github.com/helm/helm",
     "docs": "https://helm.sh/docs/helm/",
@@ -3465,6 +3713,9 @@
     "binary": "http",
     "aliases": [],
     "category": "network",
+    "lang": [
+      "all"
+    ],
     "summary": "Human-friendly command-line HTTP client.",
     "homepage": "https://github.com/httpie/cli",
     "docs": "https://httpie.io/docs/cli",
@@ -3509,6 +3760,9 @@
     "binary": "hyperfine",
     "aliases": [],
     "category": "benchmark",
+    "lang": [
+      "all"
+    ],
     "summary": "Command-line benchmarking tool.",
     "homepage": "https://github.com/sharkdp/hyperfine",
     "docs": "https://github.com/sharkdp/hyperfine#readme",
@@ -3551,7 +3805,10 @@
     "name": "java",
     "binary": "java",
     "aliases": [],
-    "category": "jvm",
+    "category": "runtime",
+    "lang": [
+      "java"
+    ],
     "summary": "Java runtime command-line launcher.",
     "homepage": "https://openjdk.org/",
     "docs": "https://docs.oracle.com/en/java/javase/",
@@ -3601,7 +3858,11 @@
     "name": "jest",
     "binary": "jest",
     "aliases": [],
-    "category": "javascript-test",
+    "category": "test",
+    "lang": [
+      "javascript",
+      "typescript"
+    ],
     "summary": "JavaScript testing framework CLI.",
     "homepage": "https://github.com/jestjs/jest",
     "docs": "https://jestjs.io/docs/cli",
@@ -3650,6 +3911,9 @@
     "binary": "jq",
     "aliases": [],
     "category": "data",
+    "lang": [
+      "json"
+    ],
     "summary": "Command-line JSON processor.",
     "homepage": "https://github.com/jqlang/jq",
     "docs": "https://jqlang.github.io/jq/manual/",
@@ -3693,6 +3957,9 @@
     "binary": "just",
     "aliases": [],
     "category": "build",
+    "lang": [
+      "all"
+    ],
     "summary": "Command runner for project recipes.",
     "homepage": "https://github.com/casey/just",
     "docs": "https://just.systems/man/en/",
@@ -3740,6 +4007,9 @@
     "binary": "k6",
     "aliases": [],
     "category": "test",
+    "lang": [
+      "javascript"
+    ],
     "summary": "Load testing CLI for APIs and services.",
     "homepage": "https://github.com/grafana/k6",
     "docs": "https://grafana.com/docs/k6/latest/using-k6/k6-options/reference/",
@@ -3788,6 +4058,9 @@
     "binary": "k9s",
     "aliases": [],
     "category": "kubernetes",
+    "lang": [
+      "all"
+    ],
     "summary": "Terminal UI for managing Kubernetes clusters.",
     "homepage": "https://github.com/derailed/k9s",
     "docs": "https://k9scli.io/",
@@ -3836,6 +4109,9 @@
     "binary": "kind",
     "aliases": [],
     "category": "kubernetes",
+    "lang": [
+      "all"
+    ],
     "summary": "Run local Kubernetes clusters in Docker containers.",
     "homepage": "https://github.com/kubernetes-sigs/kind",
     "docs": "https://kind.sigs.k8s.io/",
@@ -3883,7 +4159,10 @@
     "name": "kubectl",
     "binary": "kubectl",
     "aliases": [],
-    "category": "containers",
+    "category": "kubernetes",
+    "lang": [
+      "all"
+    ],
     "summary": "Kubernetes command-line tool.",
     "homepage": "https://kubernetes.io/docs/reference/kubectl/",
     "docs": "https://kubernetes.io/docs/reference/kubectl/",
@@ -3934,6 +4213,9 @@
     "binary": "kustomize",
     "aliases": [],
     "category": "kubernetes",
+    "lang": [
+      "all"
+    ],
     "summary": "Kubernetes configuration customization tool.",
     "homepage": "https://github.com/kubernetes-sigs/kustomize",
     "docs": "https://kubectl.docs.kubernetes.io/references/kustomize/",
@@ -3980,6 +4262,9 @@
     "binary": "lazygit",
     "aliases": [],
     "category": "vcs",
+    "lang": [
+      "all"
+    ],
     "summary": "Terminal UI for git repositories.",
     "homepage": "https://github.com/jesseduffield/lazygit",
     "docs": "https://github.com/jesseduffield/lazygit#readme",
@@ -4024,6 +4309,9 @@
     "binary": "lsd",
     "aliases": [],
     "category": "file-viewer",
+    "lang": [
+      "all"
+    ],
     "summary": "Modern ls alternative with colors, icons, and tree output.",
     "homepage": "https://github.com/lsd-rs/lsd",
     "docs": "https://github.com/lsd-rs/lsd#readme",
@@ -4063,6 +4351,9 @@
     "binary": "make",
     "aliases": [],
     "category": "build",
+    "lang": [
+      "all"
+    ],
     "summary": "Build automation tool driven by Makefile targets.",
     "homepage": "https://www.gnu.org/software/make/",
     "docs": "https://www.gnu.org/software/make/manual/",
@@ -4109,6 +4400,9 @@
     "binary": "mdbook",
     "aliases": [],
     "category": "docs",
+    "lang": [
+      "markdown"
+    ],
     "summary": "Build books and documentation sites from Markdown.",
     "homepage": "https://github.com/rust-lang/mdBook",
     "docs": "https://rust-lang.github.io/mdBook/",
@@ -4153,6 +4447,9 @@
     "binary": "minikube",
     "aliases": [],
     "category": "kubernetes",
+    "lang": [
+      "all"
+    ],
     "summary": "Local Kubernetes development cluster manager.",
     "homepage": "https://github.com/kubernetes/minikube",
     "docs": "https://minikube.sigs.k8s.io/docs/",
@@ -4200,6 +4497,9 @@
     "binary": "miniserve",
     "aliases": [],
     "category": "network",
+    "lang": [
+      "all"
+    ],
     "summary": "Small CLI for serving files over HTTP.",
     "homepage": "https://github.com/svenstaro/miniserve",
     "docs": "https://github.com/svenstaro/miniserve#readme",
@@ -4245,6 +4545,9 @@
       "rtx"
     ],
     "category": "environment",
+    "lang": [
+      "all"
+    ],
     "summary": "Development tool version manager and task runner.",
     "homepage": "https://github.com/jdx/mise",
     "docs": "https://mise.jdx.dev/",
@@ -4297,6 +4600,9 @@
     "binary": "mongosh",
     "aliases": [],
     "category": "database",
+    "lang": [
+      "all"
+    ],
     "summary": "MongoDB Shell for querying and administering MongoDB.",
     "homepage": "https://github.com/mongodb-js/mongosh",
     "docs": "https://www.mongodb.com/docs/mongodb-shell/",
@@ -4342,7 +4648,12 @@
     "name": "mvn",
     "binary": "mvn",
     "aliases": [],
-    "category": "jvm",
+    "category": "build",
+    "lang": [
+      "java",
+      "kotlin",
+      "scala"
+    ],
     "summary": "Apache Maven build and dependency management CLI.",
     "homepage": "https://github.com/apache/maven",
     "docs": "https://maven.apache.org/guides/",
@@ -4392,7 +4703,10 @@
     "name": "mypy",
     "binary": "mypy",
     "aliases": [],
-    "category": "python-quality",
+    "category": "type-checker",
+    "lang": [
+      "python"
+    ],
     "summary": "Static type checker for Python.",
     "homepage": "https://github.com/python/mypy",
     "docs": "https://mypy.readthedocs.io/",
@@ -4435,6 +4749,9 @@
     "binary": "mysql",
     "aliases": [],
     "category": "database",
+    "lang": [
+      "sql"
+    ],
     "summary": "MySQL command-line client.",
     "homepage": "https://www.mysql.com/",
     "docs": "https://dev.mysql.com/doc/refman/en/mysql.html",
@@ -4482,6 +4799,9 @@
     "binary": "netlify",
     "aliases": [],
     "category": "cloud",
+    "lang": [
+      "all"
+    ],
     "summary": "Netlify CLI for local development and deployment.",
     "homepage": "https://github.com/netlify/cli",
     "docs": "https://cli.netlify.com/",
@@ -4531,6 +4851,10 @@
     "binary": "ninja",
     "aliases": [],
     "category": "build",
+    "lang": [
+      "c",
+      "cpp"
+    ],
     "summary": "Small build system focused on speed.",
     "homepage": "https://github.com/ninja-build/ninja",
     "docs": "https://ninja-build.org/manual.html",
@@ -4576,6 +4900,9 @@
     "binary": "nix",
     "aliases": [],
     "category": "environment",
+    "lang": [
+      "all"
+    ],
     "summary": "Reproducible package manager and build system.",
     "homepage": "https://github.com/NixOS/nix",
     "docs": "https://nixos.org/manual/nix/stable/",
@@ -4625,7 +4952,11 @@
     "name": "node",
     "binary": "node",
     "aliases": [],
-    "category": "javascript-runtime",
+    "category": "runtime",
+    "lang": [
+      "javascript",
+      "typescript"
+    ],
     "summary": "JavaScript runtime for Node.js projects.",
     "homepage": "https://nodejs.org/",
     "docs": "https://nodejs.org/docs/",
@@ -4670,7 +5001,11 @@
     "name": "npm",
     "binary": "npm",
     "aliases": [],
-    "category": "javascript-package-manager",
+    "category": "package-manager",
+    "lang": [
+      "javascript",
+      "typescript"
+    ],
     "summary": "Node.js package manager bundled with npm.",
     "homepage": "https://www.npmjs.com/",
     "docs": "https://docs.npmjs.com/",
@@ -4722,6 +5057,9 @@
       "nushell"
     ],
     "category": "shell",
+    "lang": [
+      "all"
+    ],
     "summary": "Structured shell and scripting language.",
     "homepage": "https://github.com/nushell/nushell",
     "docs": "https://www.nushell.sh/book/",
@@ -4769,6 +5107,9 @@
       "1password"
     ],
     "category": "secrets",
+    "lang": [
+      "all"
+    ],
     "summary": "1Password CLI for secrets, vaults, and service accounts.",
     "homepage": "https://developer.1password.com/docs/cli/",
     "docs": "https://developer.1password.com/docs/cli/reference/",
@@ -4813,6 +5154,9 @@
     "binary": "opencode",
     "aliases": [],
     "category": "agent",
+    "lang": [
+      "all"
+    ],
     "summary": "Terminal-based AI coding agent.",
     "homepage": "https://github.com/sst/opencode",
     "docs": "https://opencode.ai/docs/",
@@ -4862,6 +5206,9 @@
     "binary": "openssl",
     "aliases": [],
     "category": "security",
+    "lang": [
+      "all"
+    ],
     "summary": "Cryptography, certificate, and TLS inspection toolkit.",
     "homepage": "https://github.com/openssl/openssl",
     "docs": "https://docs.openssl.org/",
@@ -4908,6 +5255,9 @@
     "binary": "ouch",
     "aliases": [],
     "category": "archive",
+    "lang": [
+      "all"
+    ],
     "summary": "User-friendly archive compression and extraction CLI.",
     "homepage": "https://github.com/ouch-org/ouch",
     "docs": "https://github.com/ouch-org/ouch#readme",
@@ -4949,7 +5299,10 @@
     "name": "php",
     "binary": "php",
     "aliases": [],
-    "category": "php",
+    "category": "runtime",
+    "lang": [
+      "php"
+    ],
     "summary": "PHP runtime command-line interface.",
     "homepage": "https://github.com/php/php-src",
     "docs": "https://www.php.net/manual/en/features.commandline.php",
@@ -4999,7 +5352,10 @@
     "aliases": [
       "pip3"
     ],
-    "category": "python",
+    "category": "package-manager",
+    "lang": [
+      "python"
+    ],
     "summary": "Python package installer.",
     "homepage": "https://pip.pypa.io/",
     "docs": "https://pip.pypa.io/en/stable/cli/",
@@ -5045,7 +5401,10 @@
     "name": "pipx",
     "binary": "pipx",
     "aliases": [],
-    "category": "python",
+    "category": "package-manager",
+    "lang": [
+      "python"
+    ],
     "summary": "Install and run Python CLI applications in isolated environments.",
     "homepage": "https://github.com/pypa/pipx",
     "docs": "https://pipx.pypa.io/stable/",
@@ -5090,6 +5449,10 @@
     "binary": "playwright",
     "aliases": [],
     "category": "browser-test",
+    "lang": [
+      "javascript",
+      "typescript"
+    ],
     "summary": "End-to-end browser testing and automation CLI.",
     "homepage": "https://github.com/microsoft/playwright",
     "docs": "https://playwright.dev/docs/test-cli",
@@ -5136,7 +5499,11 @@
     "name": "pnpm",
     "binary": "pnpm",
     "aliases": [],
-    "category": "javascript-package-manager",
+    "category": "package-manager",
+    "lang": [
+      "javascript",
+      "typescript"
+    ],
     "summary": "Fast disk-efficient JavaScript package manager.",
     "homepage": "https://pnpm.io/",
     "docs": "https://pnpm.io/motivation",
@@ -5184,7 +5551,10 @@
     "name": "podman",
     "binary": "podman",
     "aliases": [],
-    "category": "containers",
+    "category": "container",
+    "lang": [
+      "all"
+    ],
     "summary": "Daemonless container engine compatible with many Docker workflows.",
     "homepage": "https://github.com/containers/podman",
     "docs": "https://docs.podman.io/",
@@ -5232,7 +5602,10 @@
     "name": "poetry",
     "binary": "poetry",
     "aliases": [],
-    "category": "python",
+    "category": "package-manager",
+    "lang": [
+      "python"
+    ],
     "summary": "Python packaging and dependency management tool.",
     "homepage": "https://github.com/python-poetry/poetry",
     "docs": "https://python-poetry.org/docs/",
@@ -5279,6 +5652,15 @@
     "binary": "prettier",
     "aliases": [],
     "category": "formatter",
+    "lang": [
+      "javascript",
+      "typescript",
+      "css",
+      "html",
+      "json",
+      "markdown",
+      "yaml"
+    ],
     "summary": "Opinionated code formatter for JavaScript and related formats.",
     "homepage": "https://github.com/prettier/prettier",
     "docs": "https://prettier.io/docs/cli",
@@ -5328,6 +5710,9 @@
     "binary": "procs",
     "aliases": [],
     "category": "system",
+    "lang": [
+      "all"
+    ],
     "summary": "Modern process viewer.",
     "homepage": "https://github.com/dalance/procs",
     "docs": "https://github.com/dalance/procs#readme",
@@ -5367,6 +5752,9 @@
     "binary": "psql",
     "aliases": [],
     "category": "database",
+    "lang": [
+      "sql"
+    ],
     "summary": "PostgreSQL interactive terminal.",
     "homepage": "https://www.postgresql.org/",
     "docs": "https://www.postgresql.org/docs/current/app-psql.html",
@@ -5414,6 +5802,9 @@
     "binary": "pulumi",
     "aliases": [],
     "category": "infra",
+    "lang": [
+      "all"
+    ],
     "summary": "Infrastructure as code CLI for Pulumi stacks.",
     "homepage": "https://github.com/pulumi/pulumi",
     "docs": "https://www.pulumi.com/docs/iac/cli/",
@@ -5466,7 +5857,10 @@
     "name": "pyright",
     "binary": "pyright",
     "aliases": [],
-    "category": "python-quality",
+    "category": "type-checker",
+    "lang": [
+      "python"
+    ],
     "summary": "Static type checker for Python.",
     "homepage": "https://github.com/microsoft/pyright",
     "docs": "https://microsoft.github.io/pyright/",
@@ -5507,7 +5901,10 @@
     "name": "pytest",
     "binary": "pytest",
     "aliases": [],
-    "category": "python-test",
+    "category": "test",
+    "lang": [
+      "python"
+    ],
     "summary": "Python testing framework CLI.",
     "homepage": "https://github.com/pytest-dev/pytest",
     "docs": "https://docs.pytest.org/",
@@ -5556,7 +5953,10 @@
       "py",
       "python3"
     ],
-    "category": "python",
+    "category": "runtime",
+    "lang": [
+      "python"
+    ],
     "summary": "Python interpreter.",
     "homepage": "https://www.python.org/",
     "docs": "https://docs.python.org/",
@@ -5606,6 +6006,9 @@
       "amazon-q"
     ],
     "category": "agent",
+    "lang": [
+      "all"
+    ],
     "summary": "Amazon Q Developer command-line assistant.",
     "homepage": "https://aws.amazon.com/q/developer/",
     "docs": "https://docs.aws.amazon.com/amazonq/latest/qdeveloper-ug/command-line.html",
@@ -5653,6 +6056,9 @@
     "binary": "qwen",
     "aliases": [],
     "category": "agent",
+    "lang": [
+      "all"
+    ],
     "summary": "Qwen command-line AI coding assistant.",
     "homepage": "https://github.com/QwenLM/qwen-code",
     "docs": "https://github.com/QwenLM/qwen-code#readme",
@@ -5701,6 +6107,9 @@
     "binary": "railway",
     "aliases": [],
     "category": "deploy",
+    "lang": [
+      "all"
+    ],
     "summary": "Railway deployment and project management CLI.",
     "homepage": "https://github.com/railwayapp/cli",
     "docs": "https://docs.railway.com/reference/cli-api",
@@ -5753,6 +6162,9 @@
     "binary": "redis-cli",
     "aliases": [],
     "category": "database",
+    "lang": [
+      "all"
+    ],
     "summary": "Redis command-line client.",
     "homepage": "https://github.com/redis/redis",
     "docs": "https://redis.io/docs/latest/develop/tools/cli/",
@@ -5801,6 +6213,9 @@
       "ripgrep"
     ],
     "category": "search",
+    "lang": [
+      "all"
+    ],
     "summary": "Fast recursive text search for codebases.",
     "homepage": "https://github.com/BurntSushi/ripgrep",
     "docs": "https://github.com/BurntSushi/ripgrep/blob/master/GUIDE.md",
@@ -5844,6 +6259,9 @@
       "ripgrep-all"
     ],
     "category": "search",
+    "lang": [
+      "all"
+    ],
     "summary": "ripgrep wrapper for PDFs, archives, e-books, Office documents, and more.",
     "homepage": "https://github.com/phiresky/ripgrep-all",
     "docs": "https://github.com/phiresky/ripgrep-all#readme",
@@ -5886,6 +6304,9 @@
     "binary": "rtk",
     "aliases": [],
     "category": "shell",
+    "lang": [
+      "all"
+    ],
     "summary": "Local shell wrapper used to run commands with workspace-specific behavior.",
     "homepage": "https://github.com",
     "docs": "https://github.com",
@@ -5929,7 +6350,10 @@
     "name": "ruby",
     "binary": "ruby",
     "aliases": [],
-    "category": "ruby",
+    "category": "runtime",
+    "lang": [
+      "ruby"
+    ],
     "summary": "Ruby language runtime CLI.",
     "homepage": "https://github.com/ruby/ruby",
     "docs": "https://www.ruby-lang.org/en/documentation/",
@@ -5976,7 +6400,10 @@
     "name": "ruff",
     "binary": "ruff",
     "aliases": [],
-    "category": "python-quality",
+    "category": "lint",
+    "lang": [
+      "python"
+    ],
     "summary": "Fast Python linter and formatter.",
     "homepage": "https://github.com/astral-sh/ruff",
     "docs": "https://docs.astral.sh/ruff/",
@@ -6021,7 +6448,10 @@
     "name": "rustup",
     "binary": "rustup",
     "aliases": [],
-    "category": "rust",
+    "category": "toolchain",
+    "lang": [
+      "rust"
+    ],
     "summary": "Rust toolchain installer and version manager.",
     "homepage": "https://github.com/rust-lang/rustup",
     "docs": "https://rust-lang.github.io/rustup/",
@@ -6068,6 +6498,11 @@
     "binary": "sccache",
     "aliases": [],
     "category": "build",
+    "lang": [
+      "rust",
+      "c",
+      "cpp"
+    ],
     "summary": "Compiler cache for Rust, C, C++, and other compilers.",
     "homepage": "https://github.com/mozilla/sccache",
     "docs": "https://github.com/mozilla/sccache#readme",
@@ -6113,6 +6548,9 @@
     "binary": "sd",
     "aliases": [],
     "category": "text",
+    "lang": [
+      "all"
+    ],
     "summary": "Simple and fast find-and-replace CLI.",
     "homepage": "https://github.com/chmln/sd",
     "docs": "https://github.com/chmln/sd#readme",
@@ -6156,6 +6594,9 @@
     "binary": "sed",
     "aliases": [],
     "category": "text",
+    "lang": [
+      "all"
+    ],
     "summary": "Stream editor for text substitution and filtering.",
     "homepage": "https://www.gnu.org/software/sed/",
     "docs": "https://www.gnu.org/software/sed/manual/",
@@ -6198,6 +6639,9 @@
     "binary": "semgrep",
     "aliases": [],
     "category": "security",
+    "lang": [
+      "all"
+    ],
     "summary": "Static analysis and code search tool using semantic rules.",
     "homepage": "https://github.com/semgrep/semgrep",
     "docs": "https://semgrep.dev/docs/cli-reference/",
@@ -6247,6 +6691,9 @@
     "binary": "sops",
     "aliases": [],
     "category": "secrets",
+    "lang": [
+      "all"
+    ],
     "summary": "Editor and automation tool for encrypted secrets files.",
     "homepage": "https://github.com/getsops/sops",
     "docs": "https://getsops.io/docs/",
@@ -6294,6 +6741,9 @@
     "binary": "sqlite3",
     "aliases": [],
     "category": "database",
+    "lang": [
+      "sql"
+    ],
     "summary": "SQLite command-line shell.",
     "homepage": "https://www.sqlite.org/",
     "docs": "https://www.sqlite.org/cli.html",
@@ -6343,6 +6793,9 @@
     "binary": "starship",
     "aliases": [],
     "category": "shell",
+    "lang": [
+      "all"
+    ],
     "summary": "Cross-shell prompt renderer.",
     "homepage": "https://github.com/starship/starship",
     "docs": "https://starship.rs/config/",
@@ -6389,6 +6842,9 @@
     "binary": "stern",
     "aliases": [],
     "category": "kubernetes",
+    "lang": [
+      "all"
+    ],
     "summary": "Multi-pod Kubernetes log tailing CLI.",
     "homepage": "https://github.com/stern/stern",
     "docs": "https://github.com/stern/stern#readme",
@@ -6435,6 +6891,9 @@
     "binary": "stripe",
     "aliases": [],
     "category": "cloud",
+    "lang": [
+      "all"
+    ],
     "summary": "Stripe CLI for local webhooks, API calls, and developer workflows.",
     "homepage": "https://github.com/stripe/stripe-cli",
     "docs": "https://docs.stripe.com/stripe-cli",
@@ -6483,6 +6942,9 @@
     "binary": "supabase",
     "aliases": [],
     "category": "cloud",
+    "lang": [
+      "all"
+    ],
     "summary": "Supabase local development and project management CLI.",
     "homepage": "https://github.com/supabase/cli",
     "docs": "https://supabase.com/docs/reference/cli/introduction",
@@ -6535,6 +6997,9 @@
     "binary": "syft",
     "aliases": [],
     "category": "security",
+    "lang": [
+      "all"
+    ],
     "summary": "SBOM generator for container images and filesystems.",
     "homepage": "https://github.com/anchore/syft",
     "docs": "https://github.com/anchore/syft#readme",
@@ -6580,6 +7045,9 @@
     "binary": "taplo",
     "aliases": [],
     "category": "formatter",
+    "lang": [
+      "toml"
+    ],
     "summary": "TOML formatter, linter, and language tooling.",
     "homepage": "https://github.com/tamasfe/taplo",
     "docs": "https://taplo.tamasfe.dev/cli/usage/",
@@ -6625,6 +7093,9 @@
     "binary": "tar",
     "aliases": [],
     "category": "archive",
+    "lang": [
+      "all"
+    ],
     "summary": "Create and extract tar archives.",
     "homepage": "https://www.gnu.org/software/tar/",
     "docs": "https://www.gnu.org/software/tar/manual/",
@@ -6667,6 +7138,9 @@
     "binary": "task",
     "aliases": [],
     "category": "build",
+    "lang": [
+      "all"
+    ],
     "summary": "Task runner using Taskfile.yml or Taskfile.yaml.",
     "homepage": "https://github.com/go-task/task",
     "docs": "https://taskfile.dev/",
@@ -6714,6 +7188,9 @@
     "binary": "terraform",
     "aliases": [],
     "category": "infra",
+    "lang": [
+      "hcl"
+    ],
     "summary": "Infrastructure as code CLI.",
     "homepage": "https://github.com/hashicorp/terraform",
     "docs": "https://developer.hashicorp.com/terraform/cli",
@@ -6768,6 +7245,9 @@
     "binary": "terragrunt",
     "aliases": [],
     "category": "infra",
+    "lang": [
+      "hcl"
+    ],
     "summary": "Thin wrapper for Terraform that manages remote state and repeated configuration.",
     "homepage": "https://github.com/gruntwork-io/terragrunt",
     "docs": "https://terragrunt.gruntwork.io/docs/",
@@ -6820,6 +7300,9 @@
       "tealdeer"
     ],
     "category": "docs",
+    "lang": [
+      "all"
+    ],
     "summary": "Community-maintained concise command examples.",
     "homepage": "https://github.com/tldr-pages/tldr",
     "docs": "https://tldr.sh/",
@@ -6860,6 +7343,9 @@
     "binary": "tofu",
     "aliases": [],
     "category": "infra",
+    "lang": [
+      "hcl"
+    ],
     "summary": "OpenTofu infrastructure as code CLI.",
     "homepage": "https://github.com/opentofu/opentofu",
     "docs": "https://opentofu.org/docs/",
@@ -6914,6 +7400,9 @@
     "binary": "tokei",
     "aliases": [],
     "category": "metrics",
+    "lang": [
+      "all"
+    ],
     "summary": "Count code, comments, blanks, and files by language.",
     "homepage": "https://github.com/XAMPPRocky/tokei",
     "docs": "https://github.com/XAMPPRocky/tokei#readme",
@@ -6952,7 +7441,10 @@
     "name": "tox",
     "binary": "tox",
     "aliases": [],
-    "category": "python-test",
+    "category": "test",
+    "lang": [
+      "python"
+    ],
     "summary": "Python test automation across environments.",
     "homepage": "https://github.com/tox-dev/tox",
     "docs": "https://tox.wiki/",
@@ -6999,6 +7491,9 @@
     "binary": "tree",
     "aliases": [],
     "category": "file-viewer",
+    "lang": [
+      "all"
+    ],
     "summary": "Display directory structure as a tree.",
     "homepage": "https://gitlab.com/OldManProgrammer/unix-tree",
     "docs": "https://www.mankier.com/1/tree",
@@ -7038,6 +7533,9 @@
     "binary": "trivy",
     "aliases": [],
     "category": "security",
+    "lang": [
+      "all"
+    ],
     "summary": "Vulnerability, misconfiguration, secret, and SBOM scanner.",
     "homepage": "https://github.com/aquasecurity/trivy",
     "docs": "https://trivy.dev/latest/docs/references/configuration/cli/trivy/",
@@ -7085,6 +7583,9 @@
     "binary": "trufflehog",
     "aliases": [],
     "category": "security",
+    "lang": [
+      "all"
+    ],
     "summary": "Secret scanner for repositories, filesystems, and remote sources.",
     "homepage": "https://github.com/trufflesecurity/trufflehog",
     "docs": "https://github.com/trufflesecurity/trufflehog#readme",
@@ -7127,7 +7628,10 @@
     "name": "trunk",
     "binary": "trunk",
     "aliases": [],
-    "category": "rust",
+    "category": "build",
+    "lang": [
+      "rust"
+    ],
     "summary": "Build, bundle, and serve Rust WebAssembly web applications.",
     "homepage": "https://github.com/trunk-rs/trunk",
     "docs": "https://trunkrs.dev/",
@@ -7172,7 +7676,11 @@
     "name": "tsc",
     "binary": "tsc",
     "aliases": [],
-    "category": "typescript",
+    "category": "type-checker",
+    "lang": [
+      "javascript",
+      "typescript"
+    ],
     "summary": "TypeScript compiler and type checker.",
     "homepage": "https://github.com/microsoft/TypeScript",
     "docs": "https://www.typescriptlang.org/docs/handbook/compiler-options.html",
@@ -7218,7 +7726,11 @@
     "name": "turbo",
     "binary": "turbo",
     "aliases": [],
-    "category": "javascript-build",
+    "category": "build",
+    "lang": [
+      "javascript",
+      "typescript"
+    ],
     "summary": "High-performance build system for JavaScript and TypeScript monorepos.",
     "homepage": "https://github.com/vercel/turborepo",
     "docs": "https://turborepo.com/docs/reference/run",
@@ -7263,7 +7775,10 @@
     "name": "typos",
     "binary": "typos",
     "aliases": [],
-    "category": "quality",
+    "category": "lint",
+    "lang": [
+      "all"
+    ],
     "summary": "Source code spell checker.",
     "homepage": "https://github.com/crate-ci/typos",
     "docs": "https://github.com/crate-ci/typos#readme",
@@ -7310,6 +7825,9 @@
     "binary": "unzip",
     "aliases": [],
     "category": "archive",
+    "lang": [
+      "all"
+    ],
     "summary": "Extract and inspect zip archives.",
     "homepage": "https://infozip.sourceforge.net/UnZip.html",
     "docs": "https://linux.die.net/man/1/unzip",
@@ -7351,7 +7869,10 @@
     "name": "uv",
     "binary": "uv",
     "aliases": [],
-    "category": "python",
+    "category": "package-manager",
+    "lang": [
+      "python"
+    ],
     "summary": "Fast Python package and environment manager.",
     "homepage": "https://github.com/astral-sh/uv",
     "docs": "https://docs.astral.sh/uv/",
@@ -7397,7 +7918,11 @@
     "name": "vercel",
     "binary": "vercel",
     "aliases": [],
-    "category": "cloud",
+    "category": "deploy",
+    "lang": [
+      "javascript",
+      "typescript"
+    ],
     "summary": "Vercel project deployment CLI.",
     "homepage": "https://github.com/vercel/vercel",
     "docs": "https://vercel.com/docs/cli",
@@ -7446,7 +7971,11 @@
     "name": "vite",
     "binary": "vite",
     "aliases": [],
-    "category": "javascript-build",
+    "category": "build",
+    "lang": [
+      "javascript",
+      "typescript"
+    ],
     "summary": "Frontend development server and build tool.",
     "homepage": "https://github.com/vitejs/vite",
     "docs": "https://vite.dev/guide/cli.html",
@@ -7494,7 +8023,11 @@
     "name": "vitest",
     "binary": "vitest",
     "aliases": [],
-    "category": "javascript-test",
+    "category": "test",
+    "lang": [
+      "javascript",
+      "typescript"
+    ],
     "summary": "Vite-native JavaScript and TypeScript test runner.",
     "homepage": "https://github.com/vitest-dev/vitest",
     "docs": "https://vitest.dev/guide/cli",
@@ -7543,6 +8076,10 @@
     "binary": "volta",
     "aliases": [],
     "category": "environment",
+    "lang": [
+      "javascript",
+      "typescript"
+    ],
     "summary": "JavaScript toolchain manager for pinning Node, npm, pnpm, and yarn.",
     "homepage": "https://github.com/volta-cli/volta",
     "docs": "https://docs.volta.sh/",
@@ -7586,7 +8123,10 @@
     "name": "wasm-pack",
     "binary": "wasm-pack",
     "aliases": [],
-    "category": "rust",
+    "category": "build",
+    "lang": [
+      "rust"
+    ],
     "summary": "Build and package Rust-generated WebAssembly.",
     "homepage": "https://github.com/rustwasm/wasm-pack",
     "docs": "https://rustwasm.github.io/wasm-pack/",
@@ -7632,6 +8172,9 @@
     "binary": "watchexec",
     "aliases": [],
     "category": "automation",
+    "lang": [
+      "all"
+    ],
     "summary": "Run commands when watched files change.",
     "homepage": "https://github.com/watchexec/watchexec",
     "docs": "https://watchexec.github.io/",
@@ -7675,6 +8218,11 @@
     "binary": "wrangler",
     "aliases": [],
     "category": "cloud",
+    "lang": [
+      "javascript",
+      "typescript",
+      "rust"
+    ],
     "summary": "Cloudflare Workers and Pages CLI.",
     "homepage": "https://github.com/cloudflare/workers-sdk",
     "docs": "https://developers.cloudflare.com/workers/wrangler/",
@@ -7727,6 +8275,9 @@
     "binary": "xh",
     "aliases": [],
     "category": "network",
+    "lang": [
+      "all"
+    ],
     "summary": "Fast and friendly HTTP client inspired by HTTPie.",
     "homepage": "https://github.com/ducaale/xh",
     "docs": "https://github.com/ducaale/xh#readme",
@@ -7770,7 +8321,11 @@
     "name": "yarn",
     "binary": "yarn",
     "aliases": [],
-    "category": "javascript-package-manager",
+    "category": "package-manager",
+    "lang": [
+      "javascript",
+      "typescript"
+    ],
     "summary": "JavaScript package manager.",
     "homepage": "https://yarnpkg.com/",
     "docs": "https://yarnpkg.com/cli",
@@ -7819,6 +8374,9 @@
     "binary": "yazi",
     "aliases": [],
     "category": "file-viewer",
+    "lang": [
+      "all"
+    ],
     "summary": "Fast terminal file manager with async I/O.",
     "homepage": "https://github.com/sxyazi/yazi",
     "docs": "https://yazi-rs.github.io/",
@@ -7863,6 +8421,10 @@
     "binary": "yq",
     "aliases": [],
     "category": "data",
+    "lang": [
+      "yaml",
+      "json"
+    ],
     "summary": "Command-line YAML, JSON, XML, CSV, and properties processor.",
     "homepage": "https://github.com/mikefarah/yq",
     "docs": "https://mikefarah.gitbook.io/yq/",
@@ -7906,6 +8468,9 @@
     "binary": "zellij",
     "aliases": [],
     "category": "shell",
+    "lang": [
+      "all"
+    ],
     "summary": "Terminal workspace and multiplexer.",
     "homepage": "https://github.com/zellij-org/zellij",
     "docs": "https://zellij.dev/documentation/",
@@ -7953,6 +8518,9 @@
     "binary": "zip",
     "aliases": [],
     "category": "archive",
+    "lang": [
+      "all"
+    ],
     "summary": "Create and update zip archives.",
     "homepage": "https://infozip.sourceforge.net/Zip.html",
     "docs": "https://linux.die.net/man/1/zip",
@@ -7997,6 +8565,9 @@
       "z"
     ],
     "category": "shell",
+    "lang": [
+      "all"
+    ],
     "summary": "Smarter cd command based on frecency.",
     "homepage": "https://github.com/ajeetdsouza/zoxide",
     "docs": "https://github.com/ajeetdsouza/zoxide#readme",

@@ -2,28 +2,31 @@ name: unzip
 binary: unzip
 aliases: []
 category: archive
+lang:
+- all
 summary: Extract and inspect zip archives.
 homepage: https://infozip.sourceforge.net/UnZip.html
 docs: https://linux.die.net/man/1/unzip
 detect:
-  version_args: ["-v"]
+  version_args:
+  - -v
   local:
     files: []
     dirs: []
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Inspect or extract zip archives
+- Inspect or extract zip archives
 avoid_when:
-  - The archive format is tar or another container
+- The archive format is tar or another container
 risk:
   level: medium
   effects:
-    - read_files
-    - write_files
+  - read_files
+  - write_files
   requires_auth: false
   destructive: false
   confirmation_required_for:
-    - extracting over existing files
+  - extracting over existing files
 guardrails:
-  - List archive contents before extracting untrusted archives.
+- List archive contents before extracting untrusted archives.

@@ -2,28 +2,33 @@ name: gitleaks
 binary: gitleaks
 aliases: []
 category: security
+lang:
+- all
 summary: Secret scanner for git repositories and filesystems.
 homepage: https://github.com/gitleaks/gitleaks
 docs: https://github.com/gitleaks/gitleaks#readme
 detect:
-  version_args: ["version"]
+  version_args:
+  - version
   local:
-    files: [".gitleaks.toml", "gitleaks.toml"]
+    files:
+    - .gitleaks.toml
+    - gitleaks.toml
     dirs: []
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Scan repositories for committed secrets
+- Scan repositories for committed secrets
 avoid_when:
-  - Findings would expose secrets in shared logs
+- Findings would expose secrets in shared logs
 risk:
   level: high
   effects:
-    - read_files
-    - secret_exposure
+  - read_files
+  - secret_exposure
   requires_auth: false
   destructive: false
   confirmation_required_for:
-    - printing secret findings
+  - printing secret findings
 guardrails:
-  - Redact secret values from output shared with users or logs.
+- Redact secret values from output shared with users or logs.

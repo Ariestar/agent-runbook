@@ -2,32 +2,35 @@ name: redis-cli
 binary: redis-cli
 aliases: []
 category: database
+lang:
+- all
 summary: Redis command-line client.
 homepage: https://github.com/redis/redis
 docs: https://redis.io/docs/latest/develop/tools/cli/
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
     files: []
     dirs: []
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Inspect Redis state or connectivity
+- Inspect Redis state or connectivity
 avoid_when:
-  - Production keys could be modified or deleted unintentionally
+- Production keys could be modified or deleted unintentionally
 risk:
   level: high
   effects:
-    - network_access
-    - requires_auth
-    - remote_read
-    - remote_write
+  - network_access
+  - requires_auth
+  - remote_read
+  - remote_write
   requires_auth: true
   destructive: true
   confirmation_required_for:
-    - deleting keys
-    - flushing databases
-    - changing configuration
+  - deleting keys
+  - flushing databases
+  - changing configuration
 guardrails:
-  - Never run destructive Redis commands without explicit confirmation.
+- Never run destructive Redis commands without explicit confirmation.

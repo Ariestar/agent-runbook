@@ -1,31 +1,37 @@
 name: pnpm
 binary: pnpm
 aliases: []
-category: javascript-package-manager
+category: package-manager
+lang:
+- javascript
+- typescript
 summary: Fast disk-efficient JavaScript package manager.
 homepage: https://pnpm.io/
 docs: https://pnpm.io/motivation
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
-    files: ["pnpm-lock.yaml"]
+    files:
+    - pnpm-lock.yaml
     dirs: []
     package_json:
-      package_manager_prefixes: ["pnpm@"]
+      package_manager_prefixes:
+      - pnpm@
 use_when:
-  - Install and run scripts in pnpm-managed projects
+- Install and run scripts in pnpm-managed projects
 avoid_when:
-  - The repo declares another package manager
+- The repo declares another package manager
 risk:
   level: medium
   effects:
-    - install_packages
-    - execute_code
-    - network_access
-    - write_files
+  - install_packages
+  - execute_code
+  - network_access
+  - write_files
   requires_auth: false
   destructive: false
   confirmation_required_for:
-    - changing lockfiles
+  - changing lockfiles
 guardrails:
-  - If pnpm-lock.yaml exists, avoid npm install unless explicitly requested.
+- If pnpm-lock.yaml exists, avoid npm install unless explicitly requested.

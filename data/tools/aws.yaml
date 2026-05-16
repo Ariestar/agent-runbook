@@ -2,34 +2,41 @@ name: aws
 binary: aws
 aliases: []
 category: cloud
+lang:
+- all
 summary: Amazon Web Services command-line interface.
 homepage: https://github.com/aws/aws-cli
 docs: https://docs.aws.amazon.com/cli/
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
-    files: ["template.yaml", "template.yml", "samconfig.toml"]
-    dirs: [".aws-sam"]
+    files:
+    - template.yaml
+    - template.yml
+    - samconfig.toml
+    dirs:
+    - .aws-sam
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Inspect or operate AWS resources from the terminal
+- Inspect or operate AWS resources from the terminal
 avoid_when:
-  - Credentials, region, or target account are unknown
+- Credentials, region, or target account are unknown
 risk:
   level: high
   effects:
-    - network_access
-    - requires_auth
-    - remote_read
-    - remote_write
-    - cloud_mutation
-    - secret_exposure
+  - network_access
+  - requires_auth
+  - remote_read
+  - remote_write
+  - cloud_mutation
+  - secret_exposure
   requires_auth: true
   destructive: true
   confirmation_required_for:
-    - deleting resources
-    - modifying IAM
-    - deploying stacks
+  - deleting resources
+  - modifying IAM
+  - deploying stacks
 guardrails:
-  - Confirm account and region before write operations.
+- Confirm account and region before write operations.

@@ -1,30 +1,35 @@
 name: cargo-nextest
 binary: cargo-nextest
 aliases: []
-category: rust
+category: test
+lang:
+- rust
 summary: Fast Rust test runner for Cargo projects.
 homepage: https://github.com/nextest-rs/nextest
 docs: https://nexte.st/docs/
 detect:
-  version_args: ["--version"]
+  version_args:
+  - --version
   local:
-    files: [".config/nextest.toml", "nextest.toml"]
+    files:
+    - .config/nextest.toml
+    - nextest.toml
     dirs: []
     package_json:
       package_manager_prefixes: []
 use_when:
-  - Run Rust tests faster with better reporting
+- Run Rust tests faster with better reporting
 avoid_when:
-  - The project relies on cargo test behavior that nextest does not support
+- The project relies on cargo test behavior that nextest does not support
 risk:
   level: medium
   effects:
-    - execute_code
-    - read_files
-    - write_files
+  - execute_code
+  - read_files
+  - write_files
   requires_auth: false
   destructive: false
   confirmation_required_for:
-    - updating test snapshots or fixtures
+  - updating test snapshots or fixtures
 guardrails:
-  - Use the repository's nextest profile when configured.
+- Use the repository's nextest profile when configured.
