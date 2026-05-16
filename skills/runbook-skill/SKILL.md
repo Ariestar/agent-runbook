@@ -5,7 +5,7 @@ description: Use before coding, debugging, build, test, deployment, infrastructu
 
 # Runbook Skill
 
-Run `runbook --version` and `runbook scan` before non-trivial repository work, then turn the result into a task-local operating contract. The CLI owns environment discovery; this skill owns agent behavior.
+Run `runbook --version` and `runbook scan` before non-trivial repository work, then turn the result into a task-local operating contract. When tool choice is not obvious, use `runbook category` to expose the relevant tool candidates instead of guessing from memory.
 
 ## Workflow
 
@@ -22,15 +22,30 @@ runbook --version
 runbook scan
 ```
 
-4. Interpret the output:
+4. Run this when the task may need a tool beyond the obvious project-local build/test/search commands:
+
+```bash
+runbook category
+```
+
+5. Choose a functional category from that output, infer the project language from the scan and repository files, then inspect candidates:
+
+```bash
+runbook category <category> --lang <lang>
+```
+
+Use `--lang all` only when the task is language-independent. Cross-language tools appear in language-specific queries automatically.
+
+6. Interpret the scan output:
    - `Local Requirements`: project-implied tools and workflows.
    - `Global Tools`: commands available on this machine.
    - `Recommended Operating Guardrails`: constraints to follow during the task.
    - `Warnings`: missing tools or risky inconsistencies.
-5. Prefer local requirements over globally available alternatives.
-6. Do not mix package managers, build systems, test runners, deployment tools, or infrastructure tools unless the user explicitly asks.
-7. Treat high-risk categories as confirmation-gated before mutation: cloud, infra, database, secrets, security scanners that may expose secrets, deployment, remote write, and destructive file operations.
-8. Continue with the user's task using the derived contract.
+7. Interpret category output as a candidate set, not an instruction. Pick the tool that fits the repo, task, risk, and installed state.
+8. Prefer local requirements over globally available alternatives.
+9. Do not mix package managers, build systems, test runners, deployment tools, or infrastructure tools unless the user explicitly asks.
+10. Treat high-risk categories as confirmation-gated before mutation: cloud, infra, database, secrets, security scanners that may expose secrets, deployment, remote write, and destructive file operations.
+11. Continue with the user's task using the derived contract.
 
 ## Operating Contract
 
@@ -44,8 +59,17 @@ After scanning, internally derive:
 - deployment or infrastructure tools
 - risky tools that require confirmation
 - missing tools that affect the request
+- category queries that would improve tool choice
 
 Mention the contract to the user only when it changes the plan, explains a tool choice, blocks progress, or prevents a risky action. Otherwise, let it guide behavior silently.
+
+## Category Query Rules
+
+- Use `runbook category` before asking which tool family exists.
+- Use `runbook category <category> --lang <lang>` before using an unfamiliar or non-project-local tool.
+- Do not query every category. Query only the functional category related to the task, such as `search`, `lint`, `test`, `security`, `database`, `deploy`, `container`, `cloud`, `docs`, or `benchmark`.
+- If the best candidate is missing, mention it only when it materially affects the task; otherwise choose an installed suitable alternative.
+- For remote-write or destructive categories, use category output to identify risk first, then ask for confirmation before mutation.
 
 ## Tool Choice Rules
 

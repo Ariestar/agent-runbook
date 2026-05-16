@@ -1,6 +1,4 @@
-use crate::checks::Fact;
-use crate::interpret::Message;
-use crate::scan::{ScanMode, ScanResult};
+use crate::model::{Fact, Message, ScanMode, ScanResult};
 
 pub fn render_scan(result: &ScanResult) -> String {
     let mut lines = Vec::new();

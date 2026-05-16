@@ -1,11 +1,17 @@
-use crate::scan::ScanMode;
+use crate::model::ScanMode;
 
 #[derive(Debug, PartialEq, Eq)]
 pub enum CommandArgs {
     Help,
     Version,
     Invalid(String),
-    Scan { mode: ScanMode },
+    Scan {
+        mode: ScanMode,
+    },
+    Category {
+        category: Option<String>,
+        lang: Option<String>,
+    },
 }
 
 pub fn parse_args(args: impl IntoIterator<Item = String>) -> CommandArgs {
@@ -20,6 +26,10 @@ pub fn parse_args(args: impl IntoIterator<Item = String>) -> CommandArgs {
 
     if command == "version" || command == "--version" || command == "-V" {
         return CommandArgs::Version;
+    }
+
+    if command == "category" {
+        return parse_category_args(args);
     }
 
     if command != "scan" {
@@ -52,8 +62,37 @@ pub fn parse_args(args: impl IntoIterator<Item = String>) -> CommandArgs {
     CommandArgs::Scan { mode }
 }
 
+fn parse_category_args(mut args: impl Iterator<Item = String>) -> CommandArgs {
+    let mut category = None;
+    let mut lang = None;
+
+    while let Some(arg) = args.next() {
+        match arg.as_str() {
+            "--lang" => {
+                let Some(value) = args.next() else {
+                    return CommandArgs::Invalid("--lang requires a value.".to_string());
+                };
+                lang = Some(value);
+            }
+            _ if arg.starts_with('-') => {
+                return CommandArgs::Invalid(format!("Unknown option for category: {arg}"));
+            }
+            _ => {
+                if category.is_some() {
+                    return CommandArgs::Invalid(
+                        "runbook category accepts at most one category name.".to_string(),
+                    );
+                }
+                category = Some(arg);
+            }
+        }
+    }
+
+    CommandArgs::Category { category, lang }
+}
+
 pub fn help_text() -> &'static str {
-    "Usage:\n  runbook scan          Scan this machine and the current project\n  runbook scan --global Scan only machine-level tools\n  runbook scan --local  Scan only current-project requirements\n  runbook --version     Print the runbook version"
+    "Usage:\n  runbook scan                         Scan this machine and the current project\n  runbook scan --global                Scan only machine-level tools\n  runbook scan --local                 Scan only current-project requirements\n  runbook category                     List tool categories\n  runbook category <category>          List tools in a category\n  runbook category <category> --lang rust  Filter candidates by language\n  runbook --version                    Print the runbook version"
 }
 
 #[cfg(test)]
@@ -112,5 +151,43 @@ mod tests {
             parse_args(["-V"].into_iter().map(String::from)),
             CommandArgs::Version
         );
+    }
+
+    #[test]
+    fn category_command_lists_categories_by_default() {
+        assert_eq!(
+            parse_args(["category"].into_iter().map(String::from)),
+            CommandArgs::Category {
+                category: None,
+                lang: None
+            }
+        );
+    }
+
+    #[test]
+    fn category_command_accepts_category_and_lang() {
+        assert_eq!(
+            parse_args(
+                ["category", "security", "--lang", "rust"]
+                    .into_iter()
+                    .map(String::from)
+            ),
+            CommandArgs::Category {
+                category: Some("security".to_string()),
+                lang: Some("rust".to_string())
+            }
+        );
+    }
+
+    #[test]
+    fn category_command_rejects_missing_lang_value() {
+        assert!(matches!(
+            parse_args(
+                ["category", "security", "--lang"]
+                    .into_iter()
+                    .map(String::from)
+            ),
+            CommandArgs::Invalid(_)
+        ));
     }
 }

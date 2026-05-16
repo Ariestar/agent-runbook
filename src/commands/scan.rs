@@ -1,19 +1,43 @@
-use crate::checks::{Fact, FactKind, Scope, Status};
-use crate::scan::ScanMode;
+use crate::discovery::global::{machine_facts, run_global_checks};
+use crate::discovery::local::run_local_checks;
+use crate::model::{
+    Fact, FactKind, Message, ScanInput, ScanMode, ScanResult, ScanSummary, Scope, Status,
+};
+use crate::registry::tool_registry;
 
-pub struct ScanSummary {
-    pub global_tools: Vec<Fact>,
-    pub local_requirements: Vec<Fact>,
-    pub recommendations: Vec<Message>,
-    pub warnings: Vec<Message>,
+pub struct ScanCommand {
+    pub input: ScanInput,
 }
 
-pub struct Message {
-    pub text: String,
-    pub evidence: Option<String>,
+pub fn scan(command: ScanCommand) -> ScanResult {
+    let include_global = matches!(command.input.mode, ScanMode::All | ScanMode::Global);
+    let include_local = matches!(command.input.mode, ScanMode::All | ScanMode::Local);
+    let registry = tool_registry();
+    let mut facts = Vec::new();
+
+    if include_global {
+        facts.extend(machine_facts());
+    }
+
+    for tool in &registry {
+        if include_global {
+            facts.extend(run_global_checks(tool));
+        }
+
+        if include_local {
+            facts.extend(run_local_checks(tool, &command.input.cwd));
+        }
+    }
+
+    let summary = interpret(command.input.mode, facts);
+    ScanResult {
+        mode: command.input.mode,
+        cwd: command.input.cwd,
+        summary,
+    }
 }
 
-pub fn interpret(mode: ScanMode, facts: Vec<Fact>) -> ScanSummary {
+fn interpret(mode: ScanMode, facts: Vec<Fact>) -> ScanSummary {
     let global_tools: Vec<Fact> = facts
         .iter()
         .filter(|fact| {
@@ -106,7 +130,7 @@ fn build_warnings(
 
     let package_managers: Vec<&str> = local_requirements
         .iter()
-        .filter(|requirement| requirement.category.as_deref() == Some("javascript-package-manager"))
+        .filter(|requirement| requirement.category.as_deref() == Some("package-manager"))
         .filter_map(|requirement| requirement.tool_name.as_deref())
         .collect();
 

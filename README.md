@@ -9,6 +9,8 @@ cargo install agent-runbook
 runbook scan
 runbook scan --global
 runbook scan --local
+runbook category
+runbook category security --lang rust
 runbook --version
 ```
 
