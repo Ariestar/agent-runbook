@@ -10,6 +10,7 @@
 *.log
 *.tmp
 *.temp
+*.tgz
 
 # Editor and OS noise
 .DS_Store

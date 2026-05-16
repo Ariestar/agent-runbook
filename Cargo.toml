@@ -4,6 +4,19 @@ version = "0.1.0"
 edition = "2024"
 description = "Generate a local runbook for AI coding agents."
 license = "MIT"
+repository = "https://github.com/Ariestar/agent-runbook"
+readme = "README.md"
+keywords = ["ai-agent", "cli", "developer-tools", "runbook"]
+categories = ["command-line-utilities", "development-tools"]
+include = [
+    "src/**",
+    "data/tools/**",
+    "build.rs",
+    "Cargo.toml",
+    "Cargo.lock",
+    "README.md",
+    "LICENSE",
+]
 
 [[bin]]
 name = "runbook"

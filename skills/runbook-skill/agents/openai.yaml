@@ -1,0 +1,4 @@
+interface:
+  display_name: "Runbook Skill"
+  short_description: "Run environment preflight before coding tasks."
+  default_prompt: "Use runbook-skill to inspect this repository and choose the right tools before making changes."
