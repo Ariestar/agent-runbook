@@ -1,0 +1,30 @@
+name: eslint
+binary: eslint
+aliases: []
+category: javascript-quality
+summary: JavaScript and TypeScript linting CLI.
+homepage: https://github.com/eslint/eslint
+docs: https://eslint.org/docs/latest/use/command-line-interface
+detect:
+  version_args: ["--version"]
+  local:
+    files: ["eslint.config.js", "eslint.config.mjs", "eslint.config.cjs", ".eslintrc", ".eslintrc.json", ".eslintrc.js"]
+    dirs: []
+    package_json:
+      package_manager_prefixes: []
+use_when:
+  - Run JavaScript or TypeScript lint checks
+avoid_when:
+  - The project has no ESLint configuration or lint script
+risk:
+  level: medium
+  effects:
+    - execute_code
+    - read_files
+    - write_files
+  requires_auth: false
+  destructive: false
+  confirmation_required_for:
+    - applying automatic fixes
+guardrails:
+  - Prefer the package manager lint script when it exists.

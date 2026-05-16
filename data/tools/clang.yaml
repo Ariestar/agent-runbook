@@ -1,0 +1,30 @@
+name: clang
+binary: clang
+aliases: ["clang++"]
+category: cpp
+summary: LLVM C, C++, and Objective-C compiler.
+homepage: https://clang.llvm.org/
+docs: https://clang.llvm.org/docs/CommandGuide/clang.html
+detect:
+  version_args: ["--version"]
+  local:
+    files: []
+    dirs: []
+    package_json:
+      package_manager_prefixes: []
+use_when:
+  - Compile C or C++ projects using Clang
+avoid_when:
+  - The project build system selects another compiler
+risk:
+  level: medium
+  effects:
+    - execute_code
+    - read_files
+    - write_files
+  requires_auth: false
+  destructive: false
+  confirmation_required_for:
+    - changing compiler toolchains
+guardrails:
+  - Prefer the project build system over direct compiler invocations.

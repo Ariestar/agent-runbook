@@ -1,0 +1,31 @@
+name: npm
+binary: npm
+aliases: []
+category: javascript-package-manager
+summary: Node.js package manager bundled with npm.
+homepage: https://www.npmjs.com/
+docs: https://docs.npmjs.com/
+detect:
+  version_args: ["--version"]
+  local:
+    files: ["package-lock.json", "npm-shrinkwrap.json"]
+    dirs: []
+    package_json:
+      package_manager_prefixes: ["npm@"]
+use_when:
+  - Install and run scripts in npm-managed projects
+avoid_when:
+  - The repo uses pnpm-lock.yaml, yarn.lock, or bun.lock
+risk:
+  level: medium
+  effects:
+    - install_packages
+    - execute_code
+    - network_access
+    - write_files
+  requires_auth: false
+  destructive: false
+  confirmation_required_for:
+    - changing lockfiles
+guardrails:
+  - Do not mix package managers in one repository.

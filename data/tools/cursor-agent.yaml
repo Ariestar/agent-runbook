@@ -1,0 +1,31 @@
+name: cursor-agent
+binary: cursor-agent
+aliases: []
+category: agent
+summary: Cursor's terminal coding agent.
+homepage: https://cursor.com/
+docs: https://docs.cursor.com/
+detect:
+  version_args: ["--version"]
+  local:
+    files: []
+    dirs: [".cursor"]
+    package_json:
+      package_manager_prefixes: []
+use_when:
+  - Use Cursor agent workflows from the terminal
+avoid_when:
+  - The task should stay inside the current agent session
+risk:
+  level: high
+  effects:
+    - execute_code
+    - network_access
+    - write_files
+    - secret_exposure
+  requires_auth: true
+  destructive: false
+  confirmation_required_for:
+    - running autonomous edits
+guardrails:
+  - Review generated changes before committing them.

@@ -1,0 +1,27 @@
+name: delta
+binary: delta
+aliases: ["git-delta"]
+category: vcs
+summary: Syntax-highlighting pager for git, diff, and grep output.
+homepage: https://github.com/dandavison/delta
+docs: https://dandavison.github.io/delta/
+detect:
+  version_args: ["--version"]
+  local:
+    files: []
+    dirs: []
+    package_json:
+      package_manager_prefixes: []
+use_when:
+  - Review diffs with syntax highlighting and side-by-side output
+avoid_when:
+  - Machine-readable diff output is required
+risk:
+  level: low
+  effects:
+    - read_files
+  requires_auth: false
+  destructive: false
+  confirmation_required_for: []
+guardrails:
+  - Disable pager decoration when parsing diff output.

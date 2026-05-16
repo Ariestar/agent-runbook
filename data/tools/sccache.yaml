@@ -1,0 +1,30 @@
+name: sccache
+binary: sccache
+aliases: []
+category: build
+summary: Compiler cache for Rust, C, C++, and other compilers.
+homepage: https://github.com/mozilla/sccache
+docs: https://github.com/mozilla/sccache#readme
+detect:
+  version_args: ["--version"]
+  local:
+    files: []
+    dirs: [".sccache"]
+    package_json:
+      package_manager_prefixes: []
+use_when:
+  - Speed up repeated compiler builds
+avoid_when:
+  - Reproducibility debugging requires a clean compiler cache
+risk:
+  level: medium
+  effects:
+    - read_files
+    - write_files
+    - network_access
+  requires_auth: false
+  destructive: false
+  confirmation_required_for:
+    - clearing shared caches
+guardrails:
+  - Disable or clear compiler caches when diagnosing suspicious build artifacts.

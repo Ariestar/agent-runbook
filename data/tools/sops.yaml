@@ -1,0 +1,31 @@
+name: sops
+binary: sops
+aliases: []
+category: secrets
+summary: Editor and automation tool for encrypted secrets files.
+homepage: https://github.com/getsops/sops
+docs: https://getsops.io/docs/
+detect:
+  version_args: ["--version"]
+  local:
+    files: [".sops.yaml", ".sops.yml"]
+    dirs: []
+    package_json:
+      package_manager_prefixes: []
+use_when:
+  - Edit or decrypt SOPS-managed secret files
+avoid_when:
+  - Key access or target environment is unclear
+risk:
+  level: high
+  effects:
+    - read_files
+    - write_files
+    - secret_exposure
+  requires_auth: true
+  destructive: false
+  confirmation_required_for:
+    - decrypting secrets
+    - editing encrypted files
+guardrails:
+  - Avoid printing decrypted secrets and never commit plaintext outputs.

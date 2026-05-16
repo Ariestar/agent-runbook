@@ -1,0 +1,29 @@
+name: starship
+binary: starship
+aliases: []
+category: shell
+summary: Cross-shell prompt renderer.
+homepage: https://github.com/starship/starship
+docs: https://starship.rs/config/
+detect:
+  version_args: ["--version"]
+  local:
+    files: ["starship.toml"]
+    dirs: [".config/starship"]
+    package_json:
+      package_manager_prefixes: []
+use_when:
+  - Inspect or configure shell prompt behavior
+avoid_when:
+  - The task is unrelated to interactive shell setup
+risk:
+  level: low
+  effects:
+    - read_files
+    - write_files
+  requires_auth: false
+  destructive: false
+  confirmation_required_for:
+    - overwriting prompt configuration
+guardrails:
+  - Keep prompt configuration changes scoped to the user or project config requested.

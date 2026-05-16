@@ -1,0 +1,31 @@
+name: ansible
+binary: ansible
+aliases: ["ansible-playbook"]
+category: infra
+summary: Automation and configuration management CLI.
+homepage: https://github.com/ansible/ansible
+docs: https://docs.ansible.com/
+detect:
+  version_args: ["--version"]
+  local:
+    files: ["ansible.cfg", "inventory.ini", "playbook.yml", "playbook.yaml"]
+    dirs: ["group_vars", "host_vars", "roles"]
+    package_json:
+      package_manager_prefixes: []
+use_when:
+  - Inspect or run infrastructure automation playbooks
+avoid_when:
+  - The target hosts or inventory are unclear
+risk:
+  level: high
+  effects:
+    - execute_code
+    - network_access
+    - remote_write
+    - secret_exposure
+  requires_auth: true
+  destructive: true
+  confirmation_required_for:
+    - running playbooks against remote hosts
+guardrails:
+  - Prefer check mode before applying changes to hosts.

@@ -1,0 +1,30 @@
+name: clang-tidy
+binary: clang-tidy
+aliases: []
+category: cpp
+summary: C and C++ linter and static analysis tool.
+homepage: https://clang.llvm.org/extra/clang-tidy/
+docs: https://clang.llvm.org/extra/clang-tidy/
+detect:
+  version_args: ["--version"]
+  local:
+    files: [".clang-tidy", "compile_commands.json"]
+    dirs: []
+    package_json:
+      package_manager_prefixes: []
+use_when:
+  - Run C or C++ lint and static analysis checks
+avoid_when:
+  - compile_commands.json or project configuration is missing
+risk:
+  level: medium
+  effects:
+    - execute_code
+    - read_files
+    - write_files
+  requires_auth: false
+  destructive: false
+  confirmation_required_for:
+    - applying automatic fixes
+guardrails:
+  - Run analysis with the project's compile database.

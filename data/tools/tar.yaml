@@ -1,0 +1,29 @@
+name: tar
+binary: tar
+aliases: []
+category: archive
+summary: Create and extract tar archives.
+homepage: https://www.gnu.org/software/tar/
+docs: https://www.gnu.org/software/tar/manual/
+detect:
+  version_args: ["--version"]
+  local:
+    files: []
+    dirs: []
+    package_json:
+      package_manager_prefixes: []
+use_when:
+  - Inspect, create, or extract tar archives
+avoid_when:
+  - The archive format is zip or another container
+risk:
+  level: medium
+  effects:
+    - read_files
+    - write_files
+  requires_auth: false
+  destructive: false
+  confirmation_required_for:
+    - extracting over existing files
+guardrails:
+  - List archive contents before extracting untrusted archives.

@@ -1,0 +1,27 @@
+name: broot
+binary: broot
+aliases: []
+category: file-viewer
+summary: Interactive directory tree navigator with fuzzy search.
+homepage: https://github.com/Canop/broot
+docs: https://dystroy.org/broot/
+detect:
+  version_args: ["--version"]
+  local:
+    files: []
+    dirs: []
+    package_json:
+      package_manager_prefixes: []
+use_when:
+  - Explore large directory trees interactively
+avoid_when:
+  - Automation needs stable plain text output
+risk:
+  level: low
+  effects:
+    - read_files
+  requires_auth: false
+  destructive: false
+  confirmation_required_for: []
+guardrails:
+  - Use non-interactive file listing commands for scripts.

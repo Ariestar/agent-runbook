@@ -1,0 +1,29 @@
+name: ouch
+binary: ouch
+aliases: []
+category: archive
+summary: User-friendly archive compression and extraction CLI.
+homepage: https://github.com/ouch-org/ouch
+docs: https://github.com/ouch-org/ouch#readme
+detect:
+  version_args: ["--version"]
+  local:
+    files: []
+    dirs: []
+    package_json:
+      package_manager_prefixes: []
+use_when:
+  - Compress or extract archives without remembering format-specific flags
+avoid_when:
+  - Exact tar or zip flags are required for reproducible packaging
+risk:
+  level: medium
+  effects:
+    - read_files
+    - write_files
+  requires_auth: false
+  destructive: false
+  confirmation_required_for:
+    - extracting over existing files
+guardrails:
+  - List archive contents before extracting untrusted files.

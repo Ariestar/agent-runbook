@@ -1,0 +1,30 @@
+name: ruby
+binary: ruby
+aliases: []
+category: ruby
+summary: Ruby language runtime CLI.
+homepage: https://github.com/ruby/ruby
+docs: https://www.ruby-lang.org/en/documentation/
+detect:
+  version_args: ["--version"]
+  local:
+    files: ["Gemfile", ".ruby-version", ".ruby-gemset"]
+    dirs: []
+    package_json:
+      package_manager_prefixes: []
+use_when:
+  - Run Ruby scripts or inspect runtime version
+avoid_when:
+  - Project commands should be invoked through Bundler
+risk:
+  level: medium
+  effects:
+    - execute_code
+    - read_files
+    - write_files
+  requires_auth: false
+  destructive: false
+  confirmation_required_for:
+    - running untrusted Ruby scripts
+guardrails:
+  - Prefer bundle exec for project-local Ruby dependencies.

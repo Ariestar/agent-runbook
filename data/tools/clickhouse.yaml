@@ -1,0 +1,33 @@
+name: clickhouse
+binary: clickhouse
+aliases: ["clickhouse-client"]
+category: database
+summary: ClickHouse command-line client and local database tooling.
+homepage: https://github.com/ClickHouse/ClickHouse
+docs: https://clickhouse.com/docs/interfaces/cli
+detect:
+  version_args: ["--version"]
+  local:
+    files: []
+    dirs: []
+    package_json:
+      package_manager_prefixes: []
+use_when:
+  - Query or inspect ClickHouse databases
+avoid_when:
+  - Connection target or credentials are unknown
+risk:
+  level: high
+  effects:
+    - network_access
+    - remote_read
+    - remote_write
+    - secret_exposure
+  requires_auth: true
+  destructive: true
+  confirmation_required_for:
+    - dropping tables
+    - deleting data
+    - running migrations
+guardrails:
+  - Confirm the target database before write queries.

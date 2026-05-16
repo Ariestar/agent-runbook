@@ -1,0 +1,30 @@
+name: python
+binary: python
+aliases: ["py", "python3"]
+category: python
+summary: Python interpreter.
+homepage: https://www.python.org/
+docs: https://docs.python.org/
+detect:
+  version_args: ["--version"]
+  local:
+    files: ["pyproject.toml", "requirements.txt", "setup.py"]
+    dirs: []
+    package_json:
+      package_manager_prefixes: []
+use_when:
+  - Run Python scripts or tooling
+avoid_when:
+  - A project-specific environment manager should be used instead
+risk:
+  level: medium
+  effects:
+    - execute_code
+    - read_files
+    - write_files
+  requires_auth: false
+  destructive: false
+  confirmation_required_for:
+    - running untrusted scripts
+guardrails:
+  - Prefer the project virtual environment when one exists.

@@ -1,0 +1,34 @@
+name: psql
+binary: psql
+aliases: []
+category: database
+summary: PostgreSQL interactive terminal.
+homepage: https://www.postgresql.org/
+docs: https://www.postgresql.org/docs/current/app-psql.html
+detect:
+  version_args: ["--version"]
+  local:
+    files: []
+    dirs: []
+    package_json:
+      package_manager_prefixes: []
+use_when:
+  - Inspect PostgreSQL databases
+avoid_when:
+  - Connection target and environment are unclear
+risk:
+  level: high
+  effects:
+    - network_access
+    - requires_auth
+    - remote_read
+    - remote_write
+    - secret_exposure
+  requires_auth: true
+  destructive: true
+  confirmation_required_for:
+    - update statements
+    - delete statements
+    - schema migrations
+guardrails:
+  - Confirm host, database, and environment before mutating PostgreSQL data.

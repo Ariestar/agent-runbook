@@ -1,0 +1,30 @@
+name: tsc
+binary: tsc
+aliases: []
+category: typescript
+summary: TypeScript compiler and type checker.
+homepage: https://github.com/microsoft/TypeScript
+docs: https://www.typescriptlang.org/docs/handbook/compiler-options.html
+detect:
+  version_args: ["--version"]
+  local:
+    files: ["tsconfig.json", "tsconfig.build.json"]
+    dirs: []
+    package_json:
+      package_manager_prefixes: []
+use_when:
+  - Run TypeScript type checks or compilation
+avoid_when:
+  - The project delegates type checking to another build tool only
+risk:
+  level: medium
+  effects:
+    - execute_code
+    - read_files
+    - write_files
+  requires_auth: false
+  destructive: false
+  confirmation_required_for:
+    - emitting compiled files into source directories
+guardrails:
+  - Prefer noEmit type checks when verifying code without build output.

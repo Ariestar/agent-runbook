@@ -1,0 +1,30 @@
+name: fnm
+binary: fnm
+aliases: []
+category: environment
+summary: Fast Node.js version manager.
+homepage: https://github.com/Schniz/fnm
+docs: https://github.com/Schniz/fnm#readme
+detect:
+  version_args: ["--version"]
+  local:
+    files: [".node-version", ".nvmrc"]
+    dirs: []
+    package_json:
+      package_manager_prefixes: []
+use_when:
+  - Install or switch Node.js versions for a project
+avoid_when:
+  - Node versions are managed by mise, Volta, or another configured manager
+risk:
+  level: medium
+  effects:
+    - install_packages
+    - network_access
+    - environment_mutation
+  requires_auth: false
+  destructive: false
+  confirmation_required_for:
+    - changing active Node versions
+guardrails:
+  - Prefer the version manager already configured by the repository.

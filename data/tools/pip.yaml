@@ -1,0 +1,31 @@
+name: pip
+binary: pip
+aliases: ["pip3"]
+category: python
+summary: Python package installer.
+homepage: https://pip.pypa.io/
+docs: https://pip.pypa.io/en/stable/cli/
+detect:
+  version_args: ["--version"]
+  local:
+    files: ["requirements.txt"]
+    dirs: []
+    package_json:
+      package_manager_prefixes: []
+use_when:
+  - Install dependencies from requirements.txt
+avoid_when:
+  - The project uses uv, Poetry, Conda, or another environment manager
+risk:
+  level: medium
+  effects:
+    - install_packages
+    - execute_code
+    - network_access
+    - write_files
+  requires_auth: false
+  destructive: false
+  confirmation_required_for:
+    - global installs
+guardrails:
+  - Prefer virtual environments over global pip installs.

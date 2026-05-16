@@ -1,0 +1,28 @@
+name: tldr
+binary: tldr
+aliases: ["tealdeer"]
+category: docs
+summary: Community-maintained concise command examples.
+homepage: https://github.com/tldr-pages/tldr
+docs: https://tldr.sh/
+detect:
+  version_args: ["--version"]
+  local:
+    files: []
+    dirs: []
+    package_json:
+      package_manager_prefixes: []
+use_when:
+  - Quickly learn common examples for a command
+avoid_when:
+  - Exact behavior requires the official manual or project docs
+risk:
+  level: low
+  effects:
+    - network_access
+    - read_files
+  requires_auth: false
+  destructive: false
+  confirmation_required_for: []
+guardrails:
+  - Treat examples as hints and verify risky flags against official docs.

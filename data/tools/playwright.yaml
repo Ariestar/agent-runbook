@@ -1,0 +1,30 @@
+name: playwright
+binary: playwright
+aliases: []
+category: browser-test
+summary: End-to-end browser testing and automation CLI.
+homepage: https://github.com/microsoft/playwright
+docs: https://playwright.dev/docs/test-cli
+detect:
+  version_args: ["--version"]
+  local:
+    files: ["playwright.config.ts", "playwright.config.js", "playwright.config.mjs"]
+    dirs: []
+    package_json:
+      package_manager_prefixes: []
+use_when:
+  - Run browser-based tests or capture UI behavior
+avoid_when:
+  - The project has no browser test setup
+risk:
+  level: medium
+  effects:
+    - execute_code
+    - network_access
+    - write_files
+  requires_auth: false
+  destructive: false
+  confirmation_required_for:
+    - updating snapshots
+guardrails:
+  - Prefer configured project scripts for browser tests.

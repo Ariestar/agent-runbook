@@ -1,0 +1,31 @@
+name: stern
+binary: stern
+aliases: []
+category: kubernetes
+summary: Multi-pod Kubernetes log tailing CLI.
+homepage: https://github.com/stern/stern
+docs: https://github.com/stern/stern#readme
+detect:
+  version_args: ["--version"]
+  local:
+    files: []
+    dirs: [".kube"]
+    package_json:
+      package_manager_prefixes: []
+use_when:
+  - Tail logs from multiple Kubernetes pods
+avoid_when:
+  - Current Kubernetes context is unknown
+risk:
+  level: medium
+  effects:
+    - network_access
+    - requires_auth
+    - remote_read
+    - secret_exposure
+  requires_auth: true
+  destructive: false
+  confirmation_required_for:
+    - tailing production logs
+guardrails:
+  - Confirm Kubernetes context and namespace before reading logs.

@@ -1,0 +1,30 @@
+name: php
+binary: php
+aliases: []
+category: php
+summary: PHP runtime command-line interface.
+homepage: https://github.com/php/php-src
+docs: https://www.php.net/manual/en/features.commandline.php
+detect:
+  version_args: ["--version"]
+  local:
+    files: ["composer.json", "composer.lock", "phpunit.xml", "phpunit.xml.dist"]
+    dirs: []
+    package_json:
+      package_manager_prefixes: []
+use_when:
+  - Run PHP scripts or inspect PHP runtime version
+avoid_when:
+  - Project commands should be invoked through Composer
+risk:
+  level: medium
+  effects:
+    - execute_code
+    - read_files
+    - write_files
+  requires_auth: false
+  destructive: false
+  confirmation_required_for:
+    - running untrusted PHP scripts
+guardrails:
+  - Prefer Composer scripts when composer.json defines the workflow.

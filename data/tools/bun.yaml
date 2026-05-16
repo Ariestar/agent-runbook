@@ -1,0 +1,31 @@
+name: bun
+binary: bun
+aliases: []
+category: javascript-package-manager
+summary: JavaScript runtime and package manager.
+homepage: https://bun.sh/
+docs: https://bun.sh/docs
+detect:
+  version_args: ["--version"]
+  local:
+    files: ["bun.lock", "bun.lockb"]
+    dirs: []
+    package_json:
+      package_manager_prefixes: ["bun@"]
+use_when:
+  - Run Bun-managed JavaScript projects
+avoid_when:
+  - The repo uses npm, pnpm, or Yarn lockfiles
+risk:
+  level: medium
+  effects:
+    - install_packages
+    - execute_code
+    - network_access
+    - write_files
+  requires_auth: false
+  destructive: false
+  confirmation_required_for:
+    - changing lockfiles
+guardrails:
+  - Do not mix package managers in one repository.

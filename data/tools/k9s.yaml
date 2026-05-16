@@ -1,0 +1,33 @@
+name: k9s
+binary: k9s
+aliases: []
+category: kubernetes
+summary: Terminal UI for managing Kubernetes clusters.
+homepage: https://github.com/derailed/k9s
+docs: https://k9scli.io/
+detect:
+  version_args: ["version"]
+  local:
+    files: []
+    dirs: [".k9s"]
+    package_json:
+      package_manager_prefixes: []
+use_when:
+  - Inspect Kubernetes resources interactively
+avoid_when:
+  - Non-interactive automation or audit logs are required
+risk:
+  level: high
+  effects:
+    - network_access
+    - requires_auth
+    - remote_read
+    - remote_write
+    - cloud_mutation
+  requires_auth: true
+  destructive: true
+  confirmation_required_for:
+    - deleting resources
+    - editing live resources
+guardrails:
+  - Confirm current Kubernetes context before mutations.

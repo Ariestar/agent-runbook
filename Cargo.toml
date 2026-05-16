@@ -1,0 +1,20 @@
+[package]
+name = "agent-runbook"
+version = "0.1.0"
+edition = "2024"
+description = "Generate a local runbook for AI coding agents."
+license = "MIT"
+
+[[bin]]
+name = "runbook"
+path = "src/main.rs"
+
+[dependencies]
+serde = { version = "1.0.228", features = ["derive"] }
+serde_json = "1.0.149"
+serde_yaml = "0.9.34"
+
+[build-dependencies]
+serde = { version = "1.0.228", features = ["derive"] }
+serde_json = "1.0.149"
+serde_yaml = "0.9.34"

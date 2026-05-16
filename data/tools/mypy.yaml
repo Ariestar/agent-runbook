@@ -1,0 +1,27 @@
+name: mypy
+binary: mypy
+aliases: []
+category: python-quality
+summary: Static type checker for Python.
+homepage: https://github.com/python/mypy
+docs: https://mypy.readthedocs.io/
+detect:
+  version_args: ["--version"]
+  local:
+    files: ["mypy.ini", ".mypy.ini"]
+    dirs: []
+    package_json:
+      package_manager_prefixes: []
+use_when:
+  - Run Python static type checks
+avoid_when:
+  - The project uses a different type checker or has no mypy config
+risk:
+  level: low
+  effects:
+    - read_files
+  requires_auth: false
+  destructive: false
+  confirmation_required_for: []
+guardrails:
+  - Run mypy with the repository's configured target paths.

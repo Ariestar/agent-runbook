@@ -1,0 +1,34 @@
+name: git
+binary: git
+aliases: []
+category: vcs
+summary: Distributed version control system.
+homepage: https://git-scm.com/
+docs: https://git-scm.com/docs
+detect:
+  version_args: ["--version"]
+  local:
+    files: []
+    dirs: [".git"]
+    package_json:
+      package_manager_prefixes: []
+use_when:
+  - Inspect repository state and history
+  - Stage, commit, branch, or diff changes when requested
+avoid_when:
+  - Reverting user changes without explicit approval
+risk:
+  level: high
+  effects:
+    - read_files
+    - write_files
+    - remote_read
+    - remote_write
+  requires_auth: false
+  destructive: true
+  confirmation_required_for:
+    - reset
+    - checkout that discards changes
+    - force push
+guardrails:
+  - Never discard user changes unless explicitly requested.

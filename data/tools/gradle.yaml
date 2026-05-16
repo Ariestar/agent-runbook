@@ -1,0 +1,31 @@
+name: gradle
+binary: gradle
+aliases: []
+category: jvm
+summary: Gradle build automation CLI.
+homepage: https://github.com/gradle/gradle
+docs: https://docs.gradle.org/current/userguide/command_line_interface.html
+detect:
+  version_args: ["--version"]
+  local:
+    files: ["build.gradle", "build.gradle.kts", "settings.gradle", "settings.gradle.kts", "gradlew", "gradlew.bat"]
+    dirs: ["gradle"]
+    package_json:
+      package_manager_prefixes: []
+use_when:
+  - Build, test, or run Gradle projects
+avoid_when:
+  - The project provides no Gradle wrapper or build file
+risk:
+  level: medium
+  effects:
+    - install_packages
+    - execute_code
+    - network_access
+    - write_files
+  requires_auth: false
+  destructive: false
+  confirmation_required_for:
+    - publishing artifacts
+guardrails:
+  - Prefer the project Gradle wrapper when present.

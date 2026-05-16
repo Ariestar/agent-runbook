@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Runbook Tool Index</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">Runbook</p>
+        <h1>Agent CLI Tool Index</h1>
+      </div>
+      <div class="stats" id="stats"></div>
+    </header>
+
+    <main class="layout">
+      <aside class="sidebar">
+        <label for="search">Search tools</label>
+        <input id="search" type="search" placeholder="rg, docker, package manager" />
+
+        <label for="category">Category</label>
+        <select id="category">
+          <option value="">All categories</option>
+        </select>
+
+        <label for="risk">Risk</label>
+        <select id="risk">
+          <option value="">All risk levels</option>
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+      </aside>
+
+      <section>
+        <div class="section-head">
+          <h2>Tools</h2>
+          <p id="count"></p>
+        </div>
+        <div class="grid" id="tools"></div>
+      </section>
+    </main>
+
+    <template id="tool-card">
+      <article class="card">
+        <div class="card-head">
+          <div>
+            <h3></h3>
+            <p class="binary"></p>
+          </div>
+          <span class="risk"></span>
+        </div>
+        <p class="summary"></p>
+        <div class="meta"></div>
+        <div class="cols">
+          <div>
+            <h4>Use When</h4>
+            <ul class="use"></ul>
+          </div>
+          <div>
+            <h4>Avoid When</h4>
+            <ul class="avoid"></ul>
+          </div>
+        </div>
+        <div>
+          <h4>Risk Effects</h4>
+          <div class="chips effects"></div>
+        </div>
+        <div>
+          <h4>Guardrails</h4>
+          <ul class="guardrails"></ul>
+        </div>
+        <div class="links">
+          <a class="homepage" target="_blank" rel="noreferrer">Homepage</a>
+          <a class="docs" target="_blank" rel="noreferrer">Docs</a>
+        </div>
+      </article>
+    </template>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

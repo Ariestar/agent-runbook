@@ -1,0 +1,29 @@
+name: cargo-clippy
+binary: cargo-clippy
+aliases: []
+category: rust
+summary: Rust linter distributed as a Cargo subcommand.
+homepage: https://github.com/rust-lang/rust-clippy
+docs: https://doc.rust-lang.org/clippy/
+detect:
+  version_args: ["--version"]
+  local:
+    files: ["Cargo.toml"]
+    dirs: []
+    package_json:
+      package_manager_prefixes: []
+use_when:
+  - Run Rust lint checks
+avoid_when:
+  - The current project is not a Rust crate or workspace
+risk:
+  level: medium
+  effects:
+    - execute_code
+    - read_files
+  requires_auth: false
+  destructive: false
+  confirmation_required_for:
+    - applying automatic fixes
+guardrails:
+  - Run clippy from the workspace root when Cargo.toml defines a workspace.

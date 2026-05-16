@@ -1,0 +1,34 @@
+name: wrangler
+binary: wrangler
+aliases: []
+category: cloud
+summary: Cloudflare Workers and Pages CLI.
+homepage: https://github.com/cloudflare/workers-sdk
+docs: https://developers.cloudflare.com/workers/wrangler/
+detect:
+  version_args: ["--version"]
+  local:
+    files: ["wrangler.toml", "wrangler.json", "_headers", "_redirects"]
+    dirs: []
+    package_json:
+      package_manager_prefixes: []
+use_when:
+  - Develop and deploy Cloudflare Workers or Pages projects
+avoid_when:
+  - The task does not explicitly involve Cloudflare
+risk:
+  level: high
+  effects:
+    - network_access
+    - requires_auth
+    - remote_write
+    - cloud_mutation
+    - secret_exposure
+  requires_auth: true
+  destructive: true
+  confirmation_required_for:
+    - deploy
+    - secret changes
+    - deleting remote resources
+guardrails:
+  - Treat deployment and secret operations as remote writes.

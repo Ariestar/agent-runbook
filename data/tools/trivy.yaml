@@ -1,0 +1,30 @@
+name: trivy
+binary: trivy
+aliases: []
+category: security
+summary: Vulnerability, misconfiguration, secret, and SBOM scanner.
+homepage: https://github.com/aquasecurity/trivy
+docs: https://trivy.dev/latest/docs/references/configuration/cli/trivy/
+detect:
+  version_args: ["--version"]
+  local:
+    files: ["trivy.yaml", "trivy.yml", ".trivyignore"]
+    dirs: []
+    package_json:
+      package_manager_prefixes: []
+use_when:
+  - Scan containers, filesystems, repositories, or IaC for security issues
+avoid_when:
+  - The scan target or output sensitivity is unclear
+risk:
+  level: medium
+  effects:
+    - read_files
+    - network_access
+    - secret_exposure
+  requires_auth: false
+  destructive: false
+  confirmation_required_for:
+    - scanning sensitive directories
+guardrails:
+  - Redact secrets and review vulnerability context before reporting results.

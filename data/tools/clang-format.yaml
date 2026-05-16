@@ -1,0 +1,28 @@
+name: clang-format
+binary: clang-format
+aliases: []
+category: cpp
+summary: Formatter for C, C++, Objective-C, Java, JavaScript, and related languages.
+homepage: https://clang.llvm.org/docs/ClangFormat.html
+docs: https://clang.llvm.org/docs/ClangFormat.html
+detect:
+  version_args: ["--version"]
+  local:
+    files: [".clang-format", "_clang-format"]
+    dirs: []
+    package_json:
+      package_manager_prefixes: []
+use_when:
+  - Format C-family source code using project style
+avoid_when:
+  - No clang-format configuration exists and style is not agreed
+risk:
+  level: medium
+  effects:
+    - write_files
+  requires_auth: false
+  destructive: false
+  confirmation_required_for:
+    - formatting large unrelated trees
+guardrails:
+  - Use dry-run or check mode before writing broad formatting changes.

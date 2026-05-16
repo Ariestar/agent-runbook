@@ -1,0 +1,29 @@
+name: fd
+binary: fd
+aliases: ["fdfind"]
+category: search
+summary: Fast filesystem entry finder.
+homepage: https://github.com/sharkdp/fd
+docs: https://github.com/sharkdp/fd#readme
+detect:
+  version_args: ["--version"]
+  local:
+    files: []
+    dirs: []
+    package_json:
+      package_manager_prefixes: []
+use_when:
+  - Find files or directories by name
+  - Build file lists before passing them to another command
+avoid_when:
+  - Searching file contents
+  - Structured code search
+risk:
+  level: low
+  effects:
+    - read_files
+  requires_auth: false
+  destructive: false
+  confirmation_required_for: []
+guardrails:
+  - Avoid piping fd output into destructive commands without reviewing the matched paths.

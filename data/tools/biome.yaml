@@ -1,0 +1,29 @@
+name: biome
+binary: biome
+aliases: []
+category: javascript-quality
+summary: Fast formatter and linter for JavaScript, TypeScript, JSON, and CSS.
+homepage: https://github.com/biomejs/biome
+docs: https://biomejs.dev/reference/cli/
+detect:
+  version_args: ["--version"]
+  local:
+    files: ["biome.json", "biome.jsonc"]
+    dirs: []
+    package_json:
+      package_manager_prefixes: []
+use_when:
+  - Lint or format projects configured for Biome
+avoid_when:
+  - The repository uses ESLint and Prettier without Biome
+risk:
+  level: medium
+  effects:
+    - read_files
+    - write_files
+  requires_auth: false
+  destructive: false
+  confirmation_required_for:
+    - applying automatic fixes
+guardrails:
+  - Prefer check mode before writing formatter or linter fixes.

@@ -1,0 +1,31 @@
+name: openssl
+binary: openssl
+aliases: []
+category: security
+summary: Cryptography, certificate, and TLS inspection toolkit.
+homepage: https://github.com/openssl/openssl
+docs: https://docs.openssl.org/
+detect:
+  version_args: ["version"]
+  local:
+    files: ["openssl.cnf"]
+    dirs: []
+    package_json:
+      package_manager_prefixes: []
+use_when:
+  - Inspect certificates, generate keys, or test TLS connections
+avoid_when:
+  - Secret key material would be exposed in logs or shell history
+risk:
+  level: high
+  effects:
+    - read_files
+    - write_files
+    - network_access
+    - secret_exposure
+  requires_auth: false
+  destructive: false
+  confirmation_required_for:
+    - generating or overwriting private keys
+guardrails:
+  - Keep private keys out of command output, logs, and committed files.

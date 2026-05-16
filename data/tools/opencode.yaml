@@ -1,0 +1,31 @@
+name: opencode
+binary: opencode
+aliases: []
+category: agent
+summary: Terminal-based AI coding agent.
+homepage: https://github.com/sst/opencode
+docs: https://opencode.ai/docs/
+detect:
+  version_args: ["--version"]
+  local:
+    files: ["opencode.json", "opencode.jsonc"]
+    dirs: [".opencode"]
+    package_json:
+      package_manager_prefixes: []
+use_when:
+  - Use an AI coding agent from the terminal
+avoid_when:
+  - The task should stay within the current agent session
+risk:
+  level: high
+  effects:
+    - execute_code
+    - network_access
+    - write_files
+    - secret_exposure
+  requires_auth: true
+  destructive: false
+  confirmation_required_for:
+    - running autonomous edits
+guardrails:
+  - Review generated diffs and project instructions before accepting changes.

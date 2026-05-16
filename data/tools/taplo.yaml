@@ -1,0 +1,29 @@
+name: taplo
+binary: taplo
+aliases: []
+category: formatter
+summary: TOML formatter, linter, and language tooling.
+homepage: https://github.com/tamasfe/taplo
+docs: https://taplo.tamasfe.dev/cli/usage/
+detect:
+  version_args: ["--version"]
+  local:
+    files: ["taplo.toml", ".taplo.toml"]
+    dirs: []
+    package_json:
+      package_manager_prefixes: []
+use_when:
+  - Format or lint TOML files
+avoid_when:
+  - The task only needs to read TOML without modifying it
+risk:
+  level: medium
+  effects:
+    - read_files
+    - write_files
+  requires_auth: false
+  destructive: false
+  confirmation_required_for:
+    - formatting large unrelated trees
+guardrails:
+  - Use format checks before writing broad TOML changes.

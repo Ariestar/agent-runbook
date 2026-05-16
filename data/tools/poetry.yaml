@@ -1,0 +1,31 @@
+name: poetry
+binary: poetry
+aliases: []
+category: python
+summary: Python packaging and dependency management tool.
+homepage: https://github.com/python-poetry/poetry
+docs: https://python-poetry.org/docs/
+detect:
+  version_args: ["--version"]
+  local:
+    files: ["poetry.lock"]
+    dirs: []
+    package_json:
+      package_manager_prefixes: []
+use_when:
+  - Manage Python projects that use poetry.lock
+avoid_when:
+  - The project uses uv.lock, requirements.txt only, or Conda
+risk:
+  level: medium
+  effects:
+    - install_packages
+    - execute_code
+    - network_access
+    - write_files
+  requires_auth: false
+  destructive: false
+  confirmation_required_for:
+    - changing lockfiles
+guardrails:
+  - If poetry.lock exists, prefer Poetry for dependency operations.

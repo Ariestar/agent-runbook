@@ -1,0 +1,28 @@
+name: brush
+binary: brush
+aliases: []
+category: shell
+summary: Unix-like shell tool for Windows command workflows.
+homepage: https://github.com
+docs: https://github.com
+detect:
+  version_args: ["--version"]
+  local:
+    files: []
+    dirs: []
+    package_json:
+      package_manager_prefixes: []
+use_when:
+  - Running Unix-style commands on Windows when the workspace asks for brush
+avoid_when:
+  - Native PowerShell cmdlets are the intended interface
+risk:
+  level: medium
+  effects:
+    - execute_code
+  requires_auth: false
+  destructive: false
+  confirmation_required_for:
+    - recursive delete or move operations
+guardrails:
+  - Use brush for Unix-style commands on Windows when AGENTS.md requires it.

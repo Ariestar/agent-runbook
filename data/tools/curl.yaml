@@ -1,0 +1,32 @@
+name: curl
+binary: curl
+aliases: []
+category: network
+summary: Command-line HTTP and network transfer client.
+homepage: https://curl.se/
+docs: https://curl.se/docs/manpage.html
+detect:
+  version_args: ["--version"]
+  local:
+    files: []
+    dirs: []
+    package_json:
+      package_manager_prefixes: []
+use_when:
+  - Test HTTP endpoints
+  - Inspect response headers or bodies
+avoid_when:
+  - Requests include secrets that could be logged
+  - Browser behavior such as cookies or JavaScript is required
+risk:
+  level: medium
+  effects:
+    - network_access
+    - secret_exposure
+  requires_auth: false
+  destructive: false
+  confirmation_required_for:
+    - sending mutating requests
+    - including tokens or credentials
+guardrails:
+  - Redact credentials and tokens from curl commands and output.

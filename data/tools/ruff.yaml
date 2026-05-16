@@ -1,0 +1,29 @@
+name: ruff
+binary: ruff
+aliases: []
+category: python-quality
+summary: Fast Python linter and formatter.
+homepage: https://github.com/astral-sh/ruff
+docs: https://docs.astral.sh/ruff/
+detect:
+  version_args: ["--version"]
+  local:
+    files: ["ruff.toml", ".ruff.toml"]
+    dirs: []
+    package_json:
+      package_manager_prefixes: []
+use_when:
+  - Lint or format Python code
+avoid_when:
+  - The project uses another Python lint or format tool exclusively
+risk:
+  level: medium
+  effects:
+    - read_files
+    - write_files
+  requires_auth: false
+  destructive: false
+  confirmation_required_for:
+    - applying automatic fixes
+guardrails:
+  - Use ruff check before ruff check --fix when reviewing impact.

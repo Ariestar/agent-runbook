@@ -1,0 +1,30 @@
+name: cargo-watch
+binary: cargo-watch
+aliases: []
+category: rust
+summary: Run Cargo commands whenever project files change.
+homepage: https://github.com/watchexec/cargo-watch
+docs: https://github.com/watchexec/cargo-watch#readme
+detect:
+  version_args: ["--version"]
+  local:
+    files: []
+    dirs: []
+    package_json:
+      package_manager_prefixes: []
+use_when:
+  - Re-run Rust checks or tests during active development
+avoid_when:
+  - A single deterministic command is required for CI
+risk:
+  level: medium
+  effects:
+    - execute_code
+    - read_files
+    - write_files
+  requires_auth: false
+  destructive: false
+  confirmation_required_for:
+    - running long-lived watchers
+guardrails:
+  - Stop watchers before running final validation commands.

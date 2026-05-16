@@ -1,0 +1,30 @@
+name: cmake
+binary: cmake
+aliases: []
+category: build
+summary: Cross-platform build system generator.
+homepage: https://github.com/Kitware/CMake
+docs: https://cmake.org/cmake/help/latest/
+detect:
+  version_args: ["--version"]
+  local:
+    files: ["CMakeLists.txt", "CMakePresets.json", "CMakeUserPresets.json"]
+    dirs: ["cmake"]
+    package_json:
+      package_manager_prefixes: []
+use_when:
+  - Configure, build, or test CMake projects
+avoid_when:
+  - The project uses another build system and has no CMake files
+risk:
+  level: medium
+  effects:
+    - execute_code
+    - network_access
+    - write_files
+  requires_auth: false
+  destructive: false
+  confirmation_required_for:
+    - installing build artifacts
+guardrails:
+  - Use out-of-tree build directories or configured presets.

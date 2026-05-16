@@ -1,0 +1,27 @@
+name: bat
+binary: bat
+aliases: ["batcat"]
+category: file-viewer
+summary: Syntax-highlighted cat replacement for reading files.
+homepage: https://github.com/sharkdp/bat
+docs: https://github.com/sharkdp/bat#readme
+detect:
+  version_args: ["--version"]
+  local:
+    files: []
+    dirs: []
+    package_json:
+      package_manager_prefixes: []
+use_when:
+  - Read source files with line numbers and syntax highlighting
+avoid_when:
+  - Output must be plain machine-readable text
+risk:
+  level: low
+  effects:
+    - read_files
+  requires_auth: false
+  destructive: false
+  confirmation_required_for: []
+guardrails:
+  - Disable decorations when piping output into another parser.

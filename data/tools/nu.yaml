@@ -1,0 +1,30 @@
+name: nu
+binary: nu
+aliases: ["nushell"]
+category: shell
+summary: Structured shell and scripting language.
+homepage: https://github.com/nushell/nushell
+docs: https://www.nushell.sh/book/
+detect:
+  version_args: ["--version"]
+  local:
+    files: []
+    dirs: [".config/nushell"]
+    package_json:
+      package_manager_prefixes: []
+use_when:
+  - Work with structured shell pipelines and tables
+avoid_when:
+  - Scripts must run in POSIX sh, Bash, or PowerShell
+risk:
+  level: medium
+  effects:
+    - execute_code
+    - read_files
+    - write_files
+  requires_auth: false
+  destructive: false
+  confirmation_required_for:
+    - running untrusted scripts
+guardrails:
+  - Do not assume Nushell syntax works in Bash or PowerShell.

@@ -1,0 +1,30 @@
+name: hyperfine
+binary: hyperfine
+aliases: []
+category: benchmark
+summary: Command-line benchmarking tool.
+homepage: https://github.com/sharkdp/hyperfine
+docs: https://github.com/sharkdp/hyperfine#readme
+detect:
+  version_args: ["--version"]
+  local:
+    files: []
+    dirs: []
+    package_json:
+      package_manager_prefixes: []
+use_when:
+  - Compare command performance with statistically useful runs
+avoid_when:
+  - The command has irreversible side effects
+risk:
+  level: medium
+  effects:
+    - execute_code
+    - read_files
+    - write_files
+  requires_auth: false
+  destructive: false
+  confirmation_required_for:
+    - benchmarking mutating commands
+guardrails:
+  - Benchmark commands should be repeatable and side-effect controlled.
