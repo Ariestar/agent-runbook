@@ -147,17 +147,15 @@ pub fn run_local_checks(tool: &ToolSpec, cwd: &Path) -> Vec<Fact> {
         .package_json
         .package_manager_prefixes
         .is_empty()
+        && let Some(package_json) = read_package_json(cwd)
+        && let Some(value) = package_json.get("packageManager").and_then(Value::as_str)
     {
-        if let Some(package_json) = read_package_json(cwd) {
-            if let Some(value) = package_json.get("packageManager").and_then(Value::as_str) {
-                for prefix in &tool.detect.local.package_json.package_manager_prefixes {
-                    if value.starts_with(prefix) {
-                        facts.push(local_fact(
-                            tool,
-                            format!("package.json packageManager={value}"),
-                        ));
-                    }
-                }
+        for prefix in &tool.detect.local.package_json.package_manager_prefixes {
+            if value.starts_with(prefix) {
+                facts.push(local_fact(
+                    tool,
+                    format!("package.json packageManager={value}"),
+                ));
             }
         }
     }

@@ -13,6 +13,9 @@ fn main() {
         CommandArgs::Help => {
             println!("{}", cli::help_text());
         }
+        CommandArgs::Version => {
+            println!("runbook {}", env!("CARGO_PKG_VERSION"));
+        }
         CommandArgs::Invalid(reason) => {
             eprintln!("{reason}\n\n{}", cli::help_text());
             std::process::exit(1);

@@ -5,26 +5,32 @@ description: Use before coding, debugging, build, test, deployment, infrastructu
 
 # Runbook Skill
 
-Run `runbook scan` before non-trivial repository work and turn the result into a task-local operating contract. The CLI owns environment discovery; this skill owns agent behavior.
+Run `runbook --version` and `runbook scan` before non-trivial repository work, then turn the result into a task-local operating contract. The CLI owns environment discovery; this skill owns agent behavior.
 
 ## Workflow
 
 1. Start in the repository or task directory.
-2. Run:
+2. Check the installed CLI version:
+
+```bash
+runbook --version
+```
+
+3. Run:
 
 ```bash
 runbook scan
 ```
 
-3. Interpret the output:
+4. Interpret the output:
    - `Local Requirements`: project-implied tools and workflows.
    - `Global Tools`: commands available on this machine.
    - `Recommended Operating Guardrails`: constraints to follow during the task.
    - `Warnings`: missing tools or risky inconsistencies.
-4. Prefer local requirements over globally available alternatives.
-5. Do not mix package managers, build systems, test runners, deployment tools, or infrastructure tools unless the user explicitly asks.
-6. Treat high-risk categories as confirmation-gated before mutation: cloud, infra, database, secrets, security scanners that may expose secrets, deployment, remote write, and destructive file operations.
-7. Continue with the user's task using the derived contract.
+5. Prefer local requirements over globally available alternatives.
+6. Do not mix package managers, build systems, test runners, deployment tools, or infrastructure tools unless the user explicitly asks.
+7. Treat high-risk categories as confirmation-gated before mutation: cloud, infra, database, secrets, security scanners that may expose secrets, deployment, remote write, and destructive file operations.
+8. Continue with the user's task using the derived contract.
 
 ## Operating Contract
 

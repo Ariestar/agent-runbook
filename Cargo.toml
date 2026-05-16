@@ -1,6 +1,6 @@
 [package]
 name = "agent-runbook"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2024"
 description = "Generate a local runbook for AI coding agents."
 license = "MIT"

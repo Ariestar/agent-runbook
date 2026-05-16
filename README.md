@@ -9,6 +9,7 @@ cargo install agent-runbook
 runbook scan
 runbook scan --global
 runbook scan --local
+runbook --version
 ```
 
 ## Skill

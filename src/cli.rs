@@ -3,6 +3,7 @@ use crate::scan::ScanMode;
 #[derive(Debug, PartialEq, Eq)]
 pub enum CommandArgs {
     Help,
+    Version,
     Invalid(String),
     Scan { mode: ScanMode },
 }
@@ -15,6 +16,10 @@ pub fn parse_args(args: impl IntoIterator<Item = String>) -> CommandArgs {
 
     if command == "help" || command == "--help" || command == "-h" {
         return CommandArgs::Help;
+    }
+
+    if command == "version" || command == "--version" || command == "-V" {
+        return CommandArgs::Version;
     }
 
     if command != "scan" {
@@ -48,7 +53,7 @@ pub fn parse_args(args: impl IntoIterator<Item = String>) -> CommandArgs {
 }
 
 pub fn help_text() -> &'static str {
-    "Usage:\n  runbook scan          Scan this machine and the current project\n  runbook scan --global Scan only machine-level tools\n  runbook scan --local  Scan only current-project requirements"
+    "Usage:\n  runbook scan          Scan this machine and the current project\n  runbook scan --global Scan only machine-level tools\n  runbook scan --local  Scan only current-project requirements\n  runbook --version     Print the runbook version"
 }
 
 #[cfg(test)]
@@ -91,5 +96,21 @@ mod tests {
             ),
             CommandArgs::Invalid(_)
         ));
+    }
+
+    #[test]
+    fn version_command_is_supported() {
+        assert_eq!(
+            parse_args(["--version"].into_iter().map(String::from)),
+            CommandArgs::Version
+        );
+        assert_eq!(
+            parse_args(["version"].into_iter().map(String::from)),
+            CommandArgs::Version
+        );
+        assert_eq!(
+            parse_args(["-V"].into_iter().map(String::from)),
+            CommandArgs::Version
+        );
     }
 }
