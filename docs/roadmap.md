@@ -39,15 +39,20 @@ It should validate YAML cards with clearer errors than build-time panics:
 
 ### Scan performance
 
-Current global scanning is slow because it checks every registry tool and runs version commands for installed tools. Improve this before expanding the registry much further.
+Current global scanning is slow because it checks every registry tool. `scan --minimal` skips version commands, but it still resolves each candidate binary/alias through the system command resolver.
+
+Observed on Windows:
+
+- `scan --local --minimal` is fast because it only checks project files.
+- `scan --global --minimal` remains slow because it runs `where.exe` for every tool and alias.
+- Batched `where.exe tool1 tool2 ...` did not improve runtime in local testing; it appears to still resolve each argument internally and emits many miss messages.
 
 Candidate fixes:
 
-- Cache global scan results for a short TTL.
-- Add a fast mode that checks command availability without running version commands.
-- Avoid shelling out once per tool where possible. On Windows, prefer a single PATH index over repeated `where` calls.
-- Add per-command timeouts so slow or hanging version commands cannot dominate scan time.
-- Consider making `scan --minimal` skip version probing by default.
+- Avoid shelling out once per tool where possible. On Windows, either use a faster resolver than repeated `where.exe` or maintain a PATH/shim index that matches command-resolution semantics closely enough for agent use.
+- Consider a two-tier resolver: fast availability scan by indexed PATH/shims, with slower system resolution only for ambiguous or high-value misses.
+- Make normal `scan` version probing optional or bounded by per-command timeouts; version data is useful for debugging but should not dominate preflight.
+- Cache global scan results for a short TTL because installed tools rarely change during one agent session.
 
 ## Research track
 

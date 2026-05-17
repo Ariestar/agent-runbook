@@ -150,7 +150,7 @@ fn candidate(
     category: &str,
     lang: Option<&str>,
 ) -> ToolCandidate {
-    let fact = run_global_checks(tool).into_iter().next();
+    let fact = run_global_checks(tool, true).into_iter().next();
     let availability = match fact {
         Some(fact) if fact.status == Status::Found => Availability::Found {
             command: fact.command.unwrap_or_else(|| tool.binary.clone()),

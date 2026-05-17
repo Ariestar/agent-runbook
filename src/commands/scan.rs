@@ -21,7 +21,7 @@ pub fn scan(command: ScanCommand) -> ScanResult {
 
     for tool in &registry {
         if include_global {
-            facts.extend(run_global_checks(tool));
+            facts.extend(run_global_checks(tool, !command.input.minimal));
         }
 
         if include_local {

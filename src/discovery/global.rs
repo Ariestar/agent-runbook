@@ -66,7 +66,7 @@ pub fn machine_facts() -> Vec<Fact> {
     facts
 }
 
-pub fn run_global_checks(tool: &ToolSpec) -> Vec<Fact> {
+pub fn run_global_checks(tool: &ToolSpec, include_version: bool) -> Vec<Fact> {
     let command_names =
         std::iter::once(tool.binary.as_str()).chain(tool.aliases.iter().map(String::as_str));
     let mut checked = Vec::new();
@@ -89,7 +89,9 @@ pub fn run_global_checks(tool: &ToolSpec) -> Vec<Fact> {
                 guardrails: tool.guardrails.clone(),
                 requires_global_command: false,
             };
-            with_version(&mut fact, command_name, &tool.detect.version_args);
+            if include_version {
+                with_version(&mut fact, command_name, &tool.detect.version_args);
+            }
             return vec![fact];
         }
     }
