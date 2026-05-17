@@ -1,0 +1,6 @@
+schema: 1
+preferences:
+- category: shell
+  lang: all
+  tool: brush
+  reason: This repository prefers brush for Unix-style shell commands on Windows; use PowerShell only when a command specifically requires Windows/PowerShell semantics.
