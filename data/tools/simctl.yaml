@@ -7,6 +7,9 @@ category:
 - device
 lang:
 - all
+platform:
+- ios
+- macos
 summary: Apple simulator control CLI, usually invoked as `xcrun simctl`.
 homepage: https://developer.apple.com/documentation/xcode/simctl
 docs: https://developer.apple.com/documentation/xcode/simctl

@@ -8,6 +8,11 @@ category:
 lang:
 - swift
 - objective-c
+platform:
+- ios
+- macos
+- watchos
+- tvos
 summary: Xcode command-line build and test tool for Apple platforms.
 homepage: https://developer.apple.com/xcode/
 docs: https://developer.apple.com/library/archive/technotes/tn2339/_index.html

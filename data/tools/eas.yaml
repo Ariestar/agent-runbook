@@ -8,6 +8,9 @@ category:
 lang:
 - javascript
 - typescript
+platform:
+- android
+- ios
 summary: Expo Application Services CLI for cloud builds, submissions, updates, and credentials.
 homepage: https://expo.dev/eas
 docs: https://docs.expo.dev/eas/

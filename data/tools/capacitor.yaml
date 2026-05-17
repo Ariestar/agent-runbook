@@ -8,6 +8,10 @@ category:
 lang:
 - javascript
 - typescript
+platform:
+- android
+- ios
+- web
 summary: Capacitor CLI for syncing web apps into native Android and iOS projects.
 homepage: https://capacitorjs.com/
 docs: https://capacitorjs.com/docs/cli

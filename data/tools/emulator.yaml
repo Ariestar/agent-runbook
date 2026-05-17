@@ -6,6 +6,8 @@ category:
 - simulator
 lang:
 - all
+platform:
+- android
 summary: Android Emulator CLI for listing and launching Android virtual devices.
 homepage: https://developer.android.com/studio/run/emulator-commandline
 docs: https://developer.android.com/studio/run/emulator-commandline

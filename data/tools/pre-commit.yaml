@@ -7,6 +7,8 @@ category:
 - test
 lang:
 - all
+platform:
+- local
 summary: Framework for running repository-defined checks before commits.
 homepage: https://github.com/pre-commit/pre-commit
 docs: https://pre-commit.com/

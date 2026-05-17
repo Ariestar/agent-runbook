@@ -8,6 +8,11 @@ category:
 - mobile
 lang:
 - dart
+platform:
+- android
+- ios
+- web
+- desktop
 summary: Flutter SDK CLI for building, testing, and running Dart applications across mobile, web, and desktop.
 homepage: https://flutter.dev/
 docs: https://docs.flutter.dev/reference/flutter-cli

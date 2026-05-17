@@ -6,6 +6,9 @@ category:
 - api
 lang:
 - all
+platform:
+- local
+- network
 summary: Command-line client and relay for WebSocket connections.
 homepage: https://github.com/vi/websocat
 docs: https://github.com/vi/websocat#readme

@@ -7,6 +7,8 @@ category:
 - terminal
 lang:
 - all
+platform:
+- local
 summary: Local daemon and CLI for supervising AI coding agents, worktrees, schedules, and terminals.
 homepage: https://github.com/mariozechner/pi-coding-agent
 docs: https://github.com/mariozechner/pi-coding-agent

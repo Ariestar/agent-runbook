@@ -6,6 +6,8 @@ category:
 - text
 lang:
 - markdown
+platform:
+- local
 summary: Universal document converter for Markdown, HTML, DOCX, LaTeX, and more.
 homepage: https://pandoc.org/
 docs: https://pandoc.org/MANUAL.html

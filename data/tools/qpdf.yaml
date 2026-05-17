@@ -6,6 +6,8 @@ category:
 - file-viewer
 lang:
 - all
+platform:
+- local
 summary: Command-line tool for inspecting, transforming, splitting, and repairing PDF files.
 homepage: https://github.com/qpdf/qpdf
 docs: https://qpdf.readthedocs.io/

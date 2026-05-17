@@ -12,6 +12,8 @@ struct ToolCard {
     aliases: Vec<String>,
     category: Vec<String>,
     lang: Vec<String>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    platform: Vec<String>,
     summary: String,
     homepage: String,
     docs: String,
@@ -135,6 +137,15 @@ fn validate_card(path: &Path, card: &ToolCard) {
     }
     if card.lang.is_empty() || card.lang.iter().any(|value| value.trim().is_empty()) {
         panic!("{}: lang must contain at least one value", path.display());
+    }
+    let mut platforms = HashSet::new();
+    for platform in &card.platform {
+        if platform.trim().is_empty() {
+            panic!("{}: platform values must not be empty", path.display());
+        }
+        if !platforms.insert(platform) {
+            panic!("{}: duplicate platform '{}'", path.display(), platform);
+        }
     }
     if card.lang.iter().any(|value| value == "all") && card.lang.len() > 1 {
         panic!(

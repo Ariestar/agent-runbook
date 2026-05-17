@@ -63,6 +63,9 @@
     "lang": [
       "all"
     ],
+    "platform": [
+      "android"
+    ],
     "summary": "Android Debug Bridge for interacting with Android devices and emulators.",
     "homepage": "https://developer.android.com/tools/adb",
     "docs": "https://developer.android.com/tools/adb",
@@ -1052,6 +1055,11 @@
     "lang": [
       "javascript",
       "typescript"
+    ],
+    "platform": [
+      "android",
+      "ios",
+      "web"
     ],
     "summary": "Capacitor CLI for syncing web apps into native Android and iOS projects.",
     "homepage": "https://capacitorjs.com/",
@@ -2661,6 +2669,10 @@
       "javascript",
       "typescript"
     ],
+    "platform": [
+      "android",
+      "ios"
+    ],
     "summary": "Expo Application Services CLI for cloud builds, submissions, updates, and credentials.",
     "homepage": "https://expo.dev/eas",
     "docs": "https://docs.expo.dev/eas/",
@@ -2715,6 +2727,9 @@
     ],
     "lang": [
       "all"
+    ],
+    "platform": [
+      "android"
     ],
     "summary": "Android Emulator CLI for listing and launching Android virtual devices.",
     "homepage": "https://developer.android.com/studio/run/emulator-commandline",
@@ -2824,6 +2839,11 @@
       "javascript",
       "typescript"
     ],
+    "platform": [
+      "android",
+      "ios",
+      "web"
+    ],
     "summary": "Expo CLI for developing, prebuilding, and running React Native apps.",
     "homepage": "https://expo.dev/",
     "docs": "https://docs.expo.dev/more/expo-cli/",
@@ -2924,6 +2944,10 @@
     ],
     "lang": [
       "ruby"
+    ],
+    "platform": [
+      "android",
+      "ios"
     ],
     "summary": "Automation CLI for mobile build, signing, beta distribution, and app store release workflows.",
     "homepage": "https://fastlane.tools/",
@@ -3137,6 +3161,12 @@
     ],
     "lang": [
       "dart"
+    ],
+    "platform": [
+      "android",
+      "ios",
+      "web",
+      "desktop"
     ],
     "summary": "Flutter SDK CLI for building, testing, and running Dart applications across mobile, web, and desktop.",
     "homepage": "https://flutter.dev/",
@@ -4372,6 +4402,9 @@
     ],
     "lang": [
       "all"
+    ],
+    "platform": [
+      "local"
     ],
     "summary": "ImageMagick CLI suite for inspecting, converting, and transforming images.",
     "homepage": "https://imagemagick.org/",
@@ -5778,6 +5811,9 @@
     "lang": [
       "all"
     ],
+    "platform": [
+      "network"
+    ],
     "summary": "HTTP load generator and benchmark tool.",
     "homepage": "https://github.com/hatoo/oha",
     "docs": "https://github.com/hatoo/oha#readme",
@@ -6029,6 +6065,9 @@
     "lang": [
       "markdown"
     ],
+    "platform": [
+      "local"
+    ],
     "summary": "Universal document converter for Markdown, HTML, DOCX, LaTeX, and more.",
     "homepage": "https://pandoc.org/",
     "docs": "https://pandoc.org/MANUAL.html",
@@ -6078,6 +6117,9 @@
     ],
     "lang": [
       "all"
+    ],
+    "platform": [
+      "local"
     ],
     "summary": "Local daemon and CLI for supervising AI coding agents, worktrees, schedules, and terminals.",
     "homepage": "https://github.com/mariozechner/pi-coding-agent",
@@ -6134,6 +6176,9 @@
     "lang": [
       "all"
     ],
+    "platform": [
+      "local"
+    ],
     "summary": "Poppler CLI for rendering PDF pages to image files.",
     "homepage": "https://poppler.freedesktop.org/",
     "docs": "https://www.mankier.com/1/pdftoppm",
@@ -6182,6 +6227,9 @@
     ],
     "lang": [
       "all"
+    ],
+    "platform": [
+      "local"
     ],
     "summary": "Poppler CLI for extracting text from PDF files.",
     "homepage": "https://poppler.freedesktop.org/",
@@ -6333,6 +6381,9 @@
     ],
     "lang": [
       "python"
+    ],
+    "platform": [
+      "local"
     ],
     "summary": "Python dependency vulnerability scanner from PyPA.",
     "homepage": "https://github.com/pypa/pip-audit",
@@ -6548,6 +6599,10 @@
       "swift",
       "objective-c"
     ],
+    "platform": [
+      "ios",
+      "macos"
+    ],
     "summary": "CocoaPods dependency manager CLI for Apple platform projects.",
     "homepage": "https://cocoapods.org/",
     "docs": "https://guides.cocoapods.org/terminal/commands.html",
@@ -6709,6 +6764,9 @@
     ],
     "lang": [
       "all"
+    ],
+    "platform": [
+      "local"
     ],
     "summary": "Framework for running repository-defined checks before commits.",
     "homepage": "https://github.com/pre-commit/pre-commit",
@@ -7183,6 +7241,9 @@
     ],
     "lang": [
       "all"
+    ],
+    "platform": [
+      "local"
     ],
     "summary": "Command-line tool for inspecting, transforming, splitting, and repairing PDF files.",
     "homepage": "https://github.com/qpdf/qpdf",
@@ -7892,6 +7953,9 @@
     "lang": [
       "shell"
     ],
+    "platform": [
+      "local"
+    ],
     "summary": "Static analysis tool for shell scripts.",
     "homepage": "https://github.com/koalaman/shellcheck",
     "docs": "https://www.shellcheck.net/wiki/Home",
@@ -7939,6 +8003,10 @@
     ],
     "lang": [
       "all"
+    ],
+    "platform": [
+      "ios",
+      "macos"
     ],
     "summary": "Apple simulator control CLI, usually invoked as `xcrun simctl`.",
     "homepage": "https://developer.apple.com/documentation/xcode/simctl",
@@ -8625,6 +8693,9 @@
     ],
     "lang": [
       "all"
+    ],
+    "platform": [
+      "local"
     ],
     "summary": "OCR engine CLI for extracting text from images and scanned documents.",
     "homepage": "https://github.com/tesseract-ocr/tesseract",
@@ -9632,6 +9703,10 @@
     "lang": [
       "all"
     ],
+    "platform": [
+      "local",
+      "network"
+    ],
     "summary": "Command-line client and relay for WebSocket connections.",
     "homepage": "https://github.com/vi/websocat",
     "docs": "https://github.com/vi/websocat#readme",
@@ -9741,6 +9816,12 @@
     "lang": [
       "swift",
       "objective-c"
+    ],
+    "platform": [
+      "ios",
+      "macos",
+      "watchos",
+      "tvos"
     ],
     "summary": "Xcode command-line build and test tool for Apple platforms.",
     "homepage": "https://developer.apple.com/xcode/",

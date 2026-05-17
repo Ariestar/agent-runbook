@@ -7,6 +7,8 @@ category:
 - text
 lang:
 - all
+platform:
+- local
 summary: OCR engine CLI for extracting text from images and scanned documents.
 homepage: https://github.com/tesseract-ocr/tesseract
 docs: https://tesseract-ocr.github.io/tessdoc/Command-Line-Usage.html

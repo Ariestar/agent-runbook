@@ -5,6 +5,8 @@ category:
 - lint
 lang:
 - shell
+platform:
+- local
 summary: Static analysis tool for shell scripts.
 homepage: https://github.com/koalaman/shellcheck
 docs: https://www.shellcheck.net/wiki/Home

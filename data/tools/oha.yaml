@@ -6,6 +6,8 @@ category:
 - network
 lang:
 - all
+platform:
+- network
 summary: HTTP load generator and benchmark tool.
 homepage: https://github.com/hatoo/oha
 docs: https://github.com/hatoo/oha#readme

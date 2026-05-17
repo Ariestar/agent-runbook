@@ -7,6 +7,8 @@ category:
 - docs
 lang:
 - all
+platform:
+- local
 summary: ImageMagick CLI suite for inspecting, converting, and transforming images.
 homepage: https://imagemagick.org/
 docs: https://imagemagick.org/script/command-line-processing.php

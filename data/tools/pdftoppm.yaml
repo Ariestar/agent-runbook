@@ -6,6 +6,8 @@ category:
 - file-viewer
 lang:
 - all
+platform:
+- local
 summary: Poppler CLI for rendering PDF pages to image files.
 homepage: https://poppler.freedesktop.org/
 docs: https://www.mankier.com/1/pdftoppm

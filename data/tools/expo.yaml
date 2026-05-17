@@ -8,6 +8,10 @@ category:
 lang:
 - javascript
 - typescript
+platform:
+- android
+- ios
+- web
 summary: Expo CLI for developing, prebuilding, and running React Native apps.
 homepage: https://expo.dev/
 docs: https://docs.expo.dev/more/expo-cli/

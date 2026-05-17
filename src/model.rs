@@ -10,6 +10,8 @@ pub struct ToolSpec {
     pub aliases: Vec<String>,
     pub category: Vec<String>,
     pub lang: Vec<String>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub platform: Vec<String>,
     pub summary: String,
     pub homepage: String,
     pub docs: String,
@@ -207,6 +209,7 @@ pub struct ToolCandidate {
     pub binary: String,
     pub aliases: Vec<String>,
     pub langs: Vec<String>,
+    pub platforms: Vec<String>,
     pub summary: String,
     pub docs: String,
     pub homepage: String,

@@ -78,6 +78,7 @@ function filteredTools() {
       tool.binary,
       ...(tool.category || []),
       ...(tool.lang || []),
+      ...(tool.platform || []),
       tool.summary,
       ...(tool.use_when || []),
       ...(tool.avoid_when || []),
@@ -101,7 +102,8 @@ function renderCard(tool) {
   card.querySelector("h3").textContent = tool.name;
   card.querySelector(".binary").textContent = `$ ${tool.binary}`;
   card.querySelector(".summary").textContent = tool.summary;
-  card.querySelector(".meta").textContent = `${(tool.category || []).join(", ")} · ${(tool.lang || []).join(", ")}`;
+  const platform = (tool.platform || []).length ? ` · ${(tool.platform || []).join(", ")}` : "";
+  card.querySelector(".meta").textContent = `${(tool.category || []).join(", ")} · ${(tool.lang || []).join(", ")}${platform}`;
 
   const risk = card.querySelector(".risk");
   risk.textContent = tool.risk.level;

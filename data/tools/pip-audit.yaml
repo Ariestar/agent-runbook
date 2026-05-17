@@ -5,6 +5,8 @@ category:
 - security
 lang:
 - python
+platform:
+- local
 summary: Python dependency vulnerability scanner from PyPA.
 homepage: https://github.com/pypa/pip-audit
 docs: https://github.com/pypa/pip-audit#readme

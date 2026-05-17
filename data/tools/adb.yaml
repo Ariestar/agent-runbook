@@ -7,6 +7,8 @@ category:
 - debug
 lang:
 - all
+platform:
+- android
 summary: Android Debug Bridge for interacting with Android devices and emulators.
 homepage: https://developer.android.com/tools/adb
 docs: https://developer.android.com/tools/adb

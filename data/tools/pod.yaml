@@ -8,6 +8,9 @@ category:
 lang:
 - swift
 - objective-c
+platform:
+- ios
+- macos
 summary: CocoaPods dependency manager CLI for Apple platform projects.
 homepage: https://cocoapods.org/
 docs: https://guides.cocoapods.org/terminal/commands.html

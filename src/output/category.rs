@@ -85,13 +85,20 @@ fn render_tool_candidate(tool: &ToolCandidate) -> Vec<String> {
         format!("; aliases: {}", tool.aliases.join(", "))
     };
 
+    let platform = if tool.platforms.is_empty() {
+        String::new()
+    } else {
+        format!("; platform: {}", tool.platforms.join(", "))
+    };
+
     let mut lines = vec![
         format!("- {} [{}]: {}", tool.name, status, compact(&tool.summary)),
         format!(
-            "  binary: {}; lang: {}; risk: {}{}",
+            "  binary: {}; lang: {}; risk: {}{}{}",
             tool.binary,
             tool.langs.join(", "),
             tool.risk.level,
+            platform,
             aliases
         ),
     ];

@@ -7,6 +7,9 @@ category:
 - signing
 lang:
 - ruby
+platform:
+- android
+- ios
 summary: Automation CLI for mobile build, signing, beta distribution, and app store release workflows.
 homepage: https://fastlane.tools/
 docs: https://docs.fastlane.tools/
