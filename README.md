@@ -19,7 +19,7 @@ runbook prefer unset test --lang rust
 runbook --version
 ```
 
-`runbook scan` is fact-only. Repository tool preferences are stored explicitly in `.runbook/preferences.yaml` through `runbook prefer`, then surfaced by `runbook category` as preferred candidates.
+`runbook scan` is fact-only. Repository tool preferences are stored explicitly in `.runbook/preferences.yaml` through `runbook prefer`, then surfaced by `runbook category` as preferred candidates. Category results are sorted by repository preference, installed availability, language fit, risk, and name.
 
 ## Skill
 

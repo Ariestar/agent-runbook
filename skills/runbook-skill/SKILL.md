@@ -107,7 +107,7 @@ Mention the contract to the user only when it changes the plan, explains a tool 
 ## Preference Rules
 
 - `runbook scan` is fact-only; do not expect it to read or display preferences.
-- `runbook category <category>... --lang <lang>` marks and sorts preferred tools from `.runbook/preferences.yaml`.
+- `runbook category <category>... --lang <lang>` marks preferred tools from `.runbook/preferences.yaml`, then sorts candidates by preference, installed availability, language fit, risk, and name.
 - Use `runbook prefer` to read existing repository preferences before recommending a durable tool choice.
 - Do not call `runbook prefer set` unless the user explicitly confirms the preference or directly asks you to record it.
 - The reason must be human-readable and repository-specific, such as why this repo uses `cargo-nextest` over `cargo test`.

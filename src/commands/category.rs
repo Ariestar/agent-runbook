@@ -81,8 +81,51 @@ fn candidates(
         .map(|tool| candidate(tool, preferences, category, lang))
         .collect();
 
-    tools.sort_by_key(|tool| tool.preference.is_none());
+    sort_candidates(&mut tools, lang);
     tools
+}
+
+fn sort_candidates(tools: &mut [ToolCandidate], lang: Option<&str>) {
+    tools.sort_by_key(|tool| {
+        (
+            tool.preference.is_none(),
+            availability_rank(&tool.availability),
+            language_rank(&tool.langs, lang),
+            risk_rank(&tool.risk.level),
+            tool.name.to_ascii_lowercase(),
+        )
+    });
+}
+
+fn availability_rank(availability: &Availability) -> u8 {
+    match availability {
+        Availability::Found { .. } => 0,
+        Availability::Missing { .. } => 1,
+    }
+}
+
+fn language_rank(langs: &[String], lang: Option<&str>) -> u8 {
+    let Some(lang) = lang else {
+        return 0;
+    };
+
+    if langs.iter().any(|value| value.eq_ignore_ascii_case(lang)) {
+        0
+    } else if langs.iter().any(|value| value == "all") {
+        1
+    } else {
+        2
+    }
+}
+
+fn risk_rank(level: &str) -> u8 {
+    match level {
+        "low" => 0,
+        "medium" => 1,
+        "high" => 2,
+        "critical" => 3,
+        _ => 4,
+    }
 }
 
 fn supports_lang(tool: &ToolSpec, lang: &str) -> bool {
@@ -132,5 +175,142 @@ fn candidate(
             &tool.binary,
             &tool.aliases,
         ),
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use crate::model::{RiskSpec, ToolPreference};
+
+    #[test]
+    fn sorting_prioritizes_preferences_then_available_tools() {
+        let mut tools = vec![
+            tool(
+                "ast-grep",
+                Availability::Missing {
+                    checked: "not found".to_string(),
+                },
+            ),
+            tool(
+                "rg",
+                Availability::Found {
+                    command: "rg".to_string(),
+                    version: None,
+                },
+            ),
+            tool(
+                "cargo-nextest",
+                Availability::Missing {
+                    checked: "not found".to_string(),
+                },
+            )
+            .with_preference(),
+        ];
+
+        sort_candidates(&mut tools, Some("rust"));
+
+        assert_eq!(
+            tools
+                .iter()
+                .map(|tool| tool.name.as_str())
+                .collect::<Vec<_>>(),
+            vec!["cargo-nextest", "rg", "ast-grep"]
+        );
+    }
+
+    #[test]
+    fn sorting_prefers_language_specific_and_lower_risk_tools() {
+        let mut tools = vec![
+            tool(
+                "docker",
+                Availability::Found {
+                    command: "docker".to_string(),
+                    version: None,
+                },
+            )
+            .with_langs(["all"])
+            .with_risk("high"),
+            tool(
+                "cargo",
+                Availability::Found {
+                    command: "cargo".to_string(),
+                    version: None,
+                },
+            )
+            .with_langs(["rust"])
+            .with_risk("medium"),
+            tool(
+                "fd",
+                Availability::Found {
+                    command: "fd".to_string(),
+                    version: None,
+                },
+            )
+            .with_langs(["all"])
+            .with_risk("low"),
+        ];
+
+        sort_candidates(&mut tools, Some("rust"));
+
+        assert_eq!(
+            tools
+                .iter()
+                .map(|tool| tool.name.as_str())
+                .collect::<Vec<_>>(),
+            vec!["cargo", "fd", "docker"]
+        );
+    }
+
+    fn tool(name: &str, availability: Availability) -> ToolCandidate {
+        ToolCandidate {
+            name: name.to_string(),
+            binary: name.to_string(),
+            aliases: Vec::new(),
+            langs: vec!["all".to_string()],
+            summary: String::new(),
+            docs: String::new(),
+            homepage: String::new(),
+            use_when: Vec::new(),
+            avoid_when: Vec::new(),
+            guardrails: Vec::new(),
+            risk: RiskSpec {
+                level: "medium".to_string(),
+                effects: Vec::new(),
+                requires_auth: false,
+                destructive: false,
+                confirmation_required_for: Vec::new(),
+            },
+            availability,
+            preference: None,
+        }
+    }
+
+    trait CandidateBuilder {
+        fn with_preference(self) -> ToolCandidate;
+        fn with_langs<const N: usize>(self, langs: [&str; N]) -> ToolCandidate;
+        fn with_risk(self, level: &str) -> ToolCandidate;
+    }
+
+    impl CandidateBuilder for ToolCandidate {
+        fn with_preference(mut self) -> ToolCandidate {
+            self.preference = Some(ToolPreference {
+                category: "test".to_string(),
+                lang: "rust".to_string(),
+                tool: self.name.clone(),
+                reason: "Repo preference".to_string(),
+            });
+            self
+        }
+
+        fn with_langs<const N: usize>(mut self, langs: [&str; N]) -> ToolCandidate {
+            self.langs = langs.into_iter().map(String::from).collect();
+            self
+        }
+
+        fn with_risk(mut self, level: &str) -> ToolCandidate {
+            self.risk.level = level.to_string();
+            self
+        }
     }
 }
