@@ -3,6 +3,7 @@ const state = {
   query: "",
   category: "",
   lang: "",
+  platform: "",
   risk: "",
 };
 
@@ -13,6 +14,7 @@ const els = {
   search: document.querySelector("#search"),
   category: document.querySelector("#category"),
   lang: document.querySelector("#lang"),
+  platform: document.querySelector("#platform"),
   risk: document.querySelector("#risk"),
   template: document.querySelector("#tool-card"),
 };
@@ -38,6 +40,11 @@ els.lang.addEventListener("change", () => {
   render();
 });
 
+els.platform.addEventListener("change", () => {
+  state.platform = els.platform.value;
+  render();
+});
+
 els.risk.addEventListener("change", () => {
   state.risk = els.risk.value;
   render();
@@ -60,6 +67,14 @@ function initFilters() {
     option.value = lang;
     option.textContent = lang;
     els.lang.append(option);
+  }
+
+  const platforms = [...new Set(state.tools.flatMap((tool) => tool.platform || []))].sort();
+  for (const platform of platforms) {
+    const option = document.createElement("option");
+    option.value = platform;
+    option.textContent = platform;
+    els.platform.append(option);
   }
 
   els.stats.textContent = `${state.tools.length} tools · YAML source · JSON runtime index`;
@@ -92,6 +107,7 @@ function filteredTools() {
       (!state.query || haystack.includes(state.query)) &&
       (!state.category || (tool.category || []).includes(state.category)) &&
       (!state.lang || (tool.lang || []).includes(state.lang)) &&
+      (!state.platform || (tool.platform || []).includes(state.platform)) &&
       (!state.risk || tool.risk?.level === state.risk)
     );
   });

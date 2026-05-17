@@ -39,6 +39,7 @@ pub fn run() -> Result<()> {
                     cwd,
                     categories: args.categories,
                     lang: args.lang,
+                    platform: args.platform,
                 },
             })?;
             println!("{}", output::render_category(&result));

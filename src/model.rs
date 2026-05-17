@@ -181,6 +181,7 @@ pub struct CategoryInput {
     pub cwd: PathBuf,
     pub categories: Vec<String>,
     pub lang: Option<String>,
+    pub platform: Option<String>,
 }
 
 pub enum CategoryResult {
@@ -189,6 +190,7 @@ pub enum CategoryResult {
     },
     Candidates {
         lang: Option<String>,
+        platform: Option<String>,
         categories: Vec<CategoryCandidates>,
     },
 }

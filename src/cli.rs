@@ -55,6 +55,9 @@ pub struct CategoryArgs {
     /// Include tools for this language plus cross-language tools.
     #[arg(long)]
     pub lang: Option<String>,
+    /// Include only tools for this platform.
+    #[arg(long)]
+    pub platform: Option<String>,
 }
 
 #[derive(Debug, Args)]

@@ -32,11 +32,13 @@ pub fn query_category(command: CategoryCommand) -> Result<CategoryResult> {
                         &preferences,
                         &name,
                         command.input.lang.as_deref(),
+                        command.input.platform.as_deref(),
                     ),
                     name,
                 })
                 .collect(),
             lang: command.input.lang,
+            platform: command.input.platform,
         })
     }
 }
@@ -69,6 +71,7 @@ fn candidates(
     preferences: &PreferenceFile,
     category: &str,
     lang: Option<&str>,
+    platform: Option<&str>,
 ) -> Vec<ToolCandidate> {
     let mut tools: Vec<ToolCandidate> = registry
         .iter()
@@ -78,6 +81,7 @@ fn candidates(
                 .any(|value| value.eq_ignore_ascii_case(category))
         })
         .filter(|tool| lang.is_none_or(|value| supports_lang(tool, value)))
+        .filter(|tool| platform.is_none_or(|value| supports_platform(tool, value)))
         .map(|tool| candidate(tool, preferences, category, lang))
         .collect();
 
@@ -132,6 +136,12 @@ fn supports_lang(tool: &ToolSpec, lang: &str) -> bool {
     tool.lang
         .iter()
         .any(|value| value == "all" || value.eq_ignore_ascii_case(lang))
+}
+
+fn supports_platform(tool: &ToolSpec, platform: &str) -> bool {
+    tool.platform
+        .iter()
+        .any(|value| value.eq_ignore_ascii_case(platform))
 }
 
 fn candidate(

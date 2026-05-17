@@ -5,9 +5,11 @@ use crate::model::{
 pub fn render_category(result: &CategoryResult) -> String {
     match result {
         CategoryResult::List { categories } => render_category_list(categories),
-        CategoryResult::Candidates { lang, categories } => {
-            render_category_candidates(categories, lang.as_deref())
-        }
+        CategoryResult::Candidates {
+            lang,
+            platform,
+            categories,
+        } => render_category_candidates(categories, lang.as_deref(), platform.as_deref()),
     }
 }
 
@@ -35,7 +37,11 @@ fn render_category_list(categories: &[CategorySummary]) -> String {
     lines.join("\n").trim_end().to_string()
 }
 
-fn render_category_candidates(categories: &[CategoryCandidates], lang: Option<&str>) -> String {
+fn render_category_candidates(
+    categories: &[CategoryCandidates],
+    lang: Option<&str>,
+    platform: Option<&str>,
+) -> String {
     let mut lines = vec![
         "Runbook Tool Candidates".to_string(),
         format!(
@@ -47,6 +53,7 @@ fn render_category_candidates(categories: &[CategoryCandidates], lang: Option<&s
                 .join(", ")
         ),
         format!("Language: {}", lang.unwrap_or("any")),
+        format!("Platform: {}", platform.unwrap_or("any")),
     ];
 
     for category in categories {
