@@ -24,7 +24,7 @@ Runbook scans the current project and machine before an AI coding agent starts c
 ```bash
 runbook scan
 runbook category test lint formatter --lang rust
-runbook prefer set shell --lang all --tool brush --reason "Use brush for Unix-style commands on Windows."
+runbook prefer set test --lang rust --tool cargo-nextest --reason "Use nextest for faster Rust test runs."
 ```
 
 ## Why Runbook?

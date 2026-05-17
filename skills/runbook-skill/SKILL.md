@@ -153,13 +153,13 @@ Useful starting queries:
 
 ## Tool Choice Rules
 
-- Use `rg` for repository text search when available.
-- Use the project's detected package manager; do not create a second lockfile.
-- Use project-local build/test scripts before inventing raw commands.
-- Use parser-aware or project-native tools for structured files when available.
-- Use simple replacement tools such as `sd` only for mechanical text changes.
-- Use `gh`, cloud CLIs, database CLIs, secrets tools, or deployment CLIs in read-only mode first; ask before remote writes or destructive actions.
-- On Windows, respect repository instructions for shell choice. If `brush` is available and requested, use it for Unix-style commands, but use PowerShell for Windows shim commands that fail under `brush`.
+- Choose tools from local project evidence, repository preferences, and task-relevant `runbook category` output.
+- Prefer project-local scripts and detected package managers over globally available alternatives.
+- Do not create a second lockfile or mix package managers unless the user explicitly asks.
+- Prefer structured or project-native tools for structured files when available.
+- For mechanical text edits, use a low-risk text replacement tool only after previewing matches.
+- For remote-write, cloud, database, secrets, deployment, or destructive operations, inspect in read-only mode first and ask before mutation.
+- Respect repository shell instructions and shell preferences. If the preferred shell cannot run a platform-specific shim or builtin, use the native shell for that command and explain why.
 
 ## Failure Handling
 
