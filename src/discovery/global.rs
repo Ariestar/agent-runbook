@@ -1,6 +1,6 @@
 use std::env;
 
-use crate::discovery::command::{resolve_command, run_command};
+use crate::discovery::command::{CommandIndex, run_command};
 use crate::model::{Fact, FactKind, Scope, Status, ToolSpec};
 
 pub fn machine_facts() -> Vec<Fact> {
@@ -66,14 +66,18 @@ pub fn machine_facts() -> Vec<Fact> {
     facts
 }
 
-pub fn run_global_checks(tool: &ToolSpec, include_version: bool) -> Vec<Fact> {
+pub fn run_global_checks(
+    tool: &ToolSpec,
+    command_index: &CommandIndex,
+    include_version: bool,
+) -> Vec<Fact> {
     let command_names =
         std::iter::once(tool.binary.as_str()).chain(tool.aliases.iter().map(String::as_str));
     let mut checked = Vec::new();
 
     for command_name in command_names {
         checked.push(command_name.to_string());
-        if let Some(resolved) = resolve_command(command_name) {
+        if let Some(resolved) = command_index.resolve(command_name) {
             let mut fact = Fact {
                 kind: FactKind::Tool,
                 scope: Scope::Global,

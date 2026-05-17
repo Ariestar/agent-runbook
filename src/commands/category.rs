@@ -1,5 +1,6 @@
 use std::collections::{BTreeMap, BTreeSet};
 
+use crate::discovery::command::CommandIndex;
 use crate::discovery::global::run_global_checks;
 use crate::error::Result;
 use crate::model::{
@@ -73,6 +74,7 @@ fn candidates(
     lang: Option<&str>,
     platform: Option<&str>,
 ) -> Vec<ToolCandidate> {
+    let command_index = CommandIndex::new();
     let mut tools: Vec<ToolCandidate> = registry
         .iter()
         .filter(|tool| {
@@ -82,7 +84,7 @@ fn candidates(
         })
         .filter(|tool| lang.is_none_or(|value| supports_lang(tool, value)))
         .filter(|tool| platform.is_none_or(|value| supports_platform(tool, value)))
-        .map(|tool| candidate(tool, preferences, category, lang))
+        .map(|tool| candidate(tool, preferences, &command_index, category, lang))
         .collect();
 
     sort_candidates(&mut tools, lang);
@@ -147,10 +149,13 @@ fn supports_platform(tool: &ToolSpec, platform: &str) -> bool {
 fn candidate(
     tool: &ToolSpec,
     preferences: &PreferenceFile,
+    command_index: &CommandIndex,
     category: &str,
     lang: Option<&str>,
 ) -> ToolCandidate {
-    let fact = run_global_checks(tool, true).into_iter().next();
+    let fact = run_global_checks(tool, command_index, true)
+        .into_iter()
+        .next();
     let availability = match fact {
         Some(fact) if fact.status == Status::Found => Availability::Found {
             command: fact.command.unwrap_or_else(|| tool.binary.clone()),

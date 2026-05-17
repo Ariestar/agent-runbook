@@ -1,3 +1,4 @@
+use crate::discovery::command::CommandIndex;
 use crate::discovery::global::{machine_facts, run_global_checks};
 use crate::discovery::local::run_local_checks;
 use crate::model::{
@@ -19,9 +20,15 @@ pub fn scan(command: ScanCommand) -> ScanResult {
         facts.extend(machine_facts());
     }
 
+    let command_index = include_global.then(CommandIndex::new);
+
     for tool in &registry {
-        if include_global {
-            facts.extend(run_global_checks(tool, !command.input.minimal));
+        if let Some(command_index) = &command_index {
+            facts.extend(run_global_checks(
+                tool,
+                command_index,
+                !command.input.minimal,
+            ));
         }
 
         if include_local {
