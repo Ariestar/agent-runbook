@@ -34,6 +34,12 @@ runbook scan --minimal
 runbook category
 ```
 
+If category arguments are unclear, ask the CLI for usage:
+
+```bash
+runbook category --help
+```
+
 5. Choose one or more functional categories from that output, infer the project language from the scan and repository files, then inspect candidates:
 
 ```bash

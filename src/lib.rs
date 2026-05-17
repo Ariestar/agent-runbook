@@ -19,6 +19,10 @@ pub fn run() -> Result<()> {
             println!("{}", cli::help_text());
             Ok(())
         }
+        CommandArgs::CategoryHelp => {
+            println!("{}", cli::category_help_text());
+            Ok(())
+        }
         CommandArgs::Version => {
             println!("runbook {}", env!("CARGO_PKG_VERSION"));
             Ok(())

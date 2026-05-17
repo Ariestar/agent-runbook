@@ -3,6 +3,7 @@ use crate::model::ScanMode;
 #[derive(Debug, PartialEq, Eq)]
 pub enum CommandArgs {
     Help,
+    CategoryHelp,
     Version,
     Invalid(String),
     Scan {
@@ -71,6 +72,7 @@ fn parse_category_args(mut args: impl Iterator<Item = String>) -> CommandArgs {
 
     while let Some(arg) = args.next() {
         match arg.as_str() {
+            "help" | "--help" | "-h" => return CommandArgs::CategoryHelp,
             "--lang" => {
                 let Some(value) = args.next() else {
                     return CommandArgs::Invalid("--lang requires a value.".to_string());
@@ -88,7 +90,11 @@ fn parse_category_args(mut args: impl Iterator<Item = String>) -> CommandArgs {
 }
 
 pub fn help_text() -> &'static str {
-    "Usage:\n  runbook scan                              Scan this machine and the current project\n  runbook scan --global                     Scan only machine-level tools\n  runbook scan --local                      Scan only current-project requirements\n  runbook scan --minimal                    Print only detected tool names\n  runbook category                          List tool categories\n  runbook category <category>               List tools in a category\n  runbook category <category>... --lang rust  Filter one or more categories by language\n  runbook --version                         Print the runbook version"
+    "Usage:\n  runbook scan                                Scan this machine and the current project\n  runbook scan --global                       Scan only machine-level tools\n  runbook scan --local                        Scan only current-project requirements\n  runbook scan --minimal                      Print only detected tool names\n  runbook category                            List tool categories\n  runbook category <category>                 List tools in a category\n  runbook category <category>... --lang rust  Filter one or more categories by language\n  runbook category --help                     Show category command help\n  runbook --version                           Print the runbook version"
+}
+
+pub fn category_help_text() -> &'static str {
+    "Usage:\n  runbook category\n  runbook category <category>\n  runbook category <category>... --lang <lang>\n\nPurpose:\n  List functional tool categories or inspect candidate tools for one or more categories.\n  Tools may belong to multiple categories, so query the category that matches the task.\n\nOptions:\n  --lang <lang>    Include tools for this language plus cross-language tools.\n  -h, --help       Show this help.\n\nExamples:\n  runbook category\n  runbook category search\n  runbook category test --lang rust\n  runbook category lint formatter --lang typescript"
 }
 
 #[cfg(test)]
@@ -160,6 +166,22 @@ mod tests {
         assert_eq!(
             parse_args(["-V"].into_iter().map(String::from)),
             CommandArgs::Version
+        );
+    }
+
+    #[test]
+    fn category_help_command_is_supported() {
+        assert_eq!(
+            parse_args(["category", "--help"].into_iter().map(String::from)),
+            CommandArgs::CategoryHelp
+        );
+        assert_eq!(
+            parse_args(["category", "-h"].into_iter().map(String::from)),
+            CommandArgs::CategoryHelp
+        );
+        assert_eq!(
+            parse_args(["category", "help"].into_iter().map(String::from)),
+            CommandArgs::CategoryHelp
         );
     }
 

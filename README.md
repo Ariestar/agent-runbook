@@ -11,6 +11,7 @@ runbook scan --global
 runbook scan --local
 runbook scan --minimal
 runbook category
+runbook category --help
 runbook category lint formatter --lang rust
 runbook --version
 ```
