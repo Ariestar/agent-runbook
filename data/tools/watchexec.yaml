@@ -1,7 +1,8 @@
 name: watchexec
 binary: watchexec
 aliases: []
-category: automation
+category:
+- automation
 lang:
 - all
 summary: Run commands when watched files change.

@@ -1,7 +1,8 @@
 name: vite
 binary: vite
 aliases: []
-category: build
+category:
+- build
 lang:
 - javascript
 - typescript

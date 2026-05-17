@@ -2,7 +2,8 @@ name: zoxide
 binary: zoxide
 aliases:
 - z
-category: shell
+category:
+- shell
 lang:
 - all
 summary: Smarter cd command based on frecency.

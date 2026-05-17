@@ -1,7 +1,8 @@
 name: fzf
 binary: fzf
 aliases: []
-category: search
+category:
+- search
 lang:
 - all
 summary: General-purpose command-line fuzzy finder.

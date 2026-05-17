@@ -1,7 +1,8 @@
 name: duckdb
 binary: duckdb
 aliases: []
-category: database
+category:
+- database
 lang:
 - sql
 summary: Embedded analytical database CLI.

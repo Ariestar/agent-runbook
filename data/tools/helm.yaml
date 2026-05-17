@@ -1,7 +1,8 @@
 name: helm
 binary: helm
 aliases: []
-category: kubernetes
+category:
+- kubernetes
 lang:
 - all
 summary: Kubernetes package manager for charts.

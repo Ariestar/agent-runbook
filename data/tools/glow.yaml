@@ -1,7 +1,8 @@
 name: glow
 binary: glow
 aliases: []
-category: docs
+category:
+- docs
 lang:
 - all
 summary: Terminal Markdown renderer.

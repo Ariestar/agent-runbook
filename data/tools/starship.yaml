@@ -1,7 +1,8 @@
 name: starship
 binary: starship
 aliases: []
-category: shell
+category:
+- shell
 lang:
 - all
 summary: Cross-shell prompt renderer.

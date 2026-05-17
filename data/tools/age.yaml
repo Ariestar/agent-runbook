@@ -1,7 +1,8 @@
 name: age
 binary: age
 aliases: []
-category: security
+category:
+- security
 lang:
 - all
 summary: Simple file encryption tool and format.

@@ -1,7 +1,8 @@
 name: cargo-clippy
 binary: cargo-clippy
 aliases: []
-category: lint
+category:
+- lint
 lang:
 - rust
 summary: Rust linter distributed as a Cargo subcommand.

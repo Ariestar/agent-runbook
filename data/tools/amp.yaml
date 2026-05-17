@@ -1,7 +1,8 @@
 name: amp
 binary: amp
 aliases: []
-category: agent
+category:
+- agent
 lang:
 - all
 summary: Terminal AI coding agent from Sourcegraph.

@@ -1,7 +1,8 @@
 name: curl
 binary: curl
 aliases: []
-category: network
+category:
+- network
 lang:
 - all
 summary: Command-line HTTP and network transfer client.

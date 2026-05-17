@@ -1,7 +1,8 @@
 name: supabase
 binary: supabase
 aliases: []
-category: cloud
+category:
+- cloud
 lang:
 - all
 summary: Supabase local development and project management CLI.

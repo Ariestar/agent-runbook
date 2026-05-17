@@ -1,7 +1,8 @@
 name: gcloud
 binary: gcloud
 aliases: []
-category: cloud
+category:
+- cloud
 lang:
 - all
 summary: Google Cloud command-line interface.

@@ -1,7 +1,8 @@
 name: node
 binary: node
 aliases: []
-category: runtime
+category:
+- runtime
 lang:
 - javascript
 - typescript

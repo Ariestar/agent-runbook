@@ -2,7 +2,8 @@ name: clickhouse
 binary: clickhouse
 aliases:
 - clickhouse-client
-category: database
+category:
+- database
 lang:
 - sql
 summary: ClickHouse command-line client and local database tooling.

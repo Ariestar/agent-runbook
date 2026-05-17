@@ -1,7 +1,8 @@
 name: cosign
 binary: cosign
 aliases: []
-category: security
+category:
+- security
 lang:
 - all
 summary: Container image and artifact signing CLI from Sigstore.

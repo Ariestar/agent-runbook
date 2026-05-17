@@ -2,7 +2,8 @@ name: fd
 binary: fd
 aliases:
 - fdfind
-category: search
+category:
+- search
 lang:
 - all
 summary: Fast filesystem entry finder.

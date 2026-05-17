@@ -48,7 +48,7 @@ fn local_fact(tool: &ToolSpec, evidence: String) -> Fact {
         scope: Scope::Local,
         id: None,
         tool_name: Some(tool.name.clone()),
-        category: Some(tool.category.clone()),
+        categories: tool.category.clone(),
         command: None,
         status: Status::Found,
         label: tool.name.clone(),

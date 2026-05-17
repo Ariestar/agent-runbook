@@ -1,7 +1,8 @@
 name: mvn
 binary: mvn
 aliases: []
-category: build
+category:
+- build
 lang:
 - java
 - kotlin

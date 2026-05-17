@@ -1,7 +1,9 @@
 name: docker-compose
 binary: docker-compose
 aliases: []
-category: container
+category:
+- container
+- deploy
 lang:
 - all
 summary: Docker Compose standalone CLI.

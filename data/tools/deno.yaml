@@ -1,7 +1,8 @@
 name: deno
 binary: deno
 aliases: []
-category: runtime
+category:
+- runtime
 lang:
 - javascript
 - typescript

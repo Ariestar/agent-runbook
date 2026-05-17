@@ -1,20 +1,20 @@
-use crate::model::{Availability, CategoryResult, CategorySummary, ToolCandidate};
+use crate::model::{
+    Availability, CategoryCandidates, CategoryResult, CategorySummary, ToolCandidate,
+};
 
 pub fn render_category(result: &CategoryResult) -> String {
     match result {
         CategoryResult::List { categories } => render_category_list(categories),
-        CategoryResult::Candidates {
-            category,
-            lang,
-            tools,
-        } => render_category_candidates(category, lang.as_deref(), tools),
+        CategoryResult::Candidates { lang, categories } => {
+            render_category_candidates(categories, lang.as_deref())
+        }
     }
 }
 
 fn render_category_list(categories: &[CategorySummary]) -> String {
     let mut lines = vec![
         "Runbook Tool Categories".to_string(),
-        "Use `runbook category <category> --lang <lang>` to inspect candidates.".to_string(),
+        "Use `runbook category <category>... --lang <lang>` to inspect candidates.".to_string(),
         String::new(),
         "Categories".to_string(),
     ];
@@ -35,24 +35,30 @@ fn render_category_list(categories: &[CategorySummary]) -> String {
     lines.join("\n").trim_end().to_string()
 }
 
-fn render_category_candidates(
-    category: &str,
-    lang: Option<&str>,
-    tools: &[ToolCandidate],
-) -> String {
+fn render_category_candidates(categories: &[CategoryCandidates], lang: Option<&str>) -> String {
     let mut lines = vec![
         "Runbook Tool Candidates".to_string(),
-        format!("Category: {category}"),
+        format!(
+            "Categories: {}",
+            categories
+                .iter()
+                .map(|category| category.name.as_str())
+                .collect::<Vec<_>>()
+                .join(", ")
+        ),
         format!("Language: {}", lang.unwrap_or("any")),
-        String::new(),
-        "Candidates".to_string(),
     ];
 
-    if tools.is_empty() {
-        lines.push("- None".to_string());
-    } else {
-        for tool in tools {
-            lines.extend(render_tool_candidate(tool));
+    for category in categories {
+        lines.push(String::new());
+        lines.push(format!("Category: {}", category.name));
+
+        if category.tools.is_empty() {
+            lines.push("- None".to_string());
+        } else {
+            for tool in &category.tools {
+                lines.extend(render_tool_candidate(tool));
+            }
         }
     }
 

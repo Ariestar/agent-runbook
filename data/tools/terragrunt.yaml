@@ -1,7 +1,8 @@
 name: terragrunt
 binary: terragrunt
 aliases: []
-category: infra
+category:
+- infra
 lang:
 - hcl
 summary: Thin wrapper for Terraform that manages remote state and repeated configuration.

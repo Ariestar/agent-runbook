@@ -1,7 +1,8 @@
 name: git-lfs
 binary: git-lfs
 aliases: []
-category: vcs
+category:
+- vcs
 lang:
 - all
 summary: Git extension for large file storage.

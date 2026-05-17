@@ -1,7 +1,8 @@
 name: grpcurl
 binary: grpcurl
 aliases: []
-category: api
+category:
+- api
 lang:
 - protobuf
 summary: Command-line gRPC client for inspecting and calling services.

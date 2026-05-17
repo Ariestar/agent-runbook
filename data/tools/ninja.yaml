@@ -1,7 +1,8 @@
 name: ninja
 binary: ninja
 aliases: []
-category: build
+category:
+- build
 lang:
 - c
 - cpp

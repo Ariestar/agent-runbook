@@ -1,7 +1,8 @@
 name: cargo-deny
 binary: cargo-deny
 aliases: []
-category: security
+category:
+- security
 lang:
 - rust
 summary: Rust dependency policy checker for advisories, licenses, bans, and sources.

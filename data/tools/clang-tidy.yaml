@@ -1,7 +1,8 @@
 name: clang-tidy
 binary: clang-tidy
 aliases: []
-category: lint
+category:
+- lint
 lang:
 - c
 - cpp

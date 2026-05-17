@@ -1,7 +1,8 @@
 name: zip
 binary: zip
 aliases: []
-category: archive
+category:
+- archive
 lang:
 - all
 summary: Create and update zip archives.

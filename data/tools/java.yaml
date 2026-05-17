@@ -1,7 +1,8 @@
 name: java
 binary: java
 aliases: []
-category: runtime
+category:
+- runtime
 lang:
 - java
 summary: Java runtime command-line launcher.

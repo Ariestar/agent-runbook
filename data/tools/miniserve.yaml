@@ -1,7 +1,8 @@
 name: miniserve
 binary: miniserve
 aliases: []
-category: network
+category:
+- network
 lang:
 - all
 summary: Small CLI for serving files over HTTP.

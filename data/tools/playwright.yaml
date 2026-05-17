@@ -1,7 +1,8 @@
 name: playwright
 binary: playwright
 aliases: []
-category: browser-test
+category:
+- browser-test
 lang:
 - javascript
 - typescript

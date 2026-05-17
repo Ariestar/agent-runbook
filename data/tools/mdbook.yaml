@@ -1,7 +1,8 @@
 name: mdbook
 binary: mdbook
 aliases: []
-category: docs
+category:
+- docs
 lang:
 - markdown
 summary: Build books and documentation sites from Markdown.

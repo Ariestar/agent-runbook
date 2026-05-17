@@ -1,7 +1,8 @@
 name: tofu
 binary: tofu
 aliases: []
-category: infra
+category:
+- infra
 lang:
 - hcl
 summary: OpenTofu infrastructure as code CLI.

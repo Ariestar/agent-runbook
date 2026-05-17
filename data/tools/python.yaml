@@ -3,7 +3,8 @@ binary: python
 aliases:
 - py
 - python3
-category: runtime
+category:
+- runtime
 lang:
 - python
 summary: Python interpreter.

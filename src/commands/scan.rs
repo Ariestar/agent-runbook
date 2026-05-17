@@ -33,6 +33,7 @@ pub fn scan(command: ScanCommand) -> ScanResult {
     ScanResult {
         mode: command.input.mode,
         cwd: command.input.cwd,
+        minimal: command.input.minimal,
         summary,
     }
 }
@@ -130,7 +131,12 @@ fn build_warnings(
 
     let package_managers: Vec<&str> = local_requirements
         .iter()
-        .filter(|requirement| requirement.category.as_deref() == Some("package-manager"))
+        .filter(|requirement| {
+            requirement
+                .categories
+                .iter()
+                .any(|category| category == "package-manager")
+        })
         .filter_map(|requirement| requirement.tool_name.as_deref())
         .collect();
 

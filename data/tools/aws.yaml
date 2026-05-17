@@ -1,7 +1,8 @@
 name: aws
 binary: aws
 aliases: []
-category: cloud
+category:
+- cloud
 lang:
 - all
 summary: Amazon Web Services command-line interface.

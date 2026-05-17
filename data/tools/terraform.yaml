@@ -1,7 +1,8 @@
 name: terraform
 binary: terraform
 aliases: []
-category: infra
+category:
+- infra
 lang:
 - hcl
 summary: Infrastructure as code CLI.

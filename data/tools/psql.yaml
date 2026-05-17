@@ -1,7 +1,8 @@
 name: psql
 binary: psql
 aliases: []
-category: database
+category:
+- database
 lang:
 - sql
 summary: PostgreSQL interactive terminal.

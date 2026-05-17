@@ -2,7 +2,8 @@ name: mise
 binary: mise
 aliases:
 - rtx
-category: environment
+category:
+- environment
 lang:
 - all
 summary: Development tool version manager and task runner.

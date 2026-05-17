@@ -1,7 +1,8 @@
 name: gradle
 binary: gradle
 aliases: []
-category: build
+category:
+- build
 lang:
 - java
 - kotlin

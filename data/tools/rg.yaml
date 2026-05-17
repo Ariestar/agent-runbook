@@ -2,7 +2,8 @@ name: rg
 binary: rg
 aliases:
 - ripgrep
-category: search
+category:
+- search
 lang:
 - all
 summary: Fast recursive text search for codebases.

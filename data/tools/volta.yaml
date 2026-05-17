@@ -1,7 +1,8 @@
 name: volta
 binary: volta
 aliases: []
-category: environment
+category:
+- environment
 lang:
 - javascript
 - typescript

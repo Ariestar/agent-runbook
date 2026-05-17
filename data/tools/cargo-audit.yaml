@@ -1,7 +1,8 @@
 name: cargo-audit
 binary: cargo-audit
 aliases: []
-category: security
+category:
+- security
 lang:
 - rust
 summary: Audit Rust dependency trees for known security vulnerabilities.

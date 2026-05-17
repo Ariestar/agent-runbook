@@ -2,7 +2,8 @@ name: gcc
 binary: gcc
 aliases:
 - g++
-category: compiler
+category:
+- compiler
 lang:
 - c
 - cpp

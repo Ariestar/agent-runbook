@@ -1,7 +1,8 @@
 name: gofmt
 binary: gofmt
 aliases: []
-category: formatter
+category:
+- formatter
 lang:
 - go
 summary: Standard Go source formatter.

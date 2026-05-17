@@ -1,7 +1,8 @@
 name: pulumi
 binary: pulumi
 aliases: []
-category: infra
+category:
+- infra
 lang:
 - all
 summary: Infrastructure as code CLI for Pulumi stacks.

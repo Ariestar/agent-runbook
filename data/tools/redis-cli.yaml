@@ -1,7 +1,8 @@
 name: redis-cli
 binary: redis-cli
 aliases: []
-category: database
+category:
+- database
 lang:
 - all
 summary: Redis command-line client.

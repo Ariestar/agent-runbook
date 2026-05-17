@@ -2,7 +2,8 @@ name: bottom
 binary: btm
 aliases:
 - bottom
-category: system
+category:
+- system
 lang:
 - all
 summary: Terminal system monitor for processes, CPU, memory, disks, and network.

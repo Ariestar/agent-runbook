@@ -1,7 +1,8 @@
 name: tar
 binary: tar
 aliases: []
-category: archive
+category:
+- archive
 lang:
 - all
 summary: Create and extract tar archives.

@@ -1,7 +1,8 @@
 name: act
 binary: act
 aliases: []
-category: ci
+category:
+- ci
 lang:
 - all
 summary: Run GitHub Actions workflows locally.

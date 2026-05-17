@@ -1,7 +1,8 @@
 name: awk
 binary: awk
 aliases: []
-category: text
+category:
+- text
 lang:
 - all
 summary: Pattern scanning and text processing language.

@@ -1,7 +1,8 @@
 name: direnv
 binary: direnv
 aliases: []
-category: environment
+category:
+- environment
 lang:
 - all
 summary: Per-directory shell environment loader.

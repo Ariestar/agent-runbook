@@ -1,7 +1,8 @@
 name: trivy
 binary: trivy
 aliases: []
-category: security
+category:
+- security
 lang:
 - all
 summary: Vulnerability, misconfiguration, secret, and SBOM scanner.

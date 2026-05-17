@@ -1,7 +1,8 @@
 name: bacon
 binary: bacon
 aliases: []
-category: automation
+category:
+- automation
 lang:
 - rust
 summary: Background Rust checker that runs cargo tasks on changes.

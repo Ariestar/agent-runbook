@@ -1,7 +1,10 @@
 name: uv
 binary: uv
 aliases: []
-category: package-manager
+category:
+- package-manager
+- runtime
+- test
 lang:
 - python
 summary: Fast Python package and environment manager.

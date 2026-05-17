@@ -1,7 +1,8 @@
 name: podman
 binary: podman
 aliases: []
-category: container
+category:
+- container
 lang:
 - all
 summary: Daemonless container engine compatible with many Docker workflows.

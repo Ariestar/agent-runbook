@@ -1,7 +1,8 @@
 name: broot
 binary: broot
 aliases: []
-category: file-viewer
+category:
+- file-viewer
 lang:
 - all
 summary: Interactive directory tree navigator with fuzzy search.

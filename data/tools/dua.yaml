@@ -1,7 +1,8 @@
 name: dua
 binary: dua
 aliases: []
-category: file-viewer
+category:
+- file-viewer
 lang:
 - all
 summary: Disk usage analyzer for finding large files and directories.

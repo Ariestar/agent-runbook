@@ -1,7 +1,8 @@
 name: clang-format
 binary: clang-format
 aliases: []
-category: formatter
+category:
+- formatter
 lang:
 - c
 - cpp

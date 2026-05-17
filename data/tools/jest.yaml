@@ -1,7 +1,8 @@
 name: jest
 binary: jest
 aliases: []
-category: test
+category:
+- test
 lang:
 - javascript
 - typescript

@@ -1,7 +1,8 @@
 name: kubectl
 binary: kubectl
 aliases: []
-category: kubernetes
+category:
+- kubernetes
 lang:
 - all
 summary: Kubernetes command-line tool.

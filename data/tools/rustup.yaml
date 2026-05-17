@@ -1,7 +1,8 @@
 name: rustup
 binary: rustup
 aliases: []
-category: toolchain
+category:
+- toolchain
 lang:
 - rust
 summary: Rust toolchain installer and version manager.

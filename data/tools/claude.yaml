@@ -1,7 +1,8 @@
 name: claude
 binary: claude
 aliases: []
-category: agent
+category:
+- agent
 lang:
 - all
 summary: Anthropic Claude Code command-line coding assistant.

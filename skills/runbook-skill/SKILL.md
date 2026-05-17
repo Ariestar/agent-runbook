@@ -22,19 +22,26 @@ runbook --version
 runbook scan
 ```
 
+Use compact output only when you need a quick inventory of tool names:
+
+```bash
+runbook scan --minimal
+```
+
 4. Run this when the task may need a tool beyond the obvious project-local build/test/search commands:
 
 ```bash
 runbook category
 ```
 
-5. Choose a functional category from that output, infer the project language from the scan and repository files, then inspect candidates:
+5. Choose one or more functional categories from that output, infer the project language from the scan and repository files, then inspect candidates:
 
 ```bash
-runbook category <category> --lang <lang>
+runbook category <category>... --lang <lang>
 ```
 
 Use `--lang all` only when the task is language-independent. Cross-language tools appear in language-specific queries automatically.
+Tools may belong to multiple categories, so query the category that matches the task. For example, `runbook category test --lang rust` includes Rust tools that support testing even if they also build or manage packages.
 
 6. Interpret the scan output:
    - `Local Requirements`: project-implied tools and workflows.
@@ -66,7 +73,8 @@ Mention the contract to the user only when it changes the plan, explains a tool 
 ## Category Query Rules
 
 - Use `runbook category` before asking which tool family exists.
-- Use `runbook category <category> --lang <lang>` before using an unfamiliar or non-project-local tool.
+- Use `runbook category <category>... --lang <lang>` before using an unfamiliar or non-project-local tool. Query related categories together when the task crosses boundaries, such as `test lint formatter`.
+- Start with the closest category instead of guessing a tool's primary category. Multi-category tools are returned by every matching category.
 - Do not query every category. Query only the functional category related to the task, such as `search`, `lint`, `test`, `security`, `database`, `deploy`, `container`, `cloud`, `docs`, or `benchmark`.
 - If the best candidate is missing, mention it only when it materially affects the task; otherwise choose an installed suitable alternative.
 - For remote-write or destructive categories, use category output to identify risk first, then ask for confirmation before mutation.

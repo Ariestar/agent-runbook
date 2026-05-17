@@ -2,7 +2,8 @@ name: tldr
 binary: tldr
 aliases:
 - tealdeer
-category: docs
+category:
+- docs
 lang:
 - all
 summary: Community-maintained concise command examples.

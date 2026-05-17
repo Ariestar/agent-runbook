@@ -1,7 +1,8 @@
 name: find
 binary: gfind
 aliases: []
-category: search
+category:
+- search
 lang:
 - all
 summary: GNU find for locating files by name, type, time, and predicates.

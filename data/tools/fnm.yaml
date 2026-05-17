@@ -1,7 +1,8 @@
 name: fnm
 binary: fnm
 aliases: []
-category: environment
+category:
+- environment
 lang:
 - all
 summary: Fast Node.js version manager.

@@ -1,7 +1,8 @@
 name: xh
 binary: xh
 aliases: []
-category: network
+category:
+- network
 lang:
 - all
 summary: Fast and friendly HTTP client inspired by HTTPie.

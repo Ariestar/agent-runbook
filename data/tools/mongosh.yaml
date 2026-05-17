@@ -1,7 +1,8 @@
 name: mongosh
 binary: mongosh
 aliases: []
-category: database
+category:
+- database
 lang:
 - all
 summary: MongoDB Shell for querying and administering MongoDB.

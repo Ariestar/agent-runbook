@@ -1,7 +1,8 @@
 name: eslint
 binary: eslint
 aliases: []
-category: lint
+category:
+- lint
 lang:
 - javascript
 - typescript

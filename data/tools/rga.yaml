@@ -2,7 +2,8 @@ name: rga
 binary: rga
 aliases:
 - ripgrep-all
-category: search
+category:
+- search
 lang:
 - all
 summary: ripgrep wrapper for PDFs, archives, e-books, Office documents, and more.

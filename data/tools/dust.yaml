@@ -1,7 +1,8 @@
 name: dust
 binary: dust
 aliases: []
-category: file-viewer
+category:
+- file-viewer
 lang:
 - all
 summary: Visual disk usage summary for directories.

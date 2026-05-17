@@ -1,7 +1,8 @@
 name: grype
 binary: grype
 aliases: []
-category: security
+category:
+- security
 lang:
 - all
 summary: Vulnerability scanner for container images and filesystems.

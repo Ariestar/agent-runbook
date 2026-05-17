@@ -1,7 +1,8 @@
 name: go
 binary: go
 aliases: []
-category: build
+category:
+- build
 lang:
 - go
 summary: Go toolchain for modules, build, test, and run.

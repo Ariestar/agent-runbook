@@ -1,7 +1,8 @@
 name: taplo
 binary: taplo
 aliases: []
-category: formatter
+category:
+- formatter
 lang:
 - toml
 summary: TOML formatter, linter, and language tooling.

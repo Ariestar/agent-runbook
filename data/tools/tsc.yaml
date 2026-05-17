@@ -1,7 +1,8 @@
 name: tsc
 binary: tsc
 aliases: []
-category: type-checker
+category:
+- type-checker
 lang:
 - javascript
 - typescript

@@ -1,7 +1,8 @@
 name: devcontainer
 binary: devcontainer
 aliases: []
-category: environment
+category:
+- environment
 lang:
 - all
 summary: CLI for building and running Development Containers.

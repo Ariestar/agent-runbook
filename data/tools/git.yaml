@@ -1,7 +1,8 @@
 name: git
 binary: git
 aliases: []
-category: vcs
+category:
+- vcs
 lang:
 - all
 summary: Distributed version control system.

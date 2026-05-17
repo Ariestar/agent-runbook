@@ -2,7 +2,8 @@ name: ansible
 binary: ansible
 aliases:
 - ansible-playbook
-category: infra
+category:
+- infra
 lang:
 - all
 summary: Automation and configuration management CLI.

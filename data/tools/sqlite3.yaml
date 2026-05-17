@@ -1,7 +1,8 @@
 name: sqlite3
 binary: sqlite3
 aliases: []
-category: database
+category:
+- database
 lang:
 - sql
 summary: SQLite command-line shell.

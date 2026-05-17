@@ -7,9 +7,10 @@ pub enum CommandArgs {
     Invalid(String),
     Scan {
         mode: ScanMode,
+        minimal: bool,
     },
     Category {
-        category: Option<String>,
+        categories: Vec<String>,
         lang: Option<String>,
     },
 }
@@ -37,6 +38,7 @@ pub fn parse_args(args: impl IntoIterator<Item = String>) -> CommandArgs {
     }
 
     let mut mode = ScanMode::All;
+    let mut minimal = false;
     for arg in args {
         match arg.as_str() {
             "--global" => {
@@ -55,15 +57,16 @@ pub fn parse_args(args: impl IntoIterator<Item = String>) -> CommandArgs {
                 }
                 mode = ScanMode::Local;
             }
+            "--minimal" => minimal = true,
             _ => return CommandArgs::Invalid(format!("Unknown option for scan: {arg}")),
         }
     }
 
-    CommandArgs::Scan { mode }
+    CommandArgs::Scan { mode, minimal }
 }
 
 fn parse_category_args(mut args: impl Iterator<Item = String>) -> CommandArgs {
-    let mut category = None;
+    let mut categories = Vec::new();
     let mut lang = None;
 
     while let Some(arg) = args.next() {
@@ -77,22 +80,15 @@ fn parse_category_args(mut args: impl Iterator<Item = String>) -> CommandArgs {
             _ if arg.starts_with('-') => {
                 return CommandArgs::Invalid(format!("Unknown option for category: {arg}"));
             }
-            _ => {
-                if category.is_some() {
-                    return CommandArgs::Invalid(
-                        "runbook category accepts at most one category name.".to_string(),
-                    );
-                }
-                category = Some(arg);
-            }
+            _ => categories.push(arg),
         }
     }
 
-    CommandArgs::Category { category, lang }
+    CommandArgs::Category { categories, lang }
 }
 
 pub fn help_text() -> &'static str {
-    "Usage:\n  runbook scan                         Scan this machine and the current project\n  runbook scan --global                Scan only machine-level tools\n  runbook scan --local                 Scan only current-project requirements\n  runbook category                     List tool categories\n  runbook category <category>          List tools in a category\n  runbook category <category> --lang rust  Filter candidates by language\n  runbook --version                    Print the runbook version"
+    "Usage:\n  runbook scan                              Scan this machine and the current project\n  runbook scan --global                     Scan only machine-level tools\n  runbook scan --local                      Scan only current-project requirements\n  runbook scan --minimal                    Print only detected tool names\n  runbook category                          List tool categories\n  runbook category <category>               List tools in a category\n  runbook category <category>... --lang rust  Filter one or more categories by language\n  runbook --version                         Print the runbook version"
 }
 
 #[cfg(test)]
@@ -104,7 +100,8 @@ mod tests {
         assert_eq!(
             parse_args(["scan"].into_iter().map(String::from)),
             CommandArgs::Scan {
-                mode: ScanMode::All
+                mode: ScanMode::All,
+                minimal: false
             }
         );
     }
@@ -114,13 +111,26 @@ mod tests {
         assert_eq!(
             parse_args(["scan", "--global"].into_iter().map(String::from)),
             CommandArgs::Scan {
-                mode: ScanMode::Global
+                mode: ScanMode::Global,
+                minimal: false
             }
         );
         assert_eq!(
             parse_args(["scan", "--local"].into_iter().map(String::from)),
             CommandArgs::Scan {
-                mode: ScanMode::Local
+                mode: ScanMode::Local,
+                minimal: false
+            }
+        );
+    }
+
+    #[test]
+    fn scan_supports_minimal_output() {
+        assert_eq!(
+            parse_args(["scan", "--minimal"].into_iter().map(String::from)),
+            CommandArgs::Scan {
+                mode: ScanMode::All,
+                minimal: true
             }
         );
     }
@@ -158,22 +168,22 @@ mod tests {
         assert_eq!(
             parse_args(["category"].into_iter().map(String::from)),
             CommandArgs::Category {
-                category: None,
+                categories: Vec::new(),
                 lang: None
             }
         );
     }
 
     #[test]
-    fn category_command_accepts_category_and_lang() {
+    fn category_command_accepts_categories_and_lang() {
         assert_eq!(
             parse_args(
-                ["category", "security", "--lang", "rust"]
+                ["category", "lint", "formatter", "--lang", "rust"]
                     .into_iter()
                     .map(String::from)
             ),
             CommandArgs::Category {
-                category: Some("security".to_string()),
+                categories: vec!["lint".to_string(), "formatter".to_string()],
                 lang: Some("rust".to_string())
             }
         );

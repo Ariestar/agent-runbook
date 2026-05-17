@@ -1,7 +1,8 @@
 name: composer
 binary: composer
 aliases: []
-category: package-manager
+category:
+- package-manager
 lang:
 - php
 summary: PHP dependency manager and project command runner.

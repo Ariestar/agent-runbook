@@ -1,4 +1,5 @@
 use serde::{Deserialize, Serialize};
+use std::collections::HashSet;
 use std::env;
 use std::fs;
 use std::path::{Path, PathBuf};
@@ -9,7 +10,7 @@ struct ToolCard {
     binary: String,
     #[serde(default)]
     aliases: Vec<String>,
-    category: String,
+    category: Vec<String>,
     lang: Vec<String>,
     summary: String,
     homepage: String,
@@ -120,8 +121,17 @@ fn validate_card(path: &Path, card: &ToolCard) {
     if card.binary.trim().is_empty() {
         panic!("{}: binary is required", path.display());
     }
-    if card.category.trim().is_empty() {
-        panic!("{}: category is required", path.display());
+    if card.category.is_empty() || card.category.iter().any(|value| value.trim().is_empty()) {
+        panic!(
+            "{}: category must contain at least one value",
+            path.display()
+        );
+    }
+    let mut categories = HashSet::new();
+    for category in &card.category {
+        if !categories.insert(category) {
+            panic!("{}: duplicate category '{}'", path.display(), category);
+        }
     }
     if card.lang.is_empty() || card.lang.iter().any(|value| value.trim().is_empty()) {
         panic!("{}: lang must contain at least one value", path.display());

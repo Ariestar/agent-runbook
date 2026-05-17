@@ -1,7 +1,10 @@
 name: task
 binary: task
 aliases: []
-category: build
+category:
+- automation
+- build
+- test
 lang:
 - all
 summary: Task runner using Taskfile.yml or Taskfile.yaml.

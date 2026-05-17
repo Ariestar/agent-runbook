@@ -1,7 +1,8 @@
 name: hyperfine
 binary: hyperfine
 aliases: []
-category: benchmark
+category:
+- benchmark
 lang:
 - all
 summary: Command-line benchmarking tool.

@@ -1,7 +1,8 @@
 name: sed
 binary: sed
 aliases: []
-category: text
+category:
+- text
 lang:
 - all
 summary: Stream editor for text substitution and filtering.

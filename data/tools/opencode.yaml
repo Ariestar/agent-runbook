@@ -1,7 +1,8 @@
 name: opencode
 binary: opencode
 aliases: []
-category: agent
+category:
+- agent
 lang:
 - all
 summary: Terminal-based AI coding agent.

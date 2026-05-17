@@ -3,7 +3,9 @@
     "name": "act",
     "binary": "act",
     "aliases": [],
-    "category": "ci",
+    "category": [
+      "ci"
+    ],
     "lang": [
       "all"
     ],
@@ -53,7 +55,9 @@
     "name": "age",
     "binary": "age",
     "aliases": [],
-    "category": "security",
+    "category": [
+      "security"
+    ],
     "lang": [
       "all"
     ],
@@ -100,7 +104,9 @@
     "name": "aider",
     "binary": "aider",
     "aliases": [],
-    "category": "agent",
+    "category": [
+      "agent"
+    ],
     "lang": [
       "all"
     ],
@@ -152,7 +158,9 @@
     "name": "amp",
     "binary": "amp",
     "aliases": [],
-    "category": "agent",
+    "category": [
+      "agent"
+    ],
     "lang": [
       "all"
     ],
@@ -203,7 +211,9 @@
     "aliases": [
       "ansible-playbook"
     ],
-    "category": "infra",
+    "category": [
+      "infra"
+    ],
     "lang": [
       "all"
     ],
@@ -261,7 +271,9 @@
     "aliases": [
       "sg"
     ],
-    "category": "search",
+    "category": [
+      "search"
+    ],
     "lang": [
       "all"
     ],
@@ -311,7 +323,9 @@
     "name": "atuin",
     "binary": "atuin",
     "aliases": [],
-    "category": "shell",
+    "category": [
+      "shell"
+    ],
     "lang": [
       "all"
     ],
@@ -359,7 +373,9 @@
     "name": "awk",
     "binary": "awk",
     "aliases": [],
-    "category": "text",
+    "category": [
+      "text"
+    ],
     "lang": [
       "all"
     ],
@@ -402,7 +418,9 @@
     "name": "aws",
     "binary": "aws",
     "aliases": [],
-    "category": "cloud",
+    "category": [
+      "cloud"
+    ],
     "lang": [
       "all"
     ],
@@ -459,7 +477,9 @@
     "name": "az",
     "binary": "az",
     "aliases": [],
-    "category": "cloud",
+    "category": [
+      "cloud"
+    ],
     "lang": [
       "all"
     ],
@@ -516,7 +536,9 @@
     "name": "bacon",
     "binary": "bacon",
     "aliases": [],
-    "category": "automation",
+    "category": [
+      "automation"
+    ],
     "lang": [
       "rust"
     ],
@@ -567,7 +589,9 @@
     "aliases": [
       "batcat"
     ],
-    "category": "file-viewer",
+    "category": [
+      "file-viewer"
+    ],
     "lang": [
       "all"
     ],
@@ -609,7 +633,9 @@
     "name": "biome",
     "binary": "biome",
     "aliases": [],
-    "category": "lint",
+    "category": [
+      "lint"
+    ],
     "lang": [
       "javascript",
       "typescript",
@@ -662,7 +688,9 @@
     "aliases": [
       "bottom"
     ],
-    "category": "system",
+    "category": [
+      "system"
+    ],
     "lang": [
       "all"
     ],
@@ -704,7 +732,9 @@
     "name": "broot",
     "binary": "broot",
     "aliases": [],
-    "category": "file-viewer",
+    "category": [
+      "file-viewer"
+    ],
     "lang": [
       "all"
     ],
@@ -746,7 +776,9 @@
     "name": "brush",
     "binary": "brush",
     "aliases": [],
-    "category": "shell",
+    "category": [
+      "shell"
+    ],
     "lang": [
       "all"
     ],
@@ -790,7 +822,9 @@
     "name": "buf",
     "binary": "buf",
     "aliases": [],
-    "category": "api",
+    "category": [
+      "api"
+    ],
     "lang": [
       "protobuf"
     ],
@@ -843,7 +877,12 @@
     "name": "bun",
     "binary": "bun",
     "aliases": [],
-    "category": "package-manager",
+    "category": [
+      "package-manager",
+      "runtime",
+      "build",
+      "test"
+    ],
     "lang": [
       "javascript",
       "typescript"
@@ -898,7 +937,9 @@
     "aliases": [
       "bundler"
     ],
-    "category": "package-manager",
+    "category": [
+      "package-manager"
+    ],
     "lang": [
       "ruby"
     ],
@@ -948,7 +989,11 @@
     "name": "cargo",
     "binary": "cargo",
     "aliases": [],
-    "category": "build",
+    "category": [
+      "build",
+      "test",
+      "package-manager"
+    ],
     "lang": [
       "rust"
     ],
@@ -998,7 +1043,9 @@
     "name": "cargo-audit",
     "binary": "cargo-audit",
     "aliases": [],
-    "category": "security",
+    "category": [
+      "security"
+    ],
     "lang": [
       "rust"
     ],
@@ -1044,7 +1091,9 @@
     "name": "cargo-binstall",
     "binary": "cargo-binstall",
     "aliases": [],
-    "category": "package-manager",
+    "category": [
+      "package-manager"
+    ],
     "lang": [
       "rust"
     ],
@@ -1091,7 +1140,9 @@
     "name": "cargo-clippy",
     "binary": "cargo-clippy",
     "aliases": [],
-    "category": "lint",
+    "category": [
+      "lint"
+    ],
     "lang": [
       "rust"
     ],
@@ -1138,7 +1189,9 @@
     "name": "cargo-deny",
     "binary": "cargo-deny",
     "aliases": [],
-    "category": "security",
+    "category": [
+      "security"
+    ],
     "lang": [
       "rust"
     ],
@@ -1185,7 +1238,9 @@
     "aliases": [
       "rustfmt"
     ],
-    "category": "formatter",
+    "category": [
+      "formatter"
+    ],
     "lang": [
       "rust"
     ],
@@ -1233,7 +1288,9 @@
     "name": "cargo-nextest",
     "binary": "cargo-nextest",
     "aliases": [],
-    "category": "test",
+    "category": [
+      "test"
+    ],
     "lang": [
       "rust"
     ],
@@ -1282,7 +1339,9 @@
     "name": "cargo-watch",
     "binary": "cargo-watch",
     "aliases": [],
-    "category": "automation",
+    "category": [
+      "automation"
+    ],
     "lang": [
       "rust"
     ],
@@ -1330,7 +1389,9 @@
     "aliases": [
       "clang++"
     ],
-    "category": "compiler",
+    "category": [
+      "compiler"
+    ],
     "lang": [
       "c",
       "cpp",
@@ -1378,7 +1439,9 @@
     "name": "clang-format",
     "binary": "clang-format",
     "aliases": [],
-    "category": "formatter",
+    "category": [
+      "formatter"
+    ],
     "lang": [
       "c",
       "cpp",
@@ -1430,7 +1493,9 @@
     "name": "clang-tidy",
     "binary": "clang-tidy",
     "aliases": [],
-    "category": "lint",
+    "category": [
+      "lint"
+    ],
     "lang": [
       "c",
       "cpp"
@@ -1480,7 +1545,9 @@
     "name": "claude",
     "binary": "claude",
     "aliases": [],
-    "category": "agent",
+    "category": [
+      "agent"
+    ],
     "lang": [
       "all"
     ],
@@ -1533,7 +1600,9 @@
     "aliases": [
       "clickhouse-client"
     ],
-    "category": "database",
+    "category": [
+      "database"
+    ],
     "lang": [
       "sql"
     ],
@@ -1582,7 +1651,9 @@
     "name": "cmake",
     "binary": "cmake",
     "aliases": [],
-    "category": "build",
+    "category": [
+      "build"
+    ],
     "lang": [
       "c",
       "cpp"
@@ -1635,7 +1706,9 @@
     "name": "codex",
     "binary": "codex",
     "aliases": [],
-    "category": "agent",
+    "category": [
+      "agent"
+    ],
     "lang": [
       "all"
     ],
@@ -1686,7 +1759,9 @@
     "name": "composer",
     "binary": "composer",
     "aliases": [],
-    "category": "package-manager",
+    "category": [
+      "package-manager"
+    ],
     "lang": [
       "php"
     ],
@@ -1738,7 +1813,9 @@
     "name": "corepack",
     "binary": "corepack",
     "aliases": [],
-    "category": "package-manager",
+    "category": [
+      "package-manager"
+    ],
     "lang": [
       "javascript",
       "typescript"
@@ -1787,7 +1864,9 @@
     "name": "cosign",
     "binary": "cosign",
     "aliases": [],
-    "category": "security",
+    "category": [
+      "security"
+    ],
     "lang": [
       "all"
     ],
@@ -1837,7 +1916,9 @@
     "name": "curl",
     "binary": "curl",
     "aliases": [],
-    "category": "network",
+    "category": [
+      "network"
+    ],
     "lang": [
       "all"
     ],
@@ -1885,7 +1966,9 @@
     "name": "cursor-agent",
     "binary": "cursor-agent",
     "aliases": [],
-    "category": "agent",
+    "category": [
+      "agent"
+    ],
     "lang": [
       "all"
     ],
@@ -1936,7 +2019,9 @@
     "aliases": [
       "git-delta"
     ],
-    "category": "vcs",
+    "category": [
+      "vcs"
+    ],
     "lang": [
       "all"
     ],
@@ -1978,7 +2063,9 @@
     "name": "deno",
     "binary": "deno",
     "aliases": [],
-    "category": "runtime",
+    "category": [
+      "runtime"
+    ],
     "lang": [
       "javascript",
       "typescript"
@@ -2029,7 +2116,9 @@
     "name": "devcontainer",
     "binary": "devcontainer",
     "aliases": [],
-    "category": "environment",
+    "category": [
+      "environment"
+    ],
     "lang": [
       "all"
     ],
@@ -2082,7 +2171,9 @@
     "name": "direnv",
     "binary": "direnv",
     "aliases": [],
-    "category": "environment",
+    "category": [
+      "environment"
+    ],
     "lang": [
       "all"
     ],
@@ -2132,7 +2223,11 @@
     "name": "docker",
     "binary": "docker",
     "aliases": [],
-    "category": "container",
+    "category": [
+      "container",
+      "build",
+      "deploy"
+    ],
     "lang": [
       "all"
     ],
@@ -2192,7 +2287,10 @@
     "name": "docker-compose",
     "binary": "docker-compose",
     "aliases": [],
-    "category": "container",
+    "category": [
+      "container",
+      "deploy"
+    ],
     "lang": [
       "all"
     ],
@@ -2246,7 +2344,9 @@
     "name": "dotnet",
     "binary": "dotnet",
     "aliases": [],
-    "category": "build",
+    "category": [
+      "build"
+    ],
     "lang": [
       "csharp",
       "fsharp",
@@ -2299,7 +2399,9 @@
     "name": "dua",
     "binary": "dua",
     "aliases": [],
-    "category": "file-viewer",
+    "category": [
+      "file-viewer"
+    ],
     "lang": [
       "all"
     ],
@@ -2344,7 +2446,9 @@
     "name": "duckdb",
     "binary": "duckdb",
     "aliases": [],
-    "category": "database",
+    "category": [
+      "database"
+    ],
     "lang": [
       "sql"
     ],
@@ -2389,7 +2493,9 @@
     "name": "dust",
     "binary": "dust",
     "aliases": [],
-    "category": "file-viewer",
+    "category": [
+      "file-viewer"
+    ],
     "lang": [
       "all"
     ],
@@ -2431,7 +2537,9 @@
     "name": "eslint",
     "binary": "eslint",
     "aliases": [],
-    "category": "lint",
+    "category": [
+      "lint"
+    ],
     "lang": [
       "javascript",
       "typescript"
@@ -2487,7 +2595,9 @@
     "aliases": [
       "exa"
     ],
-    "category": "file-viewer",
+    "category": [
+      "file-viewer"
+    ],
     "lang": [
       "all"
     ],
@@ -2531,7 +2641,9 @@
     "aliases": [
       "fdfind"
     ],
-    "category": "search",
+    "category": [
+      "search"
+    ],
     "lang": [
       "all"
     ],
@@ -2575,7 +2687,9 @@
     "name": "find",
     "binary": "gfind",
     "aliases": [],
-    "category": "search",
+    "category": [
+      "search"
+    ],
     "lang": [
       "all"
     ],
@@ -2622,7 +2736,9 @@
     "name": "firebase",
     "binary": "firebase",
     "aliases": [],
-    "category": "cloud",
+    "category": [
+      "cloud"
+    ],
     "lang": [
       "all"
     ],
@@ -2677,7 +2793,9 @@
     "aliases": [
       "fly"
     ],
-    "category": "cloud",
+    "category": [
+      "cloud"
+    ],
     "lang": [
       "all"
     ],
@@ -2729,7 +2847,9 @@
     "name": "fnm",
     "binary": "fnm",
     "aliases": [],
-    "category": "environment",
+    "category": [
+      "environment"
+    ],
     "lang": [
       "all"
     ],
@@ -2778,7 +2898,9 @@
     "name": "fzf",
     "binary": "fzf",
     "aliases": [],
-    "category": "search",
+    "category": [
+      "search"
+    ],
     "lang": [
       "all"
     ],
@@ -2822,7 +2944,9 @@
     "aliases": [
       "g++"
     ],
-    "category": "compiler",
+    "category": [
+      "compiler"
+    ],
     "lang": [
       "c",
       "cpp",
@@ -2870,7 +2994,9 @@
     "name": "gcloud",
     "binary": "gcloud",
     "aliases": [],
-    "category": "cloud",
+    "category": [
+      "cloud"
+    ],
     "lang": [
       "all"
     ],
@@ -2927,7 +3053,9 @@
     "name": "gemini",
     "binary": "gemini",
     "aliases": [],
-    "category": "agent",
+    "category": [
+      "agent"
+    ],
     "lang": [
       "all"
     ],
@@ -2978,7 +3106,9 @@
     "name": "gh",
     "binary": "gh",
     "aliases": [],
-    "category": "vcs",
+    "category": [
+      "vcs"
+    ],
     "lang": [
       "all"
     ],
@@ -3030,7 +3160,9 @@
     "name": "git",
     "binary": "git",
     "aliases": [],
-    "category": "vcs",
+    "category": [
+      "vcs"
+    ],
     "lang": [
       "all"
     ],
@@ -3082,7 +3214,9 @@
     "name": "git-lfs",
     "binary": "git-lfs",
     "aliases": [],
-    "category": "vcs",
+    "category": [
+      "vcs"
+    ],
     "lang": [
       "all"
     ],
@@ -3130,7 +3264,9 @@
     "name": "gitleaks",
     "binary": "gitleaks",
     "aliases": [],
-    "category": "security",
+    "category": [
+      "security"
+    ],
     "lang": [
       "all"
     ],
@@ -3178,7 +3314,9 @@
     "name": "glow",
     "binary": "glow",
     "aliases": [],
-    "category": "docs",
+    "category": [
+      "docs"
+    ],
     "lang": [
       "all"
     ],
@@ -3220,7 +3358,9 @@
     "name": "go",
     "binary": "go",
     "aliases": [],
-    "category": "build",
+    "category": [
+      "build"
+    ],
     "lang": [
       "go"
     ],
@@ -3271,7 +3411,9 @@
     "name": "gofmt",
     "binary": "gofmt",
     "aliases": [],
-    "category": "formatter",
+    "category": [
+      "formatter"
+    ],
     "lang": [
       "go"
     ],
@@ -3316,7 +3458,9 @@
     "name": "goose",
     "binary": "goose",
     "aliases": [],
-    "category": "agent",
+    "category": [
+      "agent"
+    ],
     "lang": [
       "all"
     ],
@@ -3365,7 +3509,9 @@
     "name": "gradle",
     "binary": "gradle",
     "aliases": [],
-    "category": "build",
+    "category": [
+      "build"
+    ],
     "lang": [
       "java",
       "kotlin",
@@ -3424,7 +3570,9 @@
     "name": "grep",
     "binary": "grep",
     "aliases": [],
-    "category": "search",
+    "category": [
+      "search"
+    ],
     "lang": [
       "all"
     ],
@@ -3466,7 +3614,9 @@
     "name": "grpcurl",
     "binary": "grpcurl",
     "aliases": [],
-    "category": "api",
+    "category": [
+      "api"
+    ],
     "lang": [
       "protobuf"
     ],
@@ -3515,7 +3665,9 @@
     "name": "grype",
     "binary": "grype",
     "aliases": [],
-    "category": "security",
+    "category": [
+      "security"
+    ],
     "lang": [
       "all"
     ],
@@ -3560,7 +3712,9 @@
     "name": "hatch",
     "binary": "hatch",
     "aliases": [],
-    "category": "package-manager",
+    "category": [
+      "package-manager"
+    ],
     "lang": [
       "python"
     ],
@@ -3611,7 +3765,9 @@
     "aliases": [
       "helix"
     ],
-    "category": "editor",
+    "category": [
+      "editor"
+    ],
     "lang": [
       "all"
     ],
@@ -3658,7 +3814,9 @@
     "name": "helm",
     "binary": "helm",
     "aliases": [],
-    "category": "kubernetes",
+    "category": [
+      "kubernetes"
+    ],
     "lang": [
       "all"
     ],
@@ -3712,7 +3870,9 @@
     "name": "httpie",
     "binary": "http",
     "aliases": [],
-    "category": "network",
+    "category": [
+      "network"
+    ],
     "lang": [
       "all"
     ],
@@ -3759,7 +3919,9 @@
     "name": "hyperfine",
     "binary": "hyperfine",
     "aliases": [],
-    "category": "benchmark",
+    "category": [
+      "benchmark"
+    ],
     "lang": [
       "all"
     ],
@@ -3805,7 +3967,9 @@
     "name": "java",
     "binary": "java",
     "aliases": [],
-    "category": "runtime",
+    "category": [
+      "runtime"
+    ],
     "lang": [
       "java"
     ],
@@ -3858,7 +4022,9 @@
     "name": "jest",
     "binary": "jest",
     "aliases": [],
-    "category": "test",
+    "category": [
+      "test"
+    ],
     "lang": [
       "javascript",
       "typescript"
@@ -3910,7 +4076,9 @@
     "name": "jq",
     "binary": "jq",
     "aliases": [],
-    "category": "data",
+    "category": [
+      "data"
+    ],
     "lang": [
       "json"
     ],
@@ -3956,7 +4124,11 @@
     "name": "just",
     "binary": "just",
     "aliases": [],
-    "category": "build",
+    "category": [
+      "automation",
+      "build",
+      "test"
+    ],
     "lang": [
       "all"
     ],
@@ -4006,7 +4178,9 @@
     "name": "k6",
     "binary": "k6",
     "aliases": [],
-    "category": "test",
+    "category": [
+      "test"
+    ],
     "lang": [
       "javascript"
     ],
@@ -4057,7 +4231,9 @@
     "name": "k9s",
     "binary": "k9s",
     "aliases": [],
-    "category": "kubernetes",
+    "category": [
+      "kubernetes"
+    ],
     "lang": [
       "all"
     ],
@@ -4108,7 +4284,9 @@
     "name": "kind",
     "binary": "kind",
     "aliases": [],
-    "category": "kubernetes",
+    "category": [
+      "kubernetes"
+    ],
     "lang": [
       "all"
     ],
@@ -4159,7 +4337,9 @@
     "name": "kubectl",
     "binary": "kubectl",
     "aliases": [],
-    "category": "kubernetes",
+    "category": [
+      "kubernetes"
+    ],
     "lang": [
       "all"
     ],
@@ -4212,7 +4392,9 @@
     "name": "kustomize",
     "binary": "kustomize",
     "aliases": [],
-    "category": "kubernetes",
+    "category": [
+      "kubernetes"
+    ],
     "lang": [
       "all"
     ],
@@ -4261,7 +4443,9 @@
     "name": "lazygit",
     "binary": "lazygit",
     "aliases": [],
-    "category": "vcs",
+    "category": [
+      "vcs"
+    ],
     "lang": [
       "all"
     ],
@@ -4308,7 +4492,9 @@
     "name": "lsd",
     "binary": "lsd",
     "aliases": [],
-    "category": "file-viewer",
+    "category": [
+      "file-viewer"
+    ],
     "lang": [
       "all"
     ],
@@ -4350,7 +4536,11 @@
     "name": "make",
     "binary": "make",
     "aliases": [],
-    "category": "build",
+    "category": [
+      "build",
+      "test",
+      "automation"
+    ],
     "lang": [
       "all"
     ],
@@ -4399,7 +4589,9 @@
     "name": "mdbook",
     "binary": "mdbook",
     "aliases": [],
-    "category": "docs",
+    "category": [
+      "docs"
+    ],
     "lang": [
       "markdown"
     ],
@@ -4446,7 +4638,9 @@
     "name": "minikube",
     "binary": "minikube",
     "aliases": [],
-    "category": "kubernetes",
+    "category": [
+      "kubernetes"
+    ],
     "lang": [
       "all"
     ],
@@ -4496,7 +4690,9 @@
     "name": "miniserve",
     "binary": "miniserve",
     "aliases": [],
-    "category": "network",
+    "category": [
+      "network"
+    ],
     "lang": [
       "all"
     ],
@@ -4544,7 +4740,9 @@
     "aliases": [
       "rtx"
     ],
-    "category": "environment",
+    "category": [
+      "environment"
+    ],
     "lang": [
       "all"
     ],
@@ -4599,7 +4797,9 @@
     "name": "mongosh",
     "binary": "mongosh",
     "aliases": [],
-    "category": "database",
+    "category": [
+      "database"
+    ],
     "lang": [
       "all"
     ],
@@ -4648,7 +4848,9 @@
     "name": "mvn",
     "binary": "mvn",
     "aliases": [],
-    "category": "build",
+    "category": [
+      "build"
+    ],
     "lang": [
       "java",
       "kotlin",
@@ -4703,7 +4905,9 @@
     "name": "mypy",
     "binary": "mypy",
     "aliases": [],
-    "category": "type-checker",
+    "category": [
+      "type-checker"
+    ],
     "lang": [
       "python"
     ],
@@ -4748,7 +4952,9 @@
     "name": "mysql",
     "binary": "mysql",
     "aliases": [],
-    "category": "database",
+    "category": [
+      "database"
+    ],
     "lang": [
       "sql"
     ],
@@ -4798,7 +5004,9 @@
     "name": "netlify",
     "binary": "netlify",
     "aliases": [],
-    "category": "cloud",
+    "category": [
+      "cloud"
+    ],
     "lang": [
       "all"
     ],
@@ -4850,7 +5058,9 @@
     "name": "ninja",
     "binary": "ninja",
     "aliases": [],
-    "category": "build",
+    "category": [
+      "build"
+    ],
     "lang": [
       "c",
       "cpp"
@@ -4899,7 +5109,9 @@
     "name": "nix",
     "binary": "nix",
     "aliases": [],
-    "category": "environment",
+    "category": [
+      "environment"
+    ],
     "lang": [
       "all"
     ],
@@ -4952,7 +5164,9 @@
     "name": "node",
     "binary": "node",
     "aliases": [],
-    "category": "runtime",
+    "category": [
+      "runtime"
+    ],
     "lang": [
       "javascript",
       "typescript"
@@ -5001,7 +5215,11 @@
     "name": "npm",
     "binary": "npm",
     "aliases": [],
-    "category": "package-manager",
+    "category": [
+      "package-manager",
+      "build",
+      "test"
+    ],
     "lang": [
       "javascript",
       "typescript"
@@ -5056,7 +5274,9 @@
     "aliases": [
       "nushell"
     ],
-    "category": "shell",
+    "category": [
+      "shell"
+    ],
     "lang": [
       "all"
     ],
@@ -5106,7 +5326,9 @@
     "aliases": [
       "1password"
     ],
-    "category": "secrets",
+    "category": [
+      "secrets"
+    ],
     "lang": [
       "all"
     ],
@@ -5153,7 +5375,9 @@
     "name": "opencode",
     "binary": "opencode",
     "aliases": [],
-    "category": "agent",
+    "category": [
+      "agent"
+    ],
     "lang": [
       "all"
     ],
@@ -5205,7 +5429,9 @@
     "name": "openssl",
     "binary": "openssl",
     "aliases": [],
-    "category": "security",
+    "category": [
+      "security"
+    ],
     "lang": [
       "all"
     ],
@@ -5254,7 +5480,9 @@
     "name": "ouch",
     "binary": "ouch",
     "aliases": [],
-    "category": "archive",
+    "category": [
+      "archive"
+    ],
     "lang": [
       "all"
     ],
@@ -5299,7 +5527,9 @@
     "name": "php",
     "binary": "php",
     "aliases": [],
-    "category": "runtime",
+    "category": [
+      "runtime"
+    ],
     "lang": [
       "php"
     ],
@@ -5352,7 +5582,9 @@
     "aliases": [
       "pip3"
     ],
-    "category": "package-manager",
+    "category": [
+      "package-manager"
+    ],
     "lang": [
       "python"
     ],
@@ -5401,7 +5633,9 @@
     "name": "pipx",
     "binary": "pipx",
     "aliases": [],
-    "category": "package-manager",
+    "category": [
+      "package-manager"
+    ],
     "lang": [
       "python"
     ],
@@ -5448,7 +5682,9 @@
     "name": "playwright",
     "binary": "playwright",
     "aliases": [],
-    "category": "browser-test",
+    "category": [
+      "browser-test"
+    ],
     "lang": [
       "javascript",
       "typescript"
@@ -5499,7 +5735,11 @@
     "name": "pnpm",
     "binary": "pnpm",
     "aliases": [],
-    "category": "package-manager",
+    "category": [
+      "package-manager",
+      "build",
+      "test"
+    ],
     "lang": [
       "javascript",
       "typescript"
@@ -5551,7 +5791,9 @@
     "name": "podman",
     "binary": "podman",
     "aliases": [],
-    "category": "container",
+    "category": [
+      "container"
+    ],
     "lang": [
       "all"
     ],
@@ -5602,7 +5844,11 @@
     "name": "poetry",
     "binary": "poetry",
     "aliases": [],
-    "category": "package-manager",
+    "category": [
+      "package-manager",
+      "build",
+      "test"
+    ],
     "lang": [
       "python"
     ],
@@ -5651,7 +5897,9 @@
     "name": "prettier",
     "binary": "prettier",
     "aliases": [],
-    "category": "formatter",
+    "category": [
+      "formatter"
+    ],
     "lang": [
       "javascript",
       "typescript",
@@ -5709,7 +5957,9 @@
     "name": "procs",
     "binary": "procs",
     "aliases": [],
-    "category": "system",
+    "category": [
+      "system"
+    ],
     "lang": [
       "all"
     ],
@@ -5751,7 +6001,9 @@
     "name": "psql",
     "binary": "psql",
     "aliases": [],
-    "category": "database",
+    "category": [
+      "database"
+    ],
     "lang": [
       "sql"
     ],
@@ -5801,7 +6053,9 @@
     "name": "pulumi",
     "binary": "pulumi",
     "aliases": [],
-    "category": "infra",
+    "category": [
+      "infra"
+    ],
     "lang": [
       "all"
     ],
@@ -5857,7 +6111,9 @@
     "name": "pyright",
     "binary": "pyright",
     "aliases": [],
-    "category": "type-checker",
+    "category": [
+      "type-checker"
+    ],
     "lang": [
       "python"
     ],
@@ -5901,7 +6157,9 @@
     "name": "pytest",
     "binary": "pytest",
     "aliases": [],
-    "category": "test",
+    "category": [
+      "test"
+    ],
     "lang": [
       "python"
     ],
@@ -5953,7 +6211,9 @@
       "py",
       "python3"
     ],
-    "category": "runtime",
+    "category": [
+      "runtime"
+    ],
     "lang": [
       "python"
     ],
@@ -6005,7 +6265,9 @@
     "aliases": [
       "amazon-q"
     ],
-    "category": "agent",
+    "category": [
+      "agent"
+    ],
     "lang": [
       "all"
     ],
@@ -6055,7 +6317,9 @@
     "name": "qwen",
     "binary": "qwen",
     "aliases": [],
-    "category": "agent",
+    "category": [
+      "agent"
+    ],
     "lang": [
       "all"
     ],
@@ -6106,7 +6370,9 @@
     "name": "railway",
     "binary": "railway",
     "aliases": [],
-    "category": "deploy",
+    "category": [
+      "deploy"
+    ],
     "lang": [
       "all"
     ],
@@ -6161,7 +6427,9 @@
     "name": "redis-cli",
     "binary": "redis-cli",
     "aliases": [],
-    "category": "database",
+    "category": [
+      "database"
+    ],
     "lang": [
       "all"
     ],
@@ -6212,7 +6480,9 @@
     "aliases": [
       "ripgrep"
     ],
-    "category": "search",
+    "category": [
+      "search"
+    ],
     "lang": [
       "all"
     ],
@@ -6258,7 +6528,9 @@
     "aliases": [
       "ripgrep-all"
     ],
-    "category": "search",
+    "category": [
+      "search"
+    ],
     "lang": [
       "all"
     ],
@@ -6303,7 +6575,9 @@
     "name": "rtk",
     "binary": "rtk",
     "aliases": [],
-    "category": "shell",
+    "category": [
+      "shell"
+    ],
     "lang": [
       "all"
     ],
@@ -6350,7 +6624,9 @@
     "name": "ruby",
     "binary": "ruby",
     "aliases": [],
-    "category": "runtime",
+    "category": [
+      "runtime"
+    ],
     "lang": [
       "ruby"
     ],
@@ -6400,7 +6676,9 @@
     "name": "ruff",
     "binary": "ruff",
     "aliases": [],
-    "category": "lint",
+    "category": [
+      "lint"
+    ],
     "lang": [
       "python"
     ],
@@ -6448,7 +6726,9 @@
     "name": "rustup",
     "binary": "rustup",
     "aliases": [],
-    "category": "toolchain",
+    "category": [
+      "toolchain"
+    ],
     "lang": [
       "rust"
     ],
@@ -6497,7 +6777,9 @@
     "name": "sccache",
     "binary": "sccache",
     "aliases": [],
-    "category": "build",
+    "category": [
+      "build"
+    ],
     "lang": [
       "rust",
       "c",
@@ -6547,7 +6829,9 @@
     "name": "sd",
     "binary": "sd",
     "aliases": [],
-    "category": "text",
+    "category": [
+      "text"
+    ],
     "lang": [
       "all"
     ],
@@ -6593,7 +6877,9 @@
     "name": "sed",
     "binary": "sed",
     "aliases": [],
-    "category": "text",
+    "category": [
+      "text"
+    ],
     "lang": [
       "all"
     ],
@@ -6638,7 +6924,9 @@
     "name": "semgrep",
     "binary": "semgrep",
     "aliases": [],
-    "category": "security",
+    "category": [
+      "security"
+    ],
     "lang": [
       "all"
     ],
@@ -6690,7 +6978,9 @@
     "name": "sops",
     "binary": "sops",
     "aliases": [],
-    "category": "secrets",
+    "category": [
+      "secrets"
+    ],
     "lang": [
       "all"
     ],
@@ -6740,7 +7030,9 @@
     "name": "sqlite3",
     "binary": "sqlite3",
     "aliases": [],
-    "category": "database",
+    "category": [
+      "database"
+    ],
     "lang": [
       "sql"
     ],
@@ -6792,7 +7084,9 @@
     "name": "starship",
     "binary": "starship",
     "aliases": [],
-    "category": "shell",
+    "category": [
+      "shell"
+    ],
     "lang": [
       "all"
     ],
@@ -6841,7 +7135,9 @@
     "name": "stern",
     "binary": "stern",
     "aliases": [],
-    "category": "kubernetes",
+    "category": [
+      "kubernetes"
+    ],
     "lang": [
       "all"
     ],
@@ -6890,7 +7186,9 @@
     "name": "stripe",
     "binary": "stripe",
     "aliases": [],
-    "category": "cloud",
+    "category": [
+      "cloud"
+    ],
     "lang": [
       "all"
     ],
@@ -6941,7 +7239,9 @@
     "name": "supabase",
     "binary": "supabase",
     "aliases": [],
-    "category": "cloud",
+    "category": [
+      "cloud"
+    ],
     "lang": [
       "all"
     ],
@@ -6996,7 +7296,9 @@
     "name": "syft",
     "binary": "syft",
     "aliases": [],
-    "category": "security",
+    "category": [
+      "security"
+    ],
     "lang": [
       "all"
     ],
@@ -7044,7 +7346,9 @@
     "name": "taplo",
     "binary": "taplo",
     "aliases": [],
-    "category": "formatter",
+    "category": [
+      "formatter"
+    ],
     "lang": [
       "toml"
     ],
@@ -7092,7 +7396,9 @@
     "name": "tar",
     "binary": "tar",
     "aliases": [],
-    "category": "archive",
+    "category": [
+      "archive"
+    ],
     "lang": [
       "all"
     ],
@@ -7137,7 +7443,11 @@
     "name": "task",
     "binary": "task",
     "aliases": [],
-    "category": "build",
+    "category": [
+      "automation",
+      "build",
+      "test"
+    ],
     "lang": [
       "all"
     ],
@@ -7187,7 +7497,9 @@
     "name": "terraform",
     "binary": "terraform",
     "aliases": [],
-    "category": "infra",
+    "category": [
+      "infra"
+    ],
     "lang": [
       "hcl"
     ],
@@ -7244,7 +7556,9 @@
     "name": "terragrunt",
     "binary": "terragrunt",
     "aliases": [],
-    "category": "infra",
+    "category": [
+      "infra"
+    ],
     "lang": [
       "hcl"
     ],
@@ -7299,7 +7613,9 @@
     "aliases": [
       "tealdeer"
     ],
-    "category": "docs",
+    "category": [
+      "docs"
+    ],
     "lang": [
       "all"
     ],
@@ -7342,7 +7658,9 @@
     "name": "tofu",
     "binary": "tofu",
     "aliases": [],
-    "category": "infra",
+    "category": [
+      "infra"
+    ],
     "lang": [
       "hcl"
     ],
@@ -7399,7 +7717,9 @@
     "name": "tokei",
     "binary": "tokei",
     "aliases": [],
-    "category": "metrics",
+    "category": [
+      "metrics"
+    ],
     "lang": [
       "all"
     ],
@@ -7441,7 +7761,9 @@
     "name": "tox",
     "binary": "tox",
     "aliases": [],
-    "category": "test",
+    "category": [
+      "test"
+    ],
     "lang": [
       "python"
     ],
@@ -7490,7 +7812,9 @@
     "name": "tree",
     "binary": "tree",
     "aliases": [],
-    "category": "file-viewer",
+    "category": [
+      "file-viewer"
+    ],
     "lang": [
       "all"
     ],
@@ -7532,7 +7856,9 @@
     "name": "trivy",
     "binary": "trivy",
     "aliases": [],
-    "category": "security",
+    "category": [
+      "security"
+    ],
     "lang": [
       "all"
     ],
@@ -7582,7 +7908,9 @@
     "name": "trufflehog",
     "binary": "trufflehog",
     "aliases": [],
-    "category": "security",
+    "category": [
+      "security"
+    ],
     "lang": [
       "all"
     ],
@@ -7628,7 +7956,9 @@
     "name": "trunk",
     "binary": "trunk",
     "aliases": [],
-    "category": "build",
+    "category": [
+      "build"
+    ],
     "lang": [
       "rust"
     ],
@@ -7676,7 +8006,9 @@
     "name": "tsc",
     "binary": "tsc",
     "aliases": [],
-    "category": "type-checker",
+    "category": [
+      "type-checker"
+    ],
     "lang": [
       "javascript",
       "typescript"
@@ -7726,7 +8058,9 @@
     "name": "turbo",
     "binary": "turbo",
     "aliases": [],
-    "category": "build",
+    "category": [
+      "build"
+    ],
     "lang": [
       "javascript",
       "typescript"
@@ -7775,7 +8109,9 @@
     "name": "typos",
     "binary": "typos",
     "aliases": [],
-    "category": "lint",
+    "category": [
+      "lint"
+    ],
     "lang": [
       "all"
     ],
@@ -7824,7 +8160,9 @@
     "name": "unzip",
     "binary": "unzip",
     "aliases": [],
-    "category": "archive",
+    "category": [
+      "archive"
+    ],
     "lang": [
       "all"
     ],
@@ -7869,7 +8207,11 @@
     "name": "uv",
     "binary": "uv",
     "aliases": [],
-    "category": "package-manager",
+    "category": [
+      "package-manager",
+      "runtime",
+      "test"
+    ],
     "lang": [
       "python"
     ],
@@ -7918,7 +8260,9 @@
     "name": "vercel",
     "binary": "vercel",
     "aliases": [],
-    "category": "deploy",
+    "category": [
+      "deploy"
+    ],
     "lang": [
       "javascript",
       "typescript"
@@ -7971,7 +8315,9 @@
     "name": "vite",
     "binary": "vite",
     "aliases": [],
-    "category": "build",
+    "category": [
+      "build"
+    ],
     "lang": [
       "javascript",
       "typescript"
@@ -8023,7 +8369,9 @@
     "name": "vitest",
     "binary": "vitest",
     "aliases": [],
-    "category": "test",
+    "category": [
+      "test"
+    ],
     "lang": [
       "javascript",
       "typescript"
@@ -8075,7 +8423,9 @@
     "name": "volta",
     "binary": "volta",
     "aliases": [],
-    "category": "environment",
+    "category": [
+      "environment"
+    ],
     "lang": [
       "javascript",
       "typescript"
@@ -8123,7 +8473,9 @@
     "name": "wasm-pack",
     "binary": "wasm-pack",
     "aliases": [],
-    "category": "build",
+    "category": [
+      "build"
+    ],
     "lang": [
       "rust"
     ],
@@ -8171,7 +8523,9 @@
     "name": "watchexec",
     "binary": "watchexec",
     "aliases": [],
-    "category": "automation",
+    "category": [
+      "automation"
+    ],
     "lang": [
       "all"
     ],
@@ -8217,7 +8571,9 @@
     "name": "wrangler",
     "binary": "wrangler",
     "aliases": [],
-    "category": "cloud",
+    "category": [
+      "cloud"
+    ],
     "lang": [
       "javascript",
       "typescript",
@@ -8274,7 +8630,9 @@
     "name": "xh",
     "binary": "xh",
     "aliases": [],
-    "category": "network",
+    "category": [
+      "network"
+    ],
     "lang": [
       "all"
     ],
@@ -8321,7 +8679,11 @@
     "name": "yarn",
     "binary": "yarn",
     "aliases": [],
-    "category": "package-manager",
+    "category": [
+      "package-manager",
+      "build",
+      "test"
+    ],
     "lang": [
       "javascript",
       "typescript"
@@ -8373,7 +8735,9 @@
     "name": "yazi",
     "binary": "yazi",
     "aliases": [],
-    "category": "file-viewer",
+    "category": [
+      "file-viewer"
+    ],
     "lang": [
       "all"
     ],
@@ -8420,7 +8784,9 @@
     "name": "yq",
     "binary": "yq",
     "aliases": [],
-    "category": "data",
+    "category": [
+      "data"
+    ],
     "lang": [
       "yaml",
       "json"
@@ -8467,7 +8833,9 @@
     "name": "zellij",
     "binary": "zellij",
     "aliases": [],
-    "category": "shell",
+    "category": [
+      "shell"
+    ],
     "lang": [
       "all"
     ],
@@ -8517,7 +8885,9 @@
     "name": "zip",
     "binary": "zip",
     "aliases": [],
-    "category": "archive",
+    "category": [
+      "archive"
+    ],
     "lang": [
       "all"
     ],
@@ -8564,7 +8934,9 @@
     "aliases": [
       "z"
     ],
-    "category": "shell",
+    "category": [
+      "shell"
+    ],
     "lang": [
       "all"
     ],

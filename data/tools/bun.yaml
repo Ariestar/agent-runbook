@@ -1,7 +1,11 @@
 name: bun
 binary: bun
 aliases: []
-category: package-manager
+category:
+- package-manager
+- runtime
+- build
+- test
 lang:
 - javascript
 - typescript

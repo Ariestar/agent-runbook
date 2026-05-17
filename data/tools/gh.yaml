@@ -1,7 +1,8 @@
 name: gh
 binary: gh
 aliases: []
-category: vcs
+category:
+- vcs
 lang:
 - all
 summary: GitHub command-line interface.

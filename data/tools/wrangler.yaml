@@ -1,7 +1,8 @@
 name: wrangler
 binary: wrangler
 aliases: []
-category: cloud
+category:
+- cloud
 lang:
 - javascript
 - typescript

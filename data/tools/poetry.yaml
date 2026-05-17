@@ -1,7 +1,10 @@
 name: poetry
 binary: poetry
 aliases: []
-category: package-manager
+category:
+- package-manager
+- build
+- test
 lang:
 - python
 summary: Python packaging and dependency management tool.

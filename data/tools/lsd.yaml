@@ -1,7 +1,8 @@
 name: lsd
 binary: lsd
 aliases: []
-category: file-viewer
+category:
+- file-viewer
 lang:
 - all
 summary: Modern ls alternative with colors, icons, and tree output.

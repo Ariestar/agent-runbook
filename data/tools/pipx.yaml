@@ -1,7 +1,8 @@
 name: pipx
 binary: pipx
 aliases: []
-category: package-manager
+category:
+- package-manager
 lang:
 - python
 summary: Install and run Python CLI applications in isolated environments.

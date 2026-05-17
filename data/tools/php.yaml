@@ -1,7 +1,8 @@
 name: php
 binary: php
 aliases: []
-category: runtime
+category:
+- runtime
 lang:
 - php
 summary: PHP runtime command-line interface.

@@ -1,7 +1,8 @@
 name: nix
 binary: nix
 aliases: []
-category: environment
+category:
+- environment
 lang:
 - all
 summary: Reproducible package manager and build system.

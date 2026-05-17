@@ -2,7 +2,8 @@ name: bat
 binary: bat
 aliases:
 - batcat
-category: file-viewer
+category:
+- file-viewer
 lang:
 - all
 summary: Syntax-highlighted cat replacement for reading files.

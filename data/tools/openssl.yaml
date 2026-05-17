@@ -1,7 +1,8 @@
 name: openssl
 binary: openssl
 aliases: []
-category: security
+category:
+- security
 lang:
 - all
 summary: Cryptography, certificate, and TLS inspection toolkit.

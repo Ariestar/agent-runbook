@@ -2,7 +2,8 @@ name: nu
 binary: nu
 aliases:
 - nushell
-category: shell
+category:
+- shell
 lang:
 - all
 summary: Structured shell and scripting language.

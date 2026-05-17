@@ -1,7 +1,8 @@
 name: codex
 binary: codex
 aliases: []
-category: agent
+category:
+- agent
 lang:
 - all
 summary: OpenAI Codex command-line coding agent.

@@ -2,7 +2,8 @@ name: eza
 binary: eza
 aliases:
 - exa
-category: file-viewer
+category:
+- file-viewer
 lang:
 - all
 summary: Modern directory listing tool.

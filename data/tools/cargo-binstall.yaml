@@ -1,7 +1,8 @@
 name: cargo-binstall
 binary: cargo-binstall
 aliases: []
-category: package-manager
+category:
+- package-manager
 lang:
 - rust
 summary: Install Rust binary crates from prebuilt artifacts when available.

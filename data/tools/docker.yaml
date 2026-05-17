@@ -1,7 +1,10 @@
 name: docker
 binary: docker
 aliases: []
-category: container
+category:
+- container
+- build
+- deploy
 lang:
 - all
 summary: Container build and runtime CLI.

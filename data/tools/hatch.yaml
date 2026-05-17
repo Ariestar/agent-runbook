@@ -1,7 +1,8 @@
 name: hatch
 binary: hatch
 aliases: []
-category: package-manager
+category:
+- package-manager
 lang:
 - python
 summary: Python project, environment, and packaging manager.

@@ -1,7 +1,8 @@
 name: firebase
 binary: firebase
 aliases: []
-category: cloud
+category:
+- cloud
 lang:
 - all
 summary: Firebase project management and deployment CLI.

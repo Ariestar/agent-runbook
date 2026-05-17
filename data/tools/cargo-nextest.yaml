@@ -1,7 +1,8 @@
 name: cargo-nextest
 binary: cargo-nextest
 aliases: []
-category: test
+category:
+- test
 lang:
 - rust
 summary: Fast Rust test runner for Cargo projects.

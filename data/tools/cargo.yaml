@@ -1,7 +1,10 @@
 name: cargo
 binary: cargo
 aliases: []
-category: build
+category:
+- build
+- test
+- package-manager
 lang:
 - rust
 summary: Rust package manager and build tool.

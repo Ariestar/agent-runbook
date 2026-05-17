@@ -1,7 +1,8 @@
 name: tox
 binary: tox
 aliases: []
-category: test
+category:
+- test
 lang:
 - python
 summary: Python test automation across environments.

@@ -1,7 +1,8 @@
 name: procs
 binary: procs
 aliases: []
-category: system
+category:
+- system
 lang:
 - all
 summary: Modern process viewer.

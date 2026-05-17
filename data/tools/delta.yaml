@@ -2,7 +2,8 @@ name: delta
 binary: delta
 aliases:
 - git-delta
-category: vcs
+category:
+- vcs
 lang:
 - all
 summary: Syntax-highlighting pager for git, diff, and grep output.

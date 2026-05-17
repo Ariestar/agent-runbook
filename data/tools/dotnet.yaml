@@ -1,7 +1,8 @@
 name: dotnet
 binary: dotnet
 aliases: []
-category: build
+category:
+- build
 lang:
 - csharp
 - fsharp

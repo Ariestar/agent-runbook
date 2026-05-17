@@ -1,7 +1,8 @@
 name: az
 binary: az
 aliases: []
-category: cloud
+category:
+- cloud
 lang:
 - all
 summary: Microsoft Azure command-line interface.

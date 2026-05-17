@@ -1,7 +1,8 @@
 name: gitleaks
 binary: gitleaks
 aliases: []
-category: security
+category:
+- security
 lang:
 - all
 summary: Secret scanner for git repositories and filesystems.

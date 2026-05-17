@@ -1,7 +1,8 @@
 name: semgrep
 binary: semgrep
 aliases: []
-category: security
+category:
+- security
 lang:
 - all
 summary: Static analysis and code search tool using semantic rules.

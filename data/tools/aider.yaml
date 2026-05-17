@@ -1,7 +1,8 @@
 name: aider
 binary: aider
 aliases: []
-category: agent
+category:
+- agent
 lang:
 - all
 summary: AI pair programming CLI that edits files through chat.

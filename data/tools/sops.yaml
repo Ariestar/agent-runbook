@@ -1,7 +1,8 @@
 name: sops
 binary: sops
 aliases: []
-category: secrets
+category:
+- secrets
 lang:
 - all
 summary: Editor and automation tool for encrypted secrets files.

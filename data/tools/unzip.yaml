@@ -1,7 +1,8 @@
 name: unzip
 binary: unzip
 aliases: []
-category: archive
+category:
+- archive
 lang:
 - all
 summary: Extract and inspect zip archives.

@@ -2,7 +2,8 @@ name: cargo-fmt
 binary: cargo-fmt
 aliases:
 - rustfmt
-category: formatter
+category:
+- formatter
 lang:
 - rust
 summary: Rust formatter distributed as a Cargo subcommand.

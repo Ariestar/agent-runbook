@@ -2,7 +2,8 @@ name: clang
 binary: clang
 aliases:
 - clang++
-category: compiler
+category:
+- compiler
 lang:
 - c
 - cpp

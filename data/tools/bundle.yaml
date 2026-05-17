@@ -2,7 +2,8 @@ name: bundle
 binary: bundle
 aliases:
 - bundler
-category: package-manager
+category:
+- package-manager
 lang:
 - ruby
 summary: Ruby dependency manager and command runner.

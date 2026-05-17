@@ -2,7 +2,8 @@ name: flyctl
 binary: flyctl
 aliases:
 - fly
-category: cloud
+category:
+- cloud
 lang:
 - all
 summary: Fly.io command-line tool.

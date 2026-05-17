@@ -8,7 +8,7 @@ pub struct ToolSpec {
     pub binary: String,
     #[serde(default)]
     pub aliases: Vec<String>,
-    pub category: String,
+    pub category: Vec<String>,
     pub lang: Vec<String>,
     pub summary: String,
     pub homepage: String,
@@ -64,7 +64,7 @@ pub struct Fact {
     pub scope: Scope,
     pub id: Option<String>,
     pub tool_name: Option<String>,
-    pub category: Option<String>,
+    pub categories: Vec<String>,
     pub command: Option<String>,
     pub status: Status,
     pub label: String,
@@ -102,7 +102,7 @@ impl Fact {
             scope: Scope::Global,
             id: Some(id.to_string()),
             tool_name: None,
-            category: None,
+            categories: Vec::new(),
             command: None,
             status: Status::Found,
             label: label.to_string(),
@@ -120,7 +120,7 @@ impl Fact {
             scope: Scope::Global,
             id: Some(id.to_string()),
             tool_name: None,
-            category: None,
+            categories: Vec::new(),
             command: None,
             status: Status::Found,
             label: label.to_string(),
@@ -153,11 +153,13 @@ impl ScanMode {
 pub struct ScanInput {
     pub cwd: PathBuf,
     pub mode: ScanMode,
+    pub minimal: bool,
 }
 
 pub struct ScanResult {
     pub mode: ScanMode,
     pub cwd: PathBuf,
+    pub minimal: bool,
     pub summary: ScanSummary,
 }
 
@@ -174,7 +176,7 @@ pub struct Message {
 }
 
 pub struct CategoryInput {
-    pub category: Option<String>,
+    pub categories: Vec<String>,
     pub lang: Option<String>,
 }
 
@@ -183,10 +185,14 @@ pub enum CategoryResult {
         categories: Vec<CategorySummary>,
     },
     Candidates {
-        category: String,
         lang: Option<String>,
-        tools: Vec<ToolCandidate>,
+        categories: Vec<CategoryCandidates>,
     },
+}
+
+pub struct CategoryCandidates {
+    pub name: String,
+    pub tools: Vec<ToolCandidate>,
 }
 
 pub struct CategorySummary {

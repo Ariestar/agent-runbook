@@ -1,7 +1,8 @@
 name: minikube
 binary: minikube
 aliases: []
-category: kubernetes
+category:
+- kubernetes
 lang:
 - all
 summary: Local Kubernetes development cluster manager.

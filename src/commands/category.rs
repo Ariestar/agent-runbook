@@ -2,7 +2,8 @@ use std::collections::{BTreeMap, BTreeSet};
 
 use crate::discovery::global::run_global_checks;
 use crate::model::{
-    Availability, CategoryInput, CategoryResult, CategorySummary, Status, ToolCandidate, ToolSpec,
+    Availability, CategoryCandidates, CategoryInput, CategoryResult, CategorySummary, Status,
+    ToolCandidate, ToolSpec,
 };
 use crate::registry::tool_registry;
 
@@ -12,15 +13,23 @@ pub struct CategoryCommand {
 
 pub fn query_category(command: CategoryCommand) -> CategoryResult {
     let registry = tool_registry();
-    match command.input.category {
-        Some(category) => CategoryResult::Candidates {
-            tools: candidates(&registry, &category, command.input.lang.as_deref()),
-            category,
-            lang: command.input.lang,
-        },
-        None => CategoryResult::List {
+    if command.input.categories.is_empty() {
+        CategoryResult::List {
             categories: summaries(&registry),
-        },
+        }
+    } else {
+        CategoryResult::Candidates {
+            categories: command
+                .input
+                .categories
+                .into_iter()
+                .map(|name| CategoryCandidates {
+                    tools: candidates(&registry, &name, command.input.lang.as_deref()),
+                    name,
+                })
+                .collect(),
+            lang: command.input.lang,
+        }
     }
 }
 
@@ -28,11 +37,13 @@ fn summaries(registry: &[ToolSpec]) -> Vec<CategorySummary> {
     let mut categories: BTreeMap<String, (usize, BTreeSet<String>)> = BTreeMap::new();
 
     for tool in registry {
-        let entry = categories
-            .entry(tool.category.clone())
-            .or_insert_with(|| (0, BTreeSet::new()));
-        entry.0 += 1;
-        entry.1.extend(tool.lang.iter().cloned());
+        for category in &tool.category {
+            let entry = categories
+                .entry(category.clone())
+                .or_insert_with(|| (0, BTreeSet::new()));
+            entry.0 += 1;
+            entry.1.extend(tool.lang.iter().cloned());
+        }
     }
 
     categories
@@ -48,7 +59,11 @@ fn summaries(registry: &[ToolSpec]) -> Vec<CategorySummary> {
 fn candidates(registry: &[ToolSpec], category: &str, lang: Option<&str>) -> Vec<ToolCandidate> {
     registry
         .iter()
-        .filter(|tool| tool.category.eq_ignore_ascii_case(category))
+        .filter(|tool| {
+            tool.category
+                .iter()
+                .any(|value| value.eq_ignore_ascii_case(category))
+        })
         .filter(|tool| lang.is_none_or(|value| supports_lang(tool, value)))
         .map(candidate)
         .collect()

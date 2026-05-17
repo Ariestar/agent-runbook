@@ -1,7 +1,8 @@
 name: ouch
 binary: ouch
 aliases: []
-category: archive
+category:
+- archive
 lang:
 - all
 summary: User-friendly archive compression and extraction CLI.

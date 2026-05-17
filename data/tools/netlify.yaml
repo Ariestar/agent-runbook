@@ -1,7 +1,8 @@
 name: netlify
 binary: netlify
 aliases: []
-category: cloud
+category:
+- cloud
 lang:
 - all
 summary: Netlify CLI for local development and deployment.

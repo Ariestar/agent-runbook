@@ -1,7 +1,8 @@
 name: railway
 binary: railway
 aliases: []
-category: deploy
+category:
+- deploy
 lang:
 - all
 summary: Railway deployment and project management CLI.

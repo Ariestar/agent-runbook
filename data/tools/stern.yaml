@@ -1,7 +1,8 @@
 name: stern
 binary: stern
 aliases: []
-category: kubernetes
+category:
+- kubernetes
 lang:
 - all
 summary: Multi-pod Kubernetes log tailing CLI.

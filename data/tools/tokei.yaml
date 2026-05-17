@@ -1,7 +1,8 @@
 name: tokei
 binary: tokei
 aliases: []
-category: metrics
+category:
+- metrics
 lang:
 - all
 summary: Count code, comments, blanks, and files by language.

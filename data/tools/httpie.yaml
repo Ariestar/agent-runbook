@@ -1,7 +1,8 @@
 name: httpie
 binary: http
 aliases: []
-category: network
+category:
+- network
 lang:
 - all
 summary: Human-friendly command-line HTTP client.

@@ -1,7 +1,8 @@
 name: cargo-watch
 binary: cargo-watch
 aliases: []
-category: automation
+category:
+- automation
 lang:
 - rust
 summary: Run Cargo commands whenever project files change.

@@ -1,7 +1,8 @@
 name: syft
 binary: syft
 aliases: []
-category: security
+category:
+- security
 lang:
 - all
 summary: SBOM generator for container images and filesystems.

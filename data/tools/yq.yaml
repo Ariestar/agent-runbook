@@ -1,7 +1,8 @@
 name: yq
 binary: yq
 aliases: []
-category: data
+category:
+- data
 lang:
 - yaml
 - json

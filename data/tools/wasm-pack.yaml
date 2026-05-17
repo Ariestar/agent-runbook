@@ -1,7 +1,8 @@
 name: wasm-pack
 binary: wasm-pack
 aliases: []
-category: build
+category:
+- build
 lang:
 - rust
 summary: Build and package Rust-generated WebAssembly.

@@ -1,7 +1,8 @@
 name: sd
 binary: sd
 aliases: []
-category: text
+category:
+- text
 lang:
 - all
 summary: Simple and fast find-and-replace CLI.

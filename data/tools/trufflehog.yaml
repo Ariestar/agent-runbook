@@ -1,7 +1,8 @@
 name: trufflehog
 binary: trufflehog
 aliases: []
-category: security
+category:
+- security
 lang:
 - all
 summary: Secret scanner for repositories, filesystems, and remote sources.

@@ -1,7 +1,8 @@
 name: cursor-agent
 binary: cursor-agent
 aliases: []
-category: agent
+category:
+- agent
 lang:
 - all
 summary: Cursor's terminal coding agent.

@@ -1,7 +1,8 @@
 name: trunk
 binary: trunk
 aliases: []
-category: build
+category:
+- build
 lang:
 - rust
 summary: Build, bundle, and serve Rust WebAssembly web applications.

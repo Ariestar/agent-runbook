@@ -1,7 +1,8 @@
 name: rtk
 binary: rtk
 aliases: []
-category: shell
+category:
+- shell
 lang:
 - all
 summary: Local shell wrapper used to run commands with workspace-specific behavior.

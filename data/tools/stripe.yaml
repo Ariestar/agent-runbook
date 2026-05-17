@@ -1,7 +1,8 @@
 name: stripe
 binary: stripe
 aliases: []
-category: cloud
+category:
+- cloud
 lang:
 - all
 summary: Stripe CLI for local webhooks, API calls, and developer workflows.

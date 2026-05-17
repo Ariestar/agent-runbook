@@ -1,7 +1,8 @@
 name: typos
 binary: typos
 aliases: []
-category: lint
+category:
+- lint
 lang:
 - all
 summary: Source code spell checker.

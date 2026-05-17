@@ -1,7 +1,8 @@
 name: gemini
 binary: gemini
 aliases: []
-category: agent
+category:
+- agent
 lang:
 - all
 summary: Google Gemini command-line AI assistant.

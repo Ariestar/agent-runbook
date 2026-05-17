@@ -1,7 +1,8 @@
 name: yazi
 binary: yazi
 aliases: []
-category: file-viewer
+category:
+- file-viewer
 lang:
 - all
 summary: Fast terminal file manager with async I/O.

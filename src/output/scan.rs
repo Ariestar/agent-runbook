@@ -1,3 +1,5 @@
+use std::collections::BTreeSet;
+
 use crate::model::{Fact, Message, ScanMode, ScanResult};
 
 pub fn render_scan(result: &ScanResult) -> String {
@@ -7,6 +9,10 @@ pub fn render_scan(result: &ScanResult) -> String {
     lines.push(format!("Mode: {}", result.mode.as_str()));
     lines.push(format!("Project: {}", result.cwd.display()));
     lines.push(String::new());
+
+    if result.minimal {
+        return render_minimal_scan(result, lines);
+    }
 
     if result.mode != ScanMode::Local {
         section(
@@ -34,6 +40,26 @@ pub fn render_scan(result: &ScanResult) -> String {
         "Warnings",
         render_messages(&result.summary.warnings),
     );
+
+    lines.join("\n").trim_end().to_string()
+}
+
+fn render_minimal_scan(result: &ScanResult, mut lines: Vec<String>) -> String {
+    if result.mode != ScanMode::Local {
+        section(
+            &mut lines,
+            "Global Tools",
+            render_tool_names(&result.summary.global_tools),
+        );
+    }
+
+    if result.mode != ScanMode::Global {
+        section(
+            &mut lines,
+            "Local Requirements",
+            render_tool_names(&result.summary.local_requirements),
+        );
+    }
 
     lines.join("\n").trim_end().to_string()
 }
@@ -94,5 +120,15 @@ fn render_messages(messages: &[Message]) -> Vec<String> {
                 .unwrap_or_default();
             format!("- {}{}", message.text, evidence)
         })
+        .collect()
+}
+
+fn render_tool_names(tools: &[Fact]) -> Vec<String> {
+    tools
+        .iter()
+        .map(|tool| tool.label.clone())
+        .collect::<BTreeSet<_>>()
+        .into_iter()
+        .map(|name| format!("- {name}"))
         .collect()
 }

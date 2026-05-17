@@ -1,7 +1,8 @@
 name: pyright
 binary: pyright
 aliases: []
-category: type-checker
+category:
+- type-checker
 lang:
 - python
 summary: Static type checker for Python.

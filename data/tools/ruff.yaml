@@ -1,7 +1,8 @@
 name: ruff
 binary: ruff
 aliases: []
-category: lint
+category:
+- lint
 lang:
 - python
 summary: Fast Python linter and formatter.

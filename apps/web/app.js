@@ -44,7 +44,9 @@ els.risk.addEventListener("change", () => {
 });
 
 function initFilters() {
-  const categories = [...new Set(state.tools.map((tool) => tool.category))].sort();
+  const categories = [
+    ...new Set(state.tools.flatMap((tool) => tool.category || [])),
+  ].sort();
   for (const category of categories) {
     const option = document.createElement("option");
     option.value = category;
@@ -74,7 +76,7 @@ function filteredTools() {
     const haystack = [
       tool.name,
       tool.binary,
-      tool.category,
+      ...(tool.category || []),
       ...(tool.lang || []),
       tool.summary,
       ...(tool.use_when || []),
@@ -87,7 +89,7 @@ function filteredTools() {
 
     return (
       (!state.query || haystack.includes(state.query)) &&
-      (!state.category || tool.category === state.category) &&
+      (!state.category || (tool.category || []).includes(state.category)) &&
       (!state.lang || (tool.lang || []).includes(state.lang)) &&
       (!state.risk || tool.risk?.level === state.risk)
     );
@@ -99,7 +101,7 @@ function renderCard(tool) {
   card.querySelector("h3").textContent = tool.name;
   card.querySelector(".binary").textContent = `$ ${tool.binary}`;
   card.querySelector(".summary").textContent = tool.summary;
-  card.querySelector(".meta").textContent = `${tool.category} · ${(tool.lang || []).join(", ")}`;
+  card.querySelector(".meta").textContent = `${(tool.category || []).join(", ")} · ${(tool.lang || []).join(", ")}`;
 
   const risk = card.querySelector(".risk");
   risk.textContent = tool.risk.level;

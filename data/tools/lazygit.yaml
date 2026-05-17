@@ -1,7 +1,8 @@
 name: lazygit
 binary: lazygit
 aliases: []
-category: vcs
+category:
+- vcs
 lang:
 - all
 summary: Terminal UI for git repositories.

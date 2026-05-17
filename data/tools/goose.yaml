@@ -1,7 +1,8 @@
 name: goose
 binary: goose
 aliases: []
-category: agent
+category:
+- agent
 lang:
 - all
 summary: Open-source local AI agent framework and CLI from Block.

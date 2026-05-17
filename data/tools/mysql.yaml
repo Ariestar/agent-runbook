@@ -1,7 +1,8 @@
 name: mysql
 binary: mysql
 aliases: []
-category: database
+category:
+- database
 lang:
 - sql
 summary: MySQL command-line client.

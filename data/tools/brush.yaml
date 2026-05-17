@@ -1,7 +1,8 @@
 name: brush
 binary: brush
 aliases: []
-category: shell
+category:
+- shell
 lang:
 - all
 summary: Unix-like shell tool for Windows command workflows.

@@ -1,7 +1,8 @@
 name: corepack
 binary: corepack
 aliases: []
-category: package-manager
+category:
+- package-manager
 lang:
 - javascript
 - typescript

@@ -1,7 +1,8 @@
 name: k9s
 binary: k9s
 aliases: []
-category: kubernetes
+category:
+- kubernetes
 lang:
 - all
 summary: Terminal UI for managing Kubernetes clusters.

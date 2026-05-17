@@ -2,7 +2,8 @@ name: helix
 binary: hx
 aliases:
 - helix
-category: editor
+category:
+- editor
 lang:
 - all
 summary: Modal terminal editor with built-in LSP and tree-sitter support.

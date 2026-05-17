@@ -1,7 +1,8 @@
 name: ruby
 binary: ruby
 aliases: []
-category: runtime
+category:
+- runtime
 lang:
 - ruby
 summary: Ruby language runtime CLI.

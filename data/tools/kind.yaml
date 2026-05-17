@@ -1,7 +1,8 @@
 name: kind
 binary: kind
 aliases: []
-category: kubernetes
+category:
+- kubernetes
 lang:
 - all
 summary: Run local Kubernetes clusters in Docker containers.

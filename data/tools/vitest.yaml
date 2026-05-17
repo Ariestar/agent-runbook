@@ -1,7 +1,8 @@
 name: vitest
 binary: vitest
 aliases: []
-category: test
+category:
+- test
 lang:
 - javascript
 - typescript

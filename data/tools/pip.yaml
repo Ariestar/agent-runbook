@@ -2,7 +2,8 @@ name: pip
 binary: pip
 aliases:
 - pip3
-category: package-manager
+category:
+- package-manager
 lang:
 - python
 summary: Python package installer.

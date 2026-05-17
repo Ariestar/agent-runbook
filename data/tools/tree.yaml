@@ -1,7 +1,8 @@
 name: tree
 binary: tree
 aliases: []
-category: file-viewer
+category:
+- file-viewer
 lang:
 - all
 summary: Display directory structure as a tree.

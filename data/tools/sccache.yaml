@@ -1,7 +1,8 @@
 name: sccache
 binary: sccache
 aliases: []
-category: build
+category:
+- build
 lang:
 - rust
 - c

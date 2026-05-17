@@ -1,7 +1,8 @@
 name: jq
 binary: jq
 aliases: []
-category: data
+category:
+- data
 lang:
 - json
 summary: Command-line JSON processor.

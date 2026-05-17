@@ -1,7 +1,10 @@
 name: just
 binary: just
 aliases: []
-category: build
+category:
+- automation
+- build
+- test
 lang:
 - all
 summary: Command runner for project recipes.

@@ -2,7 +2,8 @@ name: op
 binary: op
 aliases:
 - 1password
-category: secrets
+category:
+- secrets
 lang:
 - all
 summary: 1Password CLI for secrets, vaults, and service accounts.

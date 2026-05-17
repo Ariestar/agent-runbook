@@ -2,7 +2,8 @@ name: q
 binary: q
 aliases:
 - amazon-q
-category: agent
+category:
+- agent
 lang:
 - all
 summary: Amazon Q Developer command-line assistant.

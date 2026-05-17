@@ -1,7 +1,10 @@
 name: pnpm
 binary: pnpm
 aliases: []
-category: package-manager
+category:
+- package-manager
+- build
+- test
 lang:
 - javascript
 - typescript

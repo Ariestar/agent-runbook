@@ -1,7 +1,8 @@
 name: kustomize
 binary: kustomize
 aliases: []
-category: kubernetes
+category:
+- kubernetes
 lang:
 - all
 summary: Kubernetes configuration customization tool.

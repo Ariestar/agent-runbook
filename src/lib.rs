@@ -24,17 +24,17 @@ pub fn run() -> Result<()> {
             Ok(())
         }
         CommandArgs::Invalid(reason) => Err(RunbookError::usage(reason, cli::help_text())),
-        CommandArgs::Scan { mode } => {
+        CommandArgs::Scan { mode, minimal } => {
             let cwd = std::env::current_dir().map_err(RunbookError::current_dir)?;
             let result = scan(ScanCommand {
-                input: ScanInput { cwd, mode },
+                input: ScanInput { cwd, mode, minimal },
             });
             println!("{}", output::render_scan(&result));
             Ok(())
         }
-        CommandArgs::Category { category, lang } => {
+        CommandArgs::Category { categories, lang } => {
             let result = query_category(CategoryCommand {
-                input: CategoryInput { category, lang },
+                input: CategoryInput { categories, lang },
             });
             println!("{}", output::render_category(&result));
             Ok(())

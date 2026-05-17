@@ -1,7 +1,8 @@
 name: cmake
 binary: cmake
 aliases: []
-category: build
+category:
+- build
 lang:
 - c
 - cpp

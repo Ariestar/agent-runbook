@@ -1,7 +1,8 @@
 name: turbo
 binary: turbo
 aliases: []
-category: build
+category:
+- build
 lang:
 - javascript
 - typescript

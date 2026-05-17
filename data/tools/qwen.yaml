@@ -1,7 +1,8 @@
 name: qwen
 binary: qwen
 aliases: []
-category: agent
+category:
+- agent
 lang:
 - all
 summary: Qwen command-line AI coding assistant.

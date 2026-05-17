@@ -1,7 +1,8 @@
 name: buf
 binary: buf
 aliases: []
-category: api
+category:
+- api
 lang:
 - protobuf
 summary: Protobuf linting, breaking-change detection, and code generation CLI.
