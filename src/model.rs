@@ -176,6 +176,7 @@ pub struct Message {
 }
 
 pub struct CategoryInput {
+    pub cwd: PathBuf,
     pub categories: Vec<String>,
     pub lang: Option<String>,
 }
@@ -214,6 +215,7 @@ pub struct ToolCandidate {
     pub guardrails: Vec<String>,
     pub risk: RiskSpec,
     pub availability: Availability,
+    pub preference: Option<ToolPreference>,
 }
 
 pub enum Availability {
@@ -223,5 +225,57 @@ pub enum Availability {
     },
     Missing {
         checked: String,
+    },
+}
+
+#[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
+pub struct ToolPreference {
+    pub category: String,
+    pub lang: String,
+    pub tool: String,
+    pub reason: String,
+}
+
+#[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
+pub struct PreferenceFile {
+    pub schema: u32,
+    pub preferences: Vec<ToolPreference>,
+}
+
+impl Default for PreferenceFile {
+    fn default() -> Self {
+        Self {
+            schema: 1,
+            preferences: Vec::new(),
+        }
+    }
+}
+
+pub struct PreferInput {
+    pub cwd: PathBuf,
+    pub action: PreferAction,
+}
+
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub enum PreferAction {
+    List,
+    Set(ToolPreference),
+    Unset { category: String, lang: String },
+}
+
+pub enum PreferResult {
+    List {
+        path: PathBuf,
+        preferences: Vec<ToolPreference>,
+    },
+    Set {
+        path: PathBuf,
+        preference: ToolPreference,
+    },
+    Unset {
+        path: PathBuf,
+        category: String,
+        lang: String,
+        removed: bool,
     },
 }

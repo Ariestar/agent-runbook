@@ -66,7 +66,7 @@ fn render_category_candidates(categories: &[CategoryCandidates], lang: Option<&s
 }
 
 fn render_tool_candidate(tool: &ToolCandidate) -> Vec<String> {
-    let status = match &tool.availability {
+    let mut status = match &tool.availability {
         Availability::Found { command, version } => {
             let version = version
                 .as_ref()
@@ -76,6 +76,9 @@ fn render_tool_candidate(tool: &ToolCandidate) -> Vec<String> {
         }
         Availability::Missing { checked } => format!("missing ({checked})"),
     };
+    if tool.preference.is_some() {
+        status.push_str(", preferred");
+    }
     let aliases = if tool.aliases.is_empty() {
         String::new()
     } else {
@@ -101,6 +104,13 @@ fn render_tool_candidate(tool: &ToolCandidate) -> Vec<String> {
     }
     if !tool.guardrails.is_empty() {
         lines.push(format!("  guardrails: {}", tool.guardrails.join("; ")));
+    }
+    if let Some(preference) = &tool.preference {
+        lines.push(format!(
+            "  preferred_for: {}/{}",
+            preference.category, preference.lang
+        ));
+        lines.push(format!("  preference_reason: {}", preference.reason));
     }
     if !tool.risk.effects.is_empty() {
         lines.push(format!("  effects: {}", tool.risk.effects.join(", ")));

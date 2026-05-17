@@ -1,35 +1,43 @@
 use std::collections::{BTreeMap, BTreeSet};
 
 use crate::discovery::global::run_global_checks;
+use crate::error::Result;
 use crate::model::{
-    Availability, CategoryCandidates, CategoryInput, CategoryResult, CategorySummary, Status,
-    ToolCandidate, ToolSpec,
+    Availability, CategoryCandidates, CategoryInput, CategoryResult, CategorySummary,
+    PreferenceFile, Status, ToolCandidate, ToolSpec,
 };
+use crate::preferences::{find_preference, load_preferences};
 use crate::registry::tool_registry;
 
 pub struct CategoryCommand {
     pub input: CategoryInput,
 }
 
-pub fn query_category(command: CategoryCommand) -> CategoryResult {
+pub fn query_category(command: CategoryCommand) -> Result<CategoryResult> {
     let registry = tool_registry();
     if command.input.categories.is_empty() {
-        CategoryResult::List {
+        Ok(CategoryResult::List {
             categories: summaries(&registry),
-        }
+        })
     } else {
-        CategoryResult::Candidates {
+        let preferences = load_preferences(&command.input.cwd)?;
+        Ok(CategoryResult::Candidates {
             categories: command
                 .input
                 .categories
                 .into_iter()
                 .map(|name| CategoryCandidates {
-                    tools: candidates(&registry, &name, command.input.lang.as_deref()),
+                    tools: candidates(
+                        &registry,
+                        &preferences,
+                        &name,
+                        command.input.lang.as_deref(),
+                    ),
                     name,
                 })
                 .collect(),
             lang: command.input.lang,
-        }
+        })
     }
 }
 
@@ -56,8 +64,13 @@ fn summaries(registry: &[ToolSpec]) -> Vec<CategorySummary> {
         .collect()
 }
 
-fn candidates(registry: &[ToolSpec], category: &str, lang: Option<&str>) -> Vec<ToolCandidate> {
-    registry
+fn candidates(
+    registry: &[ToolSpec],
+    preferences: &PreferenceFile,
+    category: &str,
+    lang: Option<&str>,
+) -> Vec<ToolCandidate> {
+    let mut tools: Vec<ToolCandidate> = registry
         .iter()
         .filter(|tool| {
             tool.category
@@ -65,8 +78,11 @@ fn candidates(registry: &[ToolSpec], category: &str, lang: Option<&str>) -> Vec<
                 .any(|value| value.eq_ignore_ascii_case(category))
         })
         .filter(|tool| lang.is_none_or(|value| supports_lang(tool, value)))
-        .map(candidate)
-        .collect()
+        .map(|tool| candidate(tool, preferences, category, lang))
+        .collect();
+
+    tools.sort_by_key(|tool| tool.preference.is_none());
+    tools
 }
 
 fn supports_lang(tool: &ToolSpec, lang: &str) -> bool {
@@ -75,7 +91,12 @@ fn supports_lang(tool: &ToolSpec, lang: &str) -> bool {
         .any(|value| value == "all" || value.eq_ignore_ascii_case(lang))
 }
 
-fn candidate(tool: &ToolSpec) -> ToolCandidate {
+fn candidate(
+    tool: &ToolSpec,
+    preferences: &PreferenceFile,
+    category: &str,
+    lang: Option<&str>,
+) -> ToolCandidate {
     let fact = run_global_checks(tool).into_iter().next();
     let availability = match fact {
         Some(fact) if fact.status == Status::Found => Availability::Found {
@@ -103,5 +124,13 @@ fn candidate(tool: &ToolSpec) -> ToolCandidate {
         guardrails: tool.guardrails.clone(),
         risk: tool.risk.clone(),
         availability,
+        preference: find_preference(
+            &preferences.preferences,
+            category,
+            lang,
+            &tool.name,
+            &tool.binary,
+            &tool.aliases,
+        ),
     }
 }

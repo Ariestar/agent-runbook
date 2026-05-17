@@ -13,8 +13,13 @@ runbook scan --minimal
 runbook category
 runbook category --help
 runbook category lint formatter --lang rust
+runbook prefer
+runbook prefer set test --lang rust --tool cargo --reason "Use Cargo as the default Rust test runner."
+runbook prefer unset test --lang rust
 runbook --version
 ```
+
+`runbook scan` is fact-only. Repository tool preferences are stored explicitly in `.runbook/preferences.yaml` through `runbook prefer`, then surfaced by `runbook category` as preferred candidates.
 
 ## Skill
 
