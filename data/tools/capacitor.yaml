@@ -1,0 +1,44 @@
+name: capacitor
+binary: cap
+aliases:
+- capacitor
+category:
+- build
+- mobile
+lang:
+- javascript
+- typescript
+summary: Capacitor CLI for syncing web apps into native Android and iOS projects.
+homepage: https://capacitorjs.com/
+docs: https://capacitorjs.com/docs/cli
+detect:
+  version_args:
+  - --version
+  local:
+    files:
+    - capacitor.config.ts
+    - capacitor.config.js
+    - capacitor.config.json
+    dirs:
+    - android
+    - ios
+    package_json:
+      package_manager_prefixes: []
+use_when:
+- Sync, copy, open, or update native Capacitor projects from a web app
+avoid_when:
+- Native project changes should not be generated or overwritten
+risk:
+  level: medium
+  effects:
+  - execute_code
+  - read_files
+  - write_files
+  - network_access
+  requires_auth: false
+  destructive: false
+  confirmation_required_for:
+  - syncing native projects
+  - updating native dependencies
+guardrails:
+- Ask before running sync/update commands that rewrite native Android or iOS project files.

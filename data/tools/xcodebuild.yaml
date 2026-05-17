@@ -1,0 +1,41 @@
+name: xcodebuild
+binary: xcodebuild
+aliases: []
+category:
+- build
+- test
+- mobile
+lang:
+- swift
+- objective-c
+summary: Xcode command-line build and test tool for Apple platforms.
+homepage: https://developer.apple.com/xcode/
+docs: https://developer.apple.com/library/archive/technotes/tn2339/_index.html
+detect:
+  version_args:
+  - -version
+  local:
+    files:
+    - Package.swift
+    dirs:
+    - ios
+    - macos
+    package_json:
+      package_manager_prefixes: []
+use_when:
+- Build or test iOS, macOS, watchOS, or tvOS projects from the command line
+avoid_when:
+- Xcode command line tools are not installed or signing settings are unknown
+risk:
+  level: high
+  effects:
+  - execute_code
+  - read_files
+  - write_files
+  requires_auth: false
+  destructive: false
+  confirmation_required_for:
+  - changing signing settings
+  - archiving for distribution
+guardrails:
+- Prefer read-only build and test actions before changing signing or provisioning settings.

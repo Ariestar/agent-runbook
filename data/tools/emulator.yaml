@@ -1,0 +1,35 @@
+name: emulator
+binary: emulator
+aliases: []
+category:
+- mobile
+- simulator
+lang:
+- all
+summary: Android Emulator CLI for listing and launching Android virtual devices.
+homepage: https://developer.android.com/studio/run/emulator-commandline
+docs: https://developer.android.com/studio/run/emulator-commandline
+detect:
+  version_args:
+  - -version
+  local:
+    files: []
+    dirs:
+    - android
+    package_json:
+      package_manager_prefixes: []
+use_when:
+- List or launch Android virtual devices for mobile testing
+avoid_when:
+- A physical device is required or no AVDs are configured
+risk:
+  level: medium
+  effects:
+  - execute_code
+  - write_files
+  requires_auth: false
+  destructive: false
+  confirmation_required_for:
+  - wiping emulator data
+guardrails:
+- Avoid wipe-data or snapshot deletion flags unless explicitly requested.

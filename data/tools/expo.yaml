@@ -1,0 +1,41 @@
+name: expo
+binary: expo
+aliases: []
+category:
+- build
+- runtime
+- mobile
+lang:
+- javascript
+- typescript
+summary: Expo CLI for developing, prebuilding, and running React Native apps.
+homepage: https://expo.dev/
+docs: https://docs.expo.dev/more/expo-cli/
+detect:
+  version_args:
+  - --version
+  local:
+    files:
+    - app.json
+    - app.config.js
+    - app.config.ts
+    dirs: []
+    package_json:
+      package_manager_prefixes: []
+use_when:
+- Start, run, or prebuild Expo React Native apps
+avoid_when:
+- The project is not an Expo app or package-manager scripts should be used instead
+risk:
+  level: medium
+  effects:
+  - execute_code
+  - network_access
+  - write_files
+  requires_auth: false
+  destructive: false
+  confirmation_required_for:
+  - prebuilds that generate native projects
+  - publishing updates
+guardrails:
+- Prefer package-manager scripts and ask before running `expo prebuild` because it writes native project files.

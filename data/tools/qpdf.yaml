@@ -1,0 +1,34 @@
+name: qpdf
+binary: qpdf
+aliases: []
+category:
+- docs
+- file-viewer
+lang:
+- all
+summary: Command-line tool for inspecting, transforming, splitting, and repairing PDF files.
+homepage: https://github.com/qpdf/qpdf
+docs: https://qpdf.readthedocs.io/
+detect:
+  version_args:
+  - --version
+  local:
+    files: []
+    dirs: []
+    package_json:
+      package_manager_prefixes: []
+use_when:
+- Inspect PDF structure or split, merge, decrypt, and repair PDFs
+avoid_when:
+- Extracting plain text is enough and pdftotext is available
+risk:
+  level: medium
+  effects:
+  - read_files
+  - write_files
+  requires_auth: false
+  destructive: false
+  confirmation_required_for:
+  - decrypting or rewriting PDFs
+guardrails:
+- Preserve original PDF files and write transformed output separately.

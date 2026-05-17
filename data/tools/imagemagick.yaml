@@ -1,0 +1,35 @@
+name: imagemagick
+binary: magick
+aliases:
+- convert
+category:
+- image
+- docs
+lang:
+- all
+summary: ImageMagick CLI suite for inspecting, converting, and transforming images.
+homepage: https://imagemagick.org/
+docs: https://imagemagick.org/script/command-line-processing.php
+detect:
+  version_args:
+  - --version
+  local:
+    files: []
+    dirs: []
+    package_json:
+      package_manager_prefixes: []
+use_when:
+- Convert image formats, resize images, or inspect image metadata
+avoid_when:
+- Editing source images in place without a backup
+risk:
+  level: medium
+  effects:
+  - read_files
+  - write_files
+  requires_auth: false
+  destructive: false
+  confirmation_required_for:
+  - overwriting source images
+guardrails:
+- Write transformed images to new files unless replacement is requested.

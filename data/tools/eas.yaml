@@ -1,0 +1,42 @@
+name: eas
+binary: eas
+aliases: []
+category:
+- deploy
+- build
+- mobile
+lang:
+- javascript
+- typescript
+summary: Expo Application Services CLI for cloud builds, submissions, updates, and credentials.
+homepage: https://expo.dev/eas
+docs: https://docs.expo.dev/eas/
+detect:
+  version_args:
+  - --version
+  local:
+    files:
+    - eas.json
+    dirs: []
+    package_json:
+      package_manager_prefixes: []
+use_when:
+- Run Expo cloud builds, submissions, updates, or credential workflows
+avoid_when:
+- The user has not approved remote build or store operations
+risk:
+  level: high
+  effects:
+  - network_access
+  - remote_write
+  - write_files
+  - requires_auth
+  requires_auth: true
+  destructive: false
+  confirmation_required_for:
+  - cloud builds
+  - app submissions
+  - credential changes
+  - publishing updates
+guardrails:
+- Treat EAS build, submit, update, and credentials commands as confirmation-gated remote writes.

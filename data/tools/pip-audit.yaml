@@ -1,0 +1,37 @@
+name: pip-audit
+binary: pip-audit
+aliases: []
+category:
+- security
+lang:
+- python
+summary: Python dependency vulnerability scanner from PyPA.
+homepage: https://github.com/pypa/pip-audit
+docs: https://github.com/pypa/pip-audit#readme
+detect:
+  version_args:
+  - --version
+  local:
+    files:
+    - requirements.txt
+    - pyproject.toml
+    - poetry.lock
+    - uv.lock
+    dirs: []
+    package_json:
+      package_manager_prefixes: []
+use_when:
+- Audit Python dependencies for known vulnerabilities
+avoid_when:
+- Network access to vulnerability databases is not allowed
+risk:
+  level: medium
+  effects:
+  - read_files
+  - network_access
+  requires_auth: false
+  destructive: false
+  confirmation_required_for:
+  - fixing dependencies automatically
+guardrails:
+- Treat vulnerability output as potentially sensitive before sharing externally.

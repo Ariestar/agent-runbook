@@ -1,0 +1,43 @@
+name: flutter
+binary: flutter
+aliases: []
+category:
+- build
+- test
+- package-manager
+- mobile
+lang:
+- dart
+summary: Flutter SDK CLI for building, testing, and running Dart applications across mobile, web, and desktop.
+homepage: https://flutter.dev/
+docs: https://docs.flutter.dev/reference/flutter-cli
+detect:
+  version_args:
+  - --version
+  local:
+    files:
+    - pubspec.yaml
+    - pubspec.lock
+    dirs:
+    - android
+    - ios
+    package_json:
+      package_manager_prefixes: []
+use_when:
+- Build, test, run, or inspect Flutter projects
+avoid_when:
+- The project is not a Flutter app or package
+risk:
+  level: medium
+  effects:
+  - install_packages
+  - execute_code
+  - network_access
+  - write_files
+  requires_auth: false
+  destructive: false
+  confirmation_required_for:
+  - installing to a connected device
+  - cleaning build outputs
+guardrails:
+- Prefer project-defined Flutter scripts when present and confirm before touching connected devices.

@@ -1,0 +1,41 @@
+name: pod
+binary: pod
+aliases:
+- cocoapods
+category:
+- package-manager
+- mobile
+lang:
+- swift
+- objective-c
+summary: CocoaPods dependency manager CLI for Apple platform projects.
+homepage: https://cocoapods.org/
+docs: https://guides.cocoapods.org/terminal/commands.html
+detect:
+  version_args:
+  - --version
+  local:
+    files:
+    - Podfile
+    - Podfile.lock
+    dirs:
+    - Pods
+    package_json:
+      package_manager_prefixes: []
+use_when:
+- Install or update iOS/macOS dependencies managed by CocoaPods
+avoid_when:
+- The project uses Swift Package Manager only
+risk:
+  level: medium
+  effects:
+  - install_packages
+  - network_access
+  - write_files
+  requires_auth: false
+  destructive: false
+  confirmation_required_for:
+  - updating pods
+  - repo updates that change lockfiles
+guardrails:
+- Prefer `pod install` over `pod update` unless dependency updates are requested.

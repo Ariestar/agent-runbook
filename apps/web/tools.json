@@ -52,6 +52,60 @@
     ]
   },
   {
+    "name": "adb",
+    "binary": "adb",
+    "aliases": [],
+    "category": [
+      "mobile",
+      "device",
+      "debug"
+    ],
+    "lang": [
+      "all"
+    ],
+    "summary": "Android Debug Bridge for interacting with Android devices and emulators.",
+    "homepage": "https://developer.android.com/tools/adb",
+    "docs": "https://developer.android.com/tools/adb",
+    "detect": {
+      "version_args": [
+        "version"
+      ],
+      "local": {
+        "files": [],
+        "dirs": [
+          "android"
+        ],
+        "package_json": {
+          "package_manager_prefixes": []
+        }
+      }
+    },
+    "use_when": [
+      "Inspect Android devices, install debug builds, run shell commands, or collect logcat output"
+    ],
+    "avoid_when": [
+      "No target device or emulator is selected"
+    ],
+    "risk": {
+      "level": "high",
+      "effects": [
+        "execute_code",
+        "read_files",
+        "write_files"
+      ],
+      "requires_auth": false,
+      "destructive": false,
+      "confirmation_required_for": [
+        "installing apps",
+        "uninstalling packages",
+        "running device shell commands"
+      ]
+    },
+    "guardrails": [
+      "Confirm the target device with `adb devices` before mutating device state."
+    ]
+  },
+  {
     "name": "age",
     "binary": "age",
     "aliases": [],
@@ -983,6 +1037,67 @@
     },
     "guardrails": [
       "Use bundle exec for project-local Ruby commands."
+    ]
+  },
+  {
+    "name": "capacitor",
+    "binary": "cap",
+    "aliases": [
+      "capacitor"
+    ],
+    "category": [
+      "build",
+      "mobile"
+    ],
+    "lang": [
+      "javascript",
+      "typescript"
+    ],
+    "summary": "Capacitor CLI for syncing web apps into native Android and iOS projects.",
+    "homepage": "https://capacitorjs.com/",
+    "docs": "https://capacitorjs.com/docs/cli",
+    "detect": {
+      "version_args": [
+        "--version"
+      ],
+      "local": {
+        "files": [
+          "capacitor.config.ts",
+          "capacitor.config.js",
+          "capacitor.config.json"
+        ],
+        "dirs": [
+          "android",
+          "ios"
+        ],
+        "package_json": {
+          "package_manager_prefixes": []
+        }
+      }
+    },
+    "use_when": [
+      "Sync, copy, open, or update native Capacitor projects from a web app"
+    ],
+    "avoid_when": [
+      "Native project changes should not be generated or overwritten"
+    ],
+    "risk": {
+      "level": "medium",
+      "effects": [
+        "execute_code",
+        "read_files",
+        "write_files",
+        "network_access"
+      ],
+      "requires_auth": false,
+      "destructive": false,
+      "confirmation_required_for": [
+        "syncing native projects",
+        "updating native dependencies"
+      ]
+    },
+    "guardrails": [
+      "Ask before running sync/update commands that rewrite native Android or iOS project files."
     ]
   },
   {
@@ -2534,6 +2649,113 @@
     ]
   },
   {
+    "name": "eas",
+    "binary": "eas",
+    "aliases": [],
+    "category": [
+      "deploy",
+      "build",
+      "mobile"
+    ],
+    "lang": [
+      "javascript",
+      "typescript"
+    ],
+    "summary": "Expo Application Services CLI for cloud builds, submissions, updates, and credentials.",
+    "homepage": "https://expo.dev/eas",
+    "docs": "https://docs.expo.dev/eas/",
+    "detect": {
+      "version_args": [
+        "--version"
+      ],
+      "local": {
+        "files": [
+          "eas.json"
+        ],
+        "dirs": [],
+        "package_json": {
+          "package_manager_prefixes": []
+        }
+      }
+    },
+    "use_when": [
+      "Run Expo cloud builds, submissions, updates, or credential workflows"
+    ],
+    "avoid_when": [
+      "The user has not approved remote build or store operations"
+    ],
+    "risk": {
+      "level": "high",
+      "effects": [
+        "network_access",
+        "remote_write",
+        "write_files",
+        "requires_auth"
+      ],
+      "requires_auth": true,
+      "destructive": false,
+      "confirmation_required_for": [
+        "cloud builds",
+        "app submissions",
+        "credential changes",
+        "publishing updates"
+      ]
+    },
+    "guardrails": [
+      "Treat EAS build, submit, update, and credentials commands as confirmation-gated remote writes."
+    ]
+  },
+  {
+    "name": "emulator",
+    "binary": "emulator",
+    "aliases": [],
+    "category": [
+      "mobile",
+      "simulator"
+    ],
+    "lang": [
+      "all"
+    ],
+    "summary": "Android Emulator CLI for listing and launching Android virtual devices.",
+    "homepage": "https://developer.android.com/studio/run/emulator-commandline",
+    "docs": "https://developer.android.com/studio/run/emulator-commandline",
+    "detect": {
+      "version_args": [
+        "-version"
+      ],
+      "local": {
+        "files": [],
+        "dirs": [
+          "android"
+        ],
+        "package_json": {
+          "package_manager_prefixes": []
+        }
+      }
+    },
+    "use_when": [
+      "List or launch Android virtual devices for mobile testing"
+    ],
+    "avoid_when": [
+      "A physical device is required or no AVDs are configured"
+    ],
+    "risk": {
+      "level": "medium",
+      "effects": [
+        "execute_code",
+        "write_files"
+      ],
+      "requires_auth": false,
+      "destructive": false,
+      "confirmation_required_for": [
+        "wiping emulator data"
+      ]
+    },
+    "guardrails": [
+      "Avoid wipe-data or snapshot deletion flags unless explicitly requested."
+    ]
+  },
+  {
     "name": "eslint",
     "binary": "eslint",
     "aliases": [],
@@ -2590,6 +2812,62 @@
     ]
   },
   {
+    "name": "expo",
+    "binary": "expo",
+    "aliases": [],
+    "category": [
+      "build",
+      "runtime",
+      "mobile"
+    ],
+    "lang": [
+      "javascript",
+      "typescript"
+    ],
+    "summary": "Expo CLI for developing, prebuilding, and running React Native apps.",
+    "homepage": "https://expo.dev/",
+    "docs": "https://docs.expo.dev/more/expo-cli/",
+    "detect": {
+      "version_args": [
+        "--version"
+      ],
+      "local": {
+        "files": [
+          "app.json",
+          "app.config.js",
+          "app.config.ts"
+        ],
+        "dirs": [],
+        "package_json": {
+          "package_manager_prefixes": []
+        }
+      }
+    },
+    "use_when": [
+      "Start, run, or prebuild Expo React Native apps"
+    ],
+    "avoid_when": [
+      "The project is not an Expo app or package-manager scripts should be used instead"
+    ],
+    "risk": {
+      "level": "medium",
+      "effects": [
+        "execute_code",
+        "network_access",
+        "write_files"
+      ],
+      "requires_auth": false,
+      "destructive": false,
+      "confirmation_required_for": [
+        "prebuilds that generate native projects",
+        "publishing updates"
+      ]
+    },
+    "guardrails": [
+      "Prefer package-manager scripts and ask before running `expo prebuild` because it writes native project files."
+    ]
+  },
+  {
     "name": "eza",
     "binary": "eza",
     "aliases": [
@@ -2633,6 +2911,66 @@
     },
     "guardrails": [
       "Use stable machine-readable commands for automation."
+    ]
+  },
+  {
+    "name": "fastlane",
+    "binary": "fastlane",
+    "aliases": [],
+    "category": [
+      "deploy",
+      "mobile",
+      "signing"
+    ],
+    "lang": [
+      "ruby"
+    ],
+    "summary": "Automation CLI for mobile build, signing, beta distribution, and app store release workflows.",
+    "homepage": "https://fastlane.tools/",
+    "docs": "https://docs.fastlane.tools/",
+    "detect": {
+      "version_args": [
+        "--version"
+      ],
+      "local": {
+        "files": [
+          "fastlane/Fastfile",
+          "fastlane/Appfile"
+        ],
+        "dirs": [
+          "fastlane"
+        ],
+        "package_json": {
+          "package_manager_prefixes": []
+        }
+      }
+    },
+    "use_when": [
+      "Run repository-defined mobile release, signing, screenshots, or store submission lanes"
+    ],
+    "avoid_when": [
+      "Lane behavior or credentials are unknown"
+    ],
+    "risk": {
+      "level": "high",
+      "effects": [
+        "execute_code",
+        "network_access",
+        "read_files",
+        "write_files",
+        "remote_write",
+        "requires_auth"
+      ],
+      "requires_auth": true,
+      "destructive": false,
+      "confirmation_required_for": [
+        "uploading builds",
+        "changing signing assets",
+        "submitting to stores"
+      ]
+    },
+    "guardrails": [
+      "Inspect Fastfile lanes and verify authentication before running release or signing lanes."
     ]
   },
   {
@@ -2785,6 +3123,65 @@
     },
     "guardrails": [
       "Confirm active Firebase project before write operations."
+    ]
+  },
+  {
+    "name": "flutter",
+    "binary": "flutter",
+    "aliases": [],
+    "category": [
+      "build",
+      "test",
+      "package-manager",
+      "mobile"
+    ],
+    "lang": [
+      "dart"
+    ],
+    "summary": "Flutter SDK CLI for building, testing, and running Dart applications across mobile, web, and desktop.",
+    "homepage": "https://flutter.dev/",
+    "docs": "https://docs.flutter.dev/reference/flutter-cli",
+    "detect": {
+      "version_args": [
+        "--version"
+      ],
+      "local": {
+        "files": [
+          "pubspec.yaml",
+          "pubspec.lock"
+        ],
+        "dirs": [
+          "android",
+          "ios"
+        ],
+        "package_json": {
+          "package_manager_prefixes": []
+        }
+      }
+    },
+    "use_when": [
+      "Build, test, run, or inspect Flutter projects"
+    ],
+    "avoid_when": [
+      "The project is not a Flutter app or package"
+    ],
+    "risk": {
+      "level": "medium",
+      "effects": [
+        "install_packages",
+        "execute_code",
+        "network_access",
+        "write_files"
+      ],
+      "requires_auth": false,
+      "destructive": false,
+      "confirmation_required_for": [
+        "installing to a connected device",
+        "cleaning build outputs"
+      ]
+    },
+    "guardrails": [
+      "Prefer project-defined Flutter scripts when present and confirm before touching connected devices."
     ]
   },
   {
@@ -3961,6 +4358,56 @@
     },
     "guardrails": [
       "Benchmark commands should be repeatable and side-effect controlled."
+    ]
+  },
+  {
+    "name": "imagemagick",
+    "binary": "magick",
+    "aliases": [
+      "convert"
+    ],
+    "category": [
+      "image",
+      "docs"
+    ],
+    "lang": [
+      "all"
+    ],
+    "summary": "ImageMagick CLI suite for inspecting, converting, and transforming images.",
+    "homepage": "https://imagemagick.org/",
+    "docs": "https://imagemagick.org/script/command-line-processing.php",
+    "detect": {
+      "version_args": [
+        "--version"
+      ],
+      "local": {
+        "files": [],
+        "dirs": [],
+        "package_json": {
+          "package_manager_prefixes": []
+        }
+      }
+    },
+    "use_when": [
+      "Convert image formats, resize images, or inspect image metadata"
+    ],
+    "avoid_when": [
+      "Editing source images in place without a backup"
+    ],
+    "risk": {
+      "level": "medium",
+      "effects": [
+        "read_files",
+        "write_files"
+      ],
+      "requires_auth": false,
+      "destructive": false,
+      "confirmation_required_for": [
+        "overwriting source images"
+      ]
+    },
+    "guardrails": [
+      "Write transformed images to new files unless replacement is requested."
     ]
   },
   {
@@ -5321,6 +5768,54 @@
     ]
   },
   {
+    "name": "oha",
+    "binary": "oha",
+    "aliases": [],
+    "category": [
+      "benchmark",
+      "network"
+    ],
+    "lang": [
+      "all"
+    ],
+    "summary": "HTTP load generator and benchmark tool.",
+    "homepage": "https://github.com/hatoo/oha",
+    "docs": "https://github.com/hatoo/oha#readme",
+    "detect": {
+      "version_args": [
+        "--version"
+      ],
+      "local": {
+        "files": [],
+        "dirs": [],
+        "package_json": {
+          "package_manager_prefixes": []
+        }
+      }
+    },
+    "use_when": [
+      "Benchmark local HTTP services with concise latency and throughput reports"
+    ],
+    "avoid_when": [
+      "The target is a production or third-party service without permission"
+    ],
+    "risk": {
+      "level": "high",
+      "effects": [
+        "network_access",
+        "execute_code"
+      ],
+      "requires_auth": false,
+      "destructive": false,
+      "confirmation_required_for": [
+        "load testing remote services"
+      ]
+    },
+    "guardrails": [
+      "Benchmark localhost by default and ask before load testing shared or remote services."
+    ]
+  },
+  {
     "name": "op",
     "binary": "op",
     "aliases": [
@@ -5524,6 +6019,206 @@
     ]
   },
   {
+    "name": "pandoc",
+    "binary": "pandoc",
+    "aliases": [],
+    "category": [
+      "docs",
+      "text"
+    ],
+    "lang": [
+      "markdown"
+    ],
+    "summary": "Universal document converter for Markdown, HTML, DOCX, LaTeX, and more.",
+    "homepage": "https://pandoc.org/",
+    "docs": "https://pandoc.org/MANUAL.html",
+    "detect": {
+      "version_args": [
+        "--version"
+      ],
+      "local": {
+        "files": [],
+        "dirs": [],
+        "package_json": {
+          "package_manager_prefixes": []
+        }
+      }
+    },
+    "use_when": [
+      "Convert documents between markup and publishing formats",
+      "Extract readable text from supported document sources"
+    ],
+    "avoid_when": [
+      "Layout fidelity matters more than text content"
+    ],
+    "risk": {
+      "level": "medium",
+      "effects": [
+        "read_files",
+        "write_files"
+      ],
+      "requires_auth": false,
+      "destructive": false,
+      "confirmation_required_for": [
+        "overwriting source documents"
+      ]
+    },
+    "guardrails": [
+      "Write converted output to a new file unless the user requests replacement."
+    ]
+  },
+  {
+    "name": "paseo",
+    "binary": "paseo",
+    "aliases": [],
+    "category": [
+      "agent",
+      "automation",
+      "terminal"
+    ],
+    "lang": [
+      "all"
+    ],
+    "summary": "Local daemon and CLI for supervising AI coding agents, worktrees, schedules, and terminals.",
+    "homepage": "https://github.com/mariozechner/pi-coding-agent",
+    "docs": "https://github.com/mariozechner/pi-coding-agent",
+    "detect": {
+      "version_args": [
+        "--version"
+      ],
+      "local": {
+        "files": [],
+        "dirs": [
+          ".paseo"
+        ],
+        "package_json": {
+          "package_manager_prefixes": []
+        }
+      }
+    },
+    "use_when": [
+      "Create or coordinate coding agents and managed worktrees",
+      "Run or capture long-lived workspace terminals"
+    ],
+    "avoid_when": [
+      "The local daemon is unavailable or restarting would interrupt active agents"
+    ],
+    "risk": {
+      "level": "high",
+      "effects": [
+        "execute_code",
+        "read_files",
+        "write_files",
+        "remote_read",
+        "remote_write"
+      ],
+      "requires_auth": false,
+      "destructive": false,
+      "confirmation_required_for": [
+        "restarting the daemon",
+        "deleting agents or worktrees"
+      ]
+    },
+    "guardrails": [
+      "Never restart the daemon without explicit user approval."
+    ]
+  },
+  {
+    "name": "pdftoppm",
+    "binary": "pdftoppm",
+    "aliases": [],
+    "category": [
+      "docs",
+      "file-viewer"
+    ],
+    "lang": [
+      "all"
+    ],
+    "summary": "Poppler CLI for rendering PDF pages to image files.",
+    "homepage": "https://poppler.freedesktop.org/",
+    "docs": "https://www.mankier.com/1/pdftoppm",
+    "detect": {
+      "version_args": [
+        "-v"
+      ],
+      "local": {
+        "files": [],
+        "dirs": [],
+        "package_json": {
+          "package_manager_prefixes": []
+        }
+      }
+    },
+    "use_when": [
+      "Render PDF pages for visual inspection or OCR workflows"
+    ],
+    "avoid_when": [
+      "Text extraction is enough"
+    ],
+    "risk": {
+      "level": "medium",
+      "effects": [
+        "read_files",
+        "write_files"
+      ],
+      "requires_auth": false,
+      "destructive": false,
+      "confirmation_required_for": [
+        "rendering large page ranges"
+      ]
+    },
+    "guardrails": [
+      "Limit page ranges when rendering large PDFs."
+    ]
+  },
+  {
+    "name": "pdftotext",
+    "binary": "pdftotext",
+    "aliases": [],
+    "category": [
+      "docs",
+      "text",
+      "file-viewer"
+    ],
+    "lang": [
+      "all"
+    ],
+    "summary": "Poppler CLI for extracting text from PDF files.",
+    "homepage": "https://poppler.freedesktop.org/",
+    "docs": "https://www.mankier.com/1/pdftotext",
+    "detect": {
+      "version_args": [
+        "-v"
+      ],
+      "local": {
+        "files": [],
+        "dirs": [],
+        "package_json": {
+          "package_manager_prefixes": []
+        }
+      }
+    },
+    "use_when": [
+      "Extract text from PDFs for reading, summarization, or search"
+    ],
+    "avoid_when": [
+      "The PDF is scanned images and needs OCR"
+    ],
+    "risk": {
+      "level": "low",
+      "effects": [
+        "read_files",
+        "write_files"
+      ],
+      "requires_auth": false,
+      "destructive": false,
+      "confirmation_required_for": []
+    },
+    "guardrails": [
+      "Use OCR tools for image-only PDFs when extracted text is empty or garbled."
+    ]
+  },
+  {
     "name": "php",
     "binary": "php",
     "aliases": [],
@@ -5627,6 +6322,58 @@
     },
     "guardrails": [
       "Prefer virtual environments over global pip installs."
+    ]
+  },
+  {
+    "name": "pip-audit",
+    "binary": "pip-audit",
+    "aliases": [],
+    "category": [
+      "security"
+    ],
+    "lang": [
+      "python"
+    ],
+    "summary": "Python dependency vulnerability scanner from PyPA.",
+    "homepage": "https://github.com/pypa/pip-audit",
+    "docs": "https://github.com/pypa/pip-audit#readme",
+    "detect": {
+      "version_args": [
+        "--version"
+      ],
+      "local": {
+        "files": [
+          "requirements.txt",
+          "pyproject.toml",
+          "poetry.lock",
+          "uv.lock"
+        ],
+        "dirs": [],
+        "package_json": {
+          "package_manager_prefixes": []
+        }
+      }
+    },
+    "use_when": [
+      "Audit Python dependencies for known vulnerabilities"
+    ],
+    "avoid_when": [
+      "Network access to vulnerability databases is not allowed"
+    ],
+    "risk": {
+      "level": "medium",
+      "effects": [
+        "read_files",
+        "network_access"
+      ],
+      "requires_auth": false,
+      "destructive": false,
+      "confirmation_required_for": [
+        "fixing dependencies automatically"
+      ]
+    },
+    "guardrails": [
+      "Treat vulnerability output as potentially sensitive before sharing externally."
     ]
   },
   {
@@ -5788,6 +6535,64 @@
     ]
   },
   {
+    "name": "pod",
+    "binary": "pod",
+    "aliases": [
+      "cocoapods"
+    ],
+    "category": [
+      "package-manager",
+      "mobile"
+    ],
+    "lang": [
+      "swift",
+      "objective-c"
+    ],
+    "summary": "CocoaPods dependency manager CLI for Apple platform projects.",
+    "homepage": "https://cocoapods.org/",
+    "docs": "https://guides.cocoapods.org/terminal/commands.html",
+    "detect": {
+      "version_args": [
+        "--version"
+      ],
+      "local": {
+        "files": [
+          "Podfile",
+          "Podfile.lock"
+        ],
+        "dirs": [
+          "Pods"
+        ],
+        "package_json": {
+          "package_manager_prefixes": []
+        }
+      }
+    },
+    "use_when": [
+      "Install or update iOS/macOS dependencies managed by CocoaPods"
+    ],
+    "avoid_when": [
+      "The project uses Swift Package Manager only"
+    ],
+    "risk": {
+      "level": "medium",
+      "effects": [
+        "install_packages",
+        "network_access",
+        "write_files"
+      ],
+      "requires_auth": false,
+      "destructive": false,
+      "confirmation_required_for": [
+        "updating pods",
+        "repo updates that change lockfiles"
+      ]
+    },
+    "guardrails": [
+      "Prefer `pod install` over `pod update` unless dependency updates are requested."
+    ]
+  },
+  {
     "name": "podman",
     "binary": "podman",
     "aliases": [],
@@ -5891,6 +6696,61 @@
     },
     "guardrails": [
       "If poetry.lock exists, prefer Poetry for dependency operations."
+    ]
+  },
+  {
+    "name": "pre-commit",
+    "binary": "pre-commit",
+    "aliases": [],
+    "category": [
+      "automation",
+      "lint",
+      "test"
+    ],
+    "lang": [
+      "all"
+    ],
+    "summary": "Framework for running repository-defined checks before commits.",
+    "homepage": "https://github.com/pre-commit/pre-commit",
+    "docs": "https://pre-commit.com/",
+    "detect": {
+      "version_args": [
+        "--version"
+      ],
+      "local": {
+        "files": [
+          ".pre-commit-config.yaml"
+        ],
+        "dirs": [],
+        "package_json": {
+          "package_manager_prefixes": []
+        }
+      }
+    },
+    "use_when": [
+      "Run the same checks configured for repository commits",
+      "Verify cross-language formatting, linting, and policy hooks"
+    ],
+    "avoid_when": [
+      "Hook behavior is unknown and may perform writes or network access"
+    ],
+    "risk": {
+      "level": "medium",
+      "effects": [
+        "execute_code",
+        "read_files",
+        "write_files",
+        "network_access"
+      ],
+      "requires_auth": false,
+      "destructive": false,
+      "confirmation_required_for": [
+        "auto-updating hooks",
+        "running hooks that mutate many files"
+      ]
+    },
+    "guardrails": [
+      "Inspect .pre-commit-config.yaml before running unfamiliar hooks."
     ]
   },
   {
@@ -6311,6 +7171,54 @@
     },
     "guardrails": [
       "Review command permissions and generated changes before accepting them."
+    ]
+  },
+  {
+    "name": "qpdf",
+    "binary": "qpdf",
+    "aliases": [],
+    "category": [
+      "docs",
+      "file-viewer"
+    ],
+    "lang": [
+      "all"
+    ],
+    "summary": "Command-line tool for inspecting, transforming, splitting, and repairing PDF files.",
+    "homepage": "https://github.com/qpdf/qpdf",
+    "docs": "https://qpdf.readthedocs.io/",
+    "detect": {
+      "version_args": [
+        "--version"
+      ],
+      "local": {
+        "files": [],
+        "dirs": [],
+        "package_json": {
+          "package_manager_prefixes": []
+        }
+      }
+    },
+    "use_when": [
+      "Inspect PDF structure or split, merge, decrypt, and repair PDFs"
+    ],
+    "avoid_when": [
+      "Extracting plain text is enough and pdftotext is available"
+    ],
+    "risk": {
+      "level": "medium",
+      "effects": [
+        "read_files",
+        "write_files"
+      ],
+      "requires_auth": false,
+      "destructive": false,
+      "confirmation_required_for": [
+        "decrypting or rewriting PDFs"
+      ]
+    },
+    "guardrails": [
+      "Preserve original PDF files and write transformed output separately."
     ]
   },
   {
@@ -6975,6 +7883,105 @@
     ]
   },
   {
+    "name": "shellcheck",
+    "binary": "shellcheck",
+    "aliases": [],
+    "category": [
+      "lint"
+    ],
+    "lang": [
+      "shell"
+    ],
+    "summary": "Static analysis tool for shell scripts.",
+    "homepage": "https://github.com/koalaman/shellcheck",
+    "docs": "https://www.shellcheck.net/wiki/Home",
+    "detect": {
+      "version_args": [
+        "--version"
+      ],
+      "local": {
+        "files": [
+          ".shellcheckrc"
+        ],
+        "dirs": [],
+        "package_json": {
+          "package_manager_prefixes": []
+        }
+      }
+    },
+    "use_when": [
+      "Lint shell scripts and CI snippets before committing changes"
+    ],
+    "avoid_when": [
+      "The file is not shell syntax"
+    ],
+    "risk": {
+      "level": "low",
+      "effects": [
+        "read_files"
+      ],
+      "requires_auth": false,
+      "destructive": false,
+      "confirmation_required_for": []
+    },
+    "guardrails": [
+      "Review warnings in context before applying broad shell rewrites."
+    ]
+  },
+  {
+    "name": "simctl",
+    "binary": "simctl",
+    "aliases": [],
+    "category": [
+      "mobile",
+      "simulator",
+      "device"
+    ],
+    "lang": [
+      "all"
+    ],
+    "summary": "Apple simulator control CLI, usually invoked as `xcrun simctl`.",
+    "homepage": "https://developer.apple.com/documentation/xcode/simctl",
+    "docs": "https://developer.apple.com/documentation/xcode/simctl",
+    "detect": {
+      "version_args": [
+        "help"
+      ],
+      "local": {
+        "files": [],
+        "dirs": [
+          "ios"
+        ],
+        "package_json": {
+          "package_manager_prefixes": []
+        }
+      }
+    },
+    "use_when": [
+      "List, boot, install to, or inspect iOS simulators"
+    ],
+    "avoid_when": [
+      "A real device is required"
+    ],
+    "risk": {
+      "level": "high",
+      "effects": [
+        "execute_code",
+        "read_files",
+        "write_files"
+      ],
+      "requires_auth": false,
+      "destructive": false,
+      "confirmation_required_for": [
+        "erasing simulators",
+        "deleting simulator data"
+      ]
+    },
+    "guardrails": [
+      "Prefer `xcrun simctl list` before mutating simulator state."
+    ]
+  },
+  {
     "name": "sops",
     "binary": "sops",
     "aliases": [],
@@ -7605,6 +8612,53 @@
     },
     "guardrails": [
       "Do not apply or destroy infrastructure without explicit confirmation."
+    ]
+  },
+  {
+    "name": "tesseract",
+    "binary": "tesseract",
+    "aliases": [],
+    "category": [
+      "docs",
+      "image",
+      "text"
+    ],
+    "lang": [
+      "all"
+    ],
+    "summary": "OCR engine CLI for extracting text from images and scanned documents.",
+    "homepage": "https://github.com/tesseract-ocr/tesseract",
+    "docs": "https://tesseract-ocr.github.io/tessdoc/Command-Line-Usage.html",
+    "detect": {
+      "version_args": [
+        "--version"
+      ],
+      "local": {
+        "files": [],
+        "dirs": [],
+        "package_json": {
+          "package_manager_prefixes": []
+        }
+      }
+    },
+    "use_when": [
+      "Extract text from screenshots, scans, or image-only PDFs after rendering pages"
+    ],
+    "avoid_when": [
+      "The source already has selectable text"
+    ],
+    "risk": {
+      "level": "medium",
+      "effects": [
+        "read_files",
+        "write_files"
+      ],
+      "requires_auth": false,
+      "destructive": false,
+      "confirmation_required_for": []
+    },
+    "guardrails": [
+      "Verify OCR output against the image when accuracy matters."
     ]
   },
   {
@@ -8568,6 +9622,55 @@
     ]
   },
   {
+    "name": "websocat",
+    "binary": "websocat",
+    "aliases": [],
+    "category": [
+      "network",
+      "api"
+    ],
+    "lang": [
+      "all"
+    ],
+    "summary": "Command-line client and relay for WebSocket connections.",
+    "homepage": "https://github.com/vi/websocat",
+    "docs": "https://github.com/vi/websocat#readme",
+    "detect": {
+      "version_args": [
+        "--version"
+      ],
+      "local": {
+        "files": [],
+        "dirs": [],
+        "package_json": {
+          "package_manager_prefixes": []
+        }
+      }
+    },
+    "use_when": [
+      "Test WebSocket endpoints or pipe WebSocket messages in scripts"
+    ],
+    "avoid_when": [
+      "The endpoint requires credentials that should not be exposed in logs"
+    ],
+    "risk": {
+      "level": "medium",
+      "effects": [
+        "network_access",
+        "read_files",
+        "write_files"
+      ],
+      "requires_auth": false,
+      "destructive": false,
+      "confirmation_required_for": [
+        "sending state-changing messages"
+      ]
+    },
+    "guardrails": [
+      "Redact tokens and confirm before sending mutating WebSocket messages."
+    ]
+  },
+  {
     "name": "wrangler",
     "binary": "wrangler",
     "aliases": [],
@@ -8624,6 +9727,63 @@
     },
     "guardrails": [
       "Treat deployment and secret operations as remote writes."
+    ]
+  },
+  {
+    "name": "xcodebuild",
+    "binary": "xcodebuild",
+    "aliases": [],
+    "category": [
+      "build",
+      "test",
+      "mobile"
+    ],
+    "lang": [
+      "swift",
+      "objective-c"
+    ],
+    "summary": "Xcode command-line build and test tool for Apple platforms.",
+    "homepage": "https://developer.apple.com/xcode/",
+    "docs": "https://developer.apple.com/library/archive/technotes/tn2339/_index.html",
+    "detect": {
+      "version_args": [
+        "-version"
+      ],
+      "local": {
+        "files": [
+          "Package.swift"
+        ],
+        "dirs": [
+          "ios",
+          "macos"
+        ],
+        "package_json": {
+          "package_manager_prefixes": []
+        }
+      }
+    },
+    "use_when": [
+      "Build or test iOS, macOS, watchOS, or tvOS projects from the command line"
+    ],
+    "avoid_when": [
+      "Xcode command line tools are not installed or signing settings are unknown"
+    ],
+    "risk": {
+      "level": "high",
+      "effects": [
+        "execute_code",
+        "read_files",
+        "write_files"
+      ],
+      "requires_auth": false,
+      "destructive": false,
+      "confirmation_required_for": [
+        "changing signing settings",
+        "archiving for distribution"
+      ]
+    },
+    "guardrails": [
+      "Prefer read-only build and test actions before changing signing or provisioning settings."
     ]
   },
   {

@@ -1,0 +1,44 @@
+name: fastlane
+binary: fastlane
+aliases: []
+category:
+- deploy
+- mobile
+- signing
+lang:
+- ruby
+summary: Automation CLI for mobile build, signing, beta distribution, and app store release workflows.
+homepage: https://fastlane.tools/
+docs: https://docs.fastlane.tools/
+detect:
+  version_args:
+  - --version
+  local:
+    files:
+    - fastlane/Fastfile
+    - fastlane/Appfile
+    dirs:
+    - fastlane
+    package_json:
+      package_manager_prefixes: []
+use_when:
+- Run repository-defined mobile release, signing, screenshots, or store submission lanes
+avoid_when:
+- Lane behavior or credentials are unknown
+risk:
+  level: high
+  effects:
+  - execute_code
+  - network_access
+  - read_files
+  - write_files
+  - remote_write
+  - requires_auth
+  requires_auth: true
+  destructive: false
+  confirmation_required_for:
+  - uploading builds
+  - changing signing assets
+  - submitting to stores
+guardrails:
+- Inspect Fastfile lanes and verify authentication before running release or signing lanes.

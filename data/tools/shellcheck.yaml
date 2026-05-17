@@ -1,0 +1,32 @@
+name: shellcheck
+binary: shellcheck
+aliases: []
+category:
+- lint
+lang:
+- shell
+summary: Static analysis tool for shell scripts.
+homepage: https://github.com/koalaman/shellcheck
+docs: https://www.shellcheck.net/wiki/Home
+detect:
+  version_args:
+  - --version
+  local:
+    files:
+    - .shellcheckrc
+    dirs: []
+    package_json:
+      package_manager_prefixes: []
+use_when:
+- Lint shell scripts and CI snippets before committing changes
+avoid_when:
+- The file is not shell syntax
+risk:
+  level: low
+  effects:
+  - read_files
+  requires_auth: false
+  destructive: false
+  confirmation_required_for: []
+guardrails:
+- Review warnings in context before applying broad shell rewrites.
