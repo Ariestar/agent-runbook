@@ -6,16 +6,9 @@ pub struct CommandOutput {
 }
 
 pub fn resolve_command(command: &str) -> Option<String> {
-    let output = if cfg!(windows) {
-        run_command("where", &[command])
-    } else {
-        run_command("sh", &["-c", &format!("command -v {command}")])
-    };
-
-    output
-        .status
-        .then_some(output.first_line)
-        .filter(|line| !line.is_empty())
+    which::which(command)
+        .ok()
+        .map(|path| path.display().to_string())
 }
 
 pub fn run_command(command: &str, args: &[&str]) -> CommandOutput {
