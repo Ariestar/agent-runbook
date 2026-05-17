@@ -18,19 +18,11 @@ pub enum RunbookError {
         path: PathBuf,
         source: serde_yaml::Error,
     },
-    Usage {
-        reason: String,
-        help: &'static str,
-    },
 }
 
 impl RunbookError {
     pub fn current_dir(error: std::io::Error) -> Self {
         Self::CurrentDir(error)
-    }
-
-    pub fn usage(reason: String, help: &'static str) -> Self {
-        Self::Usage { reason, help }
     }
 
     pub fn io(action: &'static str, path: PathBuf, source: std::io::Error) -> Self {
@@ -71,7 +63,6 @@ impl fmt::Display for RunbookError {
                 "Failed to serialize preference file {}: {source}",
                 path.display()
             ),
-            Self::Usage { reason, help } => write!(formatter, "{reason}\n\n{help}"),
         }
     }
 }
