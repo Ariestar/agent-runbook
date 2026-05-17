@@ -133,9 +133,9 @@ npx skills add Ariestar/agent-runbook --skill runbook-skill --global
 
 这个 skill 会要求 Agent：
 
-- 在非平凡仓库工作前运行 `runbook --version` 和 `runbook scan`
-- 在不确定工具家族时先运行 `runbook category`
-- 对稳定仓库偏好读取或更新 `runbook prefer`
+- 在非平凡仓库工作前运行 `runbook --version`、`runbook scan`、`runbook prefer`，以及一个和任务相关的 `runbook category ... --lang ...` 查询
+- 把 `runbook scan` 当作事实盘点，而不是完整的工具选择流程
+- 在询问用户选择工具前，先自行比较 category 候选工具
 - 不要静默写入偏好
 - 对云、数据库、密钥、部署和破坏性操作保持确认门槛
 

@@ -5,7 +5,21 @@ description: Use before coding, debugging, build, test, deployment, infrastructu
 
 # Runbook Skill
 
-Run `runbook --version` and `runbook scan` before non-trivial repository work, then turn the result into a task-local operating contract. When tool choice is not obvious, use `runbook category` to expose the relevant tool candidates instead of guessing from memory. When a repository has repeated or user-confirmed tool choices, read or update them through `runbook prefer`; never write preferences silently.
+Run `runbook --version`, `runbook scan`, `runbook prefer`, and at least one task-relevant `runbook category ... --lang ...` query before non-trivial repository work. `runbook scan` is only the fact inventory; it is not a complete tool-choice workflow by itself. Turn the scan, preferences, and category candidates into a task-local operating contract before mutating files or running build/test/lint/deploy/database commands.
+
+When tool choice is not obvious, use `runbook category` to expose the relevant tool candidates instead of guessing from memory. When a repository has repeated or user-confirmed tool choices, read or update them through `runbook prefer`; never write preferences silently.
+
+## Completion Bar
+
+For non-trivial repository work, Runbook preflight is complete only after all of these are true:
+
+- the installed CLI version is known
+- project and machine facts have been scanned
+- repository preferences have been read
+- task-relevant category candidates have been inspected
+- the final tool choices are explained by local evidence, preferences, or category comparison
+
+Do not say or imply that Runbook has been "run" or that the operating contract is complete after only `runbook scan`, unless the user explicitly asked for a scan-only inventory.
 
 ## Workflow
 
@@ -28,7 +42,15 @@ Use compact output only when you need a quick inventory of tool names:
 runbook scan --minimal
 ```
 
-4. Run this when the task may need a tool beyond the obvious project-local build/test/search commands:
+4. Read repository preferences immediately after scanning:
+
+```bash
+runbook prefer
+```
+
+`runbook scan` does not display preferences. If you skip `runbook prefer`, you may miss the repository's durable tool choices.
+
+5. List categories when you need to choose which functional category applies:
 
 ```bash
 runbook category
@@ -40,7 +62,7 @@ If category arguments are unclear, ask the CLI for usage:
 runbook category --help
 ```
 
-5. Choose one or more functional categories from that output, infer the project language from the scan and repository files, then inspect candidates:
+6. Choose one or more functional categories from that output, infer the project language from the scan and repository files, then inspect candidates before acting:
 
 ```bash
 runbook category <category>... --lang <lang>
@@ -49,13 +71,7 @@ runbook category <category>... --lang <lang>
 Use `--lang all` only when the task is language-independent. Cross-language tools appear in language-specific queries automatically.
 Tools may belong to multiple categories, so query the category that matches the task. For example, `runbook category test --lang rust` includes Rust tools that support testing even if they also build or manage packages.
 
-6. If the task depends on an unclear or repeated tool choice, check repository preferences:
-
-```bash
-runbook prefer
-```
-
-If the user confirms a durable repository preference, record it explicitly:
+7. If the user confirms a durable repository preference, record it explicitly:
 
 ```bash
 runbook prefer set <category> --lang <lang> --tool <tool> --reason "<reason>"
@@ -67,20 +83,21 @@ Remove a stale preference only after it is no longer valid:
 runbook prefer unset <category> --lang <lang>
 ```
 
-7. Interpret the scan output:
+8. Interpret the scan output:
    - `Local Requirements`: project-implied tools and workflows.
    - `Global Tools`: commands available on this machine.
    - `Recommended Operating Guardrails`: constraints to follow during the task.
    - `Warnings`: missing tools or risky inconsistencies.
-8. Interpret category output as a candidate set, not an instruction. Preferred tools are strong repository-local signals, but still check the task, risk, and installed state.
-9. Prefer local requirements over globally available alternatives.
-10. Do not mix package managers, build systems, test runners, deployment tools, or infrastructure tools unless the user explicitly asks.
-11. Treat high-risk categories as confirmation-gated before mutation: cloud, infra, database, secrets, security scanners that may expose secrets, deployment, remote write, and destructive file operations.
-12. Continue with the user's task using the derived contract.
+9. Interpret preference output as durable repository guidance, not as a replacement for checking installed state and task fit.
+10. Interpret category output as a candidate set, not an instruction. Preferred tools are strong repository-local signals, but still check the task, risk, and installed state.
+11. Prefer local requirements over globally available alternatives.
+12. Do not mix package managers, build systems, test runners, deployment tools, or infrastructure tools unless the user explicitly asks.
+13. Treat high-risk categories as confirmation-gated before mutation: cloud, infra, database, secrets, security scanners that may expose secrets, deployment, remote write, and destructive file operations.
+14. Continue with the user's task using the derived contract.
 
 ## Operating Contract
 
-After scanning, internally derive:
+After the complete preflight, internally derive:
 
 - project type and runtime
 - package manager
@@ -95,8 +112,11 @@ After scanning, internally derive:
 
 Mention the contract to the user only when it changes the plan, explains a tool choice, blocks progress, or prevents a risky action. Otherwise, let it guide behavior silently.
 
+If the user asks which tools you will use, answer from the full evidence set: scan results, preferences, and relevant category candidates. Do not answer from scan results alone.
+
 ## Category Query Rules
 
+- For non-trivial repository work, run at least one task-relevant `runbook category <category>... --lang <lang>` query before the first mutation or verification command.
 - Use `runbook category` before asking which tool family exists.
 - Use `runbook category <category>... --lang <lang>` before using an unfamiliar or non-project-local tool. Query related categories together when the task crosses boundaries, such as `test lint formatter`.
 - Start with the closest category instead of guessing a tool's primary category. Multi-category tools are returned by every matching category.
@@ -104,14 +124,32 @@ Mention the contract to the user only when it changes the plan, explains a tool 
 - If the best candidate is missing, mention it only when it materially affects the task; otherwise choose an installed suitable alternative.
 - For remote-write or destructive categories, use category output to identify risk first, then ask for confirmation before mutation.
 
+Useful starting queries:
+
+- Rust code work: `runbook category build test lint formatter package-manager --lang rust`
+- Python code work: `runbook category package-manager test lint formatter type-checker --lang python`
+- JavaScript or TypeScript work: `runbook category package-manager runtime build test lint formatter type-checker --lang typescript`
+- Shell or repository maintenance: `runbook category shell search file-viewer text vcs --lang all`
+- Documentation work: `runbook category docs text formatter --lang markdown`
+- Deployment or infrastructure work: `runbook category deploy cloud container infra database secrets security --lang all`
+
 ## Preference Rules
 
 - `runbook scan` is fact-only; do not expect it to read or display preferences.
+- Run `runbook prefer` after `runbook scan` during non-trivial repository work, even if you expect no preferences.
 - `runbook category <category>... --lang <lang>` marks preferred tools from `.runbook/preferences.yaml`, then sorts candidates by preference, installed availability, language fit, risk, and name.
 - Use `runbook prefer` to read existing repository preferences before recommending a durable tool choice.
 - Do not call `runbook prefer set` unless the user explicitly confirms the preference or directly asks you to record it.
 - The reason must be human-readable and repository-specific, such as why this repo uses `cargo-nextest` over `cargo test`.
 - Treat preferences as guidance for future agent behavior, not as permission to ignore local scripts, missing binaries, or risk guardrails.
+
+## Decision and Question Rules
+
+- Compare candidates yourself first. Do not ask the user to choose a tool before checking scan, preferences, and category output.
+- Ask the user only when there is real unresolved ambiguity: multiple plausible candidates, no local evidence, no preference, and a choice that would create durable project behavior or meaningful risk.
+- Do not ask when local evidence or preferences resolve the choice, such as `uv.lock` indicating `uv`, `Cargo.toml` indicating Cargo, or `.runbook/preferences.yaml` preferring a shell.
+- Before writing a new preference, ask for explicit confirmation unless the user directly instructed you to record it.
+- If a tool choice is made without asking, be able to explain the evidence: local requirement, available tool, preference, category ordering, or guardrail.
 
 ## Tool Choice Rules
 

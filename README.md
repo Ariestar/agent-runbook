@@ -133,9 +133,9 @@ npx skills add Ariestar/agent-runbook --skill runbook-skill --global
 
 The skill tells the agent to:
 
-- run `runbook --version` and `runbook scan` before non-trivial repository work
-- use `runbook category` before guessing unfamiliar tool families
-- read or update `runbook prefer` for durable repository choices
+- run `runbook --version`, `runbook scan`, `runbook prefer`, and a task-relevant `runbook category ... --lang ...` query before non-trivial repository work
+- treat `runbook scan` as a fact inventory, not a complete tool-choice workflow
+- compare category candidates before asking the user to choose a tool
 - avoid silently writing preferences
 - treat high-risk cloud, database, secrets, deployment, and destructive operations as confirmation-gated
 
