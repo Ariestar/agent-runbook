@@ -4,25 +4,16 @@ use crate::discovery::command::{CommandIndex, run_command};
 use crate::model::{Fact, FactKind, Scope, Status, ToolSpec};
 
 pub fn machine_facts() -> Vec<Fact> {
-    let mut facts = vec![
-        Fact::machine(
-            "os",
-            "Operating system",
-            format!(
-                "{} ({}/{})",
-                env::consts::OS,
-                env::consts::OS,
-                env::consts::ARCH
-            ),
+    let mut facts = vec![Fact::machine(
+        "os",
+        "Operating system",
+        format!(
+            "{} ({}/{})",
+            env::consts::OS,
+            env::consts::OS,
+            env::consts::ARCH
         ),
-        Fact::machine(
-            "shell",
-            "Shell",
-            env::var("SHELL")
-                .or_else(|_| env::var("ComSpec"))
-                .unwrap_or_else(|_| "unknown".to_string()),
-        ),
-    ];
+    )];
 
     let proxy_names: Vec<String> = ["HTTP_PROXY", "HTTPS_PROXY", "ALL_PROXY", "NO_PROXY"]
         .iter()

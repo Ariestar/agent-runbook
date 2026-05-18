@@ -166,10 +166,11 @@ mod tests {
             cwd: PathBuf::from("/repo"),
             minimal: false,
             summary: ScanSummary {
-                machine_context: vec![
-                    Fact::machine("os", "Operating system", "linux (linux/x86_64)".to_string()),
-                    Fact::machine("shell", "Shell", "/bin/bash".to_string()),
-                ],
+                machine_context: vec![Fact::machine(
+                    "os",
+                    "Operating system",
+                    "linux (linux/x86_64)".to_string(),
+                )],
                 global_tools: Vec::new(),
                 local_requirements: Vec::new(),
                 recommendations: Vec::new(),
@@ -179,9 +180,7 @@ mod tests {
 
         let output = render_scan(&result);
 
-        assert!(output.contains(
-            "Machine Context\n- Operating system: linux (linux/x86_64)\n- Shell: /bin/bash"
-        ));
+        assert!(output.contains("Machine Context\n- Operating system: linux (linux/x86_64)"));
     }
 
     #[test]
