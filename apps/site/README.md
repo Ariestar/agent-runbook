@@ -41,11 +41,16 @@ Add a YAML file to the `awesome-agent-cli` repository: `data/tools/your-tool.yam
 ## Development
 
 ```bash
-pnpm install
+pnpm install --frozen-lockfile
 pnpm dev       # dev server at localhost:4321
 pnpm build     # static build to dist/
 pnpm preview   # preview the build
 ```
+
+For deployment, set the project root to `apps/site`, the build command to `pnpm build`, and the output directory to `dist`.
+
+> [!TIP]
+> `package.json` includes `pnpm.onlyBuiltDependencies` for `esbuild` and `sharp`. If your CI reports `ERR_PNPM_IGNORED_BUILDS`, confirm the deploy root is `apps/site` so pnpm can read this configuration, or run `pnpm approve-builds` and commit the generated approval changes.
 
 ## Tech Stack
 

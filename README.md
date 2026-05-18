@@ -15,7 +15,7 @@
 
 [English](README.md) · [简体中文](README.zh-CN.md)
 
-[Install](#install) · [Quick Start](#quick-start) · [Agent Skill](#agent-skill) · [Commands](#commands)
+[Install](#install) · [Quick Start](#quick-start) · [Agent Skill](#agent-skill) · [Commands](#commands) · [Web Site](#web-site)
 
 </div>
 
@@ -154,6 +154,17 @@ The skill tells the agent to:
 | `runbook prefer unset <category> --lang <lang>` | Remove a stale repository preference |
 | `runbook --version` | Print the installed CLI version |
 
+## Repository Layout
+
+| Path | Purpose |
+| --- | --- |
+| `src/` | Rust CLI implementation for `scan`, `category`, and `prefer` |
+| `build.rs` | Validates the YAML tool registry and embeds it into the Rust binary |
+| `awesome-agent-cli/` | Git submodule containing the source tool registry in `data/tools/` |
+| `skills/runbook-skill/` | Agent skill instructions for using Runbook as a preflight workflow |
+| `apps/site/` | Astro + React + Tailwind web site for browsing the registry |
+| `docs/roadmap.md` | Current product direction and implementation notes |
+
 ## Tool Registry
 
 Runbook ships with a YAML-backed registry of tool metadata. Each tool spec can describe:
@@ -175,7 +186,7 @@ runbook category
 
 ## Web Site
 
-The repository includes the Runbook site in `apps/site`. It is an Astro app that browses the `awesome-agent-cli` registry submodule.
+The repository includes the Runbook site in `apps/site`. It is an Astro app that browses the `awesome-agent-cli` registry submodule and builds one static page per tool.
 
 After cloning this repository, initialize the submodule:
 
@@ -187,11 +198,33 @@ Run the site locally:
 
 ```bash
 cd apps/site
-pnpm install --dangerously-allow-all-builds
+pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-Open `http://localhost:4321` to browse tools by name, category, language, and risk level.
+Build the static site:
+
+```bash
+pnpm build
+```
+
+Open `http://localhost:4321` during development, or serve `apps/site/dist` after a production build.
+
+### Deploying the site
+
+Use these settings on Vercel, Netlify, Cloudflare Pages, or a similar static host:
+
+| Setting | Value |
+| --- | --- |
+| Root directory | `apps/site` |
+| Install command | `pnpm install --frozen-lockfile` |
+| Build command | `pnpm build` |
+| Output directory | `dist` |
+
+`apps/site/package.json` declares `packageManager: pnpm@11.1.2` and approves the required native build scripts for `esbuild` and `sharp` through `pnpm.onlyBuiltDependencies`.
+
+> [!TIP]
+> If CI fails with `ERR_PNPM_IGNORED_BUILDS` for `esbuild` or `sharp`, first make sure the deploy root is `apps/site` so pnpm can read that package configuration. If your platform still ignores it, run `pnpm approve-builds`, approve `esbuild` and `sharp`, and commit the generated config changes. Use `pnpm install --dangerously-allow-all-builds` only as a temporary recovery command when the platform cannot consume pnpm's approved-build configuration.
 
 ## Development
 

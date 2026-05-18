@@ -15,7 +15,7 @@
 
 [English](README.md) · [简体中文](README.zh-CN.md)
 
-[安装](#安装) · [快速开始](#快速开始) · [Agent Skill](#agent-skill) · [命令](#命令)
+[安装](#安装) · [快速开始](#快速开始) · [Agent Skill](#agent-skill) · [命令](#命令) · [Web 站点](#web-站点)
 
 </div>
 
@@ -154,6 +154,17 @@ npx skills add Ariestar/agent-runbook --skill runbook-skill --global
 | `runbook prefer unset <category> --lang <lang>` | 移除过期仓库偏好 |
 | `runbook --version` | 输出已安装 CLI 版本 |
 
+## 仓库结构
+
+| 路径 | 作用 |
+| --- | --- |
+| `src/` | `scan`、`category`、`prefer` 等 Rust CLI 实现 |
+| `build.rs` | 校验 YAML 工具注册表，并把它嵌入 Rust 二进制 |
+| `awesome-agent-cli/` | Git submodule，包含 `data/tools/` 下的源工具注册表 |
+| `skills/runbook-skill/` | Agent 使用 Runbook 作为预检流程的 skill 指令 |
+| `apps/site/` | 用于浏览注册表的 Astro + React + Tailwind Web 站点 |
+| `docs/roadmap.md` | 当前产品方向和实现备忘 |
+
 ## 工具注册表
 
 Runbook 内置一个基于 YAML 的工具注册表。每个工具规格可以描述：
@@ -175,7 +186,7 @@ runbook category
 
 ## Web 站点
 
-仓库中包含 Runbook 站点，位置是 `apps/site`。这是一个 Astro 应用，用来浏览 `awesome-agent-cli` registry submodule。
+仓库中包含 Runbook 站点，位置是 `apps/site`。这是一个 Astro 应用，用来浏览 `awesome-agent-cli` registry submodule，并为每个工具生成一个静态页面。
 
 克隆本仓库后，先初始化 submodule：
 
@@ -187,11 +198,33 @@ git submodule update --init --recursive
 
 ```bash
 cd apps/site
-pnpm install --dangerously-allow-all-builds
+pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-打开 `http://localhost:4321`，即可按名称、类别、语言和风险等级浏览工具。
+构建静态站点：
+
+```bash
+pnpm build
+```
+
+开发时打开 `http://localhost:4321`，生产构建后部署 `apps/site/dist`。
+
+### 部署站点
+
+在 Vercel、Netlify、Cloudflare Pages 或类似静态托管平台上使用这些设置：
+
+| 设置 | 值 |
+| --- | --- |
+| Root directory | `apps/site` |
+| Install command | `pnpm install --frozen-lockfile` |
+| Build command | `pnpm build` |
+| Output directory | `dist` |
+
+`apps/site/package.json` 声明了 `packageManager: pnpm@11.1.2`，并通过 `pnpm.onlyBuiltDependencies` 批准了 `esbuild` 和 `sharp` 所需的原生构建脚本。
+
+> [!TIP]
+> 如果 CI 因 `esbuild` 或 `sharp` 报 `ERR_PNPM_IGNORED_BUILDS`，先确认部署根目录是 `apps/site`，这样 pnpm 才能读取该 package 配置。如果平台仍然忽略配置，运行 `pnpm approve-builds`，批准 `esbuild` 和 `sharp`，并提交生成的配置变更。只有在平台无法消费 pnpm approved-build 配置时，才把 `pnpm install --dangerously-allow-all-builds` 作为临时恢复命令。
 
 ## 开发
 
