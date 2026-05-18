@@ -77,6 +77,10 @@ Agent Runbook Scan
 Mode: all
 Project: /path/to/project
 
+Machine Context
+- Operating system: linux (linux/x86_64)
+- Shell: /bin/bash
+
 Global Tools
 - cargo: cargo (cargo 1.95.0 ...)
 - rg: rg (ripgrep 15.1.0 ...)

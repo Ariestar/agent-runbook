@@ -17,6 +17,11 @@ pub fn render_scan(result: &ScanResult) -> String {
     if result.mode != ScanMode::Local {
         section(
             &mut lines,
+            "Machine Context",
+            render_machine_context(&result.summary.machine_context),
+        );
+        section(
+            &mut lines,
             "Global Tools",
             render_global_tools(&result.summary.global_tools),
         );
@@ -93,6 +98,20 @@ fn render_global_tools(tools: &[Fact]) -> Vec<String> {
         .collect()
 }
 
+fn render_machine_context(facts: &[Fact]) -> Vec<String> {
+    facts
+        .iter()
+        .map(|fact| {
+            let evidence = fact
+                .evidence
+                .as_ref()
+                .map(|value| format!(" ({value})"))
+                .unwrap_or_default();
+            format!("- {}: {}{}", fact.label, fact.value, evidence)
+        })
+        .collect()
+}
+
 fn render_local_requirements(requirements: &[Fact]) -> Vec<String> {
     requirements
         .iter()
@@ -131,4 +150,57 @@ fn render_tool_names(tools: &[Fact]) -> Vec<String> {
         .into_iter()
         .map(|name| format!("- {name}"))
         .collect()
+}
+
+#[cfg(test)]
+mod tests {
+    use std::path::PathBuf;
+
+    use super::*;
+    use crate::model::{Fact, ScanSummary};
+
+    #[test]
+    fn full_scan_renders_machine_context() {
+        let result = ScanResult {
+            mode: ScanMode::All,
+            cwd: PathBuf::from("/repo"),
+            minimal: false,
+            summary: ScanSummary {
+                machine_context: vec![
+                    Fact::machine("os", "Operating system", "linux (linux/x86_64)".to_string()),
+                    Fact::machine("shell", "Shell", "/bin/bash".to_string()),
+                ],
+                global_tools: Vec::new(),
+                local_requirements: Vec::new(),
+                recommendations: Vec::new(),
+                warnings: Vec::new(),
+            },
+        };
+
+        let output = render_scan(&result);
+
+        assert!(output.contains(
+            "Machine Context\n- Operating system: linux (linux/x86_64)\n- Shell: /bin/bash"
+        ));
+    }
+
+    #[test]
+    fn local_scan_omits_empty_machine_context() {
+        let result = ScanResult {
+            mode: ScanMode::Local,
+            cwd: PathBuf::from("/repo"),
+            minimal: false,
+            summary: ScanSummary {
+                machine_context: Vec::new(),
+                global_tools: Vec::new(),
+                local_requirements: Vec::new(),
+                recommendations: Vec::new(),
+                warnings: Vec::new(),
+            },
+        };
+
+        let output = render_scan(&result);
+
+        assert!(!output.contains("Machine Context"));
+    }
 }

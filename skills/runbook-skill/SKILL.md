@@ -23,6 +23,17 @@ Do not say or imply that Runbook has been "run" or that the operating contract i
 
 ## Workflow
 
+For very small tasks, prefer the lightweight preflight below instead of spending more time on Runbook than on the task:
+
+```bash
+runbook --version
+runbook scan --local --minimal
+runbook prefer
+runbook category <category> --lang <lang>
+```
+
+Use full `runbook scan` when machine availability, PATH issues, shell behavior, deployment tools, secrets, or installed versions may affect the task.
+
 1. Start in the repository or task directory.
 2. Check the installed CLI version:
 
@@ -36,11 +47,13 @@ runbook --version
 runbook scan
 ```
 
-Use compact output only when you need a quick inventory of tool names:
+Use compact output only when you need a quick inventory of tool names or when the task is documentation-only / low-risk:
 
 ```bash
-runbook scan --minimal
+runbook scan --local --minimal
 ```
+
+Use `runbook scan --minimal` when you need both local and global tool names without version details.
 
 4. Read repository preferences immediately after scanning:
 
@@ -84,6 +97,7 @@ runbook prefer unset <category> --lang <lang>
 ```
 
 8. Interpret the scan output:
+   - `Machine Context`: operating system, shell, proxy/secret indicators, with values redacted where needed.
    - `Local Requirements`: project-implied tools and workflows.
    - `Global Tools`: commands available on this machine.
    - `Recommended Operating Guardrails`: constraints to follow during the task.
@@ -94,6 +108,13 @@ runbook prefer unset <category> --lang <lang>
 12. Do not mix package managers, build systems, test runners, deployment tools, or infrastructure tools unless the user explicitly asks.
 13. Treat high-risk categories as confirmation-gated before mutation: cloud, infra, database, secrets, security scanners that may expose secrets, deployment, remote write, and destructive file operations.
 14. Continue with the user's task using the derived contract.
+
+## Common Pitfalls
+
+- Do not run `runbook scan` from the wrong directory. Monorepos may have separate package roots such as `apps/site`; run additional local scans there before package-manager work.
+- `runbook scan --local --minimal` is enough for many doc edits, but not for debugging missing binaries or deployment failures.
+- If a deploy log reports package-manager behavior, inspect the package root's `package.json` / lockfile and query `package-manager` and `build` for that language before changing commands.
+- On CI, make sure the platform root directory matches the folder that contains the relevant package-manager config.
 
 ## Operating Contract
 

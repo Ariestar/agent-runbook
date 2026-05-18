@@ -166,6 +166,7 @@ pub struct ScanResult {
 }
 
 pub struct ScanSummary {
+    pub machine_context: Vec<Fact>,
     pub global_tools: Vec<Fact>,
     pub local_requirements: Vec<Fact>,
     pub recommendations: Vec<Message>,

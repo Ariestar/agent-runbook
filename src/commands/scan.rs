@@ -46,6 +46,11 @@ pub fn scan(command: ScanCommand) -> ScanResult {
 }
 
 fn interpret(mode: ScanMode, facts: Vec<Fact>) -> ScanSummary {
+    let machine_context: Vec<Fact> = facts
+        .iter()
+        .filter(|fact| matches!(fact.kind, FactKind::Machine | FactKind::Env))
+        .cloned()
+        .collect();
     let global_tools: Vec<Fact> = facts
         .iter()
         .filter(|fact| {
@@ -65,6 +70,7 @@ fn interpret(mode: ScanMode, facts: Vec<Fact>) -> ScanSummary {
     let warnings = build_warnings(mode, &global_tools, &local_requirements);
 
     ScanSummary {
+        machine_context,
         global_tools,
         local_requirements,
         recommendations,
