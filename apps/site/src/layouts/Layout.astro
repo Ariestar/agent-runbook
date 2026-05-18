@@ -85,6 +85,8 @@ const {
         const initialTheme = localStorage.getItem(storageKey) || 'system';
         applyTheme(initialTheme);
 
+        const nextThemeMode = { system: 'light', light: 'dark', dark: 'system' };
+
         themeToggle?.addEventListener('click', () => {
           const currentMode = root.dataset.themeMode || 'system';
           const mode = nextThemeMode[currentMode] || 'system';

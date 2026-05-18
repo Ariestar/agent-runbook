@@ -31,7 +31,7 @@ const messages: Record<Locale, Record<string, string>> = {
     'hero.title.consequences': 'COMMANDS WITH CONSEQUENCES.',
     'hero.body': 'The operating contract layer for AI coding agents: scan the local environment, read repository preferences, query the command registry, and turn every shell action into an auditable decision.',
     'hero.cta.registry': '[ OPEN RUNBOOK REGISTRY ]',
-    'hero.cta.protocol': '[ READ OPERATING PROTOCOL ]',
+    'hero.cta.protocol': '[ GITHUB ]',
     'hero.trace': '[RUNBOOK_DECISION_TRACE]',
     'hero.confidence': '[AGENT_CONFIDENCE]',
     'hero.terminal.0': 'runbook scan --minimal',
@@ -122,6 +122,7 @@ const messages: Record<Locale, Record<string, string>> = {
     'contribute.step.2': 'Create data/tools/your-tool.yaml',
     'contribute.step.3': 'Fill required metadata fields',
     'contribute.step.4': 'Open a pull request',
+    'contribute.addTool': 'Add New Tool',
     'contribute.template': '[YAML_TEMPLATE]',
     'contribute.spec': 'SPEC',
 
@@ -192,7 +193,7 @@ const messages: Record<Locale, Record<string, string>> = {
     'hero.title.consequences': '再执行。',
     'hero.body': 'AI 编程 Agent 的工具选择引擎。扫描本地环境，读取仓库配置，按任务类型和风险等级匹配最合适的 CLI 工具。每次执行均可审计。',
     'hero.cta.registry': '[ 浏览工具库 ]',
-    'hero.cta.protocol': '[ 查看协议 ]',
+    'hero.cta.protocol': '[ GitHub ]',
     'hero.trace': '[决策记录]',
     'hero.confidence': '[置信度]',
     'hero.terminal.0': 'runbook scan --minimal',
@@ -283,6 +284,7 @@ const messages: Record<Locale, Record<string, string>> = {
     'contribute.step.2': '创建 data/tools/your-tool.yaml',
     'contribute.step.3': '填写必要的元数据字段',
     'contribute.step.4': '提交 Pull Request',
+    'contribute.addTool': '添加新工具',
     'contribute.template': '[YAML 模板]',
     'contribute.spec': '字段说明',
 

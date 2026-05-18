@@ -12,7 +12,18 @@ const locale = getLocaleFromUrl(Astro.url);
   <main class="terminal-shell z-10 px-4 py-12 sm:px-6">
     <section class="mb-10 border-b border-outline-variant pb-8">
       <div class="label-caps mb-4">{t(locale, 'contribute.label')}</div>
-      <h1 class="mb-3 text-[40px] font-extrabold tracking-[-0.05em] text-primary sm:text-5xl">{t(locale, 'contribute.title')}</h1>
+      <div class="mb-3 flex flex-wrap items-center justify-between gap-4">
+        <h1 class="text-[40px] font-extrabold tracking-[-0.05em] text-primary sm:text-5xl">{t(locale, 'contribute.title')}</h1>
+        <a
+          href="https://github.com/Ariestar/awesome-agent-cli/new/main/data/tools"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 border border-acid bg-acid/10 px-4 py-2 text-sm font-bold text-acid transition-colors hover:bg-acid/20"
+        >
+          <span>+</span>
+          <span>{t(locale, 'contribute.addTool')}</span>
+        </a>
+      </div>
       <p class="max-w-2xl border-l-2 border-acid pl-4 text-body text-muted-variant">
         {t(locale, 'contribute.body')}
       </p>
