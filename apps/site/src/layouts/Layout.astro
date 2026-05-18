@@ -1,19 +1,21 @@
 ---
 import '../styles/global.css';
+import { defaultLocale, getLocaleFromUrl, t } from '../lib/i18n';
 
 interface Props {
   title?: string;
   description?: string;
 }
 
+const locale = getLocaleFromUrl(Astro.url);
 const {
   title = 'Runbook',
-  description = 'The operating contract layer for AI coding agents: local tool discovery, command selection, risk metadata, and guardrails.',
+  description = t(locale, 'layout.description'),
 } = Astro.props;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={locale}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -57,11 +59,8 @@ const {
         const coordinateNodes = document.querySelectorAll('[data-cursor-coordinates]');
         const themeToggle = document.querySelector('[data-theme-toggle]');
         const storageKey = 'runbook-theme';
-        const nextThemeMode = {
-          system: 'light',
-          light: 'dark',
-          dark: 'system',
-        };
+        const htmlLang = root.lang || 'en';
+        const themeLabel = htmlLang.toLowerCase().startsWith('zh') ? '主题' : 'Theme';
 
         function systemPrefersDark() {
           return window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -72,8 +71,8 @@ const {
           const resolved = root.dataset.theme || 'dark';
           themeToggle.dataset.activeMode = mode;
           themeToggle.dataset.resolvedTheme = resolved;
-          themeToggle.setAttribute('aria-label', `Theme: ${mode}. Click to switch theme.`);
-          themeToggle.setAttribute('title', `Theme: ${mode}`);
+          themeToggle.setAttribute('aria-label', `${themeLabel}: ${mode}. Click to switch theme.`);
+          themeToggle.setAttribute('title', `${themeLabel}: ${mode}`);
         }
 
         function applyTheme(mode) {

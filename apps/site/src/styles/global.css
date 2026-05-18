@@ -206,10 +206,10 @@
   }
 
   .parallax-grid-layer {
-    @apply absolute -inset-16 opacity-[0.18];
+    @apply absolute -inset-16 opacity-[0.36];
     background-image:
-      linear-gradient(to right, rgb(var(--color-acid) / 0.14) 1px, transparent 1px),
-      linear-gradient(to bottom, rgb(var(--color-acid) / 0.10) 1px, transparent 1px);
+      linear-gradient(to right, rgb(var(--color-acid) / 0.28) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(var(--color-acid) / 0.22) 1px, transparent 1px);
     background-size: 96px 96px;
     transform: translate3d(calc(var(--parallax-x, 0) * -18px), calc(var(--parallax-y, 0) * -18px), 0) rotateX(calc(var(--parallax-y, 0) * 2deg)) rotateY(calc(var(--parallax-x, 0) * -2deg));
     transition: transform 120ms linear;
@@ -279,7 +279,8 @@
   }
 
   .floating-square {
-    @apply absolute border border-acid/10 bg-acid/[0.02];
+    @apply absolute border border-acid/25 bg-acid/[0.06];
+    box-shadow: inset 0 0 0 1px rgb(var(--color-acid) / 0.12), 0 0 22px rgb(var(--color-acid) / 0.08);
     animation: floatBlock 11s ease-in-out infinite alternate;
   }
 
@@ -291,14 +292,14 @@
   }
 
   .micro-grid-overlay {
-    @apply pointer-events-none fixed inset-0 z-0 opacity-[0.10];
+    @apply pointer-events-none fixed inset-0 z-0 opacity-[0.16];
     background-image: linear-gradient(to right, rgb(var(--color-outline)) 1px, transparent 1px), linear-gradient(to bottom, rgb(var(--color-outline)) 1px, transparent 1px);
     background-size: 48px 48px;
     animation: breathe 8s ease-in-out infinite alternate;
   }
 
   .dot-grid-overlay {
-    @apply pointer-events-none fixed inset-0 z-0 opacity-[0.15];
+    @apply pointer-events-none fixed inset-0 z-0 opacity-[0.22];
     background-image: radial-gradient(rgb(var(--color-outline)) 1px, transparent 1px);
     background-size: 16px 16px;
   }

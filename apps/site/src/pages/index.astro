@@ -3,29 +3,31 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import HeroCommandCard from '../components/HeroCommandCard.astro';
 import ToolCard from '../components/ToolCard.astro';
+import { getLocaleFromUrl, localePath, t } from '../lib/i18n';
 import { loadTools, getCategories, getLanguages } from '../lib/tools';
 
+const locale = getLocaleFromUrl(Astro.url);
 const tools = loadTools();
 const categories = getCategories(tools);
 const languages = getLanguages(tools);
 
 const stats = [
-  ['TOOLS', tools.length],
-  ['CATEGORIES', categories.length],
-  ['LANGUAGES', languages.length],
+  [t(locale, 'stat.tools'), tools.length],
+  [t(locale, 'stat.categories'), categories.length],
+  [t(locale, 'stat.languages'), languages.length],
 ];
 
 const featured = tools.slice(0, 3);
 ---
 
 <Layout>
-  <Header />
+  <Header locale={locale} />
 
   <main class="terminal-shell z-10">
     <div data-cursor-coordinates class="pointer-events-none absolute left-4 top-4 z-10 text-[10px] text-muted">[X:0000 Y:0000]</div>
     <div class="pointer-events-none absolute right-4 top-4 z-10 text-[10px] text-muted">[T:SYS_INIT]</div>
 
-    <HeroCommandCard stats={stats} />
+    <HeroCommandCard stats={stats} locale={locale} />
 
     <section class="relative px-4 py-16 sm:px-6">
       <div class="pointer-events-none absolute left-4 top-4 text-[10px] text-muted">[SEC:TOOLS]</div>
@@ -35,15 +37,15 @@ const featured = tools.slice(0, 3);
         <div class="flex items-end justify-between gap-4">
           <h2 class="flex items-center gap-3 text-title font-bold text-primary">
             <span class="text-acid">▦</span>
-            <span>[FEATURED_RUNBOOK_ENTRIES]</span>
+            <span>{t(locale, 'home.featured')}</span>
           </h2>
-          <a href="/categories" class="border border-transparent px-2 py-1 text-code text-muted-variant transition-colors hover:border-acid hover:text-acid">VIEW_CATEGORIES →</a>
+          <a href={localePath(locale, '/categories')} class="border border-transparent px-2 py-1 text-code text-muted-variant transition-colors hover:border-acid hover:text-acid">{t(locale, 'home.viewCategories')}</a>
         </div>
         <div class="progress-track"></div>
       </div>
 
       <div class="grid grid-cols-1 gap-[1px] border border-outline-variant bg-outline-variant shadow-hard md:grid-cols-3">
-        {featured.map((tool) => <ToolCard tool={tool} />)}
+        {featured.map((tool) => <ToolCard tool={tool} locale={locale} />)}
       </div>
     </section>
   </main>
@@ -51,7 +53,7 @@ const featured = tools.slice(0, 3);
   <footer class="relative z-10 border-t border-outline-variant bg-background px-4 py-8 sm:px-6">
     <div class="mx-auto flex max-w-[1440px] items-center justify-between gap-4 text-code text-muted-variant">
       <div class="font-bold text-primary"><span class="text-acid">▣</span> [RUNBOOK]</div>
-      <div class="text-[10px] text-muted">[© 2026 OPERATING_CONTRACT_CORE]</div>
+      <div class="text-[10px] text-muted">{t(locale, 'home.footer.core')}</div>
     </div>
   </footer>
 </Layout>

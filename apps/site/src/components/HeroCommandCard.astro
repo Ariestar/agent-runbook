@@ -1,19 +1,22 @@
 ---
+import { localePath, t, type Locale } from '../lib/i18n';
+
 interface Props {
   stats: Array<[string, number]>;
+  locale?: Locale;
 }
 
-const { stats } = Astro.props;
+const { stats, locale = 'en' } = Astro.props;
 
 const terminalLines = [
-  { prompt: '$', text: 'runbook scan --minimal', tone: 'text-primary' },
-  { prompt: '>', text: 'detected pnpm / astro / typescript', tone: 'text-muted-variant' },
-  { prompt: '$', text: 'runbook category test lint --lang typescript', tone: 'text-primary' },
-  { prompt: '✓', text: 'preferred: pnpm scripts · risk: medium', tone: 'text-acid' },
-  { prompt: '$', text: 'runbook prefer', tone: 'text-primary' },
-  { prompt: '>', text: 'guardrail: do not mix package managers', tone: 'text-muted-variant' },
-  { prompt: '$', text: 'pnpm build', tone: 'text-primary' },
-  { prompt: '✓', text: '200 routes generated · ship confidence', tone: 'text-acid' },
+  { prompt: '$', text: t(locale, 'hero.terminal.0'), tone: 'text-primary' },
+  { prompt: '>', text: t(locale, 'hero.terminal.1'), tone: 'text-muted-variant' },
+  { prompt: '$', text: t(locale, 'hero.terminal.2'), tone: 'text-primary' },
+  { prompt: '✓', text: t(locale, 'hero.terminal.3'), tone: 'text-acid' },
+  { prompt: '$', text: t(locale, 'hero.terminal.4'), tone: 'text-primary' },
+  { prompt: '>', text: t(locale, 'hero.terminal.5'), tone: 'text-muted-variant' },
+  { prompt: '$', text: t(locale, 'hero.terminal.6'), tone: 'text-primary' },
+  { prompt: '✓', text: t(locale, 'hero.terminal.7'), tone: 'text-acid' },
 ];
 ---
 
@@ -29,17 +32,17 @@ const terminalLines = [
     <div class="flex flex-col justify-center bg-surface-dim p-5 text-left sm:p-7 lg:p-9 xl:p-10">
       <div class="mb-7 inline-flex w-fit items-center gap-2 border border-outline-variant bg-background px-3 py-2 text-code text-muted-variant shadow-hard">
         <span class="text-acid">▣</span>
-        <span>[RUNBOOK] OPERATING_CONTRACT_ONLINE</span>
+        <span>{t(locale, 'hero.status')}</span>
       </div>
 
       <h1 class="mb-7 flex flex-col gap-2 text-[24px] font-extrabold leading-none tracking-[-0.055em] text-primary sm:text-[34px] lg:text-[42px] xl:text-[50px] 2xl:text-[56px]">
-        <span class="block whitespace-nowrap">RUNBOOK</span>
-        <span class="block whitespace-nowrap text-acid">BEFORE THE SHELL.</span>
-        <span class="block whitespace-nowrap">COMMANDS WITH CONSEQUENCES.</span>
+        <span class="block whitespace-nowrap">{t(locale, 'hero.title.brand')}</span>
+        <span class="block whitespace-nowrap text-acid">{t(locale, 'hero.title.beforeShell')}</span>
+        <span class="block whitespace-nowrap">{t(locale, 'hero.title.consequences')}</span>
       </h1>
 
       <p class="mb-7 max-w-2xl border-l-2 border-acid pl-4 text-[14px] leading-7 text-muted-variant sm:text-[15px]">
-        The operating contract layer for AI coding agents: scan the local environment, read repository preferences, query the command registry, and turn every shell action into an auditable decision.
+        {t(locale, 'hero.body')}
       </p>
 
       <div class="mb-7 grid w-full max-w-2xl grid-cols-3 gap-[1px] bg-outline-variant p-px">
@@ -52,16 +55,16 @@ const terminalLines = [
       </div>
 
       <div class="flex flex-col gap-4 sm:flex-row sm:flex-wrap">
-        <a href="/categories" class="btn-primary">[ OPEN RUNBOOK REGISTRY ]</a>
-        <a href="/agents" class="btn-secondary">[ READ OPERATING PROTOCOL ]</a>
+        <a href={localePath(locale, '/categories')} class="btn-primary">{t(locale, 'hero.cta.registry')}</a>
+        <a href={localePath(locale, '/agents')} class="btn-secondary">{t(locale, 'hero.cta.protocol')}</a>
       </div>
     </div>
 
     <div class="relative overflow-hidden bg-background p-5 sm:p-7 lg:p-9 xl:p-10">
-      <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(195,244,0,0.05)_1px,transparent_1px),linear-gradient(rgba(195,244,0,0.04)_1px,transparent_1px)] bg-[size:32px_32px]"></div>
+      <div class="absolute inset-0 bg-[linear-gradient(90deg,rgb(var(--color-acid)/0.12)_1px,transparent_1px),linear-gradient(rgb(var(--color-acid)/0.09)_1px,transparent_1px)] bg-[size:32px_32px]"></div>
       <div class="relative flex h-full min-h-[350px] flex-col border border-outline-variant bg-surface-dim/95 shadow-hard">
         <div class="flex items-center justify-between border-b border-outline-variant px-4 py-3 text-code text-muted-variant">
-          <span>[RUNBOOK_DECISION_TRACE]</span>
+          <span>{t(locale, 'hero.trace')}</span>
           <span class="text-acid">LIVE</span>
         </div>
 
@@ -76,7 +79,7 @@ const terminalLines = [
 
         <div class="mt-auto border-t border-outline-variant p-4">
           <div class="mb-3 flex items-center justify-between text-[10px] uppercase tracking-[0.14em] text-muted">
-            <span>[AGENT_CONFIDENCE]</span>
+            <span>{t(locale, 'hero.confidence')}</span>
             <span class="text-acid">94%</span>
           </div>
           <div class="flex gap-1">

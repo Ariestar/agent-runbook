@@ -1,0 +1,17 @@
+---
+import { getNonDefaultLocales } from '../../../lib/i18n';
+import { loadTools } from '../../../lib/tools';
+import Page from '../../tools/[slug].astro';
+
+export function getStaticPaths() {
+  const tools = loadTools();
+  return getNonDefaultLocales().flatMap((locale) =>
+    tools.map((tool) => ({
+      params: { locale, slug: tool.slug },
+      props: { tool },
+    })),
+  );
+}
+---
+
+<Page tool={Astro.props.tool} />

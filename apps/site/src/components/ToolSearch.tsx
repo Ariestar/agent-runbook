@@ -1,10 +1,12 @@
 import { useEffect, useMemo, useState } from 'react';
+import { localePath, t, type Locale } from '../lib/i18n';
 import type { Tool } from '../lib/tools';
 
 interface Props {
   tools: Tool[];
   categories: string[];
   languages: string[];
+  locale?: Locale;
 }
 
 function initialParam(name: string) {
@@ -17,7 +19,7 @@ function initialPositiveInt(name: string, fallback: number) {
   return Number.isInteger(value) && value > 0 ? value : fallback;
 }
 
-export default function ToolSearch({ tools, categories, languages }: Props) {
+export default function ToolSearch({ tools, categories, languages, locale = 'en' }: Props) {
   const [query, setQuery] = useState(() => initialParam('search') ?? '');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(() => initialParam('category'));
   const [selectedLang, setSelectedLang] = useState<string | null>(() => initialParam('lang'));
@@ -77,8 +79,8 @@ export default function ToolSearch({ tools, categories, languages }: Props) {
     <div className="space-y-6">
       <div className="panel">
         <div className="panel-header">
-          <span>[QUERY_INTERFACE]</span>
-          <span>{String(filtered.length).padStart(3, '0')}_ENTRIES</span>
+          <span>{t(locale, 'search.panel')}</span>
+          <span>{String(filtered.length).padStart(3, '0')}_{t(locale, 'search.entries')}</span>
         </div>
 
         <div className="space-y-4 p-4 sm:p-6">
@@ -88,7 +90,7 @@ export default function ToolSearch({ tools, categories, languages }: Props) {
             </svg>
             <input
               type="text"
-              placeholder="SEARCH_RUNBOOK / CATEGORY / COMMAND..."
+              placeholder={t(locale, 'search.placeholder')}
               value={query}
               onChange={(event) => {
                 setQuery(event.target.value);
@@ -101,31 +103,35 @@ export default function ToolSearch({ tools, categories, languages }: Props) {
 
           <div className="flex flex-wrap gap-2">
             <FilterGroup
-              label="Category"
+              label={t(locale, 'search.category')}
               options={categories}
               selected={selectedCategory}
               onSelect={(value) => {
                 setSelectedCategory(value);
                 setCurrentPage(1);
               }}
+              locale={locale}
             />
             <FilterGroup
-              label="Language"
+              label={t(locale, 'search.language')}
               options={languages}
               selected={selectedLang}
               onSelect={(value) => {
                 setSelectedLang(value);
                 setCurrentPage(1);
               }}
+              locale={locale}
             />
             <FilterGroup
-              label="Risk"
+              label={t(locale, 'search.risk')}
               options={risks}
               selected={selectedRisk}
               onSelect={(value) => {
                 setSelectedRisk(value);
                 setCurrentPage(1);
               }}
+              locale={locale}
+              formatOption={(risk) => t(locale, `risk.${risk}`)}
             />
             {(query || activeFilters > 0) && (
               <button
@@ -138,7 +144,7 @@ export default function ToolSearch({ tools, categories, languages }: Props) {
                 }}
                 className="border border-danger/50 bg-danger/10 px-3 py-2 text-code font-bold uppercase tracking-[0.12em] text-danger transition-colors hover:bg-danger hover:text-black"
               >
-                [CLEAR]
+                {t(locale, 'search.clear')}
               </button>
             )}
           </div>
@@ -147,34 +153,34 @@ export default function ToolSearch({ tools, categories, languages }: Props) {
 
       <div className="flex items-center justify-between gap-4">
         <p className="text-code uppercase text-muted-variant">
-          <span className="text-acid">{filtered.length}</span> entr{filtered.length !== 1 ? 'ies' : 'y'}
-          {query || activeFilters ? ' matched' : ' indexed'}
+          <span className="text-acid">{filtered.length}</span> {filtered.length !== 1 ? t(locale, 'search.entriesLower') : t(locale, 'search.entry')}
+          {query || activeFilters ? ` ${t(locale, 'search.matched')}` : ` ${t(locale, 'search.indexed')}`}
           {filtered.length > 0 && (
-            <span className="text-muted"> · showing {startIndex + 1}-{Math.min(startIndex + pageSize, filtered.length)}</span>
+            <span className="text-muted"> · {t(locale, 'search.showing')} {startIndex + 1}-{Math.min(startIndex + pageSize, filtered.length)}</span>
           )}
         </p>
         <div className="hidden h-px flex-1 bg-outline-variant sm:block"></div>
-        <p className="hidden text-code uppercase text-muted sm:block">[LIVE_DIRECTORY_FEED]</p>
+        <p className="hidden text-code uppercase text-muted sm:block">{t(locale, 'search.liveFeed')}</p>
       </div>
 
       {filtered.length > pageSize && (
-        <Pagination currentPage={safePage} totalPages={totalPages} onPageChange={setCurrentPage} />
+        <Pagination currentPage={safePage} totalPages={totalPages} onPageChange={setCurrentPage} locale={locale} />
       )}
 
       <div className="grid grid-cols-1 gap-[1px] border border-outline-variant bg-outline-variant shadow-hard md:grid-cols-2 xl:grid-cols-3">
         {visibleTools.map((tool) => (
-          <ToolCard key={tool.slug} tool={tool} />
+          <ToolCard key={tool.slug} tool={tool} locale={locale} />
         ))}
       </div>
 
       {filtered.length > pageSize && (
-        <Pagination currentPage={safePage} totalPages={totalPages} onPageChange={setCurrentPage} />
+        <Pagination currentPage={safePage} totalPages={totalPages} onPageChange={setCurrentPage} locale={locale} />
       )}
 
       {filtered.length === 0 && (
         <div className="panel py-16 text-center">
-          <p className="text-headline font-bold text-primary">NO SIGNAL</p>
-          <p className="mt-2 text-body text-muted-variant">Adjust the query vector or clear filters.</p>
+          <p className="text-headline font-bold text-primary">{t(locale, 'search.noSignal')}</p>
+          <p className="mt-2 text-body text-muted-variant">{t(locale, 'search.noSignal.body')}</p>
         </div>
       )}
     </div>
@@ -185,25 +191,27 @@ function Pagination({
   currentPage,
   totalPages,
   onPageChange,
+  locale,
 }: {
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
+  locale: Locale;
 }) {
   const pages = pageWindow(currentPage, totalPages);
 
   return (
-    <nav className="panel flex flex-col gap-3 p-3 sm:flex-row sm:items-center sm:justify-between" aria-label="Registry pagination">
+    <nav className="panel flex flex-col gap-3 p-3 sm:flex-row sm:items-center sm:justify-between" aria-label={t(locale, 'search.pagination')}>
       <div className="text-code uppercase text-muted-variant">
-        [PAGE <span className="text-acid">{String(currentPage).padStart(2, '0')}</span> / {String(totalPages).padStart(2, '0')}]
+        [{t(locale, 'search.page')} <span className="text-acid">{String(currentPage).padStart(2, '0')}</span> / {String(totalPages).padStart(2, '0')}]
       </div>
 
       <div className="flex flex-wrap items-center gap-2">
         <PageButton disabled={currentPage === 1} onClick={() => onPageChange(1)}>
-          [FIRST]
+          {t(locale, 'search.first')}
         </PageButton>
         <PageButton disabled={currentPage === 1} onClick={() => onPageChange(currentPage - 1)}>
-          ← PREV
+          {t(locale, 'search.prev')}
         </PageButton>
 
         <div className="flex flex-wrap gap-1">
@@ -231,10 +239,10 @@ function Pagination({
         </div>
 
         <PageButton disabled={currentPage === totalPages} onClick={() => onPageChange(currentPage + 1)}>
-          NEXT →
+          {t(locale, 'search.next')}
         </PageButton>
         <PageButton disabled={currentPage === totalPages} onClick={() => onPageChange(totalPages)}>
-          [LAST]
+          {t(locale, 'search.last')}
         </PageButton>
       </div>
     </nav>
@@ -275,11 +283,15 @@ function FilterGroup({
   options,
   selected,
   onSelect,
+  locale,
+  formatOption = (value) => value,
 }: {
   label: string;
   options: string[];
   selected: string | null;
   onSelect: (value: string | null) => void;
+  locale: Locale;
+  formatOption?: (value: string) => string;
 }) {
   const [open, setOpen] = useState(false);
 
@@ -294,7 +306,7 @@ function FilterGroup({
         }`}
       >
         [{label}]
-        {selected && <span className="max-w-[180px] truncate text-primary">{selected}</span>}
+        {selected && <span className="max-w-[180px] truncate text-primary">{formatOption(selected)}</span>}
         <svg className={`h-3.5 w-3.5 transition-transform ${open ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="square" strokeLinejoin="miter" strokeWidth={2} d="M19 9l-7 7-7-7" />
         </svg>
@@ -312,7 +324,7 @@ function FilterGroup({
                 }}
                 className="w-full border-b border-outline-variant px-3 py-2 text-left text-code uppercase text-danger hover:bg-danger hover:text-black"
               >
-                [CLEAR_{label.toUpperCase()}]
+                [{t(locale, 'search.clearFilter')}_{label.toUpperCase()}]
               </button>
             )}
             {options.map((opt) => (
@@ -326,7 +338,7 @@ function FilterGroup({
                   selected === opt ? 'bg-acid/10 text-acid' : 'text-muted-variant'
                 }`}
               >
-                {opt}
+                {formatOption(opt)}
               </button>
             ))}
           </div>
@@ -336,7 +348,7 @@ function FilterGroup({
   );
 }
 
-function ToolCard({ tool }: { tool: Tool }) {
+function ToolCard({ tool, locale }: { tool: Tool; locale: Locale }) {
   const riskClass: Record<string, string> = {
     low: 'chip-risk-low',
     medium: 'chip-risk-medium',
@@ -345,13 +357,13 @@ function ToolCard({ tool }: { tool: Tool }) {
   };
 
   return (
-    <a href={`/tools/${tool.slug}`} className="terminal-card group flex min-h-[260px] flex-col p-5">
+    <a href={localePath(locale, `/tools/${tool.slug}`)} className="terminal-card group flex min-h-[260px] flex-col p-5">
       <div className="mb-5 flex items-start justify-between gap-4 border-b border-outline-variant pb-4">
         <div className="min-w-0 text-code text-muted-variant">
-          ID: <span className="font-bold text-primary">0x{hashTool(tool.slug)}</span>
+          {t(locale, 'tool.id')}: <span className="font-bold text-primary">0x{hashTool(tool.slug)}</span>
           <span className="cursor-blink-sm"></span>
         </div>
-        <span className={`chip ${riskClass[tool.risk] ?? 'chip-default'}`}>{tool.risk}</span>
+        <span className={`chip ${riskClass[tool.risk] ?? 'chip-default'}`}>{t(locale, `risk.${tool.risk}`)}</span>
       </div>
 
       <h3 className="mb-3 truncate text-title font-bold text-primary transition-colors group-hover:text-acid">{tool.binary}</h3>
@@ -359,11 +371,11 @@ function ToolCard({ tool }: { tool: Tool }) {
 
       <div className="mt-auto grid grid-cols-2 gap-3 border border-outline-variant bg-background p-3 text-code">
         <div>
-          <div className="mb-1 text-[10px] uppercase tracking-[0.14em] text-muted">[CATEGORY]</div>
+          <div className="mb-1 text-[10px] uppercase tracking-[0.14em] text-muted">{t(locale, 'tool.category')}</div>
           <div className="truncate font-bold text-primary">{tool.category[0] ?? 'uncategorized'}</div>
         </div>
         <div>
-          <div className="mb-1 text-[10px] uppercase tracking-[0.14em] text-muted">[LANG]</div>
+          <div className="mb-1 text-[10px] uppercase tracking-[0.14em] text-muted">{t(locale, 'tool.lang')}</div>
           <div className="truncate font-bold text-primary">{tool.lang.includes('all') ? 'all' : tool.lang.slice(0, 2).join('/')}</div>
         </div>
       </div>

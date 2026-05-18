@@ -1,8 +1,10 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
+import { getLocaleFromUrl, localePath, t } from '../lib/i18n';
 import { loadTools, getCategories } from '../lib/tools';
 
+const locale = getLocaleFromUrl(Astro.url);
 const tools = loadTools();
 const categories = getCategories(tools);
 
@@ -16,24 +18,24 @@ const categoryData = categories.map((cat) => {
 });
 ---
 
-<Layout title="Categories — Runbook">
-  <Header />
+<Layout title={t(locale, 'categories.metaTitle')}>
+  <Header locale={locale} />
 
   <main class="terminal-shell z-10 px-4 py-12 sm:px-6">
     <section class="mb-10 border-b border-outline-variant pb-8">
-      <div class="label-caps mb-4">[DIRECTORY_SEGMENTATION]</div>
-      <h1 class="mb-3 text-[40px] font-extrabold tracking-[-0.05em] text-primary sm:text-5xl">CATEGORIES</h1>
+      <div class="label-caps mb-4">{t(locale, 'categories.label')}</div>
+      <h1 class="mb-3 text-[40px] font-extrabold tracking-[-0.05em] text-primary sm:text-5xl">{t(locale, 'categories.title')}</h1>
       <p class="max-w-2xl border-l-2 border-acid pl-4 text-body text-muted-variant">
-        Browse the Runbook registry by operational intent. Each category is a tool-selection vector for agents choosing the safest executable path.
+        {t(locale, 'categories.body')}
       </p>
     </section>
 
     <div class="grid grid-cols-1 gap-[1px] border border-outline-variant bg-outline-variant shadow-hard md:grid-cols-2 xl:grid-cols-3">
       {categoryData.map((cat) => (
-        <a href={`/tools?category=${cat.name}#directory`} class="terminal-card group p-5">
+        <a href={`${localePath(locale, '/tools')}?category=${cat.name}#directory`} class="terminal-card group p-5">
           <div class="mb-4 flex items-center justify-between border-b border-outline-variant pb-4">
             <h2 class="text-title font-bold text-primary transition-colors group-hover:text-acid">[{cat.name}]</h2>
-            <span class="chip chip-default">{cat.count} tools</span>
+            <span class="chip chip-default">{cat.count} {t(locale, 'categories.tools')}</span>
           </div>
           <div class="flex flex-wrap gap-1.5">
             {cat.tools.map((tool) => (

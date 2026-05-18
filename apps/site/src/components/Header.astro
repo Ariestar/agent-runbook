@@ -1,14 +1,17 @@
 ---
+import { localeNames, localePath, localeShortNames, locales, switchLocalePath, t, type Locale } from '../lib/i18n';
+
 interface Props {
   class?: string;
+  locale?: Locale;
 }
-const { class: className = '' } = Astro.props;
+const { class: className = '', locale = 'en' } = Astro.props;
 
 const navItems = [
-  ['/tools', 'REGISTRY'],
-  ['/categories', 'CATEGORIES'],
-  ['/agents', 'PROTOCOL'],
-  ['/contribute', 'CONTRIBUTE'],
+  ['/tools', t(locale, 'header.nav.registry')],
+  ['/categories', t(locale, 'header.nav.categories')],
+  ['/agents', t(locale, 'header.nav.protocol')],
+  ['/contribute', t(locale, 'header.nav.contribute')],
 ];
 
 const githubUrl = 'https://github.com/Ariestar/agent-runbook';
@@ -17,7 +20,7 @@ const githubUrl = 'https://github.com/Ariestar/agent-runbook';
 <header class:list={['sticky top-0 z-50 border-b border-outline-variant bg-background/90 backdrop-blur-md', className]}>
   <div class="mx-auto flex min-h-16 w-full max-w-[1440px] flex-wrap items-center justify-between gap-3 border-x border-outline-variant px-4 py-2 sm:px-6 lg:flex-nowrap">
     <div class="flex min-w-0 items-center gap-6 xl:gap-8">
-      <a href="/" class="group flex min-w-0 items-center text-lg font-extrabold tracking-[-0.04em] text-primary sm:text-xl xl:text-2xl">
+      <a href={localePath(locale, '/')} class="group flex min-w-0 items-center text-lg font-extrabold tracking-[-0.04em] text-primary sm:text-xl xl:text-2xl">
         <span class="hidden sm:inline">RUNBOOK</span>
         <span class="sm:hidden">RB</span>
         <span class="cursor-blink"></span>
@@ -25,7 +28,7 @@ const githubUrl = 'https://github.com/Ariestar/agent-runbook';
 
       <nav class="hidden items-center gap-4 text-code font-semibold lg:flex xl:gap-6">
         {navItems.map(([href, label]) => (
-          <a href={href} class="border-b-2 border-transparent pb-1 text-muted-variant transition-colors hover:border-acid hover:text-acid">
+          <a href={localePath(locale, href)} class="border-b-2 border-transparent pb-1 text-muted-variant transition-colors hover:border-acid hover:text-acid">
             [{label}]
           </a>
         ))}
@@ -33,21 +36,47 @@ const githubUrl = 'https://github.com/Ariestar/agent-runbook';
     </div>
 
     <div class="flex min-w-0 flex-1 items-center justify-end gap-3">
-      <form action="/tools" method="get" class="relative hidden min-w-[220px] max-w-md flex-1 lg:block">
+      <form action={localePath(locale, '/tools')} method="get" class="relative hidden min-w-[220px] max-w-md flex-1 lg:block">
         <span class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-code text-acid">⌕</span>
         <input
           name="search"
           type="search"
-          placeholder="SEARCH RUNBOOK_REGISTRY..."
+          placeholder={t(locale, 'header.search.placeholder')}
           class="h-9 w-full border border-outline-variant bg-surface-low px-9 pr-3 text-code text-primary placeholder:text-muted focus:border-acid focus:outline-none"
         />
       </form>
 
       <a href={githubUrl} class="hidden border border-acid/50 bg-acid/10 px-3 py-2 text-code font-extrabold uppercase tracking-[0.12em] text-acid shadow-hard transition-colors hover:bg-acid hover:text-black md:inline-flex">
-        ★ STAR_ON_GITHUB
+        ★ {t(locale, 'header.star')}
       </a>
 
-      <button type="button" data-theme-toggle class="theme-icon-toggle" aria-label="Switch color theme" title="Theme">
+      <details class="group relative" aria-label={t(locale, 'header.language')}>
+        <summary class="flex h-9 cursor-pointer list-none items-center gap-2 border border-outline-variant bg-surface-low px-3 text-code font-extrabold uppercase tracking-[0.12em] text-muted-variant shadow-hard transition-colors hover:border-acid hover:text-acid [&::-webkit-details-marker]:hidden">
+          <span class="text-acid">◎</span>
+          <span>{localeShortNames[locale]}</span>
+          <svg class="h-3.5 w-3.5 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+          </svg>
+        </summary>
+
+        <div class="absolute right-0 top-full z-50 mt-1 min-w-[180px] border border-outline bg-surface-dim p-1 text-code font-bold uppercase tracking-[0.12em] shadow-hard">
+          {locales.map((item) => (
+            <a
+              href={switchLocalePath(Astro.url.pathname, item)}
+              aria-current={item === locale ? 'true' : undefined}
+              class:list={[
+                'flex items-center justify-between gap-4 px-3 py-2 transition-colors',
+                item === locale ? 'bg-acid text-black shadow-hard-acid' : 'text-muted-variant hover:bg-acid/10 hover:text-acid',
+              ]}
+            >
+              <span>{localeNames[item]}</span>
+              <span class:list={['text-[10px]', item === locale ? 'text-black/70' : 'text-muted']}>{localeShortNames[item]}</span>
+            </a>
+          ))}
+        </div>
+      </details>
+
+      <button type="button" data-theme-toggle class="theme-icon-toggle" aria-label={t(locale, 'theme.label')} title={t(locale, 'theme.label')}>
         <svg class="theme-icon theme-icon-light" viewBox="0 0 24 24" aria-hidden="true">
           <circle cx="12" cy="12" r="4"></circle>
           <path d="M12 2v3M12 19v3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M2 12h3M19 12h3M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12"></path>

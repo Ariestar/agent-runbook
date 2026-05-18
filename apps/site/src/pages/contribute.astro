@@ -1,49 +1,52 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
+import { getLocaleFromUrl, t } from '../lib/i18n';
+
+const locale = getLocaleFromUrl(Astro.url);
 ---
 
-<Layout title="Contribute — Runbook">
-  <Header />
+<Layout title={t(locale, 'contribute.metaTitle')}>
+  <Header locale={locale} />
 
   <main class="terminal-shell z-10 px-4 py-12 sm:px-6">
     <section class="mb-10 border-b border-outline-variant pb-8">
-      <div class="label-caps mb-4">[RUNBOOK_WRITE_PROTOCOL]</div>
-      <h1 class="mb-3 text-[40px] font-extrabold tracking-[-0.05em] text-primary sm:text-5xl">CONTRIBUTE_A_RUNBOOK_ENTRY</h1>
+      <div class="label-caps mb-4">{t(locale, 'contribute.label')}</div>
+      <h1 class="mb-3 text-[40px] font-extrabold tracking-[-0.05em] text-primary sm:text-5xl">{t(locale, 'contribute.title')}</h1>
       <p class="max-w-2xl border-l-2 border-acid pl-4 text-body text-muted-variant">
-        Add executable CLI metadata that agents can trust: decision guidance, guardrails, effects, and risk semantics.
+        {t(locale, 'contribute.body')}
       </p>
     </section>
 
     <div class="grid grid-cols-1 gap-[1px] border border-outline-variant bg-outline-variant shadow-hard lg:grid-cols-2">
       <section class="bg-surface-dim p-6">
-        <div class="panel-header -mx-6 -mt-6 mb-6"><span>[ACCEPTANCE_CRITERIA]</span><span>GOOD_FIT</span></div>
+        <div class="panel-header -mx-6 -mt-6 mb-6"><span>{t(locale, 'contribute.acceptance')}</span><span>{t(locale, 'contribute.goodFit')}</span></div>
         <ul class="space-y-3 text-body text-muted-variant">
           {[
-            'Agent can execute it directly as a CLI command',
-            'Helps search, read, edit, test, debug, or deploy software',
-            'Has clear risk and guardrail semantics',
-            'Useful for AI coding workflows',
+            t(locale, 'contribute.good.1'),
+            t(locale, 'contribute.good.2'),
+            t(locale, 'contribute.good.3'),
+            t(locale, 'contribute.good.4'),
           ].map((item) => <li class="border border-acid/30 bg-acid/5 p-3"><span class="text-acid">✓</span> {item}</li>)}
         </ul>
       </section>
 
       <section class="bg-surface-dim p-6">
-        <div class="panel-header -mx-6 -mt-6 mb-6"><span>[REJECTION_CRITERIA]</span><span>NOT_A_FIT</span></div>
+        <div class="panel-header -mx-6 -mt-6 mb-6"><span>{t(locale, 'contribute.rejection')}</span><span>{t(locale, 'contribute.notFit')}</span></div>
         <ul class="space-y-3 text-body text-muted-variant">
           {[
-            'Libraries or frameworks with no CLI surface',
-            'GUI-only applications',
-            'General technology encyclopedias',
-            'Tools with no clear agent use case',
+            t(locale, 'contribute.bad.1'),
+            t(locale, 'contribute.bad.2'),
+            t(locale, 'contribute.bad.3'),
+            t(locale, 'contribute.bad.4'),
           ].map((item) => <li class="border border-danger/40 bg-danger/5 p-3"><span class="text-danger">✕</span> {item}</li>)}
         </ul>
       </section>
 
       <section class="bg-surface-dim p-6 lg:col-span-2">
-        <div class="panel-header -mx-6 -mt-6 mb-6"><span>[SUBMISSION_SEQUENCE]</span><span>04_STEPS</span></div>
+        <div class="panel-header -mx-6 -mt-6 mb-6"><span>{t(locale, 'contribute.sequence')}</span><span>{t(locale, 'contribute.steps')}</span></div>
         <ol class="grid gap-3 md:grid-cols-4">
-          {['Fork the repository on GitHub', 'Create data/tools/your-tool.yaml', 'Fill required metadata fields', 'Open a pull request'].map((item, index) => (
+          {[t(locale, 'contribute.step.1'), t(locale, 'contribute.step.2'), t(locale, 'contribute.step.3'), t(locale, 'contribute.step.4')].map((item, index) => (
             <li class="border border-outline-variant bg-background p-4">
               <div class="mb-4 text-headline font-extrabold text-acid">{String(index + 1).padStart(2, '0')}</div>
               <p class="text-body text-primary">{item}</p>
@@ -53,7 +56,7 @@ import Header from '../components/Header.astro';
       </section>
 
       <section class="bg-surface-dim p-6 lg:col-span-2">
-        <div class="panel-header -mx-6 -mt-6 mb-6"><span>[YAML_TEMPLATE]</span><span>SPEC</span></div>
+        <div class="panel-header -mx-6 -mt-6 mb-6"><span>{t(locale, 'contribute.template')}</span><span>{t(locale, 'contribute.spec')}</span></div>
         <pre class="overflow-x-auto border border-outline-variant bg-background p-4 text-code text-primary"><code>{`name: my-tool
 binary: my-tool
 aliases: []

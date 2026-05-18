@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
+import { getLocaleFromUrl, localePath, t } from '../../lib/i18n';
 import { loadTools } from '../../lib/tools';
 
 export function getStaticPaths() {
@@ -12,6 +13,7 @@ export function getStaticPaths() {
 }
 
 const { tool } = Astro.props;
+const locale = getLocaleFromUrl(Astro.url);
 
 const riskColors: Record<string, string> = {
   low: 'chip-risk-low',
@@ -22,36 +24,36 @@ const riskColors: Record<string, string> = {
 ---
 
 <Layout title={`${tool.binary} — Runbook`} description={tool.description}>
-  <Header />
+  <Header locale={locale} />
 
   <main class="terminal-shell z-10 px-4 py-12 sm:px-6">
-    <a href="/tools" class="mb-8 inline-flex items-center gap-2 border border-outline-variant bg-surface-dim px-3 py-2 text-code uppercase text-muted-variant shadow-hard transition-colors hover:border-acid hover:text-acid">
-      ← [BACK_TO_DIRECTORY]
+    <a href={localePath(locale, '/tools')} class="mb-8 inline-flex items-center gap-2 border border-outline-variant bg-surface-dim px-3 py-2 text-code uppercase text-muted-variant shadow-hard transition-colors hover:border-acid hover:text-acid">
+      {t(locale, 'tool.back')}
     </a>
 
     <section class="mb-6 border border-outline-variant bg-surface-dim p-6 shadow-hard sm:p-8">
       <div class="mb-6 flex flex-col gap-4 border-b border-outline-variant pb-6 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <div class="label-caps mb-3">[TOOL_PROFILE]</div>
+          <div class="label-caps mb-3">{t(locale, 'tool.profile')}</div>
           <h1 class="mb-2 text-[40px] font-extrabold tracking-[-0.05em] text-primary sm:text-5xl">{tool.binary}</h1>
           {tool.name !== tool.binary && <p class="text-body text-muted-variant">{tool.name}</p>}
         </div>
-        <span class={`chip text-sm ${riskColors[tool.risk] ?? 'chip-default'}`}>{tool.risk} risk</span>
+        <span class={`chip text-sm ${riskColors[tool.risk] ?? 'chip-default'}`}>{t(locale, `risk.${tool.risk}`)} {t(locale, 'tool.riskSuffix')}</span>
       </div>
 
       <p class="mb-6 max-w-3xl border-l-2 border-acid pl-4 text-base leading-7 text-muted-variant">{tool.description}</p>
 
       <div class="flex flex-wrap gap-2">
         {tool.category.map((cat: string) => <span class="chip chip-default">{cat}</span>)}
-        <span class="chip chip-default">lang: {tool.lang.join(', ')}</span>
-        {tool.platform?.map((platform: string) => <span class="chip chip-default">platform: {platform}</span>)}
+        <span class="chip chip-default">{t(locale, 'tool.langPrefix')}: {tool.lang.join(', ')}</span>
+        {tool.platform?.map((platform: string) => <span class="chip chip-default">{t(locale, 'tool.platformPrefix')}: {platform}</span>)}
       </div>
     </section>
 
     <div class="mb-6 grid grid-cols-1 gap-[1px] border border-outline-variant bg-outline-variant shadow-hard md:grid-cols-2">
       {tool.use_when && tool.use_when.length > 0 && (
         <section class="bg-surface-dim p-6">
-          <div class="panel-header -mx-6 -mt-6 mb-6"><span>[USE_WHEN]</span><span>ALLOW</span></div>
+          <div class="panel-header -mx-6 -mt-6 mb-6"><span>{t(locale, 'tool.useWhen')}</span><span>{t(locale, 'tool.allow')}</span></div>
           <ul class="space-y-3">
             {tool.use_when.map((item: string) => (
               <li class="border border-acid/30 bg-acid/5 p-3 text-body text-muted-variant"><span class="text-acid">✓</span> {item}</li>
@@ -62,7 +64,7 @@ const riskColors: Record<string, string> = {
 
       {tool.avoid_when && tool.avoid_when.length > 0 && (
         <section class="bg-surface-dim p-6">
-          <div class="panel-header -mx-6 -mt-6 mb-6"><span>[AVOID_WHEN]</span><span>BLOCK</span></div>
+          <div class="panel-header -mx-6 -mt-6 mb-6"><span>{t(locale, 'tool.avoidWhen')}</span><span>{t(locale, 'tool.block')}</span></div>
           <ul class="space-y-3">
             {tool.avoid_when.map((item: string) => (
               <li class="border border-danger/40 bg-danger/5 p-3 text-body text-muted-variant"><span class="text-danger">✕</span> {item}</li>
@@ -74,7 +76,7 @@ const riskColors: Record<string, string> = {
 
     {tool.guardrails && tool.guardrails.length > 0 && (
       <section class="mb-6 border border-outline-variant bg-surface-dim p-6 shadow-hard">
-        <div class="panel-header -mx-6 -mt-6 mb-6"><span>[GUARDRAILS]</span><span>MANDATORY</span></div>
+        <div class="panel-header -mx-6 -mt-6 mb-6"><span>{t(locale, 'tool.guardrails')}</span><span>{t(locale, 'tool.mandatory')}</span></div>
         <ul class="grid gap-3 md:grid-cols-2">
           {tool.guardrails.map((item: string) => (
             <li class="border border-warning/30 bg-warning/5 p-3 text-body text-muted-variant"><span class="text-warning">⚠</span> {item}</li>
@@ -84,27 +86,27 @@ const riskColors: Record<string, string> = {
     )}
 
     <section class="border border-outline-variant bg-surface-dim p-6 shadow-hard">
-      <div class="panel-header -mx-6 -mt-6 mb-6"><span>[DETAILS]</span><span>RAW_META</span></div>
+      <div class="panel-header -mx-6 -mt-6 mb-6"><span>{t(locale, 'tool.details')}</span><span>{t(locale, 'tool.rawMeta')}</span></div>
       <dl class="grid grid-cols-1 gap-[1px] bg-outline-variant text-body sm:grid-cols-2">
         <div class="bg-background p-4">
-          <dt class="label-caps mb-2">Binary</dt>
+          <dt class="label-caps mb-2">{t(locale, 'tool.binary')}</dt>
           <dd class="font-bold text-primary">{tool.binary}</dd>
         </div>
         {tool.aliases && tool.aliases.length > 0 && (
           <div class="bg-background p-4">
-            <dt class="label-caps mb-2">Aliases</dt>
+            <dt class="label-caps mb-2">{t(locale, 'tool.aliases')}</dt>
             <dd class="text-primary">{tool.aliases.join(', ')}</dd>
           </div>
         )}
         {tool.effects && tool.effects.length > 0 && (
           <div class="bg-background p-4">
-            <dt class="label-caps mb-2">Effects</dt>
+            <dt class="label-caps mb-2">{t(locale, 'tool.effects')}</dt>
             <dd class="text-primary">{tool.effects.join(', ')}</dd>
           </div>
         )}
         {tool.docs && (
           <div class="bg-background p-4">
-            <dt class="label-caps mb-2">Documentation</dt>
+            <dt class="label-caps mb-2">{t(locale, 'tool.documentation')}</dt>
             <dd><a href={tool.docs} target="_blank" rel="noopener" class="break-all text-acid hover:text-primary">{tool.docs}</a></dd>
           </div>
         )}

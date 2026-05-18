@@ -1,11 +1,13 @@
 ---
+import { localePath, t, type Locale } from '../lib/i18n';
 import type { Tool } from '../lib/tools';
 
 interface Props {
   tool: Tool;
+  locale?: Locale;
 }
 
-const { tool } = Astro.props;
+const { tool, locale = 'en' } = Astro.props;
 
 const riskColors: Record<string, string> = {
   low: 'chip-risk-low',
@@ -23,12 +25,12 @@ function hashTool(value: string) {
 }
 ---
 
-<a href={`/tools/${tool.slug}`} class="terminal-card group flex min-h-[260px] flex-col p-5">
+<a href={localePath(locale, `/tools/${tool.slug}`)} class="terminal-card group flex min-h-[260px] flex-col p-5">
   <div class="mb-5 flex items-start justify-between gap-4 border-b border-outline-variant pb-4">
     <div class="min-w-0 text-code text-muted-variant">
-      ID: <span class="font-bold text-primary">0x{hashTool(tool.slug)}</span><span class="cursor-blink-sm"></span>
+      {t(locale, 'tool.id')}: <span class="font-bold text-primary">0x{hashTool(tool.slug)}</span><span class="cursor-blink-sm"></span>
     </div>
-    <span class={`chip ${riskColors[tool.risk] ?? 'chip-default'}`}>{tool.risk}</span>
+    <span class={`chip ${riskColors[tool.risk] ?? 'chip-default'}`}>{t(locale, `risk.${tool.risk}`)}</span>
   </div>
 
   <h3 class="mb-3 truncate text-title font-bold text-primary transition-colors group-hover:text-acid">{tool.binary}</h3>
@@ -36,11 +38,11 @@ function hashTool(value: string) {
 
   <div class="mt-auto grid grid-cols-2 gap-3 border border-outline-variant bg-background p-3 text-code">
     <div>
-      <div class="mb-1 text-[10px] uppercase tracking-[0.14em] text-muted">[CATEGORY]</div>
+      <div class="mb-1 text-[10px] uppercase tracking-[0.14em] text-muted">{t(locale, 'tool.category')}</div>
       <div class="truncate font-bold text-primary">{tool.category[0] ?? 'uncategorized'}</div>
     </div>
     <div>
-      <div class="mb-1 text-[10px] uppercase tracking-[0.14em] text-muted">[LANG]</div>
+      <div class="mb-1 text-[10px] uppercase tracking-[0.14em] text-muted">{t(locale, 'tool.lang')}</div>
       <div class="truncate font-bold text-primary">{tool.lang.includes('all') ? 'all' : tool.lang.slice(0, 2).join('/')}</div>
     </div>
   </div>

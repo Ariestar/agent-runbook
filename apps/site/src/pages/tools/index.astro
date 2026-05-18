@@ -2,25 +2,27 @@
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import ToolSearch from '../../components/ToolSearch';
+import { getLocaleFromUrl, t } from '../../lib/i18n';
 import { loadTools, getCategories, getLanguages } from '../../lib/tools';
 
+const locale = getLocaleFromUrl(Astro.url);
 const tools = loadTools();
 const categories = getCategories(tools);
 const languages = getLanguages(tools);
 ---
 
-<Layout title="Registry — Runbook">
-  <Header />
+<Layout title={t(locale, 'tools.metaTitle')}>
+  <Header locale={locale} />
 
   <main id="directory" class="terminal-shell z-10 px-4 py-12 sm:px-6">
     <section class="mb-10 border-b border-outline-variant pb-8">
-      <div class="label-caps mb-4">[FULL_RUNBOOK_REGISTRY]</div>
-      <h1 class="mb-3 text-[40px] font-extrabold tracking-[-0.05em] text-primary sm:text-5xl">RUNBOOK_REGISTRY</h1>
+      <div class="label-caps mb-4">{t(locale, 'tools.label')}</div>
+      <h1 class="mb-3 text-[40px] font-extrabold tracking-[-0.05em] text-primary sm:text-5xl">{t(locale, 'tools.title')}</h1>
       <p class="max-w-2xl border-l-2 border-acid pl-4 text-body text-muted-variant">
-        Search every indexed command by binary, category, language, effect, and risk profile. Built for agents that need to choose the right executable before touching the shell.
+        {t(locale, 'tools.body')}
       </p>
     </section>
 
-    <ToolSearch client:load tools={tools} categories={categories} languages={languages} />
+    <ToolSearch client:load tools={tools} categories={categories} languages={languages} locale={locale} />
   </main>
 </Layout>

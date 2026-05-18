@@ -1,0 +1,10 @@
+---
+import { getNonDefaultLocales } from '../../../lib/i18n';
+import Page from '../../tools/index.astro';
+
+export function getStaticPaths() {
+  return getNonDefaultLocales().map((locale) => ({ params: { locale } }));
+}
+---
+
+<Page />
