@@ -1,0 +1,26 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import ToolSearch from '../../components/ToolSearch';
+import { loadTools, getCategories, getLanguages } from '../../lib/tools';
+
+const tools = loadTools();
+const categories = getCategories(tools);
+const languages = getLanguages(tools);
+---
+
+<Layout title="Registry — Runbook">
+  <Header />
+
+  <main id="directory" class="terminal-shell z-10 px-4 py-12 sm:px-6">
+    <section class="mb-10 border-b border-outline-variant pb-8">
+      <div class="label-caps mb-4">[FULL_RUNBOOK_REGISTRY]</div>
+      <h1 class="mb-3 text-[40px] font-extrabold tracking-[-0.05em] text-primary sm:text-5xl">RUNBOOK_REGISTRY</h1>
+      <p class="max-w-2xl border-l-2 border-acid pl-4 text-body text-muted-variant">
+        Search every indexed command by binary, category, language, effect, and risk profile. Built for agents that need to choose the right executable before touching the shell.
+      </p>
+    </section>
+
+    <ToolSearch client:load tools={tools} categories={categories} languages={languages} />
+  </main>
+</Layout>

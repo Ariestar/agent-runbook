@@ -1,0 +1,47 @@
+name: asdf
+binary: asdf
+aliases: []
+category:
+- package-manager
+- environment
+- toolchain
+lang:
+- all
+summary: Multi-language runtime and tool version manager driven by .tool-versions and plugins.
+homepage: https://asdf-vm.com/
+docs: https://asdf-vm.com/manage/commands.html
+detect:
+  version_args:
+  - --version
+  local:
+    files:
+    - .tool-versions
+    - .asdfrc
+    dirs: []
+    package_json:
+      package_manager_prefixes: []
+use_when:
+- Install or select project runtime and CLI versions declared in .tool-versions
+- Reproduce development environments that standardize on asdf plugins
+avoid_when:
+- The project uses mise, volta, rustup, fnm, pyenv, or another tool-specific version manager instead
+- The task only needs project dependencies from npm, pnpm, Cargo, uv, or another local package manager
+risk:
+  level: high
+  effects:
+  - install_packages
+  - execute_code
+  - network_access
+  - write_files
+  - environment_mutation
+  requires_auth: false
+  destructive: false
+  confirmation_required_for:
+  - adding plugins
+  - installing runtimes or tools
+  - changing global versions
+  - removing plugins or installed versions
+guardrails:
+- Review .tool-versions and plugin repository URLs before installing.
+- Ask before plugin add, install, global, uninstall, or plugin remove commands.
+- Prefer project-local version selection over changing global defaults.

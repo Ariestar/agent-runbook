@@ -1,0 +1,65 @@
+---
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+
+const navItems = [
+  ['/tools', 'REGISTRY'],
+  ['/categories', 'CATEGORIES'],
+  ['/agents', 'PROTOCOL'],
+  ['/contribute', 'CONTRIBUTE'],
+];
+
+const githubUrl = 'https://github.com/Ariestar/awesome-agent-cli';
+---
+
+<header class:list={['sticky top-0 z-50 border-b border-outline-variant bg-background/90 backdrop-blur-md', className]}>
+  <div class="mx-auto flex min-h-16 w-full max-w-[1440px] flex-wrap items-center justify-between gap-3 border-x border-outline-variant px-4 py-2 sm:px-6 lg:flex-nowrap">
+    <div class="flex min-w-0 items-center gap-6 xl:gap-8">
+      <a href="/" class="group flex min-w-0 items-center text-lg font-extrabold tracking-[-0.04em] text-primary sm:text-xl xl:text-2xl">
+        <span class="hidden sm:inline">RUNBOOK</span>
+        <span class="sm:hidden">RB</span>
+        <span class="cursor-blink"></span>
+      </a>
+
+      <nav class="hidden items-center gap-4 text-code font-semibold lg:flex xl:gap-6">
+        {navItems.map(([href, label]) => (
+          <a href={href} class="border-b-2 border-transparent pb-1 text-muted-variant transition-colors hover:border-acid hover:text-acid">
+            [{label}]
+          </a>
+        ))}
+      </nav>
+    </div>
+
+    <div class="flex min-w-0 flex-1 items-center justify-end gap-3">
+      <form action="/tools" method="get" class="relative hidden min-w-[220px] max-w-md flex-1 lg:block">
+        <span class="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-code text-acid">⌕</span>
+        <input
+          name="search"
+          type="search"
+          placeholder="SEARCH RUNBOOK_REGISTRY..."
+          class="h-9 w-full border border-outline-variant bg-surface-low px-9 pr-3 text-code text-primary placeholder:text-muted focus:border-acid focus:outline-none"
+        />
+      </form>
+
+      <a href={githubUrl} class="hidden border border-acid/50 bg-acid/10 px-3 py-2 text-code font-extrabold uppercase tracking-[0.12em] text-acid shadow-hard transition-colors hover:bg-acid hover:text-black md:inline-flex">
+        ★ STAR_ON_GITHUB
+      </a>
+
+      <button type="button" data-theme-toggle class="theme-icon-toggle" aria-label="Switch color theme" title="Theme">
+        <svg class="theme-icon theme-icon-light" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="4"></circle>
+          <path d="M12 2v3M12 19v3M4.93 4.93l2.12 2.12M16.95 16.95l2.12 2.12M2 12h3M19 12h3M4.93 19.07l2.12-2.12M16.95 7.05l2.12-2.12"></path>
+        </svg>
+        <svg class="theme-icon theme-icon-dark" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M20 14.2A7.6 7.6 0 0 1 9.8 4 8.4 8.4 0 1 0 20 14.2Z"></path>
+        </svg>
+        <svg class="theme-icon theme-icon-system" viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="4" y="5" width="16" height="11" rx="1"></rect>
+          <path d="M9 20h6M12 16v4"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>

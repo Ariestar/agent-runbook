@@ -1,0 +1,123 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Runbook',
+  description = 'The operating contract layer for AI coding agents: local tool discovery, command selection, risk metadata, and guardrails.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script is:inline>
+      (() => {
+        const root = document.documentElement;
+        const storageKey = 'runbook-theme';
+
+        function systemPrefersDark() {
+          return window.matchMedia('(prefers-color-scheme: dark)').matches;
+        }
+
+        function applyTheme(mode) {
+          const resolved = mode === 'system' ? (systemPrefersDark() ? 'dark' : 'light') : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+        }
+
+        applyTheme(localStorage.getItem(storageKey) || 'system');
+      })();
+    </script>
+    <meta name="description" content={description} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <div class="interactive-field" aria-hidden="true">
+      <div class="parallax-grid-layer"></div>
+      <div class="float-block float-block-a"></div>
+      <div class="float-block float-block-b"></div>
+      <div class="float-block float-block-c"></div>
+      <div class="float-block float-block-d"></div>
+    </div>
+    <div class="cursor-focus" aria-hidden="true"></div>
+    <div class="micro-grid-overlay"></div>
+    <div class="dot-grid-overlay"></div>
+    <div class="scanline-overlay"></div>
+    <slot />
+    <script is:inline>
+      (() => {
+        const root = document.documentElement;
+        const coordinateNodes = document.querySelectorAll('[data-cursor-coordinates]');
+        const themeToggle = document.querySelector('[data-theme-toggle]');
+        const storageKey = 'runbook-theme';
+        const nextThemeMode = {
+          system: 'light',
+          light: 'dark',
+          dark: 'system',
+        };
+
+        function systemPrefersDark() {
+          return window.matchMedia('(prefers-color-scheme: dark)').matches;
+        }
+
+        function syncThemeToggle(mode) {
+          if (!themeToggle) return;
+          const resolved = root.dataset.theme || 'dark';
+          themeToggle.dataset.activeMode = mode;
+          themeToggle.dataset.resolvedTheme = resolved;
+          themeToggle.setAttribute('aria-label', `Theme: ${mode}. Click to switch theme.`);
+          themeToggle.setAttribute('title', `Theme: ${mode}`);
+        }
+
+        function applyTheme(mode) {
+          const resolved = mode === 'system' ? (systemPrefersDark() ? 'dark' : 'light') : mode;
+          root.dataset.themeMode = mode;
+          root.dataset.theme = resolved;
+          syncThemeToggle(mode);
+        }
+
+        const initialTheme = localStorage.getItem(storageKey) || 'system';
+        applyTheme(initialTheme);
+
+        themeToggle?.addEventListener('click', () => {
+          const currentMode = root.dataset.themeMode || 'system';
+          const mode = nextThemeMode[currentMode] || 'system';
+          localStorage.setItem(storageKey, mode);
+          applyTheme(mode);
+        });
+
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+          if ((localStorage.getItem(storageKey) || 'system') === 'system') {
+            applyTheme('system');
+          }
+        });
+
+        function updateCursorTelemetry(event) {
+          const x = Math.round(event.clientX);
+          const y = Math.round(event.clientY);
+          const halfX = window.innerWidth / 2 || 1;
+          const halfY = window.innerHeight / 2 || 1;
+
+          root.style.setProperty('--cursor-x', `${x}px`);
+          root.style.setProperty('--cursor-y', `${y}px`);
+          root.style.setProperty('--parallax-x', `${((x - halfX) / halfX).toFixed(4)}`);
+          root.style.setProperty('--parallax-y', `${((y - halfY) / halfY).toFixed(4)}`);
+
+          coordinateNodes.forEach((node) => {
+            node.textContent = `[X:${String(x).padStart(4, '0')} Y:${String(y).padStart(4, '0')}]`;
+          });
+        }
+
+        window.addEventListener('pointermove', updateCursorTelemetry, { passive: true });
+        updateCursorTelemetry({ clientX: window.innerWidth / 2, clientY: window.innerHeight / 2 });
+      })();
+    </script>
+  </body>
+</html>

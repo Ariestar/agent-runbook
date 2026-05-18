@@ -4,6 +4,7 @@ aliases:
 - rtx
 category:
 - environment
+- package-manager
 lang:
 - all
 summary: Development tool version manager and task runner.

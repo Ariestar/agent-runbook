@@ -1,0 +1,47 @@
+name: pacman
+binary: pacman
+aliases: []
+category:
+- package-manager
+- environment
+lang:
+- all
+platform:
+- linux
+summary: Arch Linux package manager for installing and updating system packages.
+homepage: https://wiki.archlinux.org/title/Pacman
+docs: https://man.archlinux.org/man/pacman.8
+detect:
+  version_args:
+  - --version
+  local:
+    files:
+    - /etc/arch-release
+    dirs: []
+    package_json:
+      package_manager_prefixes: []
+use_when:
+- Install OS-level dependencies on Arch Linux or compatible images
+- Reproduce setup instructions that require pacman packages
+avoid_when:
+- The dependency belongs in the project package manager instead of the host OS
+- Running on a non-Arch Linux distribution or a locked-down environment
+risk:
+  level: high
+  effects:
+  - install_packages
+  - execute_code
+  - network_access
+  - write_files
+  - environment_mutation
+  requires_auth: true
+  destructive: false
+  confirmation_required_for:
+  - installing system packages
+  - upgrading system packages
+  - removing packages
+  - refreshing package databases
+guardrails:
+- Check package names and repository availability before installing.
+- Ask before -S, -Syu, -R, -Rs, database refresh, or cache cleanup commands.
+- Avoid partial upgrades and broad system updates during project tasks unless explicitly requested.

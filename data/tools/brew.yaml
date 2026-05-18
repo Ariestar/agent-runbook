@@ -1,0 +1,50 @@
+name: brew
+binary: brew
+aliases:
+- homebrew
+category:
+- package-manager
+- environment
+lang:
+- all
+platform:
+- macos
+- linux
+summary: Homebrew package manager for installing command-line tools, libraries, and applications on macOS and Linux.
+homepage: https://brew.sh/
+docs: https://docs.brew.sh/Manpage
+detect:
+  version_args:
+  - --version
+  local:
+    files:
+    - Brewfile
+    dirs: []
+    package_json:
+      package_manager_prefixes: []
+use_when:
+- Install or update developer tools on macOS or Linux hosts managed with Homebrew
+- Run Brewfile-based machine bootstrap with `brew bundle`
+avoid_when:
+- The task requires repository-local dependencies handled by the language package manager
+- The host uses OS packages, Nix, or another standardized environment manager instead
+risk:
+  level: high
+  effects:
+  - install_packages
+  - execute_code
+  - network_access
+  - write_files
+  - environment_mutation
+  requires_auth: false
+  destructive: false
+  confirmation_required_for:
+  - installing global tools
+  - upgrading installed packages
+  - uninstalling packages
+  - tapping third-party repositories
+  - running brew bundle against an unreviewed Brewfile
+guardrails:
+- Review taps and Brewfile entries before installing or bundling.
+- Ask before install, upgrade, uninstall, tap, untap, bundle, or cleanup commands.
+- Prefer project-local package managers for application dependencies.

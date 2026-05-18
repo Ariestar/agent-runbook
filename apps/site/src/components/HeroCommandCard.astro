@@ -1,0 +1,91 @@
+---
+interface Props {
+  stats: Array<[string, number]>;
+}
+
+const { stats } = Astro.props;
+
+const terminalLines = [
+  { prompt: '$', text: 'runbook scan --minimal', tone: 'text-primary' },
+  { prompt: '>', text: 'detected pnpm / astro / typescript', tone: 'text-muted-variant' },
+  { prompt: '$', text: 'runbook category test lint --lang typescript', tone: 'text-primary' },
+  { prompt: '✓', text: 'preferred: pnpm scripts · risk: medium', tone: 'text-acid' },
+  { prompt: '$', text: 'runbook prefer', tone: 'text-primary' },
+  { prompt: '>', text: 'guardrail: do not mix package managers', tone: 'text-muted-variant' },
+  { prompt: '$', text: 'pnpm build', tone: 'text-primary' },
+  { prompt: '✓', text: '200 routes generated · ship confidence', tone: 'text-acid' },
+];
+---
+
+<section class="relative grid h-[calc(100vh-4rem)] min-h-[640px] place-items-center overflow-hidden border-b border-outline-variant px-4 py-6 sm:px-6 lg:py-8">
+  <div class="pointer-events-none absolute inset-0 opacity-80">
+    <div class="floating-square h-24 w-24 left-[8%] top-[14%]" style="animation-delay: -1s"></div>
+    <div class="floating-square h-14 w-14 left-[84%] top-[18%]" style="animation-delay: -4s"></div>
+    <div class="floating-square h-20 w-20 left-[78%] top-[72%]" style="animation-delay: -7s"></div>
+    <div class="floating-square h-10 w-10 left-[18%] top-[78%]" style="animation-delay: -10s"></div>
+  </div>
+
+  <div class="hero-card relative z-10 grid w-full max-w-[1320px] grid-cols-1 gap-[1px] bg-outline-variant p-px shadow-hard lg:grid-cols-[1.08fr_0.92fr]">
+    <div class="flex flex-col justify-center bg-surface-dim p-5 text-left sm:p-7 lg:p-9 xl:p-10">
+      <div class="mb-7 inline-flex w-fit items-center gap-2 border border-outline-variant bg-background px-3 py-2 text-code text-muted-variant shadow-hard">
+        <span class="text-acid">▣</span>
+        <span>[RUNBOOK] OPERATING_CONTRACT_ONLINE</span>
+      </div>
+
+      <h1 class="mb-7 flex flex-col gap-2 text-[24px] font-extrabold leading-none tracking-[-0.055em] text-primary sm:text-[34px] lg:text-[42px] xl:text-[50px] 2xl:text-[56px]">
+        <span class="block whitespace-nowrap">RUNBOOK</span>
+        <span class="block whitespace-nowrap text-acid">BEFORE THE SHELL.</span>
+        <span class="block whitespace-nowrap">COMMANDS WITH CONSEQUENCES.</span>
+      </h1>
+
+      <p class="mb-7 max-w-2xl border-l-2 border-acid pl-4 text-[14px] leading-7 text-muted-variant sm:text-[15px]">
+        The operating contract layer for AI coding agents: scan the local environment, read repository preferences, query the command registry, and turn every shell action into an auditable decision.
+      </p>
+
+      <div class="mb-7 grid w-full max-w-2xl grid-cols-3 gap-[1px] bg-outline-variant p-px">
+        {stats.map(([label, value]) => (
+          <div class="bg-background px-3 py-3.5 sm:px-4">
+            <div class="label-caps mb-2">[{label}]</div>
+            <div class="text-title font-extrabold text-primary sm:text-headline">{value}</div>
+          </div>
+        ))}
+      </div>
+
+      <div class="flex flex-col gap-4 sm:flex-row sm:flex-wrap">
+        <a href="/categories" class="btn-primary">[ OPEN RUNBOOK REGISTRY ]</a>
+        <a href="/agents" class="btn-secondary">[ READ OPERATING PROTOCOL ]</a>
+      </div>
+    </div>
+
+    <div class="relative overflow-hidden bg-background p-5 sm:p-7 lg:p-9 xl:p-10">
+      <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(195,244,0,0.05)_1px,transparent_1px),linear-gradient(rgba(195,244,0,0.04)_1px,transparent_1px)] bg-[size:32px_32px]"></div>
+      <div class="relative flex h-full min-h-[350px] flex-col border border-outline-variant bg-surface-dim/95 shadow-hard">
+        <div class="flex items-center justify-between border-b border-outline-variant px-4 py-3 text-code text-muted-variant">
+          <span>[RUNBOOK_DECISION_TRACE]</span>
+          <span class="text-acid">LIVE</span>
+        </div>
+
+        <div class="space-y-2 p-4 text-[12px] leading-5 sm:p-5 sm:text-code">
+          {terminalLines.map((line) => (
+            <div class="terminal-line flex gap-3" style={`--line-delay: ${terminalLines.indexOf(line) * 0.22}s`}>
+              <span class="w-4 shrink-0 text-acid">{line.prompt}</span>
+              <span class={`${line.tone} overflow-hidden whitespace-nowrap`}>{line.text}</span>
+            </div>
+          ))}
+        </div>
+
+        <div class="mt-auto border-t border-outline-variant p-4">
+          <div class="mb-3 flex items-center justify-between text-[10px] uppercase tracking-[0.14em] text-muted">
+            <span>[AGENT_CONFIDENCE]</span>
+            <span class="text-acid">94%</span>
+          </div>
+          <div class="flex gap-1">
+            {Array.from({ length: 16 }).map((_, index) => (
+              <div class:list={['h-4 flex-1 border border-outline-variant', index < 15 ? 'bg-acid shadow-glow' : 'bg-background']}></div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

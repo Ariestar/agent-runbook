@@ -1,0 +1,48 @@
+name: scoop
+binary: scoop
+aliases: []
+category:
+- package-manager
+- environment
+lang:
+- all
+platform:
+- windows
+summary: Windows command-line package manager for installing developer tools and applications without admin by default.
+homepage: https://github.com/ScoopInstaller/Scoop
+docs: https://github.com/ScoopInstaller/Scoop/wiki
+detect:
+  version_args:
+  - --version
+  local:
+    files: []
+    dirs:
+    - scoop
+    package_json:
+      package_manager_prefixes: []
+use_when:
+- Install or update developer CLI tools on Windows
+- Check whether a Windows tool is available through Scoop buckets
+- Set up user-scoped command-line utilities without changing a project lockfile
+avoid_when:
+- The task requires project-local dependencies managed by npm, pnpm, Cargo, uv, or another repo-specific package manager
+- System policy requires winget, Chocolatey, or an organization-managed installer instead
+risk:
+  level: high
+  effects:
+  - install_packages
+  - execute_code
+  - network_access
+  - write_files
+  - environment_mutation
+  requires_auth: false
+  destructive: false
+  confirmation_required_for:
+  - installing global tools
+  - updating installed packages
+  - uninstalling packages
+  - adding or trusting buckets
+guardrails:
+- Prefer project-local package managers for repository dependencies; use Scoop for machine-level CLI availability.
+- Review bucket sources and manifests before installing tools from unfamiliar buckets.
+- Ask before running install, update, uninstall, bucket add, or reset commands because they mutate the user environment.

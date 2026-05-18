@@ -1,0 +1,47 @@
+name: choco
+binary: choco
+aliases:
+- chocolatey
+category:
+- package-manager
+- environment
+lang:
+- all
+platform:
+- windows
+summary: Chocolatey package manager for installing and maintaining Windows software from the command line.
+homepage: https://chocolatey.org/
+docs: https://docs.chocolatey.org/en-us/choco/commands/
+detect:
+  version_args:
+  - --version
+  local:
+    files: []
+    dirs: []
+    package_json:
+      package_manager_prefixes: []
+use_when:
+- Install or update Windows developer tools on machines standardized around Chocolatey
+- Reproduce setup instructions that explicitly use Chocolatey packages
+avoid_when:
+- The project has local dependency instructions through another package manager
+- Organization policy prefers winget, Scoop, or managed software deployment
+risk:
+  level: high
+  effects:
+  - install_packages
+  - execute_code
+  - network_access
+  - write_files
+  - environment_mutation
+  requires_auth: false
+  destructive: false
+  confirmation_required_for:
+  - installing global tools
+  - upgrading installed packages
+  - uninstalling packages
+  - changing Chocolatey sources
+guardrails:
+- Confirm package names and sources before installing.
+- Ask before install, upgrade, uninstall, source, or feature mutation commands.
+- Do not bypass confirmation flags on unfamiliar packages.

@@ -19,3 +19,9 @@ Thumbs.db
 .vscode/
 *.swp
 *.swo
+
+# JavaScript dependencies/build output
+node_modules/
+apps/site/node_modules/
+apps/site/dist/
+apps/site/.astro/

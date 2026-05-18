@@ -1,0 +1,78 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+---
+
+<Layout title="For Agents — Runbook">
+  <Header />
+
+  <main class="terminal-shell z-10 px-4 py-12 sm:px-6">
+    <section class="mb-10 border-b border-outline-variant pb-8">
+      <div class="label-caps mb-4">[RUNBOOK_PROTOCOL]</div>
+      <h1 class="mb-3 text-[40px] font-extrabold tracking-[-0.05em] text-primary sm:text-5xl">OPERATING_PROTOCOL</h1>
+      <p class="max-w-2xl border-l-2 border-acid pl-4 text-body text-muted-variant">
+        A compact operating contract for choosing commands by task, language, availability, repository preference, and risk. Context before execution.
+      </p>
+    </section>
+
+    <div class="grid grid-cols-1 gap-[1px] border border-outline-variant bg-outline-variant shadow-hard lg:grid-cols-2">
+      <section class="bg-surface-dim p-6 lg:col-span-2">
+        <div class="panel-header -mx-6 -mt-6 mb-6"><span>[RUNBOOK_SELECTION_PRINCIPLES]</span><span>05_RULES</span></div>
+        <ol class="grid gap-4 md:grid-cols-5">
+          {[
+            ['01', 'Start with the task category', 'Need to search code? Query search tools. Need tests? Query test tools.'],
+            ['02', 'Filter by language', 'Prefer tools with the project ecosystem or lang: all.'],
+            ['03', 'Prefer lower risk', 'If a low-risk read-only tool can do the job, do not escalate.'],
+            ['04', 'Check local evidence', 'Runbook scan tells the agent what exists locally and what the project requires.'],
+            ['05', 'Respect guardrails', 'High and critical risk require explicit confirmation paths.'],
+          ].map(([num, title, body]) => (
+            <li class="border border-outline-variant bg-background p-4">
+              <div class="mb-4 text-headline font-extrabold text-acid">{num}</div>
+              <h2 class="mb-2 text-body font-bold text-primary">{title}</h2>
+              <p class="text-code text-muted-variant">{body}</p>
+            </li>
+          ))}
+        </ol>
+      </section>
+
+      <section class="bg-surface-dim p-6">
+        <div class="panel-header -mx-6 -mt-6 mb-6"><span>[EFFECTS_MATRIX]</span><span>RISK</span></div>
+        <div class="space-y-3 text-body">
+          {[
+            ['safe', 'read_files', 'Reads only; no side effects.', 'chip-risk-low'],
+            ['caution', 'write_files', 'Modifies local files.', 'chip-risk-medium'],
+            ['caution', 'execute_code', 'Runs arbitrary local commands.', 'chip-risk-medium'],
+            ['danger', 'network_access', 'Makes network calls.', 'chip-risk-high'],
+            ['danger', 'secret_exposure', 'May reveal secrets.', 'chip-risk-critical'],
+          ].map(([level, code, text, chip]) => (
+            <div class="flex items-start gap-3 border border-outline-variant bg-background p-3">
+              <span class={`chip ${chip}`}>{level}</span>
+              <span class="text-muted-variant"><code class="text-primary">{code}</code> — {text}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section class="bg-surface-dim p-6">
+        <div class="panel-header -mx-6 -mt-6 mb-6"><span>[RUNBOOK_INTERFACE]</span><span>CLI</span></div>
+        <p class="mb-4 text-body text-muted-variant">Use Runbook to combine the registry with local facts and repository preferences.</p>
+        <pre class="overflow-x-auto border border-outline-variant bg-background p-4 text-code text-primary"><code>{`runbook scan
+runbook prefer
+runbook category search --lang rust
+runbook category test --lang python`}</code></pre>
+      </section>
+
+      <section class="bg-surface-dim p-6 lg:col-span-2">
+        <div class="panel-header -mx-6 -mt-6 mb-6"><span>[DECISION_FLOW]</span><span>CLOSED_LOOP</span></div>
+        <div class="grid gap-3 text-body md:grid-cols-3">
+          {['category', 'language', 'availability', 'risk', 'guardrails', 'confirmation'].map((step, index) => (
+            <div class="border border-outline-variant bg-background p-4">
+              <span class="label-caps text-acid">STEP_{String(index + 1).padStart(2, '0')}</span>
+              <p class="mt-2 font-bold uppercase text-primary">{step}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+    </div>
+  </main>
+</Layout>
