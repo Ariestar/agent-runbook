@@ -8,12 +8,17 @@ export function getStaticPaths() {
   const tools = loadTools();
   return tools.map((tool) => ({
     params: { slug: tool.slug },
-    props: { tool },
+    props: { tool, allTools: tools },
   }));
 }
 
-const { tool } = Astro.props;
+const { tool, allTools } = Astro.props;
 const locale = getLocaleFromUrl(Astro.url);
+
+// Find similar tools: same category, excluding self, max 3
+const similarTools = allTools
+  .filter((t: any) => t.slug !== tool.slug && t.category.some((c: string) => tool.category.includes(c)))
+  .slice(0, 3);
 
 const riskColors: Record<string, string> = {
   low: 'chip-risk-low',
@@ -112,5 +117,22 @@ const riskColors: Record<string, string> = {
         )}
       </dl>
     </section>
+
+    {similarTools.length > 0 && (
+      <section class="mt-6 border border-outline-variant bg-surface-dim p-6 shadow-hard">
+        <div class="panel-header -mx-6 -mt-6 mb-6"><span>{t(locale, 'tool.similar')}</span><span>{String(similarTools.length).padStart(2, '0')}</span></div>
+        <div class="grid grid-cols-1 gap-[1px] bg-outline-variant md:grid-cols-3">
+          {similarTools.map((st: any) => (
+            <a href={localePath(locale, `/tools/${st.slug}`)} class="group flex flex-col bg-background p-4 transition-colors hover:bg-acid/5">
+              <div class="mb-2 flex items-center justify-between gap-2">
+                <h3 class="truncate text-body font-bold text-primary group-hover:text-acid">{st.binary}</h3>
+                <span class={`chip text-[10px] ${riskColors[st.risk] ?? 'chip-default'}`}>{t(locale, `risk.${st.risk}`)}</span>
+              </div>
+              <p class="line-clamp-2 text-code text-muted-variant">{st.description}</p>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
   </main>
 </Layout>

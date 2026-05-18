@@ -8,10 +8,10 @@ export function getStaticPaths() {
   return getNonDefaultLocales().flatMap((locale) =>
     tools.map((tool) => ({
       params: { locale, slug: tool.slug },
-      props: { tool },
+      props: { tool, allTools: tools },
     })),
   );
 }
 ---
 
-<Page tool={Astro.props.tool} />
+<Page tool={Astro.props.tool} allTools={Astro.props.allTools} />

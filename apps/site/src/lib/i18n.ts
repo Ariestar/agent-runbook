@@ -169,6 +169,7 @@ const messages: Record<Locale, Record<string, string>> = {
     'tool.aliases': 'Aliases',
     'tool.effects': 'Effects',
     'tool.documentation': 'Documentation',
+    'tool.similar': '[SIMILAR_TOOLS]',
 
     'risk.low': 'low',
     'risk.medium': 'medium',
@@ -331,6 +332,7 @@ const messages: Record<Locale, Record<string, string>> = {
     'tool.aliases': '别名',
     'tool.effects': '影响',
     'tool.documentation': '文档',
+    'tool.similar': '[类似工具]',
 
     'risk.low': '低',
     'risk.medium': '中',
