@@ -220,14 +220,14 @@ pnpm build
 | 设置 | 值 |
 | --- | --- |
 | Root directory | `apps/site` |
-| Install command | `git submodule update --init --recursive && pnpm install --frozen-lockfile` |
+| Install command | `git submodule update --init --recursive && pnpm install --frozen-lockfile --config.dangerously-allow-all-builds=true` |
 | Build command | `pnpm build` |
 | Output directory | `dist` |
 
-`apps/site/package.json` 声明了 `packageManager: pnpm@11.1.2`。`apps/site/pnpm-workspace.yaml` 批准了 `esbuild` 和 `sharp` 所需的原生构建脚本。
+`apps/site/package.json` 声明了 `packageManager: pnpm@11.1.2`，并显式保留 approved build dependencies。`apps/site/pnpm-workspace.yaml` 记录了 pnpm 11 对 `esbuild` 和 `sharp` 构建脚本的批准。install command 同时传入 `--config.dangerously-allow-all-builds=true`，因为 Cloudflare Pages 可能会在读取 app-local workspace approval file 之前运行 pnpm。
 
 > [!TIP]
-> 如果 CI 因 `esbuild` 或 `sharp` 报 `ERR_PNPM_IGNORED_BUILDS`，确认部署根目录是 `apps/site`，这样 pnpm 才能读取 `apps/site/pnpm-workspace.yaml`。如果 registry 页面为空，确认 install command 初始化了 `awesome-agent-cli` submodule；站点在构建时读取 `../../awesome-agent-cli/data/tools/`，不会把 registry 复制一份进 `runbook`。
+> 如果 CI 因 `esbuild` 或 `sharp` 报 `ERR_PNPM_IGNORED_BUILDS`，确认部署根目录是 `apps/site`，并且 install command 包含 `--config.dangerously-allow-all-builds=true`。如果 registry 页面为空，确认 install command 初始化了 `awesome-agent-cli` submodule；站点在构建时读取 `../../awesome-agent-cli/data/tools/`，不会把 registry 复制一份进 `runbook`。
 
 ## 开发
 
