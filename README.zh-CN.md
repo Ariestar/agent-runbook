@@ -79,7 +79,6 @@ Project: /path/to/project
 
 Machine Context
 - Operating system: linux (linux/x86_64)
-- Shell: /bin/bash
 
 Global Tools
 - cargo: cargo (cargo 1.95.0 ...)
@@ -221,14 +220,14 @@ pnpm build
 | 设置 | 值 |
 | --- | --- |
 | Root directory | `apps/site` |
-| Install command | `pnpm install --frozen-lockfile` |
+| Install command | `git submodule update --init --recursive && pnpm install --frozen-lockfile` |
 | Build command | `pnpm build` |
 | Output directory | `dist` |
 
-`apps/site/package.json` 声明了 `packageManager: pnpm@11.1.2`，并通过 `pnpm.onlyBuiltDependencies` 批准了 `esbuild` 和 `sharp` 所需的原生构建脚本。
+`apps/site/package.json` 声明了 `packageManager: pnpm@11.1.2`。`apps/site/pnpm-workspace.yaml` 批准了 `esbuild` 和 `sharp` 所需的原生构建脚本。
 
 > [!TIP]
-> 如果 CI 因 `esbuild` 或 `sharp` 报 `ERR_PNPM_IGNORED_BUILDS`，先确认部署根目录是 `apps/site`，这样 pnpm 才能读取该 package 配置。如果平台仍然忽略配置，运行 `pnpm approve-builds`，批准 `esbuild` 和 `sharp`，并提交生成的配置变更。只有在平台无法消费 pnpm approved-build 配置时，才把 `pnpm install --dangerously-allow-all-builds` 作为临时恢复命令。
+> 如果 CI 因 `esbuild` 或 `sharp` 报 `ERR_PNPM_IGNORED_BUILDS`，确认部署根目录是 `apps/site`，这样 pnpm 才能读取 `apps/site/pnpm-workspace.yaml`。如果 registry 页面为空，确认 install command 初始化了 `awesome-agent-cli` submodule；站点在构建时读取 `../../awesome-agent-cli/data/tools/`，不会把 registry 复制一份进 `runbook`。
 
 ## 开发
 

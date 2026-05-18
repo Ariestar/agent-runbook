@@ -79,7 +79,6 @@ Project: /path/to/project
 
 Machine Context
 - Operating system: linux (linux/x86_64)
-- Shell: /bin/bash
 
 Global Tools
 - cargo: cargo (cargo 1.95.0 ...)
@@ -221,14 +220,14 @@ Use these settings on Vercel, Netlify, Cloudflare Pages, or a similar static hos
 | Setting | Value |
 | --- | --- |
 | Root directory | `apps/site` |
-| Install command | `pnpm install --frozen-lockfile` |
+| Install command | `git submodule update --init --recursive && pnpm install --frozen-lockfile` |
 | Build command | `pnpm build` |
 | Output directory | `dist` |
 
-`apps/site/package.json` declares `packageManager: pnpm@11.1.2` and approves the required native build scripts for `esbuild` and `sharp` through `pnpm.onlyBuiltDependencies`.
+`apps/site/package.json` declares `packageManager: pnpm@11.1.2`. `apps/site/pnpm-workspace.yaml` approves the required native build scripts for `esbuild` and `sharp`.
 
 > [!TIP]
-> If CI fails with `ERR_PNPM_IGNORED_BUILDS` for `esbuild` or `sharp`, first make sure the deploy root is `apps/site` so pnpm can read that package configuration. If your platform still ignores it, run `pnpm approve-builds`, approve `esbuild` and `sharp`, and commit the generated config changes. Use `pnpm install --dangerously-allow-all-builds` only as a temporary recovery command when the platform cannot consume pnpm's approved-build configuration.
+> If CI fails with `ERR_PNPM_IGNORED_BUILDS` for `esbuild` or `sharp`, make sure the deploy root is `apps/site` so pnpm reads `apps/site/pnpm-workspace.yaml`. If the registry page is empty, make sure the install command initializes the `awesome-agent-cli` submodule; the site reads `../../awesome-agent-cli/data/tools/` at build time and does not vendor a copy of the registry.
 
 ## Development
 

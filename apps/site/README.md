@@ -47,10 +47,10 @@ pnpm build     # static build to dist/
 pnpm preview   # preview the build
 ```
 
-For deployment, set the project root to `apps/site`, the build command to `pnpm build`, and the output directory to `dist`.
+For deployment, set the project root to `apps/site`, the install command to `git submodule update --init --recursive && pnpm install --frozen-lockfile`, the build command to `pnpm build`, and the output directory to `dist`.
 
 > [!TIP]
-> `package.json` includes `pnpm.onlyBuiltDependencies` for `esbuild` and `sharp`. If your CI reports `ERR_PNPM_IGNORED_BUILDS`, confirm the deploy root is `apps/site` so pnpm can read this configuration, or run `pnpm approve-builds` and commit the generated approval changes.
+> `pnpm-workspace.yaml` approves build scripts for `esbuild` and `sharp`. If CI reports `ERR_PNPM_IGNORED_BUILDS`, confirm the deploy root is `apps/site` so pnpm can read this file. If the registry page is empty, confirm the install command initializes the root `awesome-agent-cli` submodule; the site reads `../../awesome-agent-cli/data/tools/` at build time.
 
 ## Tech Stack
 
