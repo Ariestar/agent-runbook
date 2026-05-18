@@ -167,22 +167,31 @@ Runbook 内置一个基于 YAML 的工具注册表。每个工具规格可以描
 - 风险等级和副作用
 - 操作护栏
 
-这个注册表会编译进 CLI，同时也驱动 `apps/web` 中的静态工具索引。
+这个注册表维护在 [`awesome-agent-cli`](https://github.com/Ariestar/awesome-agent-cli) 仓库中，并作为 Git submodule 挂载在本仓库的 `awesome-agent-cli/`。Runbook 会把这份注册表编译进 CLI，网站也会在构建时读取同一个 submodule。
 
 ```bash
 runbook category
 ```
 
-## Web 工具索引
+## Web 站点
 
-仓库中包含一个轻量的静态工具索引页面：
+仓库中包含 Runbook 站点，位置是 `apps/site`。这是一个 Astro 应用，用来浏览 `awesome-agent-cli` registry submodule。
+
+克隆本仓库后，先初始化 submodule：
 
 ```bash
-cd apps/web
-python -m http.server 8000
+git submodule update --init --recursive
 ```
 
-打开 `http://localhost:8000`，即可按名称、类别、语言和风险等级搜索工具。
+本地运行站点：
+
+```bash
+cd apps/site
+pnpm install --dangerously-allow-all-builds
+pnpm dev
+```
+
+打开 `http://localhost:4321`，即可按名称、类别、语言和风险等级浏览工具。
 
 ## 开发
 

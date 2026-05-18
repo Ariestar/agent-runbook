@@ -10,7 +10,7 @@ keywords = ["ai-agent", "cli", "developer-tools", "runbook"]
 categories = ["command-line-utilities", "development-tools"]
 include = [
     "src/**",
-    "data/tools/**",
+    "awesome-agent-cli/data/tools/**",
     "build.rs",
     "Cargo.toml",
     "Cargo.lock",

@@ -31,12 +31,12 @@ The registry becomes useful when paired with local evidence from `runbook scan`:
 Visit the website or use the JSON API:
 
 ```text
-registry at `../../data/tools/`
+registry at `../../awesome-agent-cli/data/tools/`
 ```
 
 ## Contribute
 
-Add a YAML file to `../../data/tools/your-tool.yaml`. See `/contribute` for the template and field reference.
+Add a YAML file to the `awesome-agent-cli` repository: `data/tools/your-tool.yaml`. See `/contribute` for the template and field reference.
 
 ## Development
 
@@ -52,7 +52,7 @@ pnpm preview   # preview the build
 - [Astro](https://astro.build) — static site framework
 - [React](https://react.dev) — interactive search island
 - [Tailwind CSS](https://tailwindcss.com) — styling
-- Tool data: YAML files in `../../data/tools/`
+- Tool data: YAML files from the root `awesome-agent-cli` submodule at `../../awesome-agent-cli/data/tools/`
 
 ## License
 

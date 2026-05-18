@@ -63,10 +63,10 @@ struct Risk {
 }
 
 fn main() {
-    println!("cargo:rerun-if-changed=data/tools");
+    println!("cargo:rerun-if-changed=awesome-agent-cli/data/tools");
 
     let root = PathBuf::from(env::var("CARGO_MANIFEST_DIR").expect("missing manifest dir"));
-    let tools_dir = root.join("data").join("tools");
+    let tools_dir = root.join("awesome-agent-cli").join("data").join("tools");
     let mut cards = Vec::new();
 
     for path in yaml_files(&tools_dir) {
@@ -84,11 +84,6 @@ fn main() {
     let json = serde_json::to_string_pretty(&cards).expect("failed to serialize tool index");
     let out_dir = PathBuf::from(env::var("OUT_DIR").expect("missing OUT_DIR"));
     fs::write(out_dir.join("tools.json"), &json).expect("failed to write generated tool index");
-
-    let web_dir = root.join("apps").join("web");
-    if web_dir.exists() {
-        fs::write(web_dir.join("tools.json"), &json).expect("failed to write web tool index");
-    }
 }
 
 fn yaml_files(dir: &Path) -> Vec<PathBuf> {

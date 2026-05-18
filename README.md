@@ -167,22 +167,31 @@ Runbook ships with a YAML-backed registry of tool metadata. Each tool spec can d
 - risk level and side effects
 - operating guardrails
 
-The registry is compiled into the CLI and also powers the static tool index in `apps/web`.
+The registry is maintained in the [`awesome-agent-cli`](https://github.com/Ariestar/awesome-agent-cli) repository, which is checked out here as a Git submodule at `awesome-agent-cli/`. Runbook compiles that registry into the CLI and the site reads the same submodule at build time.
 
 ```bash
 runbook category
 ```
 
-## Web Tool Index
+## Web Site
 
-The repository includes a small static browser for the tool registry:
+The repository includes the Runbook site in `apps/site`. It is an Astro app that browses the `awesome-agent-cli` registry submodule.
+
+After cloning this repository, initialize the submodule:
 
 ```bash
-cd apps/web
-python -m http.server 8000
+git submodule update --init --recursive
 ```
 
-Open `http://localhost:8000` to search tools by name, category, language, and risk level.
+Run the site locally:
+
+```bash
+cd apps/site
+pnpm install --dangerously-allow-all-builds
+pnpm dev
+```
+
+Open `http://localhost:4321` to browse tools by name, category, language, and risk level.
 
 ## Development
 

@@ -1,0 +1,3 @@
+[submodule "awesome-agent-cli"]
+	path = awesome-agent-cli
+	url = https://github.com/Ariestar/awesome-agent-cli.git

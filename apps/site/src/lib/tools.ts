@@ -20,7 +20,7 @@ export interface Tool {
 }
 
 export function loadTools(): Tool[] {
-  const toolsDir = path.resolve('../../data/tools');
+  const toolsDir = path.resolve('../../awesome-agent-cli/data/tools');
   const files = fs.readdirSync(toolsDir).filter((f) => f.endsWith('.yaml'));
 
   return files
