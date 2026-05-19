@@ -1,8 +1,12 @@
 use std::collections::HashMap;
 use std::env;
 use std::fs;
+use std::io::Read;
 use std::path::Path;
-use std::process::Command;
+use std::process::{Command, Stdio};
+use std::time::{Duration, Instant};
+
+const VERSION_COMMAND_TIMEOUT: Duration = Duration::from_secs(2);
 
 pub struct CommandOutput {
     pub status: bool,
@@ -33,23 +37,70 @@ impl CommandIndex {
 }
 
 pub fn run_command(command: &str, args: &[&str]) -> CommandOutput {
-    let Ok(output) = Command::new(command).args(args).output() else {
+    let Ok(mut child) = Command::new(command)
+        .args(args)
+        .stdin(Stdio::null())
+        .stdout(Stdio::piped())
+        .stderr(Stdio::piped())
+        .spawn()
+    else {
         return CommandOutput {
             status: false,
             first_line: "failed to start command".to_string(),
         };
     };
 
-    let stdout = String::from_utf8_lossy(&output.stdout);
-    let stderr = String::from_utf8_lossy(&output.stderr);
-    let text = if output.status.success() {
+    let started_at = Instant::now();
+    loop {
+        match child.try_wait() {
+            Ok(Some(status)) => {
+                let mut stdout = Vec::new();
+                let mut stderr = Vec::new();
+
+                if let Some(mut stream) = child.stdout.take() {
+                    let _ = stream.read_to_end(&mut stdout);
+                }
+                if let Some(mut stream) = child.stderr.take() {
+                    let _ = stream.read_to_end(&mut stderr);
+                }
+
+                return command_output(status.success(), &stdout, &stderr);
+            }
+            Ok(None) if started_at.elapsed() >= VERSION_COMMAND_TIMEOUT => {
+                let _ = child.kill();
+                let _ = child.wait();
+                return CommandOutput {
+                    status: false,
+                    first_line: format!(
+                        "version command timed out after {}s",
+                        VERSION_COMMAND_TIMEOUT.as_secs()
+                    ),
+                };
+            }
+            Ok(None) => std::thread::sleep(Duration::from_millis(20)),
+            Err(_) => {
+                let _ = child.kill();
+                let _ = child.wait();
+                return CommandOutput {
+                    status: false,
+                    first_line: "failed to wait for command".to_string(),
+                };
+            }
+        }
+    }
+}
+
+fn command_output(status: bool, stdout: &[u8], stderr: &[u8]) -> CommandOutput {
+    let stdout = String::from_utf8_lossy(stdout);
+    let stderr = String::from_utf8_lossy(stderr);
+    let text = if status {
         format!("{stdout}{stderr}")
     } else {
         format!("{stderr}{stdout}")
     };
 
     CommandOutput {
-        status: output.status.success(),
+        status,
         first_line: text
             .replace('\0', "")
             .trim()
