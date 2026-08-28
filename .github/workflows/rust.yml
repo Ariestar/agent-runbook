@@ -8,6 +8,7 @@ on:
       - "build.rs"
       - "Cargo.toml"
       - "Cargo.lock"
+      - "awesome-agent-cli"
       - ".github/workflows/rust.yml"
   pull_request:
     branches: [main]
@@ -16,10 +17,14 @@ on:
       - "build.rs"
       - "Cargo.toml"
       - "Cargo.lock"
+      - "awesome-agent-cli"
       - ".github/workflows/rust.yml"
 
 env:
   CARGO_TERM_COLOR: always
+
+permissions:
+  contents: read
 
 jobs:
   check:
@@ -35,6 +40,16 @@ jobs:
           components: clippy, rustfmt
 
       - uses: Swatinem/rust-cache@v2
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install registry dependencies
+        run: python -m pip install --disable-pip-version-check --no-input -r awesome-agent-cli/requirements.txt
+
+      - name: Lint registry
+        run: python awesome-agent-cli/scripts/lint_registry.py
 
       - name: Check formatting
         run: cargo fmt --all -- --check
