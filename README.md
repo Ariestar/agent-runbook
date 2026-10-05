@@ -125,13 +125,13 @@ Runbook is designed as a CLI kernel plus an agent skill. The CLI provides determ
 Install the Codex skill with the Skills CLI:
 
 ```bash
-npx skills add Ariestar/agent-runbook --skill runbook-skill
+npx skills add Ariestar/agent-runbook --skill agent-runbook
 ```
 
 Install it globally for supported agents:
 
 ```bash
-npx skills add Ariestar/agent-runbook --skill runbook-skill --global
+npx skills add Ariestar/agent-runbook --skill agent-runbook --global
 ```
 
 The skill tells the agent to:
@@ -164,7 +164,7 @@ The skill tells the agent to:
 | `src/` | Rust CLI implementation for `scan`, `category`, and `prefer` |
 | `build.rs` | Validates the YAML tool registry and embeds it into the Rust binary |
 | `awesome-agent-cli/` | Git submodule containing the source tool registry in `data/tools/` |
-| `skills/runbook-skill/` | Agent skill instructions for using Runbook as a preflight workflow |
+| `skills/agent-runbook/` | Agent Runbook skill instructions for using Runbook as a preflight workflow |
 | `apps/site/` | Astro + React + Tailwind web site for browsing the registry |
 | `docs/roadmap.md` | Current product direction and implementation notes |
 

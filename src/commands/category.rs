@@ -34,6 +34,8 @@ pub fn query_category(command: CategoryCommand) -> Result<CategoryResult> {
                         &name,
                         command.input.lang.as_deref(),
                         command.input.platform.as_deref(),
+                        command.input.score,
+                        command.input.profile.as_deref(),
                     ),
                     name,
                 })
@@ -73,6 +75,8 @@ fn candidates(
     category: &str,
     lang: Option<&str>,
     platform: Option<&str>,
+    score: bool,
+    profile: Option<&str>,
 ) -> Vec<ToolCandidate> {
     let command_index = CommandIndex::new();
     let mut tools: Vec<ToolCandidate> = registry
@@ -87,8 +91,57 @@ fn candidates(
         .map(|tool| candidate(tool, preferences, &command_index, category, lang))
         .collect();
 
-    sort_candidates(&mut tools, lang);
+    if score {
+        let pipeline = crate::scoring::ScoringPipeline::from_profile_name(profile);
+        let context = crate::scoring::ScoreContext {
+            lang,
+            category: Some(category),
+            platform,
+        };
+        for tool in &mut tools {
+            tool.score = Some(pipeline.score_candidate(tool, &context));
+        }
+        sort_candidates_by_score(&mut tools, lang);
+    } else {
+        sort_candidates(&mut tools, lang);
+    }
     tools
+}
+
+fn sort_candidates_by_score(tools: &mut [ToolCandidate], lang: Option<&str>) {
+    tools.sort_by(|a, b| {
+        let pref_a = a.preference.is_none();
+        let pref_b = b.preference.is_none();
+        if pref_a != pref_b {
+            return pref_a.cmp(&pref_b);
+        }
+
+        let avail_a = availability_rank(&a.availability);
+        let avail_b = availability_rank(&b.availability);
+        if avail_a != avail_b {
+            return avail_a.cmp(&avail_b);
+        }
+
+        let score_a = a.score.as_ref().map(|s| s.total).unwrap_or(0);
+        let score_b = b.score.as_ref().map(|s| s.total).unwrap_or(0);
+        if score_a != score_b {
+            return score_b.cmp(&score_a);
+        }
+
+        let lang_a = language_rank(&a.langs, lang);
+        let lang_b = language_rank(&b.langs, lang);
+        if lang_a != lang_b {
+            return lang_a.cmp(&lang_b);
+        }
+
+        let risk_a = risk_rank(&a.risk.level);
+        let risk_b = risk_rank(&b.risk.level);
+        if risk_a != risk_b {
+            return risk_a.cmp(&risk_b);
+        }
+
+        a.name.to_ascii_lowercase().cmp(&b.name.to_ascii_lowercase())
+    });
 }
 
 fn sort_candidates(tools: &mut [ToolCandidate], lang: Option<&str>) {
@@ -191,6 +244,7 @@ fn candidate(
             &tool.binary,
             &tool.aliases,
         ),
+        score: None,
     }
 }
 
@@ -278,6 +332,39 @@ mod tests {
         );
     }
 
+    #[test]
+    fn sorting_with_score_orders_by_calculated_score() {
+        use crate::scoring::ToolScore;
+
+        let mut t1 = tool("tool-low-score", Availability::Found {
+            command: "t1".to_string(),
+            version: None,
+        });
+        t1.score = Some(ToolScore {
+            total: 65,
+            grade: "C".to_string(),
+            summary: String::new(),
+            dimensions: vec![],
+        });
+
+        let mut t2 = tool("tool-high-score", Availability::Found {
+            command: "t2".to_string(),
+            version: None,
+        });
+        t2.score = Some(ToolScore {
+            total: 95,
+            grade: "A+".to_string(),
+            summary: String::new(),
+            dimensions: vec![],
+        });
+
+        let mut tools = vec![t1, t2];
+        sort_candidates_by_score(&mut tools, None);
+
+        assert_eq!(tools[0].name, "tool-high-score");
+        assert_eq!(tools[1].name, "tool-low-score");
+    }
+
     fn tool(name: &str, availability: Availability) -> ToolCandidate {
         ToolCandidate {
             name: name.to_string(),
@@ -300,6 +387,7 @@ mod tests {
             },
             availability,
             preference: None,
+            score: None,
         }
     }
 

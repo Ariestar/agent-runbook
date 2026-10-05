@@ -183,6 +183,8 @@ pub struct CategoryInput {
     pub categories: Vec<String>,
     pub lang: Option<String>,
     pub platform: Option<String>,
+    pub score: bool,
+    pub profile: Option<String>,
 }
 
 pub enum CategoryResult {
@@ -222,6 +224,7 @@ pub struct ToolCandidate {
     pub risk: RiskSpec,
     pub availability: Availability,
     pub preference: Option<ToolPreference>,
+    pub score: Option<crate::scoring::ToolScore>,
 }
 
 pub enum Availability {

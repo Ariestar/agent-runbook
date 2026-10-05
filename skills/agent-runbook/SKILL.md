@@ -1,9 +1,9 @@
 ---
-name: runbook-skill
+name: agent-runbook
 description: Use before coding, debugging, build, test, deployment, infrastructure, database, repository maintenance, or agent handoff tasks to run `runbook scan`, understand the current project and machine tool environment, choose the right CLI tools, avoid package-manager/build-tool confusion, and respect risk guardrails before mutating files or remote systems. Also use when the user asks what tools are available, which tool should be used, or how an agent should prepare before starting work.
 ---
 
-# Runbook Skill
+# Agent Runbook
 
 Run `runbook --version`, `runbook scan`, `runbook prefer`, and at least one task-relevant `runbook category ... --lang ...` query before non-trivial repository work. `runbook scan` is only the fact inventory; it is not a complete tool-choice workflow by itself. Turn the scan, preferences, and category candidates into a task-local operating contract before mutating files or running build/test/lint/deploy/database commands.
 

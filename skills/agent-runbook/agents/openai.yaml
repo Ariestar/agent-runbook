@@ -1,0 +1,4 @@
+interface:
+  display_name: "Agent Runbook"
+  short_description: "Preflight project and machine tools before coding."
+  default_prompt: "Use $agent-runbook to inspect this repository and choose the right tools before making changes."

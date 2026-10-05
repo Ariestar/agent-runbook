@@ -125,13 +125,13 @@ Runbook 的产品形态是 CLI 内核加 Agent Skill。CLI 提供确定、可测
 通过 Skills CLI 安装 Codex skill：
 
 ```bash
-npx skills add Ariestar/agent-runbook --skill runbook-skill
+npx skills add Ariestar/agent-runbook --skill agent-runbook
 ```
 
 为支持的 Agent 全局安装：
 
 ```bash
-npx skills add Ariestar/agent-runbook --skill runbook-skill --global
+npx skills add Ariestar/agent-runbook --skill agent-runbook --global
 ```
 
 这个 skill 会要求 Agent：
@@ -164,7 +164,7 @@ npx skills add Ariestar/agent-runbook --skill runbook-skill --global
 | `src/` | `scan`、`category`、`prefer` 等 Rust CLI 实现 |
 | `build.rs` | 校验 YAML 工具注册表，并把它嵌入 Rust 二进制 |
 | `awesome-agent-cli/` | Git submodule，包含 `data/tools/` 下的源工具注册表 |
-| `skills/runbook-skill/` | Agent 使用 Runbook 作为预检流程的 skill 指令 |
+| `skills/agent-runbook/` | Agent Runbook 作为预检流程的 skill 指令 |
 | `apps/site/` | 用于浏览注册表的 Astro + React + Tailwind Web 站点 |
 | `docs/roadmap.md` | 当前产品方向和实现备忘 |
 

@@ -129,6 +129,21 @@ fn render_tool_candidate(tool: &ToolCandidate) -> Vec<String> {
     if !tool.risk.effects.is_empty() {
         lines.push(format!("  effects: {}", tool.risk.effects.join(", ")));
     }
+    if let Some(score) = &tool.score {
+        let dim_str = score
+            .dimensions
+            .iter()
+            .map(|d| format!("{}: {}/{}", d.id, d.raw_score, d.max_score))
+            .collect::<Vec<_>>()
+            .join(", ");
+        lines.push(format!(
+            "  agent_score: {}/100 (grade: {}) [{}]",
+            score.total, score.grade, dim_str
+        ));
+        if !score.summary.is_empty() {
+            lines.push(format!("  score_summary: {}", score.summary));
+        }
+    }
     lines.push(format!("  docs: {}", doc_url(tool)));
 
     lines

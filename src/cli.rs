@@ -58,6 +58,12 @@ pub struct CategoryArgs {
     /// Include only tools for this platform.
     #[arg(long)]
     pub platform: Option<String>,
+    /// Calculate and display Agent-Ready Scores for candidates.
+    #[arg(long)]
+    pub score: bool,
+    /// Scoring profile: balanced, safety, automation, or minimal.
+    #[arg(long)]
+    pub profile: Option<String>,
 }
 
 #[derive(Debug, Args)]

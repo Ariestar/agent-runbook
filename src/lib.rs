@@ -6,6 +6,7 @@ mod model;
 mod output;
 mod preferences;
 mod registry;
+pub mod scoring;
 
 pub use error::{Result, RunbookError};
 
@@ -40,6 +41,8 @@ pub fn run() -> Result<()> {
                     categories: args.categories,
                     lang: args.lang,
                     platform: args.platform,
+                    score: args.score,
+                    profile: args.profile,
                 },
             })?;
             println!("{}", output::render_category(&result));
