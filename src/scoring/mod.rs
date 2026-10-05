@@ -57,12 +57,6 @@ pub enum ScoreProfile {
     SafetyFirst,
     Automation,
     Minimal,
-    Custom {
-        readability: f32,
-        safety: f32,
-        efficiency: f32,
-        maturity: f32,
-    },
 }
 
 impl ScoreProfile {
@@ -97,18 +91,6 @@ impl ScoreProfile {
                 "safety" => 0.30,
                 "readability" => 0.20,
                 "maturity" => 0.10,
-                _ => 0.10,
-            },
-            ScoreProfile::Custom {
-                readability,
-                safety,
-                efficiency,
-                maturity,
-            } => match scorer_id {
-                "readability" => *readability,
-                "safety" => *safety,
-                "efficiency" => *efficiency,
-                "maturity" => *maturity,
                 _ => 0.10,
             },
         }
@@ -365,11 +347,6 @@ impl ScoringPipeline {
     /// Register a custom scorer plugin into the pipeline.
     pub fn register<S: ToolScorer + 'static>(&mut self, scorer: S) {
         self.scorers.push(Box::new(scorer));
-    }
-
-    /// Clear all built-in scorers to construct a purely customized pipeline.
-    pub fn clear_scorers(&mut self) {
-        self.scorers.clear();
     }
 
     /// Evaluate a candidate against all registered scorers using the active profile.

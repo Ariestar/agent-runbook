@@ -48,15 +48,6 @@ impl HttpRerankScorer {
             model,
         }
     }
-
-    /// Default Jina Reranker v2 multilingual configuration.
-    pub fn jina(api_key: String) -> Self {
-        Self {
-            endpoint: "https://api.jina.ai/v1/rerank".to_string(),
-            api_key: Some(api_key),
-            model: "jina-reranker-v2-base-multilingual".to_string(),
-        }
-    }
 }
 
 impl SemanticScorer for HttpRerankScorer {
@@ -307,12 +298,6 @@ impl SemanticMatcher {
             Self {
                 active_scorer: Box::new(StatisticalScorer),
             }
-        }
-    }
-
-    pub fn with_scorer<S: SemanticScorer + 'static>(scorer: S) -> Self {
-        Self {
-            active_scorer: Box::new(scorer),
         }
     }
 

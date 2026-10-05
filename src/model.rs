@@ -25,6 +25,20 @@ pub struct ToolSpec {
     pub guardrails: Vec<String>,
 }
 
+impl ToolSpec {
+    pub fn supports_lang(&self, lang: &str) -> bool {
+        self.lang
+            .iter()
+            .any(|value| value == "all" || value.eq_ignore_ascii_case(lang))
+    }
+
+    pub fn supports_platform(&self, platform: &str) -> bool {
+        self.platform
+            .iter()
+            .any(|value| value.eq_ignore_ascii_case(platform))
+    }
+}
+
 #[derive(Clone, Debug, Deserialize, Serialize)]
 pub struct DetectSpec {
     #[serde(default)]
@@ -225,6 +239,57 @@ pub struct ToolCandidate {
     pub availability: Availability,
     pub preference: Option<ToolPreference>,
     pub score: Option<crate::scoring::ToolScore>,
+}
+
+impl ToolCandidate {
+    pub fn build(
+        tool: &ToolSpec,
+        preferences: &PreferenceFile,
+        command_index: &crate::discovery::command::CommandIndex,
+        category: &str,
+        lang: Option<&str>,
+    ) -> Self {
+        let fact = crate::discovery::global::run_global_checks(tool, command_index, true)
+            .into_iter()
+            .next();
+        let availability = match fact {
+            Some(fact) if fact.status == Status::Found => Availability::Found {
+                command: fact.command.unwrap_or_else(|| tool.binary.clone()),
+                version: fact.version,
+            },
+            Some(fact) => Availability::Missing {
+                checked: fact.value,
+            },
+            None => Availability::Missing {
+                checked: "not checked".to_string(),
+            },
+        };
+
+        Self {
+            name: tool.name.clone(),
+            binary: tool.binary.clone(),
+            aliases: tool.aliases.clone(),
+            langs: tool.lang.clone(),
+            platforms: tool.platform.clone(),
+            summary: tool.summary.clone(),
+            docs: tool.docs.clone(),
+            homepage: tool.homepage.clone(),
+            use_when: tool.use_when.clone(),
+            avoid_when: tool.avoid_when.clone(),
+            guardrails: tool.guardrails.clone(),
+            risk: tool.risk.clone(),
+            availability,
+            preference: crate::preferences::find_preference(
+                &preferences.preferences,
+                category,
+                lang,
+                &tool.name,
+                &tool.binary,
+                &tool.aliases,
+            ),
+            score: None,
+        }
+    }
 }
 
 #[derive(Clone, Debug, Deserialize, PartialEq, Serialize)]

@@ -1,13 +1,12 @@
 use std::collections::{BTreeMap, BTreeSet};
 
 use crate::discovery::command::CommandIndex;
-use crate::discovery::global::run_global_checks;
 use crate::error::Result;
 use crate::model::{
     Availability, CategoryCandidates, CategoryInput, CategoryResult, CategorySummary,
-    PreferenceFile, Status, ToolCandidate, ToolSpec,
+    PreferenceFile, ToolCandidate, ToolSpec,
 };
-use crate::preferences::{find_preference, load_preferences};
+use crate::preferences::load_preferences;
 use crate::registry::tool_registry;
 
 pub struct CategoryCommand {
@@ -86,9 +85,9 @@ fn candidates(
                 .iter()
                 .any(|value| value.eq_ignore_ascii_case(category))
         })
-        .filter(|tool| lang.is_none_or(|value| supports_lang(tool, value)))
-        .filter(|tool| platform.is_none_or(|value| supports_platform(tool, value)))
-        .map(|tool| candidate(tool, preferences, &command_index, category, lang))
+        .filter(|tool| lang.is_none_or(|value| tool.supports_lang(value)))
+        .filter(|tool| platform.is_none_or(|value| tool.supports_platform(value)))
+        .map(|tool| ToolCandidate::build(tool, preferences, &command_index, category, lang))
         .collect();
 
     if score {
@@ -184,67 +183,6 @@ fn risk_rank(level: &str) -> u8 {
         "high" => 2,
         "critical" => 3,
         _ => 4,
-    }
-}
-
-fn supports_lang(tool: &ToolSpec, lang: &str) -> bool {
-    tool.lang
-        .iter()
-        .any(|value| value == "all" || value.eq_ignore_ascii_case(lang))
-}
-
-fn supports_platform(tool: &ToolSpec, platform: &str) -> bool {
-    tool.platform
-        .iter()
-        .any(|value| value.eq_ignore_ascii_case(platform))
-}
-
-fn candidate(
-    tool: &ToolSpec,
-    preferences: &PreferenceFile,
-    command_index: &CommandIndex,
-    category: &str,
-    lang: Option<&str>,
-) -> ToolCandidate {
-    let fact = run_global_checks(tool, command_index, true)
-        .into_iter()
-        .next();
-    let availability = match fact {
-        Some(fact) if fact.status == Status::Found => Availability::Found {
-            command: fact.command.unwrap_or_else(|| tool.binary.clone()),
-            version: fact.version,
-        },
-        Some(fact) => Availability::Missing {
-            checked: fact.value,
-        },
-        None => Availability::Missing {
-            checked: "not checked".to_string(),
-        },
-    };
-
-    ToolCandidate {
-        name: tool.name.clone(),
-        binary: tool.binary.clone(),
-        aliases: tool.aliases.clone(),
-        langs: tool.lang.clone(),
-        platforms: tool.platform.clone(),
-        summary: tool.summary.clone(),
-        docs: tool.docs.clone(),
-        homepage: tool.homepage.clone(),
-        use_when: tool.use_when.clone(),
-        avoid_when: tool.avoid_when.clone(),
-        guardrails: tool.guardrails.clone(),
-        risk: tool.risk.clone(),
-        availability,
-        preference: find_preference(
-            &preferences.preferences,
-            category,
-            lang,
-            &tool.name,
-            &tool.binary,
-            &tool.aliases,
-        ),
-        score: None,
     }
 }
 

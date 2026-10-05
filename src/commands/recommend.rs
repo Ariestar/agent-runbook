@@ -1,11 +1,10 @@
 use crate::discovery::command::CommandIndex;
-use crate::discovery::global::run_global_checks;
 use crate::error::Result;
 use crate::matching::SemanticMatcher;
 use crate::model::{
-    Availability, RecommendInput, RecommendResult, RecommendedTool, Status, ToolCandidate, ToolSpec,
+    Availability, RecommendInput, RecommendResult, RecommendedTool, ToolCandidate, ToolSpec,
 };
-use crate::preferences::{find_preference, load_preferences};
+use crate::preferences::load_preferences;
 use crate::registry::tool_registry;
 use crate::scoring::{ScoreContext, ScoringPipeline};
 
@@ -22,8 +21,8 @@ pub fn query_recommend(command: RecommendCommand) -> Result<RecommendResult> {
     // 1. Filter tools by language and platform constraints
     let filtered_tools: Vec<&ToolSpec> = registry
         .iter()
-        .filter(|t| command.input.lang.as_deref().is_none_or(|l| supports_lang(t, l)))
-        .filter(|t| command.input.platform.as_deref().is_none_or(|p| supports_platform(t, p)))
+        .filter(|t| command.input.lang.as_deref().is_none_or(|l| t.supports_lang(l)))
+        .filter(|t| command.input.platform.as_deref().is_none_or(|p| t.supports_platform(p)))
         .collect();
 
     if filtered_tools.is_empty() || query.trim().is_empty() {
@@ -77,53 +76,18 @@ pub fn query_recommend(command: RecommendCommand) -> Result<RecommendResult> {
             continue;
         }
 
-        // Check availability
-        let fact = run_global_checks(tool, &command_index, true)
-            .into_iter()
-            .next();
-        let availability = match fact {
-            Some(fact) if fact.status == Status::Found => Availability::Found {
-                command: fact.command.unwrap_or_else(|| tool.binary.clone()),
-                version: fact.version,
-            },
-            Some(fact) => Availability::Missing {
-                checked: fact.value,
-            },
-            None => Availability::Missing {
-                checked: "not checked".to_string(),
-            },
-        };
-
-        let pref = find_preference(
-            &preferences.preferences,
-            &tool.category.first().cloned().unwrap_or_default(),
+        let primary_cat = tool.category.first().map(|s| s.as_str()).unwrap_or_default();
+        let candidate_helper = ToolCandidate::build(
+            tool,
+            &preferences,
+            &command_index,
+            primary_cat,
             command.input.lang.as_deref(),
-            &tool.name,
-            &tool.binary,
-            &tool.aliases,
         );
-
-        let candidate_helper = ToolCandidate {
-            name: tool.name.clone(),
-            binary: tool.binary.clone(),
-            aliases: tool.aliases.clone(),
-            langs: tool.lang.clone(),
-            platforms: tool.platform.clone(),
-            summary: tool.summary.clone(),
-            docs: tool.docs.clone(),
-            homepage: tool.homepage.clone(),
-            use_when: tool.use_when.clone(),
-            avoid_when: tool.avoid_when.clone(),
-            guardrails: tool.guardrails.clone(),
-            risk: tool.risk.clone(),
-            availability: availability.clone(),
-            preference: pref.clone(),
-            score: None,
-        };
 
         let context = ScoreContext {
             lang: command.input.lang.as_deref(),
-            category: tool.category.first().map(|s| s.as_str()),
+            category: Some(primary_cat),
             platform: command.input.platform.as_deref(),
         };
 
@@ -131,12 +95,12 @@ pub fn query_recommend(command: RecommendCommand) -> Result<RecommendResult> {
 
         // Fused scoring calculation:
         // 60% Task Semantic Relevance + 25% Agent-Ready Quality + 15% Local Availability + Preference Bonus
-        let avail_weight = match &availability {
+        let avail_weight = match &candidate_helper.availability {
             Availability::Found { .. } => 100.0,
             Availability::Missing { .. } => 30.0,
         };
 
-        let pref_bonus = if pref.is_some() && relevance_score >= 35 { 10.0 } else { 0.0 };
+        let pref_bonus = if candidate_helper.preference.is_some() && relevance_score >= 35 { 10.0 } else { 0.0 };
 
         let fused_raw = (relevance_score as f32 * 0.60)
             + (agent_score.total as f32 * 0.25)
@@ -165,8 +129,8 @@ pub fn query_recommend(command: RecommendCommand) -> Result<RecommendResult> {
                 tool.docs.clone()
             },
             homepage: tool.homepage.clone(),
-            availability,
-            preference: pref,
+            availability: candidate_helper.availability,
+            preference: candidate_helper.preference,
             relevance_score,
             match_reason,
             agent_score,
@@ -191,18 +155,6 @@ pub fn query_recommend(command: RecommendCommand) -> Result<RecommendResult> {
         model_name,
         tools: candidates,
     })
-}
-
-fn supports_lang(tool: &ToolSpec, lang: &str) -> bool {
-    tool.lang
-        .iter()
-        .any(|value| value == "all" || value.eq_ignore_ascii_case(lang))
-}
-
-fn supports_platform(tool: &ToolSpec, platform: &str) -> bool {
-    tool.platform
-        .iter()
-        .any(|value| value.eq_ignore_ascii_case(platform))
 }
 
 #[cfg(test)]
