@@ -21,6 +21,8 @@ pub enum CommandArgs {
     Category(CategoryArgs),
     /// List or update explicit repository-local tool preferences.
     Prefer(PreferCommandArgs),
+    /// Recommend tools for a natural language task with model-driven semantic scoring.
+    Recommend(RecommendArgs),
 }
 
 #[derive(Debug, Args)]
@@ -102,4 +104,34 @@ pub struct PreferUnsetArgs {
     /// Language key for the preference.
     #[arg(long)]
     pub lang: String,
+}
+
+#[derive(Debug, Args)]
+pub struct RecommendArgs {
+    /// Natural language task requirement or query (e.g. "parse pdf tables to markdown").
+    pub task: Vec<String>,
+    /// Limit search to tools supporting this language.
+    #[arg(long)]
+    pub lang: Option<String>,
+    /// Limit search to tools supporting this platform.
+    #[arg(long)]
+    pub platform: Option<String>,
+    /// Scoring weight profile: balanced, safety, automation, or minimal.
+    #[arg(long)]
+    pub profile: Option<String>,
+    /// Remote Reranker or Embedding endpoint (e.g. Jina Rerank or local TEI/Ollama).
+    #[arg(long)]
+    pub rerank_url: Option<String>,
+    /// API key for remote model endpoint.
+    #[arg(long)]
+    pub api_key: Option<String>,
+    /// External CLI script or model command for local scoring.
+    #[arg(long)]
+    pub model_cmd: Option<String>,
+    /// Maximum number of recommended tools to return.
+    #[arg(long, default_value = "5")]
+    pub limit: usize,
+    /// Output recommendations in JSON format for automated agent consumption.
+    #[arg(long)]
+    pub json: bool,
 }

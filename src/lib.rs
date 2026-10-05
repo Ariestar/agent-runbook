@@ -2,6 +2,7 @@ mod cli;
 mod commands;
 mod discovery;
 mod error;
+pub mod matching;
 mod model;
 mod output;
 mod preferences;
@@ -14,8 +15,9 @@ use clap::Parser;
 use cli::{Cli, CommandArgs};
 use commands::category::{CategoryCommand, query_category};
 use commands::prefer::{PreferCommand, run_prefer};
+use commands::recommend::{RecommendCommand, query_recommend};
 use commands::scan::{ScanCommand, scan};
-use model::{CategoryInput, PreferAction, PreferInput, ScanInput, ToolPreference};
+use model::{CategoryInput, PreferAction, PreferInput, RecommendInput, ScanInput, ToolPreference};
 
 pub fn run() -> Result<()> {
     let cli = Cli::parse();
@@ -67,6 +69,25 @@ pub fn run() -> Result<()> {
                 input: PreferInput { cwd, action },
             })?;
             println!("{}", output::render_prefer(&result));
+            Ok(())
+        }
+        CommandArgs::Recommend(args) => {
+            let cwd = std::env::current_dir().map_err(RunbookError::current_dir)?;
+            let json = args.json;
+            let result = query_recommend(RecommendCommand {
+                input: RecommendInput {
+                    cwd,
+                    task: args.task,
+                    lang: args.lang,
+                    platform: args.platform,
+                    profile: args.profile,
+                    rerank_url: args.rerank_url,
+                    api_key: args.api_key,
+                    model_cmd: args.model_cmd,
+                    limit: args.limit,
+                },
+            })?;
+            println!("{}", output::render_recommend(&result, json));
             Ok(())
         }
     }

@@ -227,6 +227,7 @@ pub struct ToolCandidate {
     pub score: Option<crate::scoring::ToolScore>,
 }
 
+#[derive(Clone, Debug, Deserialize, PartialEq, Serialize)]
 pub enum Availability {
     Found {
         command: String,
@@ -287,4 +288,42 @@ pub enum PreferResult {
         lang: String,
         removed: bool,
     },
+}
+
+#[derive(Clone, Debug)]
+pub struct RecommendInput {
+    pub cwd: PathBuf,
+    pub task: Vec<String>,
+    pub lang: Option<String>,
+    pub platform: Option<String>,
+    pub profile: Option<String>,
+    pub rerank_url: Option<String>,
+    pub api_key: Option<String>,
+    pub model_cmd: Option<String>,
+    pub limit: usize,
+}
+
+#[derive(Clone, Debug, Deserialize, PartialEq, Serialize)]
+pub struct RecommendedTool {
+    pub name: String,
+    pub binary: String,
+    pub summary: String,
+    pub category: Vec<String>,
+    pub lang: Vec<String>,
+    pub docs: String,
+    pub homepage: String,
+    pub availability: Availability,
+    pub preference: Option<ToolPreference>,
+    pub relevance_score: u32,
+    pub match_reason: String,
+    pub agent_score: crate::scoring::ToolScore,
+    pub fused_score: u32,
+}
+
+#[derive(Clone, Debug, Deserialize, PartialEq, Serialize)]
+pub struct RecommendResult {
+    pub query: String,
+    pub profile: String,
+    pub model_name: String,
+    pub tools: Vec<RecommendedTool>,
 }

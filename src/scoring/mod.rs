@@ -1,3 +1,5 @@
+use serde::{Deserialize, Serialize};
+
 use crate::model::{Availability, ToolCandidate};
 
 /// Context passed to scorers when evaluating candidates.
@@ -9,7 +11,7 @@ pub struct ScoreContext<'a> {
 }
 
 /// A single evaluated dimension of an agent tool.
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, Debug, Deserialize, PartialEq, Serialize)]
 pub struct ScoredDimension {
     pub id: String,
     pub name: String,
@@ -30,7 +32,7 @@ impl ScoredDimension {
 }
 
 /// Overall composite score for an agent tool candidate.
-#[derive(Clone, Debug, PartialEq)]
+#[derive(Clone, Debug, Deserialize, PartialEq, Serialize)]
 pub struct ToolScore {
     pub total: u32,
     pub grade: String,
