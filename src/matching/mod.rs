@@ -1,12 +1,11 @@
 use serde::{Deserialize, Serialize};
+use serde_json::{Value, json};
 use std::collections::BTreeSet;
 use std::io::Write;
 use std::process::{Command, Stdio};
 
 /// Pluggable trait for model-driven semantic relevance scoring.
 pub trait SemanticScorer: Send + Sync {
-    /// Unique identifier for this semantic scorer.
-    fn id(&self) -> &'static str;
     /// Human-friendly display label.
     fn name(&self) -> &'static str;
     /// Score an array of candidate documents against a task query.
@@ -19,6 +18,111 @@ pub struct HttpRerankScorer {
     pub endpoint: String,
     pub api_key: Option<String>,
     pub model: String,
+}
+
+/// Generic System One decision-model client for Jev, Laya, and compatible local servers.
+pub struct SystemOneScorer {
+    pub endpoint: String,
+    pub api_key: Option<String>,
+    pub model: Option<String>,
+    pub max_options: usize,
+}
+
+impl SystemOneScorer {
+    pub fn new(
+        endpoint: String,
+        api_key: Option<String>,
+        model: Option<String>,
+        max_options: usize,
+    ) -> Self {
+        Self {
+            endpoint,
+            api_key,
+            model,
+            max_options: max_options.max(2),
+        }
+    }
+}
+
+impl SemanticScorer for SystemOneScorer {
+    fn name(&self) -> &'static str {
+        "System One Decision Model"
+    }
+
+    fn score_batch(&self, query: &str, documents: &[&str]) -> Vec<f32> {
+        if documents.is_empty() {
+            return Vec::new();
+        }
+
+        let selected = shortlist_documents(query, documents, self.max_options);
+        let mut criteria = serde_json::Map::new();
+        for (rank, index) in selected.iter().enumerate() {
+            criteria.insert(
+                format!("option-{rank}"),
+                Value::String(documents[*index].to_string()),
+            );
+        }
+
+        let mut request_body = json!({
+            "state": query,
+            "questions": {
+                "tool": {
+                    "type": "choice",
+                    "instructions": "Which candidate tool best satisfies the task? Choose the closest match based on capability, not availability.",
+                    "criteria": criteria
+                }
+            }
+        });
+        if let Some(model) = &self.model {
+            request_body["model"] = Value::String(model.clone());
+        }
+
+        let mut request = ureq::post(&self.endpoint).set("Content-Type", "application/json");
+        if let Some(key) = &self.api_key {
+            request = request.set("Authorization", &format!("Bearer {key}"));
+        }
+        let Ok(response) = request.send_json(&request_body) else {
+            return vec![0.0; documents.len()];
+        };
+        let Ok(payload) = response.into_json::<Value>() else {
+            return vec![0.0; documents.len()];
+        };
+
+        let answer = payload
+            .get("answers")
+            .and_then(|answers| answers.get("tool"));
+        let mut scores = vec![0.0; documents.len()];
+        if let Some(probabilities) = answer
+            .and_then(|value| value.get("probabilities"))
+            .and_then(Value::as_object)
+        {
+            for (rank, index) in selected.iter().enumerate() {
+                if let Some(score) = probabilities
+                    .get(&format!("option-{rank}"))
+                    .and_then(Value::as_f64)
+                {
+                    scores[*index] = (score as f32).clamp(0.0, 1.0);
+                }
+            }
+        }
+        scores
+    }
+}
+
+fn shortlist_documents(query: &str, documents: &[&str], max_options: usize) -> Vec<usize> {
+    if documents.len() <= max_options {
+        return (0..documents.len()).collect();
+    }
+    let baseline = StatisticalScorer.score_batch(query, documents);
+    let mut indices: Vec<usize> = (0..documents.len()).collect();
+    indices.sort_by(|left, right| {
+        baseline[*right]
+            .partial_cmp(&baseline[*left])
+            .unwrap_or(std::cmp::Ordering::Equal)
+            .then_with(|| left.cmp(right))
+    });
+    indices.truncate(max_options);
+    indices
 }
 
 #[derive(Serialize)]
@@ -51,10 +155,6 @@ impl HttpRerankScorer {
 }
 
 impl SemanticScorer for HttpRerankScorer {
-    fn id(&self) -> &'static str {
-        "http_reranker"
-    }
-
     fn name(&self) -> &'static str {
         "Neural Reranker (Jina/API)"
     }
@@ -112,10 +212,6 @@ struct CommandOutput {
 }
 
 impl SemanticScorer for CommandScorer {
-    fn id(&self) -> &'static str {
-        "command_scorer"
-    }
-
     fn name(&self) -> &'static str {
         "Local Script Model"
     }
@@ -157,10 +253,6 @@ impl SemanticScorer for CommandScorer {
 pub struct StatisticalScorer;
 
 impl SemanticScorer for StatisticalScorer {
-    fn id(&self) -> &'static str {
-        "statistical"
-    }
-
     fn name(&self) -> &'static str {
         "Statistical Token & N-gram Model"
     }
@@ -272,6 +364,25 @@ impl SemanticMatcher {
             };
         }
 
+        let system_one_url = std::env::var("RUNBOOK_SYSTEM_ONE_URL").ok();
+        if let Some(endpoint) = system_one_url {
+            let model = std::env::var("RUNBOOK_SYSTEM_ONE_MODEL").ok();
+            let max_options = std::env::var("RUNBOOK_SYSTEM_ONE_MAX_OPTIONS")
+                .ok()
+                .and_then(|value| value.parse().ok())
+                .unwrap_or(32);
+            return Self {
+                active_scorer: Box::new(SystemOneScorer::new(
+                    endpoint,
+                    api_key
+                        .clone()
+                        .or_else(|| std::env::var("RUNBOOK_SYSTEM_ONE_API_KEY").ok()),
+                    model,
+                    max_options,
+                )),
+            };
+        }
+
         let api_key = api_key
             .or_else(|| std::env::var("JINA_API_KEY").ok())
             .or_else(|| std::env::var("RUNBOOK_MODEL_API_KEY").ok());
@@ -311,6 +422,14 @@ impl SemanticMatcher {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn system_one_shortlists_large_candidate_sets() {
+        let documents = ["pdf parser", "rust test runner", "git client"];
+        let selected = shortlist_documents("run rust tests", &documents, 2);
+        assert_eq!(selected.len(), 2);
+        assert_eq!(selected[0], 1);
+    }
 
     #[test]
     fn statistical_scorer_computes_character_ngrams_without_hardcoding() {
