@@ -77,15 +77,20 @@ impl SemanticScorer for SystemOneScorer {
             request_body["model"] = Value::String(model.clone());
         }
 
-        let mut request = ureq::post(&self.endpoint).set("Content-Type", "application/json");
+        let agent = ureq::AgentBuilder::new()
+            .timeout(std::time::Duration::from_secs(30))
+            .build();
+        let mut request = agent
+            .post(&self.endpoint)
+            .set("Content-Type", "application/json");
         if let Some(key) = &self.api_key {
             request = request.set("Authorization", &format!("Bearer {key}"));
         }
         let Ok(response) = request.send_json(&request_body) else {
-            return vec![0.0; documents.len()];
+            return StatisticalScorer.score_batch(query, documents);
         };
         let Ok(payload) = response.into_json::<Value>() else {
-            return vec![0.0; documents.len()];
+            return StatisticalScorer.score_batch(query, documents);
         };
 
         let answer = payload
@@ -104,6 +109,8 @@ impl SemanticScorer for SystemOneScorer {
                     scores[*index] = (score as f32).clamp(0.0, 1.0);
                 }
             }
+        } else {
+            return StatisticalScorer.score_batch(query, documents);
         }
         scores
     }
