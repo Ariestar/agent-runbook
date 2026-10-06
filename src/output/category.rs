@@ -19,27 +19,22 @@ pub fn render_category(result: &CategoryResult, json: bool) -> String {
 }
 
 fn render_category_list(categories: &[CategorySummary]) -> String {
-    let mut lines = vec![
-        "Runbook Tool Categories".to_string(),
-        "Use `runbook category <category>... --lang <lang>` to inspect candidates.".to_string(),
-        String::new(),
-        "Categories".to_string(),
-    ];
-
     if categories.is_empty() {
-        lines.push("- None".to_string());
-    } else {
-        lines.extend(categories.iter().map(|category| {
-            format!(
-                "- {}: {} tool(s); lang: {}",
+        return "No tool categories found.".to_string();
+    }
+    format!(
+        "Categories: {}",
+        categories
+            .iter()
+            .map(|category| format!(
+                "{} ({} tools; {})",
                 category.name,
                 category.tool_count,
                 category.langs.join(", ")
-            )
-        }));
-    }
-
-    lines.join("\n").trim_end().to_string()
+            ))
+            .collect::<Vec<_>>()
+            .join("; ")
+    )
 }
 
 fn render_category_candidates(
@@ -47,37 +42,30 @@ fn render_category_candidates(
     lang: Option<&str>,
     platform: Option<&str>,
 ) -> String {
-    let mut lines = vec![
-        "Runbook Tool Candidates".to_string(),
-        format!(
-            "Categories: {}",
-            categories
-                .iter()
-                .map(|category| category.name.as_str())
-                .collect::<Vec<_>>()
-                .join(", ")
-        ),
-        format!("Language: {}", lang.unwrap_or("any")),
-        format!("Platform: {}", platform.unwrap_or("any")),
-    ];
+    let scope = format!(
+        "{}{}",
+        lang.map(|value| format!(" lang={value}"))
+            .unwrap_or_default(),
+        platform
+            .map(|value| format!(" platform={value}"))
+            .unwrap_or_default()
+    );
+    let mut lines = vec![format!("Candidates{scope}:")];
 
     for category in categories {
-        lines.push(String::new());
-        lines.push(format!("Category: {}", category.name));
-
         if category.tools.is_empty() {
-            lines.push("- None".to_string());
+            lines.push(format!("{}: none", category.name));
         } else {
             for tool in &category.tools {
-                lines.extend(render_tool_candidate(tool));
+                lines.push(render_tool_candidate(tool));
             }
         }
     }
 
-    lines.join("\n").trim_end().to_string()
+    lines.join("\n")
 }
 
-fn render_tool_candidate(tool: &ToolCandidate) -> Vec<String> {
+fn render_tool_candidate(tool: &ToolCandidate) -> String {
     let mut status = match &tool.availability {
         Availability::Found { command, version } => {
             let version = version
@@ -91,67 +79,38 @@ fn render_tool_candidate(tool: &ToolCandidate) -> Vec<String> {
     if tool.preference.is_some() {
         status.push_str(", preferred");
     }
-    let aliases = if tool.aliases.is_empty() {
-        String::new()
-    } else {
-        format!("; aliases: {}", tool.aliases.join(", "))
-    };
-
-    let platform = if tool.platforms.is_empty() {
-        String::new()
-    } else {
-        format!("; platform: {}", tool.platforms.join(", "))
-    };
-
-    let mut lines = vec![
-        format!("- {} [{}]: {}", tool.name, status, compact(&tool.summary)),
-        format!(
-            "  binary: {}; lang: {}; risk: {}{}{}",
-            tool.binary,
-            tool.langs.join(", "),
-            tool.risk.level,
-            platform,
-            aliases
-        ),
+    let mut parts = vec![
+        format!("{} — {}", tool.name, compact(&tool.summary)),
+        status,
+        format!("risk={}", tool.risk.level),
     ];
 
     if !tool.use_when.is_empty() {
-        lines.push(format!("  use_when: {}", tool.use_when.join("; ")));
+        parts.push(format!("use: {}", tool.use_when.join("; ")));
     }
     if !tool.avoid_when.is_empty() {
-        lines.push(format!("  avoid_when: {}", tool.avoid_when.join("; ")));
+        parts.push(format!("avoid: {}", tool.avoid_when.join("; ")));
     }
     if !tool.guardrails.is_empty() {
-        lines.push(format!("  guardrails: {}", tool.guardrails.join("; ")));
+        parts.push(format!("guardrail: {}", tool.guardrails.join("; ")));
     }
     if let Some(preference) = &tool.preference {
-        lines.push(format!(
-            "  preferred_for: {}/{}",
-            preference.category, preference.lang
+        parts.push(format!(
+            "preferred for {}/{}: {}",
+            preference.category, preference.lang, preference.reason
         ));
-        lines.push(format!("  preference_reason: {}", preference.reason));
     }
     if !tool.risk.effects.is_empty() {
-        lines.push(format!("  effects: {}", tool.risk.effects.join(", ")));
+        parts.push(format!("effects={}", tool.risk.effects.join(", ")));
     }
     if let Some(score) = &tool.score {
-        let dim_str = score
-            .dimensions
-            .iter()
-            .map(|d| format!("{}: {}/{}", d.id, d.raw_score, d.max_score))
-            .collect::<Vec<_>>()
-            .join(", ");
-        lines.push(format!(
-            "  agent_score: {}/100 (grade: {}) [{}]",
-            score.total, score.grade, dim_str
-        ));
+        parts.push(format!("score={}/100 ({})", score.total, score.grade));
         if !score.summary.is_empty() {
-            lines.push(format!("  score_summary: {}", score.summary));
+            parts.push(score.summary.clone());
         }
     }
-    lines.push(format!("  docs: {}", doc_url(tool)));
-
-    lines
+    parts.push(format!("docs={}", doc_url(tool)));
+    parts.join("; ")
 }
 
 fn compact(value: &str) -> String {

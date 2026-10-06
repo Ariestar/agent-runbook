@@ -120,7 +120,14 @@ preferences:
 
 ## Agent Skill
 
-Runbook is designed as a CLI kernel plus an agent skill. The CLI provides deterministic, testable output; the skill teaches agents when to call it and how to interpret the result.
+Runbook is designed as a CLI kernel plus an agent skill. Default CLI and MCP output is compact, information-dense natural language for agent consumption; explicit `--json` is reserved for integrations that need a machine-readable contract.
+
+Recommendation scoring can use any local System One decision server that implements
+`POST /v1/systemone` (including Jev, Laya, and compatible runtimes). Set
+`RUNBOOK_SYSTEM_ONE_URL` to its full `/v1/systemone` endpoint.
+Optional `RUNBOOK_SYSTEM_ONE_MODEL` selects a model when the server requires one;
+`RUNBOOK_SYSTEM_ONE_API_KEY` supplies an API key when needed, and
+`RUNBOOK_SYSTEM_ONE_MAX_OPTIONS` controls the decision shortlist (default `32`).
 
 Install the Codex skill with the Skills CLI:
 
@@ -150,17 +157,17 @@ The skill tells the agent to:
 | `runbook scan --global` | Scan only machine-level tools |
 | `runbook scan --local` | Scan only current-project requirements |
 | `runbook scan --minimal` | Print compact tool-name output |
-| `runbook scan --json` | Output scan inventory in JSON format |
+| `runbook scan --json` | Explicit machine-readable scan inventory |
 | `runbook category` | List functional tool categories |
 | `runbook category <category>... --lang <lang>` | Inspect candidate tools for a task and language |
 | `runbook category <category>... --score` | Inspect candidate tools with Agent-Ready Scores |
-| `runbook category <category>... --json` | Output candidates in JSON format |
+| `runbook category <category>... --json` | Explicit machine-readable candidates |
 | `runbook recommend "<task>"` | Recommend tools for a natural language task using model scoring |
-| `runbook recommend "<task>" --json` | Output task recommendations in JSON format |
+| `runbook recommend "<task>" --json` | Explicit machine-readable recommendations |
 | `runbook prefer` | List repository-local tool preferences |
 | `runbook prefer set <category> --lang <lang> --tool <tool> --reason <text>` | Record a confirmed repository preference |
 | `runbook prefer unset <category> --lang <lang>` | Remove a stale repository preference |
-| `runbook prefer --json` | Output tool preferences in JSON format |
+| `runbook prefer --json` | Explicit machine-readable preferences |
 | `runbook mcp` | Run as an MCP (Model Context Protocol) stdio server for AI agents |
 | `runbook --version` | Print the installed CLI version |
 
