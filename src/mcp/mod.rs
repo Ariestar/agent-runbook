@@ -9,6 +9,7 @@ use crate::commands::scan::{ScanCommand, scan};
 use crate::model::{
     CategoryInput, PreferAction, PreferInput, RecommendInput, ScanInput, ScanMode, ToolPreference,
 };
+use crate::output::{render_category, render_prefer, render_recommend, render_scan};
 
 /// Run the MCP server over standard input and output using newline-delimited JSON-RPC.
 pub fn run_stdio_server() -> io::Result<()> {
@@ -242,7 +243,7 @@ fn execute_tool_call(name: &str, args: &Value) -> String {
             let res = scan(ScanCommand {
                 input: ScanInput { cwd, mode, minimal },
             });
-            serde_json::to_string_pretty(&res).unwrap_or_else(|e| format!(r#"{{"error": "{e}"}}"#))
+            render_scan(&res, false)
         }
         "runbook_recommend" => {
             let task_str = args.get("task").and_then(Value::as_str).unwrap_or("");
@@ -272,8 +273,7 @@ fn execute_tool_call(name: &str, args: &Value) -> String {
                     limit,
                 },
             }) {
-                Ok(res) => serde_json::to_string_pretty(&res)
-                    .unwrap_or_else(|e| format!(r#"{{"error": "{e}"}}"#)),
+                Ok(res) => render_recommend(&res, false),
                 Err(err) => format!(r#"{{"error": "{err}"}}"#),
             }
         }
@@ -309,8 +309,7 @@ fn execute_tool_call(name: &str, args: &Value) -> String {
                     profile,
                 },
             }) {
-                Ok(res) => serde_json::to_string_pretty(&res)
-                    .unwrap_or_else(|e| format!(r#"{{"error": "{e}"}}"#)),
+                Ok(res) => render_category(&res, false),
                 Err(err) => format!(r#"{{"error": "{err}"}}"#),
             }
         }
@@ -364,8 +363,7 @@ fn execute_tool_call(name: &str, args: &Value) -> String {
             match run_prefer(PreferCommand {
                 input: PreferInput { cwd, action },
             }) {
-                Ok(res) => serde_json::to_string_pretty(&res)
-                    .unwrap_or_else(|e| format!(r#"{{"error": "{e}"}}"#)),
+                Ok(res) => render_prefer(&res, false),
                 Err(err) => format!(r#"{{"error": "{err}"}}"#),
             }
         }
@@ -429,6 +427,7 @@ mod tests {
         let resp = handle_message(&req).expect("expected tools/call response");
         assert_eq!(resp["id"], 3);
         let text = resp["result"]["content"][0]["text"].as_str().expect("text");
+        assert!(!text.trim_start().starts_with('{'));
         assert!(text.contains("docling") || text.contains("marker") || text.contains("tools"));
     }
 }

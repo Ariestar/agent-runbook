@@ -38,7 +38,7 @@ pub struct ScanArgs {
     /// Print only detected tool names.
     #[arg(long)]
     pub minimal: bool,
-    /// Output scan result in JSON format for automated agent consumption.
+    /// Output scan result as an explicit machine-readable JSON contract.
     #[arg(long)]
     pub json: bool,
 }
@@ -71,7 +71,7 @@ pub struct CategoryArgs {
     /// Scoring profile: balanced, safety, automation, or minimal.
     #[arg(long)]
     pub profile: Option<String>,
-    /// Output categories and candidates in JSON format for automated agent consumption.
+    /// Output categories and candidates as an explicit machine-readable JSON contract.
     #[arg(long)]
     pub json: bool,
 }
@@ -80,7 +80,7 @@ pub struct CategoryArgs {
 pub struct PreferCommandArgs {
     #[command(subcommand)]
     pub action: Option<PreferArgs>,
-    /// Output tool preferences in JSON format for automated agent consumption.
+    /// Output tool preferences as an explicit machine-readable JSON contract.
     #[arg(long)]
     pub json: bool,
 }
@@ -142,7 +142,7 @@ pub struct RecommendArgs {
     /// Maximum number of recommended tools to return.
     #[arg(long, default_value = "5")]
     pub limit: usize,
-    /// Output recommendations in JSON format for automated agent consumption.
+    /// Output recommendations as an explicit machine-readable JSON contract.
     #[arg(long)]
     pub json: bool,
 }

@@ -8,53 +8,43 @@ pub fn render_prefer(result: &PreferResult, json: bool) -> String {
 
     match result {
         PreferResult::List { path, preferences } => {
-            let mut lines = vec![
-                "Runbook Tool Preferences".to_string(),
-                format!("File: {}", path.display()),
-            ];
-
             if preferences.is_empty() {
-                lines.push("Preferences: none".to_string());
-            } else {
-                lines.push("Preferences".to_string());
-                for preference in preferences {
-                    lines.extend(render_preference(preference));
-                }
+                return format!("No repository preferences ({}).", path.display());
             }
-
-            lines.join("\n").trim_end().to_string()
-        }
-        PreferResult::Set { path, preference } => [
-            "Runbook Tool Preference Set".to_string(),
-            format!("File: {}", path.display()),
             format!(
-                "Preference: {}/{} -> {}",
-                preference.category, preference.lang, preference.tool
-            ),
-            format!("Reason: {}", preference.reason),
-        ]
-        .join("\n"),
+                "Preferences ({}): {}",
+                path.display(),
+                preferences
+                    .iter()
+                    .map(render_preference)
+                    .collect::<Vec<_>>()
+                    .join("; ")
+            )
+        }
+        PreferResult::Set { path, preference } => format!(
+            "Preference saved in {}: {}/{} -> {} ({})",
+            path.display(),
+            preference.category,
+            preference.lang,
+            preference.tool,
+            preference.reason
+        ),
         PreferResult::Unset {
             path,
             category,
             lang,
             removed,
-        } => [
-            "Runbook Tool Preference Unset".to_string(),
-            format!("File: {}", path.display()),
-            format!("Preference: {category}/{lang}"),
-            format!("Removed: {removed}"),
-        ]
-        .join("\n"),
+        } => format!(
+            "Preference {category}/{lang} in {}: {}.",
+            path.display(),
+            if *removed { "removed" } else { "not found" }
+        ),
     }
 }
 
-fn render_preference(preference: &ToolPreference) -> Vec<String> {
-    vec![
-        format!(
-            "- {}/{} -> {}",
-            preference.category, preference.lang, preference.tool
-        ),
-        format!("  reason: {}", preference.reason),
-    ]
+fn render_preference(preference: &ToolPreference) -> String {
+    format!(
+        "{}/{} -> {} ({})",
+        preference.category, preference.lang, preference.tool, preference.reason
+    )
 }

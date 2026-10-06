@@ -1,5 +1,3 @@
-use std::collections::BTreeSet;
-
 use crate::model::{Fact, Message, ScanMode, ScanResult};
 
 pub fn render_scan(result: &ScanResult, json: bool) -> String {
@@ -7,204 +5,86 @@ pub fn render_scan(result: &ScanResult, json: bool) -> String {
         return serde_json::to_string_pretty(result)
             .unwrap_or_else(|e| format!(r#"{{"error": "{}"}}"#, e));
     }
-
-    let mut lines = Vec::new();
-
-    lines.push("Agent Runbook Scan".to_string());
-    lines.push(format!("Mode: {}", result.mode.as_str()));
-    lines.push(format!("Project: {}", result.cwd.display()));
-    lines.push(String::new());
-
-    if result.minimal {
-        return render_minimal_scan(result, lines);
-    }
-
+    let mut lines = vec![format!(
+        "Scan {} ({})",
+        result.cwd.display(),
+        result.mode.as_str()
+    )];
     if result.mode != ScanMode::Local {
-        section(
+        push(
             &mut lines,
-            "Machine Context",
-            render_machine_context(&result.summary.machine_context),
+            "Environment",
+            result
+                .summary
+                .machine_context
+                .iter()
+                .map(fact_text)
+                .collect(),
         );
-        section(
+        push(
             &mut lines,
-            "Global Tools",
-            render_global_tools(&result.summary.global_tools),
+            "Tools",
+            result.summary.global_tools.iter().map(tool_text).collect(),
         );
     }
-
     if result.mode != ScanMode::Global {
-        section(
+        push(
             &mut lines,
-            "Local Requirements",
-            render_local_requirements(&result.summary.local_requirements),
+            "Requirements",
+            result
+                .summary
+                .local_requirements
+                .iter()
+                .map(requirement_text)
+                .collect(),
         );
     }
-
-    section(
-        &mut lines,
-        "Recommended Operating Guardrails",
-        render_messages(&result.summary.recommendations),
-    );
-    section(
-        &mut lines,
-        "Warnings",
-        render_messages(&result.summary.warnings),
-    );
-
-    lines.join("\n").trim_end().to_string()
-}
-
-fn render_minimal_scan(result: &ScanResult, mut lines: Vec<String>) -> String {
-    if result.mode != ScanMode::Local {
-        section(
+    if !result.minimal {
+        push(
             &mut lines,
-            "Global Tools",
-            render_tool_names(&result.summary.global_tools),
+            "Guidance",
+            result
+                .summary
+                .recommendations
+                .iter()
+                .map(message_text)
+                .collect(),
+        );
+        push(
+            &mut lines,
+            "Warnings",
+            result.summary.warnings.iter().map(message_text).collect(),
         );
     }
+    lines.join("\n")
+}
 
-    if result.mode != ScanMode::Global {
-        section(
-            &mut lines,
-            "Local Requirements",
-            render_tool_names(&result.summary.local_requirements),
-        );
+fn push(lines: &mut Vec<String>, label: &str, rows: Vec<String>) {
+    if !rows.is_empty() {
+        lines.push(format!("{label}: {}", rows.join("; ")));
     }
-
-    lines.join("\n").trim_end().to_string()
 }
 
-fn section(lines: &mut Vec<String>, title: &str, rows: Vec<String>) {
-    lines.push(title.to_string());
-    if rows.is_empty() {
-        lines.push("- None".to_string());
-    } else {
-        lines.extend(rows);
-    }
-    lines.push(String::new());
+fn tool_text(tool: &Fact) -> String {
+    format!(
+        "{}={}",
+        tool.label,
+        tool.command.as_deref().unwrap_or("unknown")
+    )
 }
 
-fn render_global_tools(tools: &[Fact]) -> Vec<String> {
-    tools
-        .iter()
-        .map(|tool| {
-            let version = tool
-                .version
-                .as_ref()
-                .map(|value| format!(" ({value})"))
-                .unwrap_or_default();
-            format!(
-                "- {}: {}{}",
-                tool.label,
-                tool.command.as_deref().unwrap_or("unknown"),
-                version
-            )
-        })
-        .collect()
+fn fact_text(fact: &Fact) -> String {
+    format!("{}={}", fact.label, fact.value)
 }
 
-fn render_machine_context(facts: &[Fact]) -> Vec<String> {
-    facts
-        .iter()
-        .map(|fact| {
-            let evidence = fact
-                .evidence
-                .as_ref()
-                .map(|value| format!(" ({value})"))
-                .unwrap_or_default();
-            format!("- {}: {}{}", fact.label, fact.value, evidence)
-        })
-        .collect()
+fn requirement_text(fact: &Fact) -> String {
+    format!(
+        "{}={}",
+        fact.label,
+        fact.evidence.as_deref().unwrap_or(&fact.value)
+    )
 }
 
-fn render_local_requirements(requirements: &[Fact]) -> Vec<String> {
-    requirements
-        .iter()
-        .map(|requirement| {
-            format!(
-                "- {}: {}",
-                requirement.label,
-                requirement
-                    .evidence
-                    .as_deref()
-                    .unwrap_or(&requirement.value)
-            )
-        })
-        .collect()
-}
-
-fn render_messages(messages: &[Message]) -> Vec<String> {
-    messages
-        .iter()
-        .map(|message| {
-            let evidence = message
-                .evidence
-                .as_ref()
-                .map(|value| format!(" [{value}]"))
-                .unwrap_or_default();
-            format!("- {}{}", message.text, evidence)
-        })
-        .collect()
-}
-
-fn render_tool_names(tools: &[Fact]) -> Vec<String> {
-    tools
-        .iter()
-        .map(|tool| tool.label.clone())
-        .collect::<BTreeSet<_>>()
-        .into_iter()
-        .map(|name| format!("- {name}"))
-        .collect()
-}
-
-#[cfg(test)]
-mod tests {
-    use std::path::PathBuf;
-
-    use super::*;
-    use crate::model::{Fact, ScanSummary};
-
-    #[test]
-    fn full_scan_renders_machine_context() {
-        let result = ScanResult {
-            mode: ScanMode::All,
-            cwd: PathBuf::from("/repo"),
-            minimal: false,
-            summary: ScanSummary {
-                machine_context: vec![Fact::machine(
-                    "os",
-                    "Operating system",
-                    "linux (linux/x86_64)".to_string(),
-                )],
-                global_tools: Vec::new(),
-                local_requirements: Vec::new(),
-                recommendations: Vec::new(),
-                warnings: Vec::new(),
-            },
-        };
-
-        let output = render_scan(&result, false);
-
-        assert!(output.contains("Machine Context\n- Operating system: linux (linux/x86_64)"));
-    }
-
-    #[test]
-    fn local_scan_omits_empty_machine_context() {
-        let result = ScanResult {
-            mode: ScanMode::Local,
-            cwd: PathBuf::from("/repo"),
-            minimal: false,
-            summary: ScanSummary {
-                machine_context: Vec::new(),
-                global_tools: Vec::new(),
-                local_requirements: Vec::new(),
-                recommendations: Vec::new(),
-                warnings: Vec::new(),
-            },
-        };
-
-        let output = render_scan(&result, false);
-
-        assert!(!output.contains("Machine Context"));
-    }
+fn message_text(message: &Message) -> String {
+    message.text.clone()
 }
