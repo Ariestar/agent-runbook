@@ -1,7 +1,7 @@
-use std::collections::BTreeSet;
-use std::process::{Command, Stdio};
-use std::io::Write;
 use serde::{Deserialize, Serialize};
+use std::collections::BTreeSet;
+use std::io::Write;
+use std::process::{Command, Stdio};
 
 /// Pluggable trait for model-driven semantic relevance scoring.
 pub trait SemanticScorer: Send + Sync {
@@ -72,8 +72,7 @@ impl SemanticScorer for HttpRerankScorer {
             top_n: documents.len(),
         };
 
-        let mut request = ureq::post(&self.endpoint)
-            .set("Content-Type", "application/json");
+        let mut request = ureq::post(&self.endpoint).set("Content-Type", "application/json");
 
         if let Some(key) = &self.api_key {
             request = request.set("Authorization", &format!("Bearer {key}"));
@@ -127,25 +126,25 @@ impl SemanticScorer for CommandScorer {
             .stdin(Stdio::piped())
             .stdout(Stdio::piped())
             .stderr(Stdio::null())
-            .spawn() else {
+            .spawn()
+        else {
             return scores;
         };
 
         let payload = CommandInput { query, documents };
-        if let Some(ref mut stdin) = child.stdin {
-            if let Ok(json_bytes) = serde_json::to_vec(&payload) {
-                let _ = stdin.write_all(&json_bytes);
-            }
+        if let Some(ref mut stdin) = child.stdin
+            && let Ok(json_bytes) = serde_json::to_vec(&payload)
+        {
+            let _ = stdin.write_all(&json_bytes);
         }
 
-        if let Ok(output) = child.wait_with_output() {
-            if output.status.success() {
-                if let Ok(parsed) = serde_json::from_slice::<CommandOutput>(&output.stdout) {
-                    for (i, s) in parsed.scores.into_iter().enumerate() {
-                        if i < scores.len() {
-                            scores[i] = s.clamp(0.0, 1.0);
-                        }
-                    }
+        if let Ok(output) = child.wait_with_output()
+            && output.status.success()
+            && let Ok(parsed) = serde_json::from_slice::<CommandOutput>(&output.stdout)
+        {
+            for (i, s) in parsed.scores.into_iter().enumerate() {
+                if i < scores.len() {
+                    scores[i] = s.clamp(0.0, 1.0);
                 }
             }
         }
@@ -221,9 +220,8 @@ impl SemanticScorer for StatisticalScorer {
 
                 let phrase_bonus = if has_phrase { 0.25 } else { 0.0 };
 
-                let score = (token_coverage * 0.55 + token_jaccard * 0.20 + ngram_sim * 0.25 + phrase_bonus)
-                    .clamp(0.0, 1.0);
-                score
+                (token_coverage * 0.55 + token_jaccard * 0.20 + ngram_sim * 0.25 + phrase_bonus)
+                    .clamp(0.0, 1.0)
             })
             .collect()
     }
@@ -324,7 +322,10 @@ mod tests {
 
         let scores = scorer.score_batch("parse pdf tables to markdown", &docs);
         assert_eq!(scores.len(), 2);
-        assert!(scores[0] > scores[1], "docling should score higher than git for pdf parsing");
+        assert!(
+            scores[0] > scores[1],
+            "docling should score higher than git for pdf parsing"
+        );
     }
 
     #[test]
@@ -336,6 +337,9 @@ mod tests {
         ];
 
         let scores = scorer.score_batch("提取 pdf 表格", &docs);
-        assert!(scores[0] > scores[1], "PDF document tool should match Chinese query");
+        assert!(
+            scores[0] > scores[1],
+            "PDF document tool should match Chinese query"
+        );
     }
 }

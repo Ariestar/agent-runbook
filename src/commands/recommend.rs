@@ -21,14 +21,29 @@ pub fn query_recommend(command: RecommendCommand) -> Result<RecommendResult> {
     // 1. Filter tools by language and platform constraints
     let filtered_tools: Vec<&ToolSpec> = registry
         .iter()
-        .filter(|t| command.input.lang.as_deref().is_none_or(|l| t.supports_lang(l)))
-        .filter(|t| command.input.platform.as_deref().is_none_or(|p| t.supports_platform(p)))
+        .filter(|t| {
+            command
+                .input
+                .lang
+                .as_deref()
+                .is_none_or(|l| t.supports_lang(l))
+        })
+        .filter(|t| {
+            command
+                .input
+                .platform
+                .as_deref()
+                .is_none_or(|p| t.supports_platform(p))
+        })
         .collect();
 
     if filtered_tools.is_empty() || query.trim().is_empty() {
         return Ok(RecommendResult {
             query,
-            profile: command.input.profile.unwrap_or_else(|| "balanced".to_string()),
+            profile: command
+                .input
+                .profile
+                .unwrap_or_else(|| "balanced".to_string()),
             model_name: "none".to_string(),
             tools: Vec::new(),
         });
@@ -61,7 +76,10 @@ pub fn query_recommend(command: RecommendCommand) -> Result<RecommendResult> {
     let relevance_scores = matcher.score_batch(&query, &doc_slices);
 
     // 5. Initialize pluggable Agent-Ready Score pipeline
-    let profile_name = command.input.profile.unwrap_or_else(|| "balanced".to_string());
+    let profile_name = command
+        .input
+        .profile
+        .unwrap_or_else(|| "balanced".to_string());
     let scoring_pipeline = ScoringPipeline::from_profile_name(Some(&profile_name));
 
     // 6. Assemble candidate data, compute ARS, and fuse scores
@@ -76,7 +94,11 @@ pub fn query_recommend(command: RecommendCommand) -> Result<RecommendResult> {
             continue;
         }
 
-        let primary_cat = tool.category.first().map(|s| s.as_str()).unwrap_or_default();
+        let primary_cat = tool
+            .category
+            .first()
+            .map(|s| s.as_str())
+            .unwrap_or_default();
         let candidate_helper = ToolCandidate::build(
             tool,
             &preferences,
@@ -100,7 +122,11 @@ pub fn query_recommend(command: RecommendCommand) -> Result<RecommendResult> {
             Availability::Missing { .. } => 30.0,
         };
 
-        let pref_bonus = if candidate_helper.preference.is_some() && relevance_score >= 35 { 10.0 } else { 0.0 };
+        let pref_bonus = if candidate_helper.preference.is_some() && relevance_score >= 35 {
+            10.0
+        } else {
+            0.0
+        };
 
         let fused_raw = (relevance_score as f32 * 0.60)
             + (agent_score.total as f32 * 0.25)
@@ -166,7 +192,11 @@ mod tests {
         let result = query_recommend(RecommendCommand {
             input: RecommendInput {
                 cwd: std::env::current_dir().unwrap(),
-                task: vec!["parse".to_string(), "pdf".to_string(), "markdown".to_string()],
+                task: vec![
+                    "parse".to_string(),
+                    "pdf".to_string(),
+                    "markdown".to_string(),
+                ],
                 lang: None,
                 platform: None,
                 profile: None,
@@ -179,6 +209,11 @@ mod tests {
         .unwrap();
 
         assert!(!result.tools.is_empty());
-        assert!(result.tools.iter().any(|t| t.name == "docling" || t.name == "marker" || t.name == "pdftotext"));
+        assert!(
+            result
+                .tools
+                .iter()
+                .any(|t| t.name == "docling" || t.name == "marker" || t.name == "pdftotext")
+        );
     }
 }

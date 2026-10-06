@@ -5,9 +5,9 @@ description: Use before coding, debugging, build, test, deployment, infrastructu
 
 # Agent Runbook
 
-Run `runbook --version`, `runbook scan`, `runbook prefer`, and at least one task-relevant `runbook category ... --lang ...` query before non-trivial repository work. `runbook scan` is only the fact inventory; it is not a complete tool-choice workflow by itself. Turn the scan, preferences, and category candidates into a task-local operating contract before mutating files or running build/test/lint/deploy/database commands.
+Run `runbook --version`, `runbook scan`, `runbook prefer`, and at least one task-relevant `runbook category ... --lang ...` or `runbook recommend "<task>"` query before non-trivial repository work. `runbook scan` is only the fact inventory; it is not a complete tool-choice workflow by itself. Turn the scan, preferences, and category/recommendation candidates into a task-local operating contract before mutating files or running build/test/lint/deploy/database commands.
 
-When tool choice is not obvious, use `runbook category` to expose the relevant tool candidates instead of guessing from memory. When a repository has repeated or user-confirmed tool choices, read or update them through `runbook prefer`; never write preferences silently.
+When tool choice is not obvious, use `runbook recommend "<task>"` to match tasks with model-driven semantic scoring, or `runbook category` to expose relevant tool families. When a repository has repeated or user-confirmed tool choices, read or update them through `runbook prefer`; never write preferences silently. All commands support `--json` for machine-readable automation. In MCP-enabled environments, agents can also attach Runbook directly via `runbook mcp`.
 
 ## Completion Bar
 

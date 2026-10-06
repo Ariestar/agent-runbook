@@ -1,6 +1,11 @@
 use crate::model::{PreferResult, ToolPreference};
 
-pub fn render_prefer(result: &PreferResult) -> String {
+pub fn render_prefer(result: &PreferResult, json: bool) -> String {
+    if json {
+        return serde_json::to_string_pretty(result)
+            .unwrap_or_else(|e| format!(r#"{{"error": "{}"}}"#, e));
+    }
+
     match result {
         PreferResult::List { path, preferences } => {
             let mut lines = vec![

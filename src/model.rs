@@ -63,7 +63,7 @@ pub struct PackageJsonDetectSpec {
     pub package_manager_prefixes: Vec<String>,
 }
 
-#[derive(Clone, Debug, Deserialize, Serialize)]
+#[derive(Clone, Debug, Deserialize, PartialEq, Serialize)]
 pub struct RiskSpec {
     pub level: String,
     #[serde(default)]
@@ -74,7 +74,7 @@ pub struct RiskSpec {
     pub confirmation_required_for: Vec<String>,
 }
 
-#[derive(Debug, Clone)]
+#[derive(Clone, Debug, Deserialize, PartialEq, Serialize)]
 pub struct Fact {
     pub kind: FactKind,
     pub scope: Scope,
@@ -91,7 +91,7 @@ pub struct Fact {
     pub requires_global_command: bool,
 }
 
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum FactKind {
     Tool,
     Requirement,
@@ -99,13 +99,13 @@ pub enum FactKind {
     Env,
 }
 
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum Scope {
     Global,
     Local,
 }
 
-#[derive(Debug, Clone, PartialEq, Eq)]
+#[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum Status {
     Found,
     Missing,
@@ -149,7 +149,7 @@ impl Fact {
     }
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+#[derive(Clone, Copy, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum ScanMode {
     All,
     Global,
@@ -166,12 +166,14 @@ impl ScanMode {
     }
 }
 
+#[derive(Clone, Debug)]
 pub struct ScanInput {
     pub cwd: PathBuf,
     pub mode: ScanMode,
     pub minimal: bool,
 }
 
+#[derive(Clone, Debug, Deserialize, PartialEq, Serialize)]
 pub struct ScanResult {
     pub mode: ScanMode,
     pub cwd: PathBuf,
@@ -179,6 +181,7 @@ pub struct ScanResult {
     pub summary: ScanSummary,
 }
 
+#[derive(Clone, Debug, Deserialize, PartialEq, Serialize)]
 pub struct ScanSummary {
     pub machine_context: Vec<Fact>,
     pub global_tools: Vec<Fact>,
@@ -187,11 +190,13 @@ pub struct ScanSummary {
     pub warnings: Vec<Message>,
 }
 
+#[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub struct Message {
     pub text: String,
     pub evidence: Option<String>,
 }
 
+#[derive(Clone, Debug)]
 pub struct CategoryInput {
     pub cwd: PathBuf,
     pub categories: Vec<String>,
@@ -201,6 +206,7 @@ pub struct CategoryInput {
     pub profile: Option<String>,
 }
 
+#[derive(Clone, Debug, Deserialize, PartialEq, Serialize)]
 pub enum CategoryResult {
     List {
         categories: Vec<CategorySummary>,
@@ -212,17 +218,20 @@ pub enum CategoryResult {
     },
 }
 
+#[derive(Clone, Debug, Deserialize, PartialEq, Serialize)]
 pub struct CategoryCandidates {
     pub name: String,
     pub tools: Vec<ToolCandidate>,
 }
 
+#[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub struct CategorySummary {
     pub name: String,
     pub tool_count: usize,
     pub langs: Vec<String>,
 }
 
+#[derive(Clone, Debug, Deserialize, PartialEq, Serialize)]
 pub struct ToolCandidate {
     pub name: String,
     pub binary: String,
@@ -338,6 +347,7 @@ pub enum PreferAction {
     Unset { category: String, lang: String },
 }
 
+#[derive(Clone, Debug, Deserialize, Eq, PartialEq, Serialize)]
 pub enum PreferResult {
     List {
         path: PathBuf,

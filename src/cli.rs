@@ -23,6 +23,8 @@ pub enum CommandArgs {
     Prefer(PreferCommandArgs),
     /// Recommend tools for a natural language task with model-driven semantic scoring.
     Recommend(RecommendArgs),
+    /// Run as a Model Context Protocol (MCP) server over stdio for AI agents.
+    Mcp,
 }
 
 #[derive(Debug, Args)]
@@ -36,6 +38,9 @@ pub struct ScanArgs {
     /// Print only detected tool names.
     #[arg(long)]
     pub minimal: bool,
+    /// Output scan result in JSON format for automated agent consumption.
+    #[arg(long)]
+    pub json: bool,
 }
 
 impl ScanArgs {
@@ -66,12 +71,18 @@ pub struct CategoryArgs {
     /// Scoring profile: balanced, safety, automation, or minimal.
     #[arg(long)]
     pub profile: Option<String>,
+    /// Output categories and candidates in JSON format for automated agent consumption.
+    #[arg(long)]
+    pub json: bool,
 }
 
 #[derive(Debug, Args)]
 pub struct PreferCommandArgs {
     #[command(subcommand)]
     pub action: Option<PreferArgs>,
+    /// Output tool preferences in JSON format for automated agent consumption.
+    #[arg(long)]
+    pub json: bool,
 }
 
 #[derive(Debug, Subcommand)]

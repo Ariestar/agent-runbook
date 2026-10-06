@@ -150,11 +150,18 @@ npx skills add Ariestar/agent-runbook --skill agent-runbook --global
 | `runbook scan --global` | 只扫描本机工具 |
 | `runbook scan --local` | 只扫描当前项目要求 |
 | `runbook scan --minimal` | 输出紧凑的工具名列表 |
+| `runbook scan --json` | 以 JSON 格式输出扫描事实 |
 | `runbook category` | 列出功能类别 |
 | `runbook category <category>... --lang <lang>` | 按任务和语言查看候选工具 |
+| `runbook category <category>... --score` | 查看候选工具及 Agent-Ready 多维评分 |
+| `runbook category <category>... --json` | 以 JSON 格式输出候选工具 |
+| `runbook recommend "<task>"` | 输入自然语言任务需求，使用语义模型推荐最佳工具 |
+| `runbook recommend "<task>" --json` | 以 JSON 格式输出推荐结果 |
 | `runbook prefer` | 查看仓库本地工具偏好 |
 | `runbook prefer set <category> --lang <lang> --tool <tool> --reason <text>` | 记录已确认的仓库偏好 |
 | `runbook prefer unset <category> --lang <lang>` | 移除过期仓库偏好 |
+| `runbook prefer --json` | 以 JSON 格式输出偏好设置 |
+| `runbook mcp` | 以 MCP (Model Context Protocol) stdio 服务器模式运行 |
 | `runbook --version` | 输出已安装 CLI 版本 |
 
 ## 仓库结构

@@ -34,7 +34,10 @@ pub fn render_recommend(result: &RecommendResult, json: bool) -> String {
 fn render_recommended_tool(rank: usize, tool: &RecommendedTool) -> Vec<String> {
     let avail_str = match &tool.availability {
         Availability::Found { command, version } => {
-            let ver = version.as_deref().map(|v| format!("; {v}")).unwrap_or_default();
+            let ver = version
+                .as_deref()
+                .map(|v| format!("; {v}"))
+                .unwrap_or_default();
             format!("available via {command}{ver}")
         }
         Availability::Missing { checked } => format!("missing ({checked})"),

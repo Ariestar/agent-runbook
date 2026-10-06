@@ -139,7 +139,9 @@ fn sort_candidates_by_score(tools: &mut [ToolCandidate], lang: Option<&str>) {
             return risk_a.cmp(&risk_b);
         }
 
-        a.name.to_ascii_lowercase().cmp(&b.name.to_ascii_lowercase())
+        a.name
+            .to_ascii_lowercase()
+            .cmp(&b.name.to_ascii_lowercase())
     });
 }
 
@@ -274,10 +276,13 @@ mod tests {
     fn sorting_with_score_orders_by_calculated_score() {
         use crate::scoring::ToolScore;
 
-        let mut t1 = tool("tool-low-score", Availability::Found {
-            command: "t1".to_string(),
-            version: None,
-        });
+        let mut t1 = tool(
+            "tool-low-score",
+            Availability::Found {
+                command: "t1".to_string(),
+                version: None,
+            },
+        );
         t1.score = Some(ToolScore {
             total: 65,
             grade: "C".to_string(),
@@ -285,10 +290,13 @@ mod tests {
             dimensions: vec![],
         });
 
-        let mut t2 = tool("tool-high-score", Availability::Found {
-            command: "t2".to_string(),
-            version: None,
-        });
+        let mut t2 = tool(
+            "tool-high-score",
+            Availability::Found {
+                command: "t2".to_string(),
+                version: None,
+            },
+        );
         t2.score = Some(ToolScore {
             total: 95,
             grade: "A+".to_string(),

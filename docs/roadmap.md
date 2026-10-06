@@ -88,23 +88,34 @@ Avoid forcing these into fake standalone tools. Design a small action-surface mo
 
 ### Machine-readable output
 
-Add stable JSON output for integration with other agents and scripts:
+Status: implemented.
+
+All major commands support stable `--json` output for direct agent and script consumption:
 
 ```bash
 runbook scan --json
 runbook category test --lang rust --json
 runbook prefer --json
+runbook recommend "parse pdf tables to markdown" --json
 ```
 
-### Better preference ergonomics
+### Model Context Protocol (MCP) server
 
-Make preferences easier to inspect and maintain without silently writing them. Keep explicit user confirmation as the rule for durable repository preferences.
+Status: implemented.
 
-## Not planned for now
+Runbook runs natively as an MCP server over stdio for AI coding agents (Claude Code, Cursor, Windsurf, OpenCode):
+
+```bash
+runbook mcp
+```
+
+Exposes `runbook_scan`, `runbook_recommend`, `runbook_category`, and `runbook_prefer` tools.
 
 ### Free-form recommend command
 
-A command such as `runbook recommend "extract text from pdf"` is intentionally deferred. It would require natural-language intent mapping, ranking heuristics, and ongoing maintenance. The current direction is to keep tool choice explicit through categories, languages, platforms, local evidence, and preferences.
+Status: implemented with pluggable neural reranker support.
+
+`runbook recommend "<task>"` provides model-driven semantic matching and multi-dimensional Agent-Ready scoring without hardcoded language dictionaries. Supports Jina Reranker v2 multilingual, local model scripts, and zero-dependency statistical n-gram fallbacks.
 
 ### Broad framework encyclopedia
 

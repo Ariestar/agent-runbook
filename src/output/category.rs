@@ -2,7 +2,12 @@ use crate::model::{
     Availability, CategoryCandidates, CategoryResult, CategorySummary, ToolCandidate,
 };
 
-pub fn render_category(result: &CategoryResult) -> String {
+pub fn render_category(result: &CategoryResult, json: bool) -> String {
+    if json {
+        return serde_json::to_string_pretty(result)
+            .unwrap_or_else(|e| format!(r#"{{"error": "{}"}}"#, e));
+    }
+
     match result {
         CategoryResult::List { categories } => render_category_list(categories),
         CategoryResult::Candidates {

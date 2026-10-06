@@ -2,7 +2,12 @@ use std::collections::BTreeSet;
 
 use crate::model::{Fact, Message, ScanMode, ScanResult};
 
-pub fn render_scan(result: &ScanResult) -> String {
+pub fn render_scan(result: &ScanResult, json: bool) -> String {
+    if json {
+        return serde_json::to_string_pretty(result)
+            .unwrap_or_else(|e| format!(r#"{{"error": "{}"}}"#, e));
+    }
+
     let mut lines = Vec::new();
 
     lines.push("Agent Runbook Scan".to_string());
@@ -178,7 +183,7 @@ mod tests {
             },
         };
 
-        let output = render_scan(&result);
+        let output = render_scan(&result, false);
 
         assert!(output.contains("Machine Context\n- Operating system: linux (linux/x86_64)"));
     }
@@ -198,7 +203,7 @@ mod tests {
             },
         };
 
-        let output = render_scan(&result);
+        let output = render_scan(&result, false);
 
         assert!(!output.contains("Machine Context"));
     }

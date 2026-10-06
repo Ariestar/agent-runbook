@@ -62,7 +62,9 @@ pub enum ScoreProfile {
 impl ScoreProfile {
     pub fn from_name(name: Option<&str>) -> Self {
         match name.map(|s| s.to_ascii_lowercase()).as_deref() {
-            Some("safety") | Some("safety-first") | Some("safety_first") => ScoreProfile::SafetyFirst,
+            Some("safety") | Some("safety-first") | Some("safety_first") => {
+                ScoreProfile::SafetyFirst
+            }
             Some("automation") | Some("auto") => ScoreProfile::Automation,
             Some("minimal") | Some("lean") => ScoreProfile::Minimal,
             _ => ScoreProfile::Balanced,
@@ -121,13 +123,19 @@ impl ToolScorer for ReadabilityScorer {
         );
 
         // Check structured output signals
-        if text_corpus.contains("json") || text_corpus.contains("structured") || text_corpus.contains("ast") {
+        if text_corpus.contains("json")
+            || text_corpus.contains("structured")
+            || text_corpus.contains("ast")
+        {
             points += 5;
             reasons.push("supports structured data/json");
         }
 
         // Check non-interactive or batch friendly indicators
-        if text_corpus.contains("batch") || text_corpus.contains("scriptable") || text_corpus.contains("headless") {
+        if text_corpus.contains("batch")
+            || text_corpus.contains("scriptable")
+            || text_corpus.contains("headless")
+        {
             points += 4;
             reasons.push("scriptable/headless friendly");
         } else {
@@ -437,7 +445,11 @@ mod tests {
         let context = ScoreContext::default();
         let score = pipeline.score_candidate(&candidate, &context);
 
-        assert!(score.total >= 80, "Expected high score, got {}", score.total);
+        assert!(
+            score.total >= 80,
+            "Expected high score, got {}",
+            score.total
+        );
         assert!(score.grade == "A" || score.grade == "A+");
         assert_eq!(score.dimensions.len(), 4);
     }

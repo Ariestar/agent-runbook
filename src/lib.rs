@@ -3,6 +3,7 @@ mod commands;
 mod discovery;
 mod error;
 pub mod matching;
+pub mod mcp;
 mod model;
 mod output;
 mod preferences;
@@ -25,6 +26,7 @@ pub fn run() -> Result<()> {
     match cli.command {
         CommandArgs::Scan(args) => {
             let cwd = std::env::current_dir().map_err(RunbookError::current_dir)?;
+            let json = args.json;
             let result = scan(ScanCommand {
                 input: ScanInput {
                     cwd,
@@ -32,11 +34,12 @@ pub fn run() -> Result<()> {
                     minimal: args.minimal,
                 },
             });
-            println!("{}", output::render_scan(&result));
+            println!("{}", output::render_scan(&result, json));
             Ok(())
         }
         CommandArgs::Category(args) => {
             let cwd = std::env::current_dir().map_err(RunbookError::current_dir)?;
+            let json = args.json;
             let result = query_category(CategoryCommand {
                 input: CategoryInput {
                     cwd,
@@ -47,11 +50,12 @@ pub fn run() -> Result<()> {
                     profile: args.profile,
                 },
             })?;
-            println!("{}", output::render_category(&result));
+            println!("{}", output::render_category(&result, json));
             Ok(())
         }
         CommandArgs::Prefer(args) => {
             let cwd = std::env::current_dir().map_err(RunbookError::current_dir)?;
+            let json = args.json;
             let action = match args.action {
                 None => PreferAction::List,
                 Some(cli::PreferArgs::Set(args)) => PreferAction::Set(ToolPreference {
@@ -68,7 +72,7 @@ pub fn run() -> Result<()> {
             let result = run_prefer(PreferCommand {
                 input: PreferInput { cwd, action },
             })?;
-            println!("{}", output::render_prefer(&result));
+            println!("{}", output::render_prefer(&result, json));
             Ok(())
         }
         CommandArgs::Recommend(args) => {
@@ -88,6 +92,11 @@ pub fn run() -> Result<()> {
                 },
             })?;
             println!("{}", output::render_recommend(&result, json));
+            Ok(())
+        }
+        CommandArgs::Mcp => {
+            mcp::run_stdio_server()
+                .map_err(|e| RunbookError::io("run", std::path::PathBuf::from("stdio"), e))?;
             Ok(())
         }
     }

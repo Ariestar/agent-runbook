@@ -150,11 +150,18 @@ The skill tells the agent to:
 | `runbook scan --global` | Scan only machine-level tools |
 | `runbook scan --local` | Scan only current-project requirements |
 | `runbook scan --minimal` | Print compact tool-name output |
+| `runbook scan --json` | Output scan inventory in JSON format |
 | `runbook category` | List functional tool categories |
 | `runbook category <category>... --lang <lang>` | Inspect candidate tools for a task and language |
+| `runbook category <category>... --score` | Inspect candidate tools with Agent-Ready Scores |
+| `runbook category <category>... --json` | Output candidates in JSON format |
+| `runbook recommend "<task>"` | Recommend tools for a natural language task using model scoring |
+| `runbook recommend "<task>" --json` | Output task recommendations in JSON format |
 | `runbook prefer` | List repository-local tool preferences |
 | `runbook prefer set <category> --lang <lang> --tool <tool> --reason <text>` | Record a confirmed repository preference |
 | `runbook prefer unset <category> --lang <lang>` | Remove a stale repository preference |
+| `runbook prefer --json` | Output tool preferences in JSON format |
+| `runbook mcp` | Run as an MCP (Model Context Protocol) stdio server for AI agents |
 | `runbook --version` | Print the installed CLI version |
 
 ## Repository Layout
