@@ -12,13 +12,6 @@ on:
       - ".github/workflows/rust.yml"
   pull_request:
     branches: [main]
-    paths:
-      - "src/**"
-      - "build.rs"
-      - "Cargo.toml"
-      - "Cargo.lock"
-      - "awesome-agent-cli"
-      - ".github/workflows/rust.yml"
 
 env:
   CARGO_TERM_COLOR: always
