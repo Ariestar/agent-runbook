@@ -9,7 +9,7 @@ Run `runbook --version`, `runbook scan`, `runbook prefer`, and at least one task
 
 When tool choice is not obvious, use `runbook recommend "<task>"` to match tasks with model-driven semantic scoring, or `runbook category` to expose relevant tool families. When a repository has repeated or user-confirmed tool choices, read or update them through `runbook prefer`; never write preferences silently. Default CLI and MCP output is compact, information-dense natural language; use `--json` only when an explicit machine-readable contract is needed.
 
-For semantic tool selection, Runbook can call any System One server implementing `POST /v1/systemone` (such as Jev or Laya). Configure the full endpoint in `RUNBOOK_SYSTEM_ONE_URL`, optionally set `RUNBOOK_SYSTEM_ONE_MODEL` and `RUNBOOK_SYSTEM_ONE_API_KEY`, then use the same `recommend` command or MCP tool; without it, Runbook uses its local statistical fallback.
+For semantic tool selection, Runbook can call any System One server implementing `POST /v1/systemone` (such as Jev or Laya). Configure the complete endpoint in `RUNBOOK_SYSTEM_ONE_URL`—for example `http://127.0.0.1:8000/v1/systemone`—and optionally set `RUNBOOK_SYSTEM_ONE_MODEL`, `RUNBOOK_SYSTEM_ONE_API_KEY`, and `RUNBOOK_SYSTEM_ONE_MAX_OPTIONS` (default `32`). Use the same `recommend` command or MCP tool; request failures fall back to the local statistical scorer.
 
 ## Completion Bar
 
